@@ -1,0 +1,26 @@
+/ {
+	chosen {
+		zephyr,canbus = &can0;
+	};
+
+	aliases {
+		can0 = &can0;
+		can1 = &can1_sim;
+		status-led = &led0;
+	};
+
+	can1_sim: can1 {
+		compatible = "zephyr,native-linux-can";
+		status = "okay";
+		host-interface = "vcan1";
+		bitrate = <500000>;
+		sample-point = <875>;
+	};
+};
+
+&can0 {
+	status = "okay";
+	host-interface = "vcan0";
+	bitrate = <500000>;
+	sample-point = <875>;
+};

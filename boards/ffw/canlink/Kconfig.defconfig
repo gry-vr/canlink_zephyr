@@ -1,0 +1,15 @@
+
+if BOARD_CANLINK
+
+config GPIO
+    default y
+
+config SERIAL
+    default y
+
+config CONSOLE
+    default y
+
+
+
+endif

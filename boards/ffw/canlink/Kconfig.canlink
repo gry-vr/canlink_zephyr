@@ -1,0 +1,2 @@
+config BOARD_CANLINK
+    select SOC_STM32F767XX

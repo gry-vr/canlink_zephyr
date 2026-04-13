@@ -1,0 +1,6 @@
+board:
+  name: canlink
+  full_name: FFW CanLink
+  vendor: others 
+  socs:
+    - name: stm32f767xx

@@ -1,0 +1,74 @@
+&{/} {
+    chosen {
+        zephyr,console = &usart3;
+        zephyr,shell-uart = &usart3;
+        zephyr,sram = &sram0;
+        zephyr,flash = &flash0;
+    };
+
+    aliases {
+        can0 = &can1;
+        can1 = &can3;
+    };
+
+};
+
+
+&{/soc}{
+    can2: can@40006800 { 
+
+        compatible = "st,stm32-bxcan"; 
+
+        reg = <0x40006800 0x400>; 
+        interrupts = <63 0>, <64 0>, <65 0>, <66 0>; 
+        interrupt-names = "TX", "RX0", "RX1", "SCE"; 
+        clocks = <&rcc 0x040 (1 << 26)>; 
+        status = "okay"; 
+        bitrate = <500000>; 
+        sample-point = <875>; 
+        pinctrl-0 = <&can2_rx_pb12 &can2_tx_pb13>; 
+        pinctrl-names = "default"; 
+    };
+    
+    can3: can@40003400 {
+        compatible = "st,stm32-bxcan";
+        
+        reg = <0x40003400 0x400>;
+        interrupts = <104 0>, <105 0>, <106 0>, <107 0>;
+        interrupt-names = "TX", "RX0", "RX1", "SCE";
+        clocks = <&rcc 0x040 (1 << 13)>;
+        status = "okay";
+        bitrate = <500000>;
+        sample-point = <875>;
+        pinctrl-0 = <&can3_rx_pa8 &can3_tx_pa15>;
+        pinctrl-names = "default";
+    };
+
+
+};
+
+&can1 {
+    status = "okay";
+    pinctrl-0 = <&can1_rx_pa11 &can1_tx_pa12>;
+    pinctrl-names = "default";
+    bitrate = <500000>;
+    sample-point = <875>;
+
+};
+
+&can3 {
+    status = "okay";
+    pinctrl-0 = <&can3_rx_pa8 &can3_tx_pa15>;
+    pinctrl-names = "default";
+};
+ 
+
+&pinctrl { 
+    can1_tx_pa12: can1_tx_pa12 { pinmux = <STM32_PINMUX('A', 12, AF9)>; bias-disable; };
+    can2_tx_pb13: can2_tx_pb13 { pinmux = <STM32_PINMUX('B', 13, AF9)>; bias-disable; }; 
+    can3_rx_pa8:  can3_rx_pa8  { pinmux = <STM32_PINMUX('A',8,AF11)>; bias-disable; };
+    can3_tx_pa15: can3_tx_pa15 { pinmux = <STM32_PINMUX('A', 15, AF11)>; bias-disable; };
+    can2_rx_pb12: can2_rx_pb12 { pinmux = <STM32_PINMUX('B', 12, AF9)>; bias-disable; }; 
+
+
+}; 

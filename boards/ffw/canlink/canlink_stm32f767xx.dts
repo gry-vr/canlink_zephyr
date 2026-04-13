@@ -1,0 +1,100 @@
+/dts-v1/;
+#include <st/f7/stm32f767Xi.dtsi>
+#include <st/f7/stm32f767zitx-pinctrl.dtsi>
+
+/ {
+
+    model = "FFW CanLink";
+    compatible = "ffw,canlink";
+
+    chosen {
+        zephyr,console = &usart3;
+        zephyr,shell-uart = &usart3;
+        zephyr,sram = &sram0;
+        zephyr,flash = &flash0;
+        zephyr,dtcm = &dtcm;
+        zephyr,canbus = &can1;
+    };
+
+    leds: leds {
+        compatible = "gpio-leds";
+        green_led: led_0 {
+            gpios = <&gpioc 3 GPIO_ACTIVE_HIGH>;
+            label = "Status LD";
+        };
+    };
+
+    aliases {
+        can0 = &can1;
+        can1 = &can3;
+        status-led = &green_led;
+    };
+
+};
+
+
+/* now on to editing some nodes (reference zephyr/boards/st/nucleo_f767zi.dts ) */
+
+&clk_hse {
+    clock-frequency = <DT_FREQ_M(25)>;
+    status = "okay";
+};
+
+
+&pll {
+    div-m = <25>;
+    mul-n = <432>;
+    div-p = <2>;
+    div-q = <9>;
+    clocks = <&clk_hse>;
+    status = "okay";
+};
+
+&rcc { 
+    clocks = <&pll>;
+    clock-frequency = <DT_FREQ_M(216)>;
+    ahb-prescaler = <1>;
+    apb1-prescaler = <4>;
+    apb2-prescaler = <2>;
+};
+
+&{/soc}{
+    
+    can3: can@40003400 {
+        compatible = "st,stm32-bxcan";
+        
+        reg = <0x40003400 0x400>;
+        interrupts = <104 0>, <105 0>, <106 0>, <107 0>;
+        interrupt-names = "TX", "RX0", "RX1", "SCE";
+        clocks = <&rcc 0x040 (1 << 13)>;
+        status = "okay";
+        bitrate = <500000>;
+        sample-point = <875>;
+        pinctrl-0 = <&can3_rx_pa8 &can3_tx_pa15>;
+        pinctrl-names = "default";
+    };
+
+};
+
+
+&can1 {
+    status = "okay";
+    pinctrl-0 = <&can1_rx_pa11 &can1_tx_pa12>;
+    pinctrl-names = "default";
+    bitrate = <500000>;
+    sample-point = <875>;
+
+};
+
+&can3 {
+    status = "okay";
+    pinctrl-0 = <&can3_rx_pa8 &can3_tx_pa15>;
+    pinctrl-names = "default";
+};
+
+&pinctrl{
+    can3_rx_pa8: can3_rx_pa8 { pinmux = <STM32_PINMUX('A',8,AF11)>; bias-disable; };
+    can3_tx_pa15: can3_tx_pa15 { pinmux = <STM32_PINMUX('A', 15, AF11)>; bias-disable; };
+
+    can1_tx_pa12: can1_tx_pa12 { pinmux = <STM32_PINMUX('A', 12, AF9)>; bias-disable; };
+};

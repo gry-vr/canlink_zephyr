@@ -1,0 +1,23 @@
+# Build outputs
+build/
+*.elf
+*.bin
+*.hex
+*.out
+
+# Virtual environment
+.venv/
+venv/
+
+# IDE/editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS generated
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log

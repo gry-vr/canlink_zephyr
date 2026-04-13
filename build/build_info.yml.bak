@@ -1,0 +1,4 @@
+west:
+  command: /home/gry/zephyrproject/.venv/bin/west build -b native_sim -p always
+  topdir: /home/gry/zephyrproject
+  version: 1.5.0

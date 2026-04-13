@@ -1,0 +1,15 @@
+identifier: canlink/stm32f767xx
+name: FFW canlink
+type: mcu 
+arch: arm
+toolchain:
+  - zephyr
+ram: 512
+flash: 2048
+supported:
+  - gpio
+  - serial
+  - can
+  - spi
+  - sdhc
+  
