@@ -18,6 +18,7 @@
 #include "duramax_choices.hpp"
 #include "duramax_codec.hpp"
 
+#include "duramax_ao.hpp"
 
 const device *dm_bus = DEVICE_DT_GET(DT_ALIAS(can0));
 const device *ffw_bus = DEVICE_DT_GET(DT_ALIAS(can1));
@@ -33,66 +34,25 @@ std::expected<int, int> foo(bool ok){
   return std::unexpected(7);
 }
 
+int main() {
+    
+    auto ao_result = DuramaxRxAo::create(dm_bus);
+    if (!ao_result) {
+        printk("DuramaxRxAo init failed: %d\n", static_cast<int>(ao_result.error()));
+        return -1;
+    }
 
-int main(void)
-{
-  if(!gpio_is_ready_dt(&status_led))
-  {
-    return -1;
-  }
+    auto duramax_rx = std::move(*ao_result);
 
-  gpio_pin_configure_dt(&status_led, GPIO_OUTPUT_INACTIVE);
-  gpio_pin_set_dt(&status_led, 1);
+    printk("Duramax RX AO started.\n");
 
-  if (!device_is_ready(dm_bus)){
-    printk("canbus was not ready :(\n");
-  }
-  int error = can_start(dm_bus);
+    while (true) {
+        k_sleep(K_SECONDS(1));
 
-  duramax::Eec9ElectronicEngineControl9 msg{};
+        // optional health reporting
+        printk("decode_fail=%u\n",
+               duramax_rx->decode_failures());
+    }
 
-  msg.engine_exhaust_gas_recirculation = 10;
-  msg.commanded_fuel_rail_pressure = 10;
-  msg.commanded_engine_fuel_injection = 10;
-
-  std::array<std::uint8_t,8> payload{};
-  auto encoded = duramax::Codec::encode(msg, payload.data(), payload.size());
-  if(!encoded){
-    printk("something stupid happened!\n");
-
-  }
-
-
-  struct can_frame frame{};
-  frame.id = duramax::message_meta(duramax::MessageId::eec9_electronic_engine_control_9).frame_id;
-  frame.dlc = payload.size();
-  frame.flags = CAN_FRAME_IDE;   // only if this message uses a 29-bit ID
-  std::memcpy(frame.data, payload.data(), payload.size());
-
-  can_send(
-    dm_bus,
-    &frame,
-    K_MSEC(1000),
-    NULL,
-    NULL
-  );
-
-
-
-  while(1) {
-
-
-    printk("Hello from c++ \n");
-    k_sleep(K_SECONDS(1));
-    gpio_pin_toggle_dt(&status_led);
-
-    can_send(
-      dm_bus,
-      &frame,
-      K_MSEC(1000),
-      NULL,
-      NULL
-    );
-  }
-
+    return 0;
 }
