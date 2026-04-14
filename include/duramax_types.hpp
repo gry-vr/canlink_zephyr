@@ -545,4 +545,310 @@ using MessageVariant = std::variant<
     Shutdn
 >;
 
+// Message instance -> MessageId mapping
+constexpr auto message_id_of(const Eec5ElectronicEngineControl5&) -> MessageId {
+    return MessageId::eec5_electronic_engine_control_5;
+}
+constexpr auto message_id_of(const Eec9ElectronicEngineControl9&) -> MessageId {
+    return MessageId::eec9_electronic_engine_control_9;
+}
+constexpr auto message_id_of(const EbccEngineExhaustBrakeCont&) -> MessageId {
+    return MessageId::ebcc_engine_exhaust_brake_cont;
+}
+constexpr auto message_id_of(const Et3EngineTemperature3&) -> MessageId {
+    return MessageId::et3_engine_temperature_3;
+}
+constexpr auto message_id_of(const Dm21DiagnosticReadiness2&) -> MessageId {
+    return MessageId::dm21_diagnostic_readiness_2;
+}
+constexpr auto message_id_of(const Dm26DiagnosticReadiness3&) -> MessageId {
+    return MessageId::dm26_diagnostic_readiness_3;
+}
+constexpr auto message_id_of(const Ic1IntakeExhaustCond1&) -> MessageId {
+    return MessageId::ic1_intake_exhaust_cond_1;
+}
+constexpr auto message_id_of(const AmbAmbientConditions&) -> MessageId {
+    return MessageId::amb_ambient_conditions;
+}
+constexpr auto message_id_of(const Eec1ElectronicEngineControl1&) -> MessageId {
+    return MessageId::eec1_electronic_engine_control_1;
+}
+constexpr auto message_id_of(const Eec2ElectronicEngineControl2&) -> MessageId {
+    return MessageId::eec2_electronic_engine_control_2;
+}
+constexpr auto message_id_of(const Eec3ElectronicEngineControl3&) -> MessageId {
+    return MessageId::eec3_electronic_engine_control_3;
+}
+constexpr auto message_id_of(const EflP1EngFluidLevelPress1&) -> MessageId {
+    return MessageId::efl_p1_eng_fluid_level_press_1;
+}
+constexpr auto message_id_of(const EflP2EngFluidLevelPress2&) -> MessageId {
+    return MessageId::efl_p2_eng_fluid_level_press_2;
+}
+constexpr auto message_id_of(const Et1EngineTemperature1&) -> MessageId {
+    return MessageId::et1_engine_temperature_1;
+}
+constexpr auto message_id_of(const Lfe1FuelEconomyLiquid1&) -> MessageId {
+    return MessageId::lfe1_fuel_economy_liquid_1;
+}
+constexpr auto message_id_of(const TransportprotocolHeader&) -> MessageId {
+    return MessageId::transportprotocol_header;
+}
+constexpr auto message_id_of(const TransportprotocolData&) -> MessageId {
+    return MessageId::transportprotocol_data;
+}
+constexpr auto message_id_of(const Dm01ActiveDiagnostics&) -> MessageId {
+    return MessageId::dm01_active_diagnostics;
+}
+constexpr auto message_id_of(const Tsc131&) -> MessageId {
+    return MessageId::tsc1_31;
+}
+constexpr auto message_id_of(const Cac1ChargeAirCooler1&) -> MessageId {
+    return MessageId::cac1_charge_air_cooler_1;
+}
+constexpr auto message_id_of(const HoursEngineHoursRevolutions&) -> MessageId {
+    return MessageId::hours_engine_hours_revolutions;
+}
+constexpr auto message_id_of(const Tci5TurbochargerInformation5&) -> MessageId {
+    return MessageId::tci5_turbocharger_information_5;
+}
+constexpr auto message_id_of(const Vep1VehicleElectricalPower1&) -> MessageId {
+    return MessageId::vep1_vehicle_electrical_power_1;
+}
+constexpr auto message_id_of(const Eec20ElectronicEngineControl&) -> MessageId {
+    return MessageId::eec20_electronic_engine_control;
+}
+constexpr auto message_id_of(const EasiEngineAirSystemInfo&) -> MessageId {
+    return MessageId::easi_engine_air_system_info;
+}
+constexpr auto message_id_of(const Tsc103&) -> MessageId {
+    return MessageId::tsc1_03;
+}
+constexpr auto message_id_of(const Tsc10b&) -> MessageId {
+    return MessageId::tsc1_0b;
+}
+constexpr auto message_id_of(const Dm07&) -> MessageId {
+    return MessageId::dm07;
+}
+constexpr auto message_id_of(const Dm08&) -> MessageId {
+    return MessageId::dm08;
+}
+constexpr auto message_id_of(const Erc1ElectronicRetarderCntrl&) -> MessageId {
+    return MessageId::erc1_electronic_retarder_cntrl;
+}
+constexpr auto message_id_of(const Etc1ElectronicTransCntrl1&) -> MessageId {
+    return MessageId::etc1_electronic_trans_cntrl_1;
+}
+constexpr auto message_id_of(const Etc2ElectronicTransCntrl2&) -> MessageId {
+    return MessageId::etc2_electronic_trans_cntrl_2;
+}
+constexpr auto message_id_of(const Rqst005e&) -> MessageId {
+    return MessageId::rqst_00_5e;
+}
+constexpr auto message_id_of(const Rqst0021&) -> MessageId {
+    return MessageId::rqst_00_21;
+}
+constexpr auto message_id_of(const RqstGlobal5e&) -> MessageId {
+    return MessageId::rqst_global_5e;
+}
+constexpr auto message_id_of(const RqstGlobal03&) -> MessageId {
+    return MessageId::rqst_global_03;
+}
+constexpr auto message_id_of(const TciTransferCaseInformation&) -> MessageId {
+    return MessageId::tci_transfer_case_information;
+}
+constexpr auto message_id_of(const Trf1TransmissionFluids1&) -> MessageId {
+    return MessageId::trf1_transmission_fluids_1;
+}
+constexpr auto message_id_of(const CcssCruiseControlVehicleSpd&) -> MessageId {
+    return MessageId::ccss_cruise_control_vehicle_spd;
+}
+constexpr auto message_id_of(const Ccvs1CruiseControlVehspd&) -> MessageId {
+    return MessageId::ccvs1_cruise_control_vehspd;
+}
+constexpr auto message_id_of(const Ebc1ElectronicBrakeCntrl&) -> MessageId {
+    return MessageId::ebc1_electronic_brake_cntrl;
+}
+constexpr auto message_id_of(const Shutdn&) -> MessageId {
+    return MessageId::shutdn;
+}
+
+// Message type -> MessageId mapping
+template <typename Msg>
+struct message_id_of_type;
+
+template <>
+struct message_id_of_type<Eec5ElectronicEngineControl5> {
+    static constexpr MessageId value = MessageId::eec5_electronic_engine_control_5;
+};
+template <>
+struct message_id_of_type<Eec9ElectronicEngineControl9> {
+    static constexpr MessageId value = MessageId::eec9_electronic_engine_control_9;
+};
+template <>
+struct message_id_of_type<EbccEngineExhaustBrakeCont> {
+    static constexpr MessageId value = MessageId::ebcc_engine_exhaust_brake_cont;
+};
+template <>
+struct message_id_of_type<Et3EngineTemperature3> {
+    static constexpr MessageId value = MessageId::et3_engine_temperature_3;
+};
+template <>
+struct message_id_of_type<Dm21DiagnosticReadiness2> {
+    static constexpr MessageId value = MessageId::dm21_diagnostic_readiness_2;
+};
+template <>
+struct message_id_of_type<Dm26DiagnosticReadiness3> {
+    static constexpr MessageId value = MessageId::dm26_diagnostic_readiness_3;
+};
+template <>
+struct message_id_of_type<Ic1IntakeExhaustCond1> {
+    static constexpr MessageId value = MessageId::ic1_intake_exhaust_cond_1;
+};
+template <>
+struct message_id_of_type<AmbAmbientConditions> {
+    static constexpr MessageId value = MessageId::amb_ambient_conditions;
+};
+template <>
+struct message_id_of_type<Eec1ElectronicEngineControl1> {
+    static constexpr MessageId value = MessageId::eec1_electronic_engine_control_1;
+};
+template <>
+struct message_id_of_type<Eec2ElectronicEngineControl2> {
+    static constexpr MessageId value = MessageId::eec2_electronic_engine_control_2;
+};
+template <>
+struct message_id_of_type<Eec3ElectronicEngineControl3> {
+    static constexpr MessageId value = MessageId::eec3_electronic_engine_control_3;
+};
+template <>
+struct message_id_of_type<EflP1EngFluidLevelPress1> {
+    static constexpr MessageId value = MessageId::efl_p1_eng_fluid_level_press_1;
+};
+template <>
+struct message_id_of_type<EflP2EngFluidLevelPress2> {
+    static constexpr MessageId value = MessageId::efl_p2_eng_fluid_level_press_2;
+};
+template <>
+struct message_id_of_type<Et1EngineTemperature1> {
+    static constexpr MessageId value = MessageId::et1_engine_temperature_1;
+};
+template <>
+struct message_id_of_type<Lfe1FuelEconomyLiquid1> {
+    static constexpr MessageId value = MessageId::lfe1_fuel_economy_liquid_1;
+};
+template <>
+struct message_id_of_type<TransportprotocolHeader> {
+    static constexpr MessageId value = MessageId::transportprotocol_header;
+};
+template <>
+struct message_id_of_type<TransportprotocolData> {
+    static constexpr MessageId value = MessageId::transportprotocol_data;
+};
+template <>
+struct message_id_of_type<Dm01ActiveDiagnostics> {
+    static constexpr MessageId value = MessageId::dm01_active_diagnostics;
+};
+template <>
+struct message_id_of_type<Tsc131> {
+    static constexpr MessageId value = MessageId::tsc1_31;
+};
+template <>
+struct message_id_of_type<Cac1ChargeAirCooler1> {
+    static constexpr MessageId value = MessageId::cac1_charge_air_cooler_1;
+};
+template <>
+struct message_id_of_type<HoursEngineHoursRevolutions> {
+    static constexpr MessageId value = MessageId::hours_engine_hours_revolutions;
+};
+template <>
+struct message_id_of_type<Tci5TurbochargerInformation5> {
+    static constexpr MessageId value = MessageId::tci5_turbocharger_information_5;
+};
+template <>
+struct message_id_of_type<Vep1VehicleElectricalPower1> {
+    static constexpr MessageId value = MessageId::vep1_vehicle_electrical_power_1;
+};
+template <>
+struct message_id_of_type<Eec20ElectronicEngineControl> {
+    static constexpr MessageId value = MessageId::eec20_electronic_engine_control;
+};
+template <>
+struct message_id_of_type<EasiEngineAirSystemInfo> {
+    static constexpr MessageId value = MessageId::easi_engine_air_system_info;
+};
+template <>
+struct message_id_of_type<Tsc103> {
+    static constexpr MessageId value = MessageId::tsc1_03;
+};
+template <>
+struct message_id_of_type<Tsc10b> {
+    static constexpr MessageId value = MessageId::tsc1_0b;
+};
+template <>
+struct message_id_of_type<Dm07> {
+    static constexpr MessageId value = MessageId::dm07;
+};
+template <>
+struct message_id_of_type<Dm08> {
+    static constexpr MessageId value = MessageId::dm08;
+};
+template <>
+struct message_id_of_type<Erc1ElectronicRetarderCntrl> {
+    static constexpr MessageId value = MessageId::erc1_electronic_retarder_cntrl;
+};
+template <>
+struct message_id_of_type<Etc1ElectronicTransCntrl1> {
+    static constexpr MessageId value = MessageId::etc1_electronic_trans_cntrl_1;
+};
+template <>
+struct message_id_of_type<Etc2ElectronicTransCntrl2> {
+    static constexpr MessageId value = MessageId::etc2_electronic_trans_cntrl_2;
+};
+template <>
+struct message_id_of_type<Rqst005e> {
+    static constexpr MessageId value = MessageId::rqst_00_5e;
+};
+template <>
+struct message_id_of_type<Rqst0021> {
+    static constexpr MessageId value = MessageId::rqst_00_21;
+};
+template <>
+struct message_id_of_type<RqstGlobal5e> {
+    static constexpr MessageId value = MessageId::rqst_global_5e;
+};
+template <>
+struct message_id_of_type<RqstGlobal03> {
+    static constexpr MessageId value = MessageId::rqst_global_03;
+};
+template <>
+struct message_id_of_type<TciTransferCaseInformation> {
+    static constexpr MessageId value = MessageId::tci_transfer_case_information;
+};
+template <>
+struct message_id_of_type<Trf1TransmissionFluids1> {
+    static constexpr MessageId value = MessageId::trf1_transmission_fluids_1;
+};
+template <>
+struct message_id_of_type<CcssCruiseControlVehicleSpd> {
+    static constexpr MessageId value = MessageId::ccss_cruise_control_vehicle_spd;
+};
+template <>
+struct message_id_of_type<Ccvs1CruiseControlVehspd> {
+    static constexpr MessageId value = MessageId::ccvs1_cruise_control_vehspd;
+};
+template <>
+struct message_id_of_type<Ebc1ElectronicBrakeCntrl> {
+    static constexpr MessageId value = MessageId::ebc1_electronic_brake_cntrl;
+};
+template <>
+struct message_id_of_type<Shutdn> {
+    static constexpr MessageId value = MessageId::shutdn;
+};
+
+template <typename Msg>
+constexpr auto message_id_of() -> MessageId {
+    return message_id_of_type<Msg>::value;
+}
+
 } // namespace duramax

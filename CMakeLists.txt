@@ -8,6 +8,7 @@ project(canlink)
 target_sources(app PRIVATE
   src/duramax_codec.cpp
   src/duramax_store.cpp
+  src/duramax_build.cpp
   src/main.cpp
 
 )

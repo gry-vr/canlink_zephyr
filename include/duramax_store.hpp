@@ -1,10 +1,12 @@
 #pragma once
 
 #include "duramax_metadata.hpp"
+#include "duramax_types.hpp"
 
 #include <array>
 #include <cstdint>
 #include <optional>
+#include <variant>
 
 namespace duramax {
 
@@ -246,5 +248,226 @@ struct Ebc1ElectronicBrakeCntrl;
 void update_from(ValueStore& store, const Ebc1ElectronicBrakeCntrl& m, std::uint32_t now_ms);
 struct Shutdn;
 void update_from(ValueStore& store, const Shutdn& m, std::uint32_t now_ms);
+
+// Clearer TX-facing alias.
+// For now this is just a semantic wrapper around update_from(...).
+inline void apply_to_store(ValueStore& store,
+                           const Eec5ElectronicEngineControl5& msg,
+                           std::uint32_t now_ms) {
+    update_from(store, msg, now_ms);
+}
+inline void apply_to_store(ValueStore& store,
+                           const Eec9ElectronicEngineControl9& msg,
+                           std::uint32_t now_ms) {
+    update_from(store, msg, now_ms);
+}
+inline void apply_to_store(ValueStore& store,
+                           const EbccEngineExhaustBrakeCont& msg,
+                           std::uint32_t now_ms) {
+    update_from(store, msg, now_ms);
+}
+inline void apply_to_store(ValueStore& store,
+                           const Et3EngineTemperature3& msg,
+                           std::uint32_t now_ms) {
+    update_from(store, msg, now_ms);
+}
+inline void apply_to_store(ValueStore& store,
+                           const Dm21DiagnosticReadiness2& msg,
+                           std::uint32_t now_ms) {
+    update_from(store, msg, now_ms);
+}
+inline void apply_to_store(ValueStore& store,
+                           const Dm26DiagnosticReadiness3& msg,
+                           std::uint32_t now_ms) {
+    update_from(store, msg, now_ms);
+}
+inline void apply_to_store(ValueStore& store,
+                           const Ic1IntakeExhaustCond1& msg,
+                           std::uint32_t now_ms) {
+    update_from(store, msg, now_ms);
+}
+inline void apply_to_store(ValueStore& store,
+                           const AmbAmbientConditions& msg,
+                           std::uint32_t now_ms) {
+    update_from(store, msg, now_ms);
+}
+inline void apply_to_store(ValueStore& store,
+                           const Eec1ElectronicEngineControl1& msg,
+                           std::uint32_t now_ms) {
+    update_from(store, msg, now_ms);
+}
+inline void apply_to_store(ValueStore& store,
+                           const Eec2ElectronicEngineControl2& msg,
+                           std::uint32_t now_ms) {
+    update_from(store, msg, now_ms);
+}
+inline void apply_to_store(ValueStore& store,
+                           const Eec3ElectronicEngineControl3& msg,
+                           std::uint32_t now_ms) {
+    update_from(store, msg, now_ms);
+}
+inline void apply_to_store(ValueStore& store,
+                           const EflP1EngFluidLevelPress1& msg,
+                           std::uint32_t now_ms) {
+    update_from(store, msg, now_ms);
+}
+inline void apply_to_store(ValueStore& store,
+                           const EflP2EngFluidLevelPress2& msg,
+                           std::uint32_t now_ms) {
+    update_from(store, msg, now_ms);
+}
+inline void apply_to_store(ValueStore& store,
+                           const Et1EngineTemperature1& msg,
+                           std::uint32_t now_ms) {
+    update_from(store, msg, now_ms);
+}
+inline void apply_to_store(ValueStore& store,
+                           const Lfe1FuelEconomyLiquid1& msg,
+                           std::uint32_t now_ms) {
+    update_from(store, msg, now_ms);
+}
+inline void apply_to_store(ValueStore& store,
+                           const TransportprotocolHeader& msg,
+                           std::uint32_t now_ms) {
+    update_from(store, msg, now_ms);
+}
+inline void apply_to_store(ValueStore& store,
+                           const TransportprotocolData& msg,
+                           std::uint32_t now_ms) {
+    update_from(store, msg, now_ms);
+}
+inline void apply_to_store(ValueStore& store,
+                           const Dm01ActiveDiagnostics& msg,
+                           std::uint32_t now_ms) {
+    update_from(store, msg, now_ms);
+}
+inline void apply_to_store(ValueStore& store,
+                           const Tsc131& msg,
+                           std::uint32_t now_ms) {
+    update_from(store, msg, now_ms);
+}
+inline void apply_to_store(ValueStore& store,
+                           const Cac1ChargeAirCooler1& msg,
+                           std::uint32_t now_ms) {
+    update_from(store, msg, now_ms);
+}
+inline void apply_to_store(ValueStore& store,
+                           const HoursEngineHoursRevolutions& msg,
+                           std::uint32_t now_ms) {
+    update_from(store, msg, now_ms);
+}
+inline void apply_to_store(ValueStore& store,
+                           const Tci5TurbochargerInformation5& msg,
+                           std::uint32_t now_ms) {
+    update_from(store, msg, now_ms);
+}
+inline void apply_to_store(ValueStore& store,
+                           const Vep1VehicleElectricalPower1& msg,
+                           std::uint32_t now_ms) {
+    update_from(store, msg, now_ms);
+}
+inline void apply_to_store(ValueStore& store,
+                           const Eec20ElectronicEngineControl& msg,
+                           std::uint32_t now_ms) {
+    update_from(store, msg, now_ms);
+}
+inline void apply_to_store(ValueStore& store,
+                           const EasiEngineAirSystemInfo& msg,
+                           std::uint32_t now_ms) {
+    update_from(store, msg, now_ms);
+}
+inline void apply_to_store(ValueStore& store,
+                           const Tsc103& msg,
+                           std::uint32_t now_ms) {
+    update_from(store, msg, now_ms);
+}
+inline void apply_to_store(ValueStore& store,
+                           const Tsc10b& msg,
+                           std::uint32_t now_ms) {
+    update_from(store, msg, now_ms);
+}
+inline void apply_to_store(ValueStore& store,
+                           const Dm07& msg,
+                           std::uint32_t now_ms) {
+    update_from(store, msg, now_ms);
+}
+inline void apply_to_store(ValueStore& store,
+                           const Dm08& msg,
+                           std::uint32_t now_ms) {
+    update_from(store, msg, now_ms);
+}
+inline void apply_to_store(ValueStore& store,
+                           const Erc1ElectronicRetarderCntrl& msg,
+                           std::uint32_t now_ms) {
+    update_from(store, msg, now_ms);
+}
+inline void apply_to_store(ValueStore& store,
+                           const Etc1ElectronicTransCntrl1& msg,
+                           std::uint32_t now_ms) {
+    update_from(store, msg, now_ms);
+}
+inline void apply_to_store(ValueStore& store,
+                           const Etc2ElectronicTransCntrl2& msg,
+                           std::uint32_t now_ms) {
+    update_from(store, msg, now_ms);
+}
+inline void apply_to_store(ValueStore& store,
+                           const Rqst005e& msg,
+                           std::uint32_t now_ms) {
+    update_from(store, msg, now_ms);
+}
+inline void apply_to_store(ValueStore& store,
+                           const Rqst0021& msg,
+                           std::uint32_t now_ms) {
+    update_from(store, msg, now_ms);
+}
+inline void apply_to_store(ValueStore& store,
+                           const RqstGlobal5e& msg,
+                           std::uint32_t now_ms) {
+    update_from(store, msg, now_ms);
+}
+inline void apply_to_store(ValueStore& store,
+                           const RqstGlobal03& msg,
+                           std::uint32_t now_ms) {
+    update_from(store, msg, now_ms);
+}
+inline void apply_to_store(ValueStore& store,
+                           const TciTransferCaseInformation& msg,
+                           std::uint32_t now_ms) {
+    update_from(store, msg, now_ms);
+}
+inline void apply_to_store(ValueStore& store,
+                           const Trf1TransmissionFluids1& msg,
+                           std::uint32_t now_ms) {
+    update_from(store, msg, now_ms);
+}
+inline void apply_to_store(ValueStore& store,
+                           const CcssCruiseControlVehicleSpd& msg,
+                           std::uint32_t now_ms) {
+    update_from(store, msg, now_ms);
+}
+inline void apply_to_store(ValueStore& store,
+                           const Ccvs1CruiseControlVehspd& msg,
+                           std::uint32_t now_ms) {
+    update_from(store, msg, now_ms);
+}
+inline void apply_to_store(ValueStore& store,
+                           const Ebc1ElectronicBrakeCntrl& msg,
+                           std::uint32_t now_ms) {
+    update_from(store, msg, now_ms);
+}
+inline void apply_to_store(ValueStore& store,
+                           const Shutdn& msg,
+                           std::uint32_t now_ms) {
+    update_from(store, msg, now_ms);
+}
+
+inline void apply_to_store(ValueStore& store,
+                           const MessageVariant& msg,
+                           std::uint32_t now_ms) {
+    std::visit([&](const auto& m) {
+        apply_to_store(store, m, now_ms);
+    }, msg);
+}
 
 } // namespace duramax

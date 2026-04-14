@@ -5,6 +5,7 @@ build/
 *.hex
 *.out
 
+build/*
 # Virtual environment
 .venv/
 venv/
