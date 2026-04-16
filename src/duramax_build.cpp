@@ -1,47 +1,8 @@
-#include "duramax_build.hpp"
+#include "duramax/duramax_build.hpp"
 
 #include <expected>
 
 namespace duramax {
-namespace detail {
-
-template <typename T>
-struct always_false : std::false_type {};
-
-template <SignalType>
-struct store_getter_name;
-
-template <>
-struct store_getter_name<SignalType::u8> {
-    static constexpr const char* value = "u8";
-};
-
-template <>
-struct store_getter_name<SignalType::u16> {
-    static constexpr const char* value = "u16";
-};
-
-template <>
-struct store_getter_name<SignalType::i16> {
-    static constexpr const char* value = "i16";
-};
-
-template <>
-struct store_getter_name<SignalType::u32> {
-    static constexpr const char* value = "u32";
-};
-
-template <>
-struct store_getter_name<SignalType::f64> {
-    static constexpr const char* value = "f64";
-};
-
-template <>
-struct store_getter_name<SignalType::boolean> {
-    static constexpr const char* value = "bool";
-};
-
-} // namespace detail
 
 auto build_eec5_electronic_engine_control_5_from_store(const ValueStore& store)
     -> std::expected<Eec5ElectronicEngineControl5, BuildError>
@@ -49,42 +10,42 @@ auto build_eec5_electronic_engine_control_5_from_store(const ValueStore& store)
     Eec5ElectronicEngineControl5 msg{};
 
     {
-        auto v = store.try_get_f64(SignalId::eec5_electronic_engine_control_5__engine_turbocharger_1_calculated);
+        auto v = store.template get<SignalId::eec5_electronic_engine_control_5__engine_turbocharger_1_calculated>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engine_turbocharger_1_calculated = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::eec5_electronic_engine_control_5__commanded_vgt_position);
+        auto v = store.template get<SignalId::eec5_electronic_engine_control_5__commanded_vgt_position>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.commanded_vgt_position = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::eec5_electronic_engine_control_5__engine_variable_geometry_turboch);
+        auto v = store.template get<SignalId::eec5_electronic_engine_control_5__engine_variable_geometry_turboch>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engine_variable_geometry_turboch = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::eec5_electronic_engine_control_5__engine_fuel_control_control_mode);
+        auto v = store.template get<SignalId::eec5_electronic_engine_control_5__engine_fuel_control_control_mode>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engine_fuel_control_control_mode = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::eec5_electronic_engine_control_5__engine_vgt_control_mode);
+        auto v = store.template get<SignalId::eec5_electronic_engine_control_5__engine_vgt_control_mode>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engine_vgt_control_mode = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::eec5_electronic_engine_control_5__actual_vgt_position);
+        auto v = store.template get<SignalId::eec5_electronic_engine_control_5__actual_vgt_position>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
@@ -100,21 +61,21 @@ auto build_eec9_electronic_engine_control_9_from_store(const ValueStore& store)
     Eec9ElectronicEngineControl9 msg{};
 
     {
-        auto v = store.try_get_f64(SignalId::eec9_electronic_engine_control_9__engine_exhaust_gas_recirculation);
+        auto v = store.template get<SignalId::eec9_electronic_engine_control_9__engine_exhaust_gas_recirculation>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engine_exhaust_gas_recirculation = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::eec9_electronic_engine_control_9__commanded_fuel_rail_pressure);
+        auto v = store.template get<SignalId::eec9_electronic_engine_control_9__commanded_fuel_rail_pressure>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.commanded_fuel_rail_pressure = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::eec9_electronic_engine_control_9__commanded_engine_fuel_injection);
+        auto v = store.template get<SignalId::eec9_electronic_engine_control_9__commanded_engine_fuel_injection>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
@@ -130,35 +91,35 @@ auto build_ebcc_engine_exhaust_brake_cont_from_store(const ValueStore& store)
     EbccEngineExhaustBrakeCont msg{};
 
     {
-        auto v = store.try_get_u8(SignalId::ebcc_engine_exhaust_brake_cont__actual_boost_pressure);
+        auto v = store.template get<SignalId::ebcc_engine_exhaust_brake_cont__actual_boost_pressure>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.actual_boost_pressure = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::ebcc_engine_exhaust_brake_cont__desired_boost_pressure);
+        auto v = store.template get<SignalId::ebcc_engine_exhaust_brake_cont__desired_boost_pressure>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.desired_boost_pressure = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::ebcc_engine_exhaust_brake_cont__engine_exhaust_brake_actuator_co);
+        auto v = store.template get<SignalId::ebcc_engine_exhaust_brake_cont__engine_exhaust_brake_actuator_co>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engine_exhaust_brake_actuator_co = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::ebcc_engine_exhaust_brake_cont__engine_turbocharger_2_turbine_ou);
+        auto v = store.template get<SignalId::ebcc_engine_exhaust_brake_cont__engine_turbocharger_2_turbine_ou>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engine_turbocharger_2_turbine_ou = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::ebcc_engine_exhaust_brake_cont__desired_engine_turbocharger_2_tu);
+        auto v = store.template get<SignalId::ebcc_engine_exhaust_brake_cont__desired_engine_turbocharger_2_tu>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
@@ -174,28 +135,28 @@ auto build_et3_engine_temperature_3_from_store(const ValueStore& store)
     Et3EngineTemperature3 msg{};
 
     {
-        auto v = store.try_get_f64(SignalId::et3_engine_temperature_3__engine_intake_manifold_1_air_tem);
+        auto v = store.template get<SignalId::et3_engine_temperature_3__engine_intake_manifold_1_air_tem>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engine_intake_manifold_1_air_tem = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::et3_engine_temperature_3__engine_coolant_temperature_high);
+        auto v = store.template get<SignalId::et3_engine_temperature_3__engine_coolant_temperature_high>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engine_coolant_temperature_high = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::et3_engine_temperature_3__engine_intake_valve_actuation_sy);
+        auto v = store.template get<SignalId::et3_engine_temperature_3__engine_intake_valve_actuation_sy>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engine_intake_valve_actuation_sy = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::et3_engine_temperature_3__engine_cac_outlet_temperature);
+        auto v = store.template get<SignalId::et3_engine_temperature_3__engine_cac_outlet_temperature>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
@@ -211,7 +172,7 @@ auto build_dm21_diagnostic_readiness_2_from_store(const ValueStore& store)
     Dm21DiagnosticReadiness2 msg{};
 
     {
-        auto v = store.try_get_u16(SignalId::dm21_diagnostic_readiness_2__engine_run_time_with_mil_on);
+        auto v = store.template get<SignalId::dm21_diagnostic_readiness_2__engine_run_time_with_mil_on>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
@@ -227,7 +188,7 @@ auto build_dm26_diagnostic_readiness_3_from_store(const ValueStore& store)
     Dm26DiagnosticReadiness3 msg{};
 
     {
-        auto v = store.try_get_u16(SignalId::dm26_diagnostic_readiness_3__time_since_engine_start);
+        auto v = store.template get<SignalId::dm26_diagnostic_readiness_3__time_since_engine_start>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
@@ -243,49 +204,49 @@ auto build_ic1_intake_exhaust_cond_1_from_store(const ValueStore& store)
     Ic1IntakeExhaustCond1 msg{};
 
     {
-        auto v = store.try_get_f64(SignalId::ic1_intake_exhaust_cond_1__aft1dpfinpress);
+        auto v = store.template get<SignalId::ic1_intake_exhaust_cond_1__aft1dpfinpress>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.aft1dpfinpress = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::ic1_intake_exhaust_cond_1__engintakemanifold1press);
+        auto v = store.template get<SignalId::ic1_intake_exhaust_cond_1__engintakemanifold1press>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engintakemanifold1press = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::ic1_intake_exhaust_cond_1__engintakemanifold1temp);
+        auto v = store.template get<SignalId::ic1_intake_exhaust_cond_1__engintakemanifold1temp>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engintakemanifold1temp = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::ic1_intake_exhaust_cond_1__engairintakepress);
+        auto v = store.template get<SignalId::ic1_intake_exhaust_cond_1__engairintakepress>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engairintakepress = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::ic1_intake_exhaust_cond_1__engairfilter1diffpress);
+        auto v = store.template get<SignalId::ic1_intake_exhaust_cond_1__engairfilter1diffpress>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engairfilter1diffpress = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::ic1_intake_exhaust_cond_1__engexhaustgastemp);
+        auto v = store.template get<SignalId::ic1_intake_exhaust_cond_1__engexhaustgastemp>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engexhaustgastemp = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::ic1_intake_exhaust_cond_1__engcoolantfilterdiffpress);
+        auto v = store.template get<SignalId::ic1_intake_exhaust_cond_1__engcoolantfilterdiffpress>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
@@ -301,35 +262,35 @@ auto build_amb_ambient_conditions_from_store(const ValueStore& store)
     AmbAmbientConditions msg{};
 
     {
-        auto v = store.try_get_f64(SignalId::amb_ambient_conditions__barometric_pressurebarometric_pr);
+        auto v = store.template get<SignalId::amb_ambient_conditions__barometric_pressurebarometric_pr>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.barometric_pressurebarometric_pr = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::amb_ambient_conditions__cabinteriortemp);
+        auto v = store.template get<SignalId::amb_ambient_conditions__cabinteriortemp>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.cabinteriortemp = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::amb_ambient_conditions__ambient_air_temperature);
+        auto v = store.template get<SignalId::amb_ambient_conditions__ambient_air_temperature>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.ambient_air_temperature = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::amb_ambient_conditions__engine_air_intake_temperature);
+        auto v = store.template get<SignalId::amb_ambient_conditions__engine_air_intake_temperature>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engine_air_intake_temperature = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::amb_ambient_conditions__roadsurfacetemp);
+        auto v = store.template get<SignalId::amb_ambient_conditions__roadsurfacetemp>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
@@ -345,56 +306,56 @@ auto build_eec1_electronic_engine_control_1_from_store(const ValueStore& store)
     Eec1ElectronicEngineControl1 msg{};
 
     {
-        auto v = store.try_get_u8(SignalId::eec1_electronic_engine_control_1__engine_torque_mode);
+        auto v = store.template get<SignalId::eec1_electronic_engine_control_1__engine_torque_mode>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engine_torque_mode = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::eec1_electronic_engine_control_1__actlengprcnttorquehighresolution);
+        auto v = store.template get<SignalId::eec1_electronic_engine_control_1__actlengprcnttorquehighresolution>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.actlengprcnttorquehighresolution = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::eec1_electronic_engine_control_1__drivers_demand_engine_prcnt_torq);
+        auto v = store.template get<SignalId::eec1_electronic_engine_control_1__drivers_demand_engine_prcnt_torq>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.drivers_demand_engine_prcnt_torq = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::eec1_electronic_engine_control_1__actual_engine_percent_torque);
+        auto v = store.template get<SignalId::eec1_electronic_engine_control_1__actual_engine_percent_torque>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.actual_engine_percent_torque = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::eec1_electronic_engine_control_1__engine_speed);
+        auto v = store.template get<SignalId::eec1_electronic_engine_control_1__engine_speed>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engine_speed = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::eec1_electronic_engine_control_1__srcaddrssofcntrllngdvcforengctrl);
+        auto v = store.template get<SignalId::eec1_electronic_engine_control_1__srcaddrssofcntrllngdvcforengctrl>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.srcaddrssofcntrllngdvcforengctrl = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::eec1_electronic_engine_control_1__engstartermode);
+        auto v = store.template get<SignalId::eec1_electronic_engine_control_1__engstartermode>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engstartermode = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::eec1_electronic_engine_control_1__engine_demand_percent_torque);
+        auto v = store.template get<SignalId::eec1_electronic_engine_control_1__engine_demand_percent_torque>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
@@ -410,98 +371,98 @@ auto build_eec2_electronic_engine_control_2_from_store(const ValueStore& store)
     Eec2ElectronicEngineControl2 msg{};
 
     {
-        auto v = store.try_get_u8(SignalId::eec2_electronic_engine_control_2__accelpedal1lowidleswitch);
+        auto v = store.template get<SignalId::eec2_electronic_engine_control_2__accelpedal1lowidleswitch>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.accelpedal1lowidleswitch = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::eec2_electronic_engine_control_2__accelpedalkickdownswitch);
+        auto v = store.template get<SignalId::eec2_electronic_engine_control_2__accelpedalkickdownswitch>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.accelpedalkickdownswitch = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::eec2_electronic_engine_control_2__roadspeedlimitstatus);
+        auto v = store.template get<SignalId::eec2_electronic_engine_control_2__roadspeedlimitstatus>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.roadspeedlimitstatus = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::eec2_electronic_engine_control_2__accelpedal2lowidleswitch);
+        auto v = store.template get<SignalId::eec2_electronic_engine_control_2__accelpedal2lowidleswitch>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.accelpedal2lowidleswitch = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::eec2_electronic_engine_control_2__accelpedalpos1);
+        auto v = store.template get<SignalId::eec2_electronic_engine_control_2__accelpedalpos1>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.accelpedalpos1 = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::eec2_electronic_engine_control_2__engpercentloadatcurrentspeed);
+        auto v = store.template get<SignalId::eec2_electronic_engine_control_2__engpercentloadatcurrentspeed>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engpercentloadatcurrentspeed = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::eec2_electronic_engine_control_2__remoteaccelpedalpos);
+        auto v = store.template get<SignalId::eec2_electronic_engine_control_2__remoteaccelpedalpos>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.remoteaccelpedalpos = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::eec2_electronic_engine_control_2__accelpedalpos2);
+        auto v = store.template get<SignalId::eec2_electronic_engine_control_2__accelpedalpos2>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.accelpedalpos2 = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::eec2_electronic_engine_control_2__vhcleaccelerationratelimitstatus);
+        auto v = store.template get<SignalId::eec2_electronic_engine_control_2__vhcleaccelerationratelimitstatus>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.vhcleaccelerationratelimitstatus = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::eec2_electronic_engine_control_2__mmntaryengmaxpowerenablefeedback);
+        auto v = store.template get<SignalId::eec2_electronic_engine_control_2__mmntaryengmaxpowerenablefeedback>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.mmntaryengmaxpowerenablefeedback = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::eec2_electronic_engine_control_2__dpfthermalmanagementactive);
+        auto v = store.template get<SignalId::eec2_electronic_engine_control_2__dpfthermalmanagementactive>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.dpfthermalmanagementactive = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::eec2_electronic_engine_control_2__scrthermalmanagementactive);
+        auto v = store.template get<SignalId::eec2_electronic_engine_control_2__scrthermalmanagementactive>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.scrthermalmanagementactive = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::eec2_electronic_engine_control_2__actlmaxavailableengpercenttorque);
+        auto v = store.template get<SignalId::eec2_electronic_engine_control_2__actlmaxavailableengpercenttorque>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.actlmaxavailableengpercenttorque = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::eec2_electronic_engine_control_2__estpumpingpercenttorque);
+        auto v = store.template get<SignalId::eec2_electronic_engine_control_2__estpumpingpercenttorque>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
@@ -517,63 +478,63 @@ auto build_eec3_electronic_engine_control_3_from_store(const ValueStore& store)
     Eec3ElectronicEngineControl3 msg{};
 
     {
-        auto v = store.try_get_f64(SignalId::eec3_electronic_engine_control_3__nominalfrictionpercenttorque);
+        auto v = store.template get<SignalId::eec3_electronic_engine_control_3__nominalfrictionpercenttorque>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.nominalfrictionpercenttorque = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::eec3_electronic_engine_control_3__enginesdesiredoperatingspeed);
+        auto v = store.template get<SignalId::eec3_electronic_engine_control_3__enginesdesiredoperatingspeed>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.enginesdesiredoperatingspeed = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::eec3_electronic_engine_control_3__engnsdsrdoprtngspdasymmtryadjstm);
+        auto v = store.template get<SignalId::eec3_electronic_engine_control_3__engnsdsrdoprtngspdasymmtryadjstm>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engnsdsrdoprtngspdasymmtryadjstm = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::eec3_electronic_engine_control_3__estengprsiticlossespercenttorque);
+        auto v = store.template get<SignalId::eec3_electronic_engine_control_3__estengprsiticlossespercenttorque>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.estengprsiticlossespercenttorque = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::eec3_electronic_engine_control_3__aft1exhgasmfr);
+        auto v = store.template get<SignalId::eec3_electronic_engine_control_3__aft1exhgasmfr>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.aft1exhgasmfr = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::eec3_electronic_engine_control_3__aft1indewpoint);
+        auto v = store.template get<SignalId::eec3_electronic_engine_control_3__aft1indewpoint>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.aft1indewpoint = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::eec3_electronic_engine_control_3__aft1exhdewpoint);
+        auto v = store.template get<SignalId::eec3_electronic_engine_control_3__aft1exhdewpoint>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.aft1exhdewpoint = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::eec3_electronic_engine_control_3__aft2indewpoint);
+        auto v = store.template get<SignalId::eec3_electronic_engine_control_3__aft2indewpoint>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.aft2indewpoint = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::eec3_electronic_engine_control_3__aft2exhdewpoint);
+        auto v = store.template get<SignalId::eec3_electronic_engine_control_3__aft2exhdewpoint>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
@@ -589,49 +550,49 @@ auto build_efl_p1_eng_fluid_level_press_1_from_store(const ValueStore& store)
     EflP1EngFluidLevelPress1 msg{};
 
     {
-        auto v = store.try_get_u8(SignalId::efl_p1_eng_fluid_level_press_1__engfueldeliverypress);
+        auto v = store.template get<SignalId::efl_p1_eng_fluid_level_press_1__engfueldeliverypress>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engfueldeliverypress = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::efl_p1_eng_fluid_level_press_1__engexcrankcaseblowbypress);
+        auto v = store.template get<SignalId::efl_p1_eng_fluid_level_press_1__engexcrankcaseblowbypress>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engexcrankcaseblowbypress = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::efl_p1_eng_fluid_level_press_1__engoillevel);
+        auto v = store.template get<SignalId::efl_p1_eng_fluid_level_press_1__engoillevel>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engoillevel = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::efl_p1_eng_fluid_level_press_1__engoilpress);
+        auto v = store.template get<SignalId::efl_p1_eng_fluid_level_press_1__engoilpress>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engoilpress = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::efl_p1_eng_fluid_level_press_1__engcrankcasepress);
+        auto v = store.template get<SignalId::efl_p1_eng_fluid_level_press_1__engcrankcasepress>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engcrankcasepress = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::efl_p1_eng_fluid_level_press_1__engcoolantpress);
+        auto v = store.template get<SignalId::efl_p1_eng_fluid_level_press_1__engcoolantpress>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engcoolantpress = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::efl_p1_eng_fluid_level_press_1__engcoolantlevel);
+        auto v = store.template get<SignalId::efl_p1_eng_fluid_level_press_1__engcoolantlevel>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
@@ -647,28 +608,28 @@ auto build_efl_p2_eng_fluid_level_press_2_from_store(const ValueStore& store)
     EflP2EngFluidLevelPress2 msg{};
 
     {
-        auto v = store.try_get_f64(SignalId::efl_p2_eng_fluid_level_press_2__enginjectionctrlpress);
+        auto v = store.template get<SignalId::efl_p2_eng_fluid_level_press_2__enginjectionctrlpress>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.enginjectionctrlpress = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::efl_p2_eng_fluid_level_press_2__enginjectormeteringrail1press);
+        auto v = store.template get<SignalId::efl_p2_eng_fluid_level_press_2__enginjectormeteringrail1press>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.enginjectormeteringrail1press = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::efl_p2_eng_fluid_level_press_2__enginjectortimingrail1press);
+        auto v = store.template get<SignalId::efl_p2_eng_fluid_level_press_2__enginjectortimingrail1press>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.enginjectortimingrail1press = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::efl_p2_eng_fluid_level_press_2__enginjectormeteringrail2press);
+        auto v = store.template get<SignalId::efl_p2_eng_fluid_level_press_2__enginjectormeteringrail2press>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
@@ -684,42 +645,42 @@ auto build_et1_engine_temperature_1_from_store(const ValueStore& store)
     Et1EngineTemperature1 msg{};
 
     {
-        auto v = store.try_get_f64(SignalId::et1_engine_temperature_1__engcoolanttemp);
+        auto v = store.template get<SignalId::et1_engine_temperature_1__engcoolanttemp>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engcoolanttemp = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::et1_engine_temperature_1__engfueltemp1);
+        auto v = store.template get<SignalId::et1_engine_temperature_1__engfueltemp1>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engfueltemp1 = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::et1_engine_temperature_1__engoiltemp1);
+        auto v = store.template get<SignalId::et1_engine_temperature_1__engoiltemp1>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engoiltemp1 = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::et1_engine_temperature_1__engturbooiltemp);
+        auto v = store.template get<SignalId::et1_engine_temperature_1__engturbooiltemp>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engturbooiltemp = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::et1_engine_temperature_1__engintercoolertemp);
+        auto v = store.template get<SignalId::et1_engine_temperature_1__engintercoolertemp>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engintercoolertemp = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::et1_engine_temperature_1__engintercoolerthermostatopening);
+        auto v = store.template get<SignalId::et1_engine_temperature_1__engintercoolerthermostatopening>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
@@ -735,35 +696,35 @@ auto build_lfe1_fuel_economy_liquid_1_from_store(const ValueStore& store)
     Lfe1FuelEconomyLiquid1 msg{};
 
     {
-        auto v = store.try_get_f64(SignalId::lfe1_fuel_economy_liquid_1__engfuelrate);
+        auto v = store.template get<SignalId::lfe1_fuel_economy_liquid_1__engfuelrate>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engfuelrate = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::lfe1_fuel_economy_liquid_1__enginstantaneousfueleconomy);
+        auto v = store.template get<SignalId::lfe1_fuel_economy_liquid_1__enginstantaneousfueleconomy>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.enginstantaneousfueleconomy = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::lfe1_fuel_economy_liquid_1__engaveragefueleconomy);
+        auto v = store.template get<SignalId::lfe1_fuel_economy_liquid_1__engaveragefueleconomy>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engaveragefueleconomy = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::lfe1_fuel_economy_liquid_1__engthrottlevalve1pos);
+        auto v = store.template get<SignalId::lfe1_fuel_economy_liquid_1__engthrottlevalve1pos>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engthrottlevalve1pos = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::lfe1_fuel_economy_liquid_1__engthrottlevalve2pos);
+        auto v = store.template get<SignalId::lfe1_fuel_economy_liquid_1__engthrottlevalve2pos>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
@@ -779,84 +740,84 @@ auto build_transportprotocol_header_from_store(const ValueStore& store)
     TransportprotocolHeader msg{};
 
     {
-        auto v = store.try_get_u8(SignalId::transportprotocol_header__controlbyte);
+        auto v = store.template get<SignalId::transportprotocol_header__controlbyte>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.controlbyte = *v;
     }
     {
-        auto v = store.try_get_u16(SignalId::transportprotocol_header__totalmessagesizeeoma);
+        auto v = store.template get<SignalId::transportprotocol_header__totalmessagesizeeoma>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.totalmessagesizeeoma = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::transportprotocol_header__connectionabortreason);
+        auto v = store.template get<SignalId::transportprotocol_header__connectionabortreason>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.connectionabortreason = *v;
     }
     {
-        auto v = store.try_get_u16(SignalId::transportprotocol_header__totalmessagesize);
+        auto v = store.template get<SignalId::transportprotocol_header__totalmessagesize>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.totalmessagesize = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::transportprotocol_header__numberofpacketsthatcanbesent);
+        auto v = store.template get<SignalId::transportprotocol_header__numberofpacketsthatcanbesent>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.numberofpacketsthatcanbesent = *v;
     }
     {
-        auto v = store.try_get_u16(SignalId::transportprotocol_header__totalmessagesizebam);
+        auto v = store.template get<SignalId::transportprotocol_header__totalmessagesizebam>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.totalmessagesizebam = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::transportprotocol_header__nextpacketnumbertobesent);
+        auto v = store.template get<SignalId::transportprotocol_header__nextpacketnumbertobesent>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.nextpacketnumbertobesent = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::transportprotocol_header__totalnumberofpackets);
+        auto v = store.template get<SignalId::transportprotocol_header__totalnumberofpackets>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.totalnumberofpackets = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::transportprotocol_header__totalnumberofpacketseoma);
+        auto v = store.template get<SignalId::transportprotocol_header__totalnumberofpacketseoma>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.totalnumberofpacketseoma = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::transportprotocol_header__totalnumberofpacketsbam);
+        auto v = store.template get<SignalId::transportprotocol_header__totalnumberofpacketsbam>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.totalnumberofpacketsbam = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::transportprotocol_header__maximumnumberofpackets);
+        auto v = store.template get<SignalId::transportprotocol_header__maximumnumberofpackets>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.maximumnumberofpackets = *v;
     }
     {
-        auto v = store.try_get_u32(SignalId::transportprotocol_header__pgnumber);
+        auto v = store.template get<SignalId::transportprotocol_header__pgnumber>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
@@ -872,7 +833,7 @@ auto build_transportprotocol_data_from_store(const ValueStore& store)
     TransportprotocolData msg{};
 
     {
-        auto v = store.try_get_u8(SignalId::transportprotocol_data__sequencenumber);
+        auto v = store.template get<SignalId::transportprotocol_data__sequencenumber>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
@@ -888,63 +849,63 @@ auto build_dm01_active_diagnostics_from_store(const ValueStore& store)
     Dm01ActiveDiagnostics msg{};
 
     {
-        auto v = store.try_get_u8(SignalId::dm01_active_diagnostics__protectlampstatus);
+        auto v = store.template get<SignalId::dm01_active_diagnostics__protectlampstatus>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.protectlampstatus = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::dm01_active_diagnostics__amberwarninglampstatus);
+        auto v = store.template get<SignalId::dm01_active_diagnostics__amberwarninglampstatus>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.amberwarninglampstatus = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::dm01_active_diagnostics__redstoplampstate);
+        auto v = store.template get<SignalId::dm01_active_diagnostics__redstoplampstate>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.redstoplampstate = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::dm01_active_diagnostics__malfunctionindicatorlampstatus);
+        auto v = store.template get<SignalId::dm01_active_diagnostics__malfunctionindicatorlampstatus>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.malfunctionindicatorlampstatus = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::dm01_active_diagnostics__flashprotectlamp);
+        auto v = store.template get<SignalId::dm01_active_diagnostics__flashprotectlamp>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.flashprotectlamp = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::dm01_active_diagnostics__flashamberwarninglamp);
+        auto v = store.template get<SignalId::dm01_active_diagnostics__flashamberwarninglamp>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.flashamberwarninglamp = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::dm01_active_diagnostics__flashredstoplamp);
+        auto v = store.template get<SignalId::dm01_active_diagnostics__flashredstoplamp>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.flashredstoplamp = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::dm01_active_diagnostics__flashmalfuncindicatorlamp);
+        auto v = store.template get<SignalId::dm01_active_diagnostics__flashmalfuncindicatorlamp>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.flashmalfuncindicatorlamp = *v;
     }
     {
-        auto v = store.try_get_u32(SignalId::dm01_active_diagnostics__dtc1);
+        auto v = store.template get<SignalId::dm01_active_diagnostics__dtc1>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
@@ -960,70 +921,70 @@ auto build_tsc1_31_from_store(const ValueStore& store)
     Tsc131 msg{};
 
     {
-        auto v = store.try_get_u8(SignalId::tsc1_31__engoverridectrlmode);
+        auto v = store.template get<SignalId::tsc1_31__engoverridectrlmode>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engoverridectrlmode = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::tsc1_31__engrequestedspeedctrlconditions);
+        auto v = store.template get<SignalId::tsc1_31__engrequestedspeedctrlconditions>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engrequestedspeedctrlconditions = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::tsc1_31__overridectrlmodepriority);
+        auto v = store.template get<SignalId::tsc1_31__overridectrlmodepriority>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.overridectrlmodepriority = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::tsc1_31__engrequestedspeed_speedlimit);
+        auto v = store.template get<SignalId::tsc1_31__engrequestedspeed_speedlimit>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engrequestedspeed_speedlimit = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::tsc1_31__engrequestedtorque_torquelimit);
+        auto v = store.template get<SignalId::tsc1_31__engrequestedtorque_torquelimit>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engrequestedtorque_torquelimit = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::tsc1_31__tsc1transrate);
+        auto v = store.template get<SignalId::tsc1_31__tsc1transrate>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.tsc1transrate = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::tsc1_31__tsc1ctrlpurpose);
+        auto v = store.template get<SignalId::tsc1_31__tsc1ctrlpurpose>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.tsc1ctrlpurpose = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::tsc1_31__engrequestedtorquehighresolution);
+        auto v = store.template get<SignalId::tsc1_31__engrequestedtorquehighresolution>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engrequestedtorquehighresolution = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::tsc1_31__messagecounter);
+        auto v = store.template get<SignalId::tsc1_31__messagecounter>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.messagecounter = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::tsc1_31__messagechecksum);
+        auto v = store.template get<SignalId::tsc1_31__messagechecksum>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
@@ -1039,21 +1000,21 @@ auto build_cac1_charge_air_cooler_1_from_store(const ValueStore& store)
     Cac1ChargeAirCooler1 msg{};
 
     {
-        auto v = store.try_get_f64(SignalId::cac1_charge_air_cooler_1__engine_charge_air_cooler_1_intak);
+        auto v = store.template get<SignalId::cac1_charge_air_cooler_1__engine_charge_air_cooler_1_intak>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engine_charge_air_cooler_1_intak = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::cac1_charge_air_cooler_1__engine_charge_air_cooler_1_ambie);
+        auto v = store.template get<SignalId::cac1_charge_air_cooler_1__engine_charge_air_cooler_1_ambie>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engine_charge_air_cooler_1_ambie = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::cac1_charge_air_cooler_1__engine_charge_air_cooler_1_effic);
+        auto v = store.template get<SignalId::cac1_charge_air_cooler_1__engine_charge_air_cooler_1_effic>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
@@ -1069,14 +1030,14 @@ auto build_hours_engine_hours_revolutions_from_store(const ValueStore& store)
     HoursEngineHoursRevolutions msg{};
 
     {
-        auto v = store.try_get_f64(SignalId::hours_engine_hours_revolutions__engine_total_hours_of_operation);
+        auto v = store.template get<SignalId::hours_engine_hours_revolutions__engine_total_hours_of_operation>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engine_total_hours_of_operation = *v;
     }
     {
-        auto v = store.try_get_u32(SignalId::hours_engine_hours_revolutions__engine_total_revolutions_249);
+        auto v = store.template get<SignalId::hours_engine_hours_revolutions__engine_total_revolutions_249>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
@@ -1092,28 +1053,28 @@ auto build_tci5_turbocharger_information_5_from_store(const ValueStore& store)
     Tci5TurbochargerInformation5 msg{};
 
     {
-        auto v = store.try_get_f64(SignalId::tci5_turbocharger_information_5__engine_turbocharger_1_turbine_ou);
+        auto v = store.template get<SignalId::tci5_turbocharger_information_5__engine_turbocharger_1_turbine_ou>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engine_turbocharger_1_turbine_ou = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::tci5_turbocharger_information_5__engine_turbocharger_2_turbine_ou);
+        auto v = store.template get<SignalId::tci5_turbocharger_information_5__engine_turbocharger_2_turbine_ou>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engine_turbocharger_2_turbine_ou = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::tci5_turbocharger_information_5__engine_turbocharger_3_turbine_ou);
+        auto v = store.template get<SignalId::tci5_turbocharger_information_5__engine_turbocharger_3_turbine_ou>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engine_turbocharger_3_turbine_ou = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::tci5_turbocharger_information_5__engine_turbocharger_4_turbine_ou);
+        auto v = store.template get<SignalId::tci5_turbocharger_information_5__engine_turbocharger_4_turbine_ou>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
@@ -1129,35 +1090,35 @@ auto build_vep1_vehicle_electrical_power_1_from_store(const ValueStore& store)
     Vep1VehicleElectricalPower1 msg{};
 
     {
-        auto v = store.try_get_f64(SignalId::vep1_vehicle_electrical_power_1__net_battery_current_114);
+        auto v = store.template get<SignalId::vep1_vehicle_electrical_power_1__net_battery_current_114>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.net_battery_current_114 = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::vep1_vehicle_electrical_power_1__alternator_current_115);
+        auto v = store.template get<SignalId::vep1_vehicle_electrical_power_1__alternator_current_115>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.alternator_current_115 = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::vep1_vehicle_electrical_power_1__charging_system_potential_volta);
+        auto v = store.template get<SignalId::vep1_vehicle_electrical_power_1__charging_system_potential_volta>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.charging_system_potential_volta = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::vep1_vehicle_electrical_power_1__battery_potential_power_input_1);
+        auto v = store.template get<SignalId::vep1_vehicle_electrical_power_1__battery_potential_power_input_1>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.battery_potential_power_input_1 = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::vep1_vehicle_electrical_power_1__keyswitch_battery_potential_158);
+        auto v = store.template get<SignalId::vep1_vehicle_electrical_power_1__keyswitch_battery_potential_158>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
@@ -1173,7 +1134,7 @@ auto build_eec20_electronic_engine_control_from_store(const ValueStore& store)
     Eec20ElectronicEngineControl msg{};
 
     {
-        auto v = store.try_get_f64(SignalId::eec20_electronic_engine_control__absolute_engine_load);
+        auto v = store.template get<SignalId::eec20_electronic_engine_control__absolute_engine_load>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
@@ -1189,7 +1150,7 @@ auto build_easi_engine_air_system_info_from_store(const ValueStore& store)
     EasiEngineAirSystemInfo msg{};
 
     {
-        auto v = store.try_get_f64(SignalId::easi_engine_air_system_info__engine_intake_maf);
+        auto v = store.template get<SignalId::easi_engine_air_system_info__engine_intake_maf>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
@@ -1205,70 +1166,70 @@ auto build_tsc1_03_from_store(const ValueStore& store)
     Tsc103 msg{};
 
     {
-        auto v = store.try_get_u8(SignalId::tsc1_03__engoverridectrlmode);
+        auto v = store.template get<SignalId::tsc1_03__engoverridectrlmode>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engoverridectrlmode = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::tsc1_03__engrequestedspeedctrlconditions);
+        auto v = store.template get<SignalId::tsc1_03__engrequestedspeedctrlconditions>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engrequestedspeedctrlconditions = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::tsc1_03__overridectrlmodepriority);
+        auto v = store.template get<SignalId::tsc1_03__overridectrlmodepriority>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.overridectrlmodepriority = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::tsc1_03__engrequestedspeed_speedlimit);
+        auto v = store.template get<SignalId::tsc1_03__engrequestedspeed_speedlimit>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engrequestedspeed_speedlimit = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::tsc1_03__engrequestedtorque_torquelimit);
+        auto v = store.template get<SignalId::tsc1_03__engrequestedtorque_torquelimit>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engrequestedtorque_torquelimit = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::tsc1_03__tsc1transrate);
+        auto v = store.template get<SignalId::tsc1_03__tsc1transrate>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.tsc1transrate = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::tsc1_03__tsc1ctrlpurpose);
+        auto v = store.template get<SignalId::tsc1_03__tsc1ctrlpurpose>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.tsc1ctrlpurpose = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::tsc1_03__engrequestedtorquehighresolution);
+        auto v = store.template get<SignalId::tsc1_03__engrequestedtorquehighresolution>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engrequestedtorquehighresolution = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::tsc1_03__messagecounter);
+        auto v = store.template get<SignalId::tsc1_03__messagecounter>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.messagecounter = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::tsc1_03__messagechecksum);
+        auto v = store.template get<SignalId::tsc1_03__messagechecksum>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
@@ -1284,70 +1245,70 @@ auto build_tsc1_0b_from_store(const ValueStore& store)
     Tsc10b msg{};
 
     {
-        auto v = store.try_get_u8(SignalId::tsc1_0b__engoverridectrlmode);
+        auto v = store.template get<SignalId::tsc1_0b__engoverridectrlmode>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engoverridectrlmode = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::tsc1_0b__engrequestedspeedctrlconditions);
+        auto v = store.template get<SignalId::tsc1_0b__engrequestedspeedctrlconditions>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engrequestedspeedctrlconditions = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::tsc1_0b__overridectrlmodepriority);
+        auto v = store.template get<SignalId::tsc1_0b__overridectrlmodepriority>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.overridectrlmodepriority = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::tsc1_0b__engrequestedspeed_speedlimit);
+        auto v = store.template get<SignalId::tsc1_0b__engrequestedspeed_speedlimit>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engrequestedspeed_speedlimit = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::tsc1_0b__engrequestedtorque_torquelimit);
+        auto v = store.template get<SignalId::tsc1_0b__engrequestedtorque_torquelimit>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engrequestedtorque_torquelimit = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::tsc1_0b__tsc1transrate);
+        auto v = store.template get<SignalId::tsc1_0b__tsc1transrate>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.tsc1transrate = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::tsc1_0b__tsc1ctrlpurpose);
+        auto v = store.template get<SignalId::tsc1_0b__tsc1ctrlpurpose>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.tsc1ctrlpurpose = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::tsc1_0b__engrequestedtorquehighresolution);
+        auto v = store.template get<SignalId::tsc1_0b__engrequestedtorquehighresolution>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engrequestedtorquehighresolution = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::tsc1_0b__messagecounter);
+        auto v = store.template get<SignalId::tsc1_0b__messagecounter>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.messagecounter = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::tsc1_0b__messagechecksum);
+        auto v = store.template get<SignalId::tsc1_0b__messagechecksum>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
@@ -1363,28 +1324,28 @@ auto build_dm07_from_store(const ValueStore& store)
     Dm07 msg{};
 
     {
-        auto v = store.try_get_u8(SignalId::dm07__testidentifier);
+        auto v = store.template get<SignalId::dm07__testidentifier>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.testidentifier = *v;
     }
     {
-        auto v = store.try_get_u16(SignalId::dm07__spn1);
+        auto v = store.template get<SignalId::dm07__spn1>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.spn1 = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::dm07__failuremodeidentifier1);
+        auto v = store.template get<SignalId::dm07__failuremodeidentifier1>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.failuremodeidentifier1 = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::dm07__spn1high);
+        auto v = store.template get<SignalId::dm07__spn1high>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
@@ -1400,35 +1361,35 @@ auto build_dm08_from_store(const ValueStore& store)
     Dm08 msg{};
 
     {
-        auto v = store.try_get_u8(SignalId::dm08__testidentifier);
+        auto v = store.template get<SignalId::dm08__testidentifier>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.testidentifier = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::dm08__testtype);
+        auto v = store.template get<SignalId::dm08__testtype>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.testtype = *v;
     }
     {
-        auto v = store.try_get_u16(SignalId::dm08__testvalue);
+        auto v = store.template get<SignalId::dm08__testvalue>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.testvalue = *v;
     }
     {
-        auto v = store.try_get_u16(SignalId::dm08__testlimitmaximum);
+        auto v = store.template get<SignalId::dm08__testlimitmaximum>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.testlimitmaximum = *v;
     }
     {
-        auto v = store.try_get_u16(SignalId::dm08__testlimitminimum);
+        auto v = store.template get<SignalId::dm08__testlimitminimum>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
@@ -1444,91 +1405,91 @@ auto build_erc1_electronic_retarder_cntrl_from_store(const ValueStore& store)
     Erc1ElectronicRetarderCntrl msg{};
 
     {
-        auto v = store.try_get_u8(SignalId::erc1_electronic_retarder_cntrl__retardertorquemode);
+        auto v = store.template get<SignalId::erc1_electronic_retarder_cntrl__retardertorquemode>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.retardertorquemode = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::erc1_electronic_retarder_cntrl__retarderenablebrakeassistswitch);
+        auto v = store.template get<SignalId::erc1_electronic_retarder_cntrl__retarderenablebrakeassistswitch>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.retarderenablebrakeassistswitch = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::erc1_electronic_retarder_cntrl__retarderenableshiftassistswitch);
+        auto v = store.template get<SignalId::erc1_electronic_retarder_cntrl__retarderenableshiftassistswitch>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.retarderenableshiftassistswitch = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::erc1_electronic_retarder_cntrl__actualretarderpercenttorque);
+        auto v = store.template get<SignalId::erc1_electronic_retarder_cntrl__actualretarderpercenttorque>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.actualretarderpercenttorque = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::erc1_electronic_retarder_cntrl__intendedretarderpercenttorque);
+        auto v = store.template get<SignalId::erc1_electronic_retarder_cntrl__intendedretarderpercenttorque>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.intendedretarderpercenttorque = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::erc1_electronic_retarder_cntrl__engcoolantloadincrease);
+        auto v = store.template get<SignalId::erc1_electronic_retarder_cntrl__engcoolantloadincrease>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engcoolantloadincrease = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::erc1_electronic_retarder_cntrl__retarderrequestingbrakelight);
+        auto v = store.template get<SignalId::erc1_electronic_retarder_cntrl__retarderrequestingbrakelight>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.retarderrequestingbrakelight = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::erc1_electronic_retarder_cntrl__retarderroadspeedlimitswitch);
+        auto v = store.template get<SignalId::erc1_electronic_retarder_cntrl__retarderroadspeedlimitswitch>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.retarderroadspeedlimitswitch = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::erc1_electronic_retarder_cntrl__retarderroadspeedexceededstatus);
+        auto v = store.template get<SignalId::erc1_electronic_retarder_cntrl__retarderroadspeedexceededstatus>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.retarderroadspeedexceededstatus = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::erc1_electronic_retarder_cntrl__srcaddrssofcntrllngdvcfrrtrdrctr);
+        auto v = store.template get<SignalId::erc1_electronic_retarder_cntrl__srcaddrssofcntrllngdvcfrrtrdrctr>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.srcaddrssofcntrllngdvcfrrtrdrctr = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::erc1_electronic_retarder_cntrl__drvrsdemandretarderpercenttorque);
+        auto v = store.template get<SignalId::erc1_electronic_retarder_cntrl__drvrsdemandretarderpercenttorque>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.drvrsdemandretarderpercenttorque = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::erc1_electronic_retarder_cntrl__retarderselectionnonengine);
+        auto v = store.template get<SignalId::erc1_electronic_retarder_cntrl__retarderselectionnonengine>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.retarderselectionnonengine = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::erc1_electronic_retarder_cntrl__actlmxavlblretarderpercenttorque);
+        auto v = store.template get<SignalId::erc1_electronic_retarder_cntrl__actlmxavlblretarderpercenttorque>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
@@ -1544,77 +1505,77 @@ auto build_etc1_electronic_trans_cntrl_1_from_store(const ValueStore& store)
     Etc1ElectronicTransCntrl1 msg{};
 
     {
-        auto v = store.try_get_u8(SignalId::etc1_electronic_trans_cntrl_1__transdrivelineengaged);
+        auto v = store.template get<SignalId::etc1_electronic_trans_cntrl_1__transdrivelineengaged>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.transdrivelineengaged = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::etc1_electronic_trans_cntrl_1__trnstorqueconverterlockupengaged);
+        auto v = store.template get<SignalId::etc1_electronic_trans_cntrl_1__trnstorqueconverterlockupengaged>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.trnstorqueconverterlockupengaged = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::etc1_electronic_trans_cntrl_1__transshiftinprocess);
+        auto v = store.template get<SignalId::etc1_electronic_trans_cntrl_1__transshiftinprocess>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.transshiftinprocess = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::etc1_electronic_trans_cntrl_1__trnstrqcnvrtrlckptrnstninprocess);
+        auto v = store.template get<SignalId::etc1_electronic_trans_cntrl_1__trnstrqcnvrtrlckptrnstninprocess>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.trnstrqcnvrtrlckptrnstninprocess = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::etc1_electronic_trans_cntrl_1__transoutputshaftspeed);
+        auto v = store.template get<SignalId::etc1_electronic_trans_cntrl_1__transoutputshaftspeed>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.transoutputshaftspeed = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::etc1_electronic_trans_cntrl_1__percentclutchslip);
+        auto v = store.template get<SignalId::etc1_electronic_trans_cntrl_1__percentclutchslip>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.percentclutchslip = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::etc1_electronic_trans_cntrl_1__engmomentaryoverspeedenable);
+        auto v = store.template get<SignalId::etc1_electronic_trans_cntrl_1__engmomentaryoverspeedenable>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engmomentaryoverspeedenable = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::etc1_electronic_trans_cntrl_1__progressiveshiftdisable);
+        auto v = store.template get<SignalId::etc1_electronic_trans_cntrl_1__progressiveshiftdisable>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.progressiveshiftdisable = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::etc1_electronic_trans_cntrl_1__momentaryengmaxpowerenable);
+        auto v = store.template get<SignalId::etc1_electronic_trans_cntrl_1__momentaryengmaxpowerenable>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.momentaryengmaxpowerenable = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::etc1_electronic_trans_cntrl_1__transinputshaftspeed);
+        auto v = store.template get<SignalId::etc1_electronic_trans_cntrl_1__transinputshaftspeed>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.transinputshaftspeed = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::etc1_electronic_trans_cntrl_1__srcaddrssofcntrllngdvcfrtrnsctrl);
+        auto v = store.template get<SignalId::etc1_electronic_trans_cntrl_1__srcaddrssofcntrllngdvcfrtrnsctrl>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
@@ -1630,35 +1591,35 @@ auto build_etc2_electronic_trans_cntrl_2_from_store(const ValueStore& store)
     Etc2ElectronicTransCntrl2 msg{};
 
     {
-        auto v = store.try_get_f64(SignalId::etc2_electronic_trans_cntrl_2__transselectedgear);
+        auto v = store.template get<SignalId::etc2_electronic_trans_cntrl_2__transselectedgear>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.transselectedgear = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::etc2_electronic_trans_cntrl_2__transactualgearratio);
+        auto v = store.template get<SignalId::etc2_electronic_trans_cntrl_2__transactualgearratio>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.transactualgearratio = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::etc2_electronic_trans_cntrl_2__transcurrentgear);
+        auto v = store.template get<SignalId::etc2_electronic_trans_cntrl_2__transcurrentgear>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.transcurrentgear = *v;
     }
     {
-        auto v = store.try_get_u16(SignalId::etc2_electronic_trans_cntrl_2__transrequestedrange);
+        auto v = store.template get<SignalId::etc2_electronic_trans_cntrl_2__transrequestedrange>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.transrequestedrange = *v;
     }
     {
-        auto v = store.try_get_u16(SignalId::etc2_electronic_trans_cntrl_2__transcurrentrange);
+        auto v = store.template get<SignalId::etc2_electronic_trans_cntrl_2__transcurrentrange>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
@@ -1674,7 +1635,7 @@ auto build_rqst_00_5e_from_store(const ValueStore& store)
     Rqst005e msg{};
 
     {
-        auto v = store.try_get_u32(SignalId::rqst_00_5e__parametergroupnumber);
+        auto v = store.template get<SignalId::rqst_00_5e__parametergroupnumber>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
@@ -1690,7 +1651,7 @@ auto build_rqst_00_21_from_store(const ValueStore& store)
     Rqst0021 msg{};
 
     {
-        auto v = store.try_get_u32(SignalId::rqst_00_21__parametergroupnumber);
+        auto v = store.template get<SignalId::rqst_00_21__parametergroupnumber>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
@@ -1706,7 +1667,7 @@ auto build_rqst_global_5e_from_store(const ValueStore& store)
     RqstGlobal5e msg{};
 
     {
-        auto v = store.try_get_u32(SignalId::rqst_global_5e__parametergroupnumber);
+        auto v = store.template get<SignalId::rqst_global_5e__parametergroupnumber>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
@@ -1722,7 +1683,7 @@ auto build_rqst_global_03_from_store(const ValueStore& store)
     RqstGlobal03 msg{};
 
     {
-        auto v = store.try_get_u32(SignalId::rqst_global_03__parametergroupnumber);
+        auto v = store.template get<SignalId::rqst_global_03__parametergroupnumber>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
@@ -1738,35 +1699,35 @@ auto build_tci_transfer_case_information_from_store(const ValueStore& store)
     TciTransferCaseInformation msg{};
 
     {
-        auto v = store.try_get_u8(SignalId::tci_transfer_case_information__transfercasestatus);
+        auto v = store.template get<SignalId::tci_transfer_case_information__transfercasestatus>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.transfercasestatus = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::tci_transfer_case_information__dirstatus);
+        auto v = store.template get<SignalId::tci_transfer_case_information__dirstatus>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.dirstatus = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::tci_transfer_case_information__actualgearratio);
+        auto v = store.template get<SignalId::tci_transfer_case_information__actualgearratio>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.actualgearratio = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::tci_transfer_case_information__messagecounter);
+        auto v = store.template get<SignalId::tci_transfer_case_information__messagecounter>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.messagecounter = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::tci_transfer_case_information__messagechecksum);
+        auto v = store.template get<SignalId::tci_transfer_case_information__messagechecksum>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
@@ -1782,56 +1743,56 @@ auto build_trf1_transmission_fluids_1_from_store(const ValueStore& store)
     Trf1TransmissionFluids1 msg{};
 
     {
-        auto v = store.try_get_u8(SignalId::trf1_transmission_fluids_1__clutchpress);
+        auto v = store.template get<SignalId::trf1_transmission_fluids_1__clutchpress>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.clutchpress = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::trf1_transmission_fluids_1__transoillevel1);
+        auto v = store.template get<SignalId::trf1_transmission_fluids_1__transoillevel1>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.transoillevel1 = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::trf1_transmission_fluids_1__transfilterdiffpress);
+        auto v = store.template get<SignalId::trf1_transmission_fluids_1__transfilterdiffpress>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.transfilterdiffpress = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::trf1_transmission_fluids_1__transoilpress);
+        auto v = store.template get<SignalId::trf1_transmission_fluids_1__transoilpress>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.transoilpress = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::trf1_transmission_fluids_1__transoiltemp1);
+        auto v = store.template get<SignalId::trf1_transmission_fluids_1__transoiltemp1>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.transoiltemp1 = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::trf1_transmission_fluids_1__transoillevel1high_low);
+        auto v = store.template get<SignalId::trf1_transmission_fluids_1__transoillevel1high_low>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.transoillevel1high_low = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::trf1_transmission_fluids_1__transoillevel1countdowntimer);
+        auto v = store.template get<SignalId::trf1_transmission_fluids_1__transoillevel1countdowntimer>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.transoillevel1countdowntimer = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::trf1_transmission_fluids_1__transoillevel1measurementstatus);
+        auto v = store.template get<SignalId::trf1_transmission_fluids_1__transoillevel1measurementstatus>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
@@ -1847,70 +1808,70 @@ auto build_ccss_cruise_control_vehicle_spd_from_store(const ValueStore& store)
     CcssCruiseControlVehicleSpd msg{};
 
     {
-        auto v = store.try_get_u8(SignalId::ccss_cruise_control_vehicle_spd__maxvehiclespeedlimit);
+        auto v = store.template get<SignalId::ccss_cruise_control_vehicle_spd__maxvehiclespeedlimit>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.maxvehiclespeedlimit = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::ccss_cruise_control_vehicle_spd__cruisectrlhighsetlimitspeed);
+        auto v = store.template get<SignalId::ccss_cruise_control_vehicle_spd__cruisectrlhighsetlimitspeed>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.cruisectrlhighsetlimitspeed = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::ccss_cruise_control_vehicle_spd__cruisectrllowsetlimitspeed);
+        auto v = store.template get<SignalId::ccss_cruise_control_vehicle_spd__cruisectrllowsetlimitspeed>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.cruisectrllowsetlimitspeed = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::ccss_cruise_control_vehicle_spd__maxvehiclespeedlimit6808);
+        auto v = store.template get<SignalId::ccss_cruise_control_vehicle_spd__maxvehiclespeedlimit6808>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.maxvehiclespeedlimit6808 = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::ccss_cruise_control_vehicle_spd__ctrlsyslowsetlmtspd);
+        auto v = store.template get<SignalId::ccss_cruise_control_vehicle_spd__ctrlsyslowsetlmtspd>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.ctrlsyslowsetlmtspd = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::ccss_cruise_control_vehicle_spd__ctrldiscmdsupport);
+        auto v = store.template get<SignalId::ccss_cruise_control_vehicle_spd__ctrldiscmdsupport>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.ctrldiscmdsupport = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::ccss_cruise_control_vehicle_spd__ctrlresumecmdsupport);
+        auto v = store.template get<SignalId::ccss_cruise_control_vehicle_spd__ctrlresumecmdsupport>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.ctrlresumecmdsupport = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::ccss_cruise_control_vehicle_spd__ctrlpausecmdsupport);
+        auto v = store.template get<SignalId::ccss_cruise_control_vehicle_spd__ctrlpausecmdsupport>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.ctrlpausecmdsupport = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::ccss_cruise_control_vehicle_spd__ctrlsetcmdsupport);
+        auto v = store.template get<SignalId::ccss_cruise_control_vehicle_spd__ctrlsetcmdsupport>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.ctrlsetcmdsupport = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::ccss_cruise_control_vehicle_spd__powertrainadaptivecctype);
+        auto v = store.template get<SignalId::ccss_cruise_control_vehicle_spd__powertrainadaptivecctype>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
@@ -1926,140 +1887,140 @@ auto build_ccvs1_cruise_control_vehspd_from_store(const ValueStore& store)
     Ccvs1CruiseControlVehspd msg{};
 
     {
-        auto v = store.try_get_u8(SignalId::ccvs1_cruise_control_vehspd__twospeedaxleswitch);
+        auto v = store.template get<SignalId::ccvs1_cruise_control_vehspd__twospeedaxleswitch>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.twospeedaxleswitch = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::ccvs1_cruise_control_vehspd__parkingbrakeswitch);
+        auto v = store.template get<SignalId::ccvs1_cruise_control_vehspd__parkingbrakeswitch>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.parkingbrakeswitch = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::ccvs1_cruise_control_vehspd__cruisectrlpauseswitch);
+        auto v = store.template get<SignalId::ccvs1_cruise_control_vehspd__cruisectrlpauseswitch>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.cruisectrlpauseswitch = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::ccvs1_cruise_control_vehspd__parkbrakereleaseinhibitrq);
+        auto v = store.template get<SignalId::ccvs1_cruise_control_vehspd__parkbrakereleaseinhibitrq>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.parkbrakereleaseinhibitrq = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::ccvs1_cruise_control_vehspd__wheelbasedvehiclespeed);
+        auto v = store.template get<SignalId::ccvs1_cruise_control_vehspd__wheelbasedvehiclespeed>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.wheelbasedvehiclespeed = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::ccvs1_cruise_control_vehspd__cruisectrlactive);
+        auto v = store.template get<SignalId::ccvs1_cruise_control_vehspd__cruisectrlactive>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.cruisectrlactive = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::ccvs1_cruise_control_vehspd__cruisectrlenableswitch);
+        auto v = store.template get<SignalId::ccvs1_cruise_control_vehspd__cruisectrlenableswitch>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.cruisectrlenableswitch = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::ccvs1_cruise_control_vehspd__brakeswitch);
+        auto v = store.template get<SignalId::ccvs1_cruise_control_vehspd__brakeswitch>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.brakeswitch = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::ccvs1_cruise_control_vehspd__clutchswitch);
+        auto v = store.template get<SignalId::ccvs1_cruise_control_vehspd__clutchswitch>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.clutchswitch = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::ccvs1_cruise_control_vehspd__cruisectrlsetswitch);
+        auto v = store.template get<SignalId::ccvs1_cruise_control_vehspd__cruisectrlsetswitch>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.cruisectrlsetswitch = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::ccvs1_cruise_control_vehspd__cruisectrlcoastswitch);
+        auto v = store.template get<SignalId::ccvs1_cruise_control_vehspd__cruisectrlcoastswitch>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.cruisectrlcoastswitch = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::ccvs1_cruise_control_vehspd__cruisectrlresumeswitch);
+        auto v = store.template get<SignalId::ccvs1_cruise_control_vehspd__cruisectrlresumeswitch>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.cruisectrlresumeswitch = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::ccvs1_cruise_control_vehspd__cruisectrlaccelerateswitch);
+        auto v = store.template get<SignalId::ccvs1_cruise_control_vehspd__cruisectrlaccelerateswitch>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.cruisectrlaccelerateswitch = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::ccvs1_cruise_control_vehspd__cruisectrlsetspeed);
+        auto v = store.template get<SignalId::ccvs1_cruise_control_vehspd__cruisectrlsetspeed>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.cruisectrlsetspeed = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::ccvs1_cruise_control_vehspd__ptogovernorstate);
+        auto v = store.template get<SignalId::ccvs1_cruise_control_vehspd__ptogovernorstate>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.ptogovernorstate = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::ccvs1_cruise_control_vehspd__cruisectrlstates);
+        auto v = store.template get<SignalId::ccvs1_cruise_control_vehspd__cruisectrlstates>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.cruisectrlstates = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::ccvs1_cruise_control_vehspd__engidleincrementswitch);
+        auto v = store.template get<SignalId::ccvs1_cruise_control_vehspd__engidleincrementswitch>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engidleincrementswitch = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::ccvs1_cruise_control_vehspd__engidledecrementswitch);
+        auto v = store.template get<SignalId::ccvs1_cruise_control_vehspd__engidledecrementswitch>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engidledecrementswitch = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::ccvs1_cruise_control_vehspd__engtestmodeswitch);
+        auto v = store.template get<SignalId::ccvs1_cruise_control_vehspd__engtestmodeswitch>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engtestmodeswitch = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::ccvs1_cruise_control_vehspd__engshutdownoverrideswitch);
+        auto v = store.template get<SignalId::ccvs1_cruise_control_vehspd__engshutdownoverrideswitch>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
@@ -2075,161 +2036,161 @@ auto build_ebc1_electronic_brake_cntrl_from_store(const ValueStore& store)
     Ebc1ElectronicBrakeCntrl msg{};
 
     {
-        auto v = store.try_get_u8(SignalId::ebc1_electronic_brake_cntrl__asrengctrlactive);
+        auto v = store.template get<SignalId::ebc1_electronic_brake_cntrl__asrengctrlactive>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.asrengctrlactive = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::ebc1_electronic_brake_cntrl__asrbrakectrlactive);
+        auto v = store.template get<SignalId::ebc1_electronic_brake_cntrl__asrbrakectrlactive>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.asrbrakectrlactive = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::ebc1_electronic_brake_cntrl__antilockbrakingactive);
+        auto v = store.template get<SignalId::ebc1_electronic_brake_cntrl__antilockbrakingactive>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.antilockbrakingactive = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::ebc1_electronic_brake_cntrl__ebsbrakeswitch);
+        auto v = store.template get<SignalId::ebc1_electronic_brake_cntrl__ebsbrakeswitch>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.ebsbrakeswitch = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::ebc1_electronic_brake_cntrl__brakepedalpos);
+        auto v = store.template get<SignalId::ebc1_electronic_brake_cntrl__brakepedalpos>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.brakepedalpos = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::ebc1_electronic_brake_cntrl__absoffroadswitch);
+        auto v = store.template get<SignalId::ebc1_electronic_brake_cntrl__absoffroadswitch>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.absoffroadswitch = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::ebc1_electronic_brake_cntrl__asroffroadswitch);
+        auto v = store.template get<SignalId::ebc1_electronic_brake_cntrl__asroffroadswitch>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.asroffroadswitch = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::ebc1_electronic_brake_cntrl__asrhillholderswitch);
+        auto v = store.template get<SignalId::ebc1_electronic_brake_cntrl__asrhillholderswitch>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.asrhillholderswitch = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::ebc1_electronic_brake_cntrl__tractionctrloverrideswitch);
+        auto v = store.template get<SignalId::ebc1_electronic_brake_cntrl__tractionctrloverrideswitch>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.tractionctrloverrideswitch = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::ebc1_electronic_brake_cntrl__accelinterlockswitch);
+        auto v = store.template get<SignalId::ebc1_electronic_brake_cntrl__accelinterlockswitch>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.accelinterlockswitch = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::ebc1_electronic_brake_cntrl__engderateswitch);
+        auto v = store.template get<SignalId::ebc1_electronic_brake_cntrl__engderateswitch>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engderateswitch = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::ebc1_electronic_brake_cntrl__engauxshutdownswitch);
+        auto v = store.template get<SignalId::ebc1_electronic_brake_cntrl__engauxshutdownswitch>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engauxshutdownswitch = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::ebc1_electronic_brake_cntrl__remoteaccelenableswitch);
+        auto v = store.template get<SignalId::ebc1_electronic_brake_cntrl__remoteaccelenableswitch>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.remoteaccelenableswitch = *v;
     }
     {
-        auto v = store.try_get_f64(SignalId::ebc1_electronic_brake_cntrl__engretarderselection);
+        auto v = store.template get<SignalId::ebc1_electronic_brake_cntrl__engretarderselection>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engretarderselection = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::ebc1_electronic_brake_cntrl__absfullyoperational);
+        auto v = store.template get<SignalId::ebc1_electronic_brake_cntrl__absfullyoperational>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.absfullyoperational = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::ebc1_electronic_brake_cntrl__ebsredwarningsignal);
+        auto v = store.template get<SignalId::ebc1_electronic_brake_cntrl__ebsredwarningsignal>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.ebsredwarningsignal = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::ebc1_electronic_brake_cntrl__abs_ebsamberwarningsignal);
+        auto v = store.template get<SignalId::ebc1_electronic_brake_cntrl__abs_ebsamberwarningsignal>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.abs_ebsamberwarningsignal = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::ebc1_electronic_brake_cntrl__atc_asrinformationsignal);
+        auto v = store.template get<SignalId::ebc1_electronic_brake_cntrl__atc_asrinformationsignal>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.atc_asrinformationsignal = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::ebc1_electronic_brake_cntrl__srcaddrssofcntrllngdvcfrbrkectrl);
+        auto v = store.template get<SignalId::ebc1_electronic_brake_cntrl__srcaddrssofcntrllngdvcfrbrkectrl>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.srcaddrssofcntrllngdvcfrbrkectrl = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::ebc1_electronic_brake_cntrl__railroadmodesw);
+        auto v = store.template get<SignalId::ebc1_electronic_brake_cntrl__railroadmodesw>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.railroadmodesw = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::ebc1_electronic_brake_cntrl__haltbrakeswitch);
+        auto v = store.template get<SignalId::ebc1_electronic_brake_cntrl__haltbrakeswitch>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.haltbrakeswitch = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::ebc1_electronic_brake_cntrl__trailerabsstatus);
+        auto v = store.template get<SignalId::ebc1_electronic_brake_cntrl__trailerabsstatus>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.trailerabsstatus = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::ebc1_electronic_brake_cntrl__trctrmntdtrailerabswarningsignal);
+        auto v = store.template get<SignalId::ebc1_electronic_brake_cntrl__trctrmntdtrailerabswarningsignal>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
@@ -2245,154 +2206,154 @@ auto build_shutdn_from_store(const ValueStore& store)
     Shutdn msg{};
 
     {
-        auto v = store.try_get_u8(SignalId::shutdn__engidleshutdownhasshutdowneng);
+        auto v = store.template get<SignalId::shutdn__engidleshutdownhasshutdowneng>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engidleshutdownhasshutdowneng = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::shutdn__engidleshutdowndriveralertmode);
+        auto v = store.template get<SignalId::shutdn__engidleshutdowndriveralertmode>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engidleshutdowndriveralertmode = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::shutdn__engidleshutdowntimeroverride);
+        auto v = store.template get<SignalId::shutdn__engidleshutdowntimeroverride>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engidleshutdowntimeroverride = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::shutdn__engidleshutdowntimerstate);
+        auto v = store.template get<SignalId::shutdn__engidleshutdowntimerstate>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engidleshutdowntimerstate = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::shutdn__engidleshutdowntimerfunction);
+        auto v = store.template get<SignalId::shutdn__engidleshutdowntimerfunction>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engidleshutdowntimerfunction = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::shutdn__a_chighpressfanswitch);
+        auto v = store.template get<SignalId::shutdn__a_chighpressfanswitch>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.a_chighpressfanswitch = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::shutdn__refrigerantlowpressswitch);
+        auto v = store.template get<SignalId::shutdn__refrigerantlowpressswitch>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.refrigerantlowpressswitch = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::shutdn__refrigeranthighpressswitch);
+        auto v = store.template get<SignalId::shutdn__refrigeranthighpressswitch>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.refrigeranthighpressswitch = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::shutdn__engwaittostartlamp);
+        auto v = store.template get<SignalId::shutdn__engwaittostartlamp>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engwaittostartlamp = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::shutdn__engprtectionsystemhasshutdowneng);
+        auto v = store.template get<SignalId::shutdn__engprtectionsystemhasshutdowneng>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engprtectionsystemhasshutdowneng = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::shutdn__engprtctnsystmapprachingshutdown);
+        auto v = store.template get<SignalId::shutdn__engprtctnsystmapprachingshutdown>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engprtctnsystmapprachingshutdown = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::shutdn__engprotectionsystemtimeroverride);
+        auto v = store.template get<SignalId::shutdn__engprotectionsystemtimeroverride>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engprotectionsystemtimeroverride = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::shutdn__engprotectionsystemtimerstate);
+        auto v = store.template get<SignalId::shutdn__engprotectionsystemtimerstate>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engprotectionsystemtimerstate = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::shutdn__engprotectionsystemconfig);
+        auto v = store.template get<SignalId::shutdn__engprotectionsystemconfig>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engprotectionsystemconfig = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::shutdn__engalarmacknowledge);
+        auto v = store.template get<SignalId::shutdn__engalarmacknowledge>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engalarmacknowledge = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::shutdn__engalarmoutputcmdstatus);
+        auto v = store.template get<SignalId::shutdn__engalarmoutputcmdstatus>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engalarmoutputcmdstatus = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::shutdn__engairshutoffcmdstatus);
+        auto v = store.template get<SignalId::shutdn__engairshutoffcmdstatus>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engairshutoffcmdstatus = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::shutdn__engoverspeedtest);
+        auto v = store.template get<SignalId::shutdn__engoverspeedtest>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engoverspeedtest = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::shutdn__engairshutoffstatus);
+        auto v = store.template get<SignalId::shutdn__engairshutoffstatus>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.engairshutoffstatus = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::shutdn__ptoshutdownhasshutdowneng);
+        auto v = store.template get<SignalId::shutdn__ptoshutdownhasshutdowneng>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.ptoshutdownhasshutdowneng = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::shutdn__clntlvlengprtctionshutdownstatus);
+        auto v = store.template get<SignalId::shutdn__clntlvlengprtctionshutdownstatus>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
         msg.clntlvlengprtctionshutdownstatus = *v;
     }
     {
-        auto v = store.try_get_u8(SignalId::shutdn__engoilpresssw);
+        auto v = store.template get<SignalId::shutdn__engoilpresssw>();
         if (!v) {
             return std::unexpected(BuildError::missing_signal);
         }
@@ -2703,6 +2664,16 @@ auto build_message_from_store(MessageId id, const ValueStore& store)
     default:
         return std::unexpected(BuildError::unsupported_message);
     }
+}
+
+auto validate_message_buildable(MessageId id, const ValueStore& store)
+    -> std::expected<void, BuildError>
+{
+    auto built = build_message_from_store(id, store);
+    if (!built) {
+        return std::unexpected(built.error());
+    }
+    return {};
 }
 
 } // namespace duramax

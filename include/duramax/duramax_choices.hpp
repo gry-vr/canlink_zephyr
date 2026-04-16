@@ -1,5 +1,6 @@
 #pragma once
 
+#include "duramax_concepts.hpp"
 #include "duramax_store.hpp"
 
 #include <array>
@@ -69,7 +70,7 @@ constexpr auto to_raw(Eec5ElectronicEngineControl5EngineFuelControlControlModeSt
 }
 
 constexpr auto try_get_eec5_electronic_engine_control_5__engine_fuel_control_control_mode(const ValueStore& store) -> std::optional<Eec5ElectronicEngineControl5EngineFuelControlControlModeState> {
-    auto raw = store.try_get_u8(SignalId::eec5_electronic_engine_control_5__engine_fuel_control_control_mode);
+    auto raw = store.template get<SignalId::eec5_electronic_engine_control_5__engine_fuel_control_control_mode>();
     if (!raw) {
         return std::nullopt;
     }
@@ -130,7 +131,7 @@ constexpr auto to_raw(Eec5ElectronicEngineControl5EngineVgtControlModeState valu
 }
 
 constexpr auto try_get_eec5_electronic_engine_control_5__engine_vgt_control_mode(const ValueStore& store) -> std::optional<Eec5ElectronicEngineControl5EngineVgtControlModeState> {
-    auto raw = store.try_get_u8(SignalId::eec5_electronic_engine_control_5__engine_vgt_control_mode);
+    auto raw = store.template get<SignalId::eec5_electronic_engine_control_5__engine_vgt_control_mode>();
     if (!raw) {
         return std::nullopt;
     }
@@ -185,7 +186,7 @@ constexpr auto to_raw(Eec1ElectronicEngineControl1Actlengprcnttorquehighresoluti
 }
 
 constexpr auto try_get_eec1_electronic_engine_control_1__actlengprcnttorquehighresolution(const ValueStore& store) -> std::optional<Eec1ElectronicEngineControl1ActlengprcnttorquehighresolutionState> {
-    auto raw = store.try_get_u8(SignalId::eec1_electronic_engine_control_1__actlengprcnttorquehighresolution);
+    auto raw = store.template get<SignalId::eec1_electronic_engine_control_1__actlengprcnttorquehighresolution>();
     if (!raw) {
         return std::nullopt;
     }
@@ -318,7 +319,7 @@ constexpr auto to_raw(Eec1ElectronicEngineControl1EngstartermodeState value) -> 
 }
 
 constexpr auto try_get_eec1_electronic_engine_control_1__engstartermode(const ValueStore& store) -> std::optional<Eec1ElectronicEngineControl1EngstartermodeState> {
-    auto raw = store.try_get_u8(SignalId::eec1_electronic_engine_control_1__engstartermode);
+    auto raw = store.template get<SignalId::eec1_electronic_engine_control_1__engstartermode>();
     if (!raw) {
         return std::nullopt;
     }
@@ -379,7 +380,7 @@ constexpr auto to_raw(Eec2ElectronicEngineControl2Accelpedal1lowidleswitchState 
 }
 
 constexpr auto try_get_eec2_electronic_engine_control_2__accelpedal1lowidleswitch(const ValueStore& store) -> std::optional<Eec2ElectronicEngineControl2Accelpedal1lowidleswitchState> {
-    auto raw = store.try_get_u8(SignalId::eec2_electronic_engine_control_2__accelpedal1lowidleswitch);
+    auto raw = store.template get<SignalId::eec2_electronic_engine_control_2__accelpedal1lowidleswitch>();
     if (!raw) {
         return std::nullopt;
     }
@@ -440,7 +441,7 @@ constexpr auto to_raw(Eec2ElectronicEngineControl2AccelpedalkickdownswitchState 
 }
 
 constexpr auto try_get_eec2_electronic_engine_control_2__accelpedalkickdownswitch(const ValueStore& store) -> std::optional<Eec2ElectronicEngineControl2AccelpedalkickdownswitchState> {
-    auto raw = store.try_get_u8(SignalId::eec2_electronic_engine_control_2__accelpedalkickdownswitch);
+    auto raw = store.template get<SignalId::eec2_electronic_engine_control_2__accelpedalkickdownswitch>();
     if (!raw) {
         return std::nullopt;
     }
@@ -501,7 +502,7 @@ constexpr auto to_raw(Eec2ElectronicEngineControl2RoadspeedlimitstatusState valu
 }
 
 constexpr auto try_get_eec2_electronic_engine_control_2__roadspeedlimitstatus(const ValueStore& store) -> std::optional<Eec2ElectronicEngineControl2RoadspeedlimitstatusState> {
-    auto raw = store.try_get_u8(SignalId::eec2_electronic_engine_control_2__roadspeedlimitstatus);
+    auto raw = store.template get<SignalId::eec2_electronic_engine_control_2__roadspeedlimitstatus>();
     if (!raw) {
         return std::nullopt;
     }
@@ -562,7 +563,7 @@ constexpr auto to_raw(Eec2ElectronicEngineControl2Accelpedal2lowidleswitchState 
 }
 
 constexpr auto try_get_eec2_electronic_engine_control_2__accelpedal2lowidleswitch(const ValueStore& store) -> std::optional<Eec2ElectronicEngineControl2Accelpedal2lowidleswitchState> {
-    auto raw = store.try_get_u8(SignalId::eec2_electronic_engine_control_2__accelpedal2lowidleswitch);
+    auto raw = store.template get<SignalId::eec2_electronic_engine_control_2__accelpedal2lowidleswitch>();
     if (!raw) {
         return std::nullopt;
     }
@@ -623,7 +624,7 @@ constexpr auto to_raw(Eec2ElectronicEngineControl2Vhcleaccelerationratelimitstat
 }
 
 constexpr auto try_get_eec2_electronic_engine_control_2__vhcleaccelerationratelimitstatus(const ValueStore& store) -> std::optional<Eec2ElectronicEngineControl2VhcleaccelerationratelimitstatusState> {
-    auto raw = store.try_get_u8(SignalId::eec2_electronic_engine_control_2__vhcleaccelerationratelimitstatus);
+    auto raw = store.template get<SignalId::eec2_electronic_engine_control_2__vhcleaccelerationratelimitstatus>();
     if (!raw) {
         return std::nullopt;
     }
@@ -684,7 +685,7 @@ constexpr auto to_raw(Eec2ElectronicEngineControl2Mmntaryengmaxpowerenablefeedba
 }
 
 constexpr auto try_get_eec2_electronic_engine_control_2__mmntaryengmaxpowerenablefeedback(const ValueStore& store) -> std::optional<Eec2ElectronicEngineControl2MmntaryengmaxpowerenablefeedbackState> {
-    auto raw = store.try_get_u8(SignalId::eec2_electronic_engine_control_2__mmntaryengmaxpowerenablefeedback);
+    auto raw = store.template get<SignalId::eec2_electronic_engine_control_2__mmntaryengmaxpowerenablefeedback>();
     if (!raw) {
         return std::nullopt;
     }
@@ -745,7 +746,7 @@ constexpr auto to_raw(Eec2ElectronicEngineControl2DpfthermalmanagementactiveStat
 }
 
 constexpr auto try_get_eec2_electronic_engine_control_2__dpfthermalmanagementactive(const ValueStore& store) -> std::optional<Eec2ElectronicEngineControl2DpfthermalmanagementactiveState> {
-    auto raw = store.try_get_u8(SignalId::eec2_electronic_engine_control_2__dpfthermalmanagementactive);
+    auto raw = store.template get<SignalId::eec2_electronic_engine_control_2__dpfthermalmanagementactive>();
     if (!raw) {
         return std::nullopt;
     }
@@ -806,7 +807,7 @@ constexpr auto to_raw(Eec2ElectronicEngineControl2ScrthermalmanagementactiveStat
 }
 
 constexpr auto try_get_eec2_electronic_engine_control_2__scrthermalmanagementactive(const ValueStore& store) -> std::optional<Eec2ElectronicEngineControl2ScrthermalmanagementactiveState> {
-    auto raw = store.try_get_u8(SignalId::eec2_electronic_engine_control_2__scrthermalmanagementactive);
+    auto raw = store.template get<SignalId::eec2_electronic_engine_control_2__scrthermalmanagementactive>();
     if (!raw) {
         return std::nullopt;
     }
@@ -867,7 +868,7 @@ constexpr auto to_raw(Eec3ElectronicEngineControl3Aft1indewpointState value) -> 
 }
 
 constexpr auto try_get_eec3_electronic_engine_control_3__aft1indewpoint(const ValueStore& store) -> std::optional<Eec3ElectronicEngineControl3Aft1indewpointState> {
-    auto raw = store.try_get_u8(SignalId::eec3_electronic_engine_control_3__aft1indewpoint);
+    auto raw = store.template get<SignalId::eec3_electronic_engine_control_3__aft1indewpoint>();
     if (!raw) {
         return std::nullopt;
     }
@@ -928,7 +929,7 @@ constexpr auto to_raw(Eec3ElectronicEngineControl3Aft1exhdewpointState value) ->
 }
 
 constexpr auto try_get_eec3_electronic_engine_control_3__aft1exhdewpoint(const ValueStore& store) -> std::optional<Eec3ElectronicEngineControl3Aft1exhdewpointState> {
-    auto raw = store.try_get_u8(SignalId::eec3_electronic_engine_control_3__aft1exhdewpoint);
+    auto raw = store.template get<SignalId::eec3_electronic_engine_control_3__aft1exhdewpoint>();
     if (!raw) {
         return std::nullopt;
     }
@@ -989,7 +990,7 @@ constexpr auto to_raw(Eec3ElectronicEngineControl3Aft2indewpointState value) -> 
 }
 
 constexpr auto try_get_eec3_electronic_engine_control_3__aft2indewpoint(const ValueStore& store) -> std::optional<Eec3ElectronicEngineControl3Aft2indewpointState> {
-    auto raw = store.try_get_u8(SignalId::eec3_electronic_engine_control_3__aft2indewpoint);
+    auto raw = store.template get<SignalId::eec3_electronic_engine_control_3__aft2indewpoint>();
     if (!raw) {
         return std::nullopt;
     }
@@ -1050,7 +1051,7 @@ constexpr auto to_raw(Eec3ElectronicEngineControl3Aft2exhdewpointState value) ->
 }
 
 constexpr auto try_get_eec3_electronic_engine_control_3__aft2exhdewpoint(const ValueStore& store) -> std::optional<Eec3ElectronicEngineControl3Aft2exhdewpointState> {
-    auto raw = store.try_get_u8(SignalId::eec3_electronic_engine_control_3__aft2exhdewpoint);
+    auto raw = store.template get<SignalId::eec3_electronic_engine_control_3__aft2exhdewpoint>();
     if (!raw) {
         return std::nullopt;
     }
@@ -1117,7 +1118,7 @@ constexpr auto to_raw(TransportprotocolHeaderControlbyteState value) -> std::uin
 }
 
 constexpr auto try_get_transportprotocol_header__controlbyte(const ValueStore& store) -> std::optional<TransportprotocolHeaderControlbyteState> {
-    auto raw = store.try_get_u8(SignalId::transportprotocol_header__controlbyte);
+    auto raw = store.template get<SignalId::transportprotocol_header__controlbyte>();
     if (!raw) {
         return std::nullopt;
     }
@@ -1226,7 +1227,7 @@ constexpr auto to_raw(TransportprotocolHeaderConnectionabortreasonState value) -
 }
 
 constexpr auto try_get_transportprotocol_header__connectionabortreason(const ValueStore& store) -> std::optional<TransportprotocolHeaderConnectionabortreasonState> {
-    auto raw = store.try_get_u8(SignalId::transportprotocol_header__connectionabortreason);
+    auto raw = store.template get<SignalId::transportprotocol_header__connectionabortreason>();
     if (!raw) {
         return std::nullopt;
     }
@@ -1269,7 +1270,7 @@ constexpr auto to_raw(TransportprotocolHeaderPgnumberState value) -> std::uint32
 }
 
 constexpr auto try_get_transportprotocol_header__pgnumber(const ValueStore& store) -> std::optional<TransportprotocolHeaderPgnumberState> {
-    auto raw = store.try_get_u32(SignalId::transportprotocol_header__pgnumber);
+    auto raw = store.template get<SignalId::transportprotocol_header__pgnumber>();
     if (!raw) {
         return std::nullopt;
     }
@@ -1330,7 +1331,7 @@ constexpr auto to_raw(Dm01ActiveDiagnosticsProtectlampstatusState value) -> std:
 }
 
 constexpr auto try_get_dm01_active_diagnostics__protectlampstatus(const ValueStore& store) -> std::optional<Dm01ActiveDiagnosticsProtectlampstatusState> {
-    auto raw = store.try_get_u8(SignalId::dm01_active_diagnostics__protectlampstatus);
+    auto raw = store.template get<SignalId::dm01_active_diagnostics__protectlampstatus>();
     if (!raw) {
         return std::nullopt;
     }
@@ -1391,7 +1392,7 @@ constexpr auto to_raw(Dm01ActiveDiagnosticsAmberwarninglampstatusState value) ->
 }
 
 constexpr auto try_get_dm01_active_diagnostics__amberwarninglampstatus(const ValueStore& store) -> std::optional<Dm01ActiveDiagnosticsAmberwarninglampstatusState> {
-    auto raw = store.try_get_u8(SignalId::dm01_active_diagnostics__amberwarninglampstatus);
+    auto raw = store.template get<SignalId::dm01_active_diagnostics__amberwarninglampstatus>();
     if (!raw) {
         return std::nullopt;
     }
@@ -1452,7 +1453,7 @@ constexpr auto to_raw(Dm01ActiveDiagnosticsRedstoplampstateState value) -> std::
 }
 
 constexpr auto try_get_dm01_active_diagnostics__redstoplampstate(const ValueStore& store) -> std::optional<Dm01ActiveDiagnosticsRedstoplampstateState> {
-    auto raw = store.try_get_u8(SignalId::dm01_active_diagnostics__redstoplampstate);
+    auto raw = store.template get<SignalId::dm01_active_diagnostics__redstoplampstate>();
     if (!raw) {
         return std::nullopt;
     }
@@ -1513,7 +1514,7 @@ constexpr auto to_raw(Dm01ActiveDiagnosticsMalfunctionindicatorlampstatusState v
 }
 
 constexpr auto try_get_dm01_active_diagnostics__malfunctionindicatorlampstatus(const ValueStore& store) -> std::optional<Dm01ActiveDiagnosticsMalfunctionindicatorlampstatusState> {
-    auto raw = store.try_get_u8(SignalId::dm01_active_diagnostics__malfunctionindicatorlampstatus);
+    auto raw = store.template get<SignalId::dm01_active_diagnostics__malfunctionindicatorlampstatus>();
     if (!raw) {
         return std::nullopt;
     }
@@ -1574,7 +1575,7 @@ constexpr auto to_raw(Dm01ActiveDiagnosticsFlashprotectlampState value) -> std::
 }
 
 constexpr auto try_get_dm01_active_diagnostics__flashprotectlamp(const ValueStore& store) -> std::optional<Dm01ActiveDiagnosticsFlashprotectlampState> {
-    auto raw = store.try_get_u8(SignalId::dm01_active_diagnostics__flashprotectlamp);
+    auto raw = store.template get<SignalId::dm01_active_diagnostics__flashprotectlamp>();
     if (!raw) {
         return std::nullopt;
     }
@@ -1635,7 +1636,7 @@ constexpr auto to_raw(Dm01ActiveDiagnosticsFlashamberwarninglampState value) -> 
 }
 
 constexpr auto try_get_dm01_active_diagnostics__flashamberwarninglamp(const ValueStore& store) -> std::optional<Dm01ActiveDiagnosticsFlashamberwarninglampState> {
-    auto raw = store.try_get_u8(SignalId::dm01_active_diagnostics__flashamberwarninglamp);
+    auto raw = store.template get<SignalId::dm01_active_diagnostics__flashamberwarninglamp>();
     if (!raw) {
         return std::nullopt;
     }
@@ -1696,7 +1697,7 @@ constexpr auto to_raw(Dm01ActiveDiagnosticsFlashredstoplampState value) -> std::
 }
 
 constexpr auto try_get_dm01_active_diagnostics__flashredstoplamp(const ValueStore& store) -> std::optional<Dm01ActiveDiagnosticsFlashredstoplampState> {
-    auto raw = store.try_get_u8(SignalId::dm01_active_diagnostics__flashredstoplamp);
+    auto raw = store.template get<SignalId::dm01_active_diagnostics__flashredstoplamp>();
     if (!raw) {
         return std::nullopt;
     }
@@ -1757,7 +1758,7 @@ constexpr auto to_raw(Dm01ActiveDiagnosticsFlashmalfuncindicatorlampState value)
 }
 
 constexpr auto try_get_dm01_active_diagnostics__flashmalfuncindicatorlamp(const ValueStore& store) -> std::optional<Dm01ActiveDiagnosticsFlashmalfuncindicatorlampState> {
-    auto raw = store.try_get_u8(SignalId::dm01_active_diagnostics__flashmalfuncindicatorlamp);
+    auto raw = store.template get<SignalId::dm01_active_diagnostics__flashmalfuncindicatorlamp>();
     if (!raw) {
         return std::nullopt;
     }
@@ -1818,7 +1819,7 @@ constexpr auto to_raw(Tsc131EngoverridectrlmodeState value) -> std::uint8_t {
 }
 
 constexpr auto try_get_tsc1_31__engoverridectrlmode(const ValueStore& store) -> std::optional<Tsc131EngoverridectrlmodeState> {
-    auto raw = store.try_get_u8(SignalId::tsc1_31__engoverridectrlmode);
+    auto raw = store.template get<SignalId::tsc1_31__engoverridectrlmode>();
     if (!raw) {
         return std::nullopt;
     }
@@ -1879,7 +1880,7 @@ constexpr auto to_raw(Tsc131EngrequestedspeedctrlconditionsState value) -> std::
 }
 
 constexpr auto try_get_tsc1_31__engrequestedspeedctrlconditions(const ValueStore& store) -> std::optional<Tsc131EngrequestedspeedctrlconditionsState> {
-    auto raw = store.try_get_u8(SignalId::tsc1_31__engrequestedspeedctrlconditions);
+    auto raw = store.template get<SignalId::tsc1_31__engrequestedspeedctrlconditions>();
     if (!raw) {
         return std::nullopt;
     }
@@ -1940,7 +1941,7 @@ constexpr auto to_raw(Tsc131OverridectrlmodepriorityState value) -> std::uint8_t
 }
 
 constexpr auto try_get_tsc1_31__overridectrlmodepriority(const ValueStore& store) -> std::optional<Tsc131OverridectrlmodepriorityState> {
-    auto raw = store.try_get_u8(SignalId::tsc1_31__overridectrlmodepriority);
+    auto raw = store.template get<SignalId::tsc1_31__overridectrlmodepriority>();
     if (!raw) {
         return std::nullopt;
     }
@@ -2025,7 +2026,7 @@ constexpr auto to_raw(Tsc131Tsc1transrateState value) -> std::uint8_t {
 }
 
 constexpr auto try_get_tsc1_31__tsc1transrate(const ValueStore& store) -> std::optional<Tsc131Tsc1transrateState> {
-    auto raw = store.try_get_u8(SignalId::tsc1_31__tsc1transrate);
+    auto raw = store.template get<SignalId::tsc1_31__tsc1transrate>();
     if (!raw) {
         return std::nullopt;
     }
@@ -2110,7 +2111,7 @@ constexpr auto to_raw(Tsc131Tsc1ctrlpurposeState value) -> std::uint8_t {
 }
 
 constexpr auto try_get_tsc1_31__tsc1ctrlpurpose(const ValueStore& store) -> std::optional<Tsc131Tsc1ctrlpurposeState> {
-    auto raw = store.try_get_u8(SignalId::tsc1_31__tsc1ctrlpurpose);
+    auto raw = store.template get<SignalId::tsc1_31__tsc1ctrlpurpose>();
     if (!raw) {
         return std::nullopt;
     }
@@ -2165,7 +2166,7 @@ constexpr auto to_raw(Tsc131EngrequestedtorquehighresolutionState value) -> std:
 }
 
 constexpr auto try_get_tsc1_31__engrequestedtorquehighresolution(const ValueStore& store) -> std::optional<Tsc131EngrequestedtorquehighresolutionState> {
-    auto raw = store.try_get_u8(SignalId::tsc1_31__engrequestedtorquehighresolution);
+    auto raw = store.template get<SignalId::tsc1_31__engrequestedtorquehighresolution>();
     if (!raw) {
         return std::nullopt;
     }
@@ -2226,7 +2227,7 @@ constexpr auto to_raw(Tsc103EngoverridectrlmodeState value) -> std::uint8_t {
 }
 
 constexpr auto try_get_tsc1_03__engoverridectrlmode(const ValueStore& store) -> std::optional<Tsc103EngoverridectrlmodeState> {
-    auto raw = store.try_get_u8(SignalId::tsc1_03__engoverridectrlmode);
+    auto raw = store.template get<SignalId::tsc1_03__engoverridectrlmode>();
     if (!raw) {
         return std::nullopt;
     }
@@ -2287,7 +2288,7 @@ constexpr auto to_raw(Tsc103EngrequestedspeedctrlconditionsState value) -> std::
 }
 
 constexpr auto try_get_tsc1_03__engrequestedspeedctrlconditions(const ValueStore& store) -> std::optional<Tsc103EngrequestedspeedctrlconditionsState> {
-    auto raw = store.try_get_u8(SignalId::tsc1_03__engrequestedspeedctrlconditions);
+    auto raw = store.template get<SignalId::tsc1_03__engrequestedspeedctrlconditions>();
     if (!raw) {
         return std::nullopt;
     }
@@ -2348,7 +2349,7 @@ constexpr auto to_raw(Tsc103OverridectrlmodepriorityState value) -> std::uint8_t
 }
 
 constexpr auto try_get_tsc1_03__overridectrlmodepriority(const ValueStore& store) -> std::optional<Tsc103OverridectrlmodepriorityState> {
-    auto raw = store.try_get_u8(SignalId::tsc1_03__overridectrlmodepriority);
+    auto raw = store.template get<SignalId::tsc1_03__overridectrlmodepriority>();
     if (!raw) {
         return std::nullopt;
     }
@@ -2433,7 +2434,7 @@ constexpr auto to_raw(Tsc103Tsc1transrateState value) -> std::uint8_t {
 }
 
 constexpr auto try_get_tsc1_03__tsc1transrate(const ValueStore& store) -> std::optional<Tsc103Tsc1transrateState> {
-    auto raw = store.try_get_u8(SignalId::tsc1_03__tsc1transrate);
+    auto raw = store.template get<SignalId::tsc1_03__tsc1transrate>();
     if (!raw) {
         return std::nullopt;
     }
@@ -2518,7 +2519,7 @@ constexpr auto to_raw(Tsc103Tsc1ctrlpurposeState value) -> std::uint8_t {
 }
 
 constexpr auto try_get_tsc1_03__tsc1ctrlpurpose(const ValueStore& store) -> std::optional<Tsc103Tsc1ctrlpurposeState> {
-    auto raw = store.try_get_u8(SignalId::tsc1_03__tsc1ctrlpurpose);
+    auto raw = store.template get<SignalId::tsc1_03__tsc1ctrlpurpose>();
     if (!raw) {
         return std::nullopt;
     }
@@ -2573,7 +2574,7 @@ constexpr auto to_raw(Tsc103EngrequestedtorquehighresolutionState value) -> std:
 }
 
 constexpr auto try_get_tsc1_03__engrequestedtorquehighresolution(const ValueStore& store) -> std::optional<Tsc103EngrequestedtorquehighresolutionState> {
-    auto raw = store.try_get_u8(SignalId::tsc1_03__engrequestedtorquehighresolution);
+    auto raw = store.template get<SignalId::tsc1_03__engrequestedtorquehighresolution>();
     if (!raw) {
         return std::nullopt;
     }
@@ -2634,7 +2635,7 @@ constexpr auto to_raw(Tsc10bEngoverridectrlmodeState value) -> std::uint8_t {
 }
 
 constexpr auto try_get_tsc1_0b__engoverridectrlmode(const ValueStore& store) -> std::optional<Tsc10bEngoverridectrlmodeState> {
-    auto raw = store.try_get_u8(SignalId::tsc1_0b__engoverridectrlmode);
+    auto raw = store.template get<SignalId::tsc1_0b__engoverridectrlmode>();
     if (!raw) {
         return std::nullopt;
     }
@@ -2695,7 +2696,7 @@ constexpr auto to_raw(Tsc10bEngrequestedspeedctrlconditionsState value) -> std::
 }
 
 constexpr auto try_get_tsc1_0b__engrequestedspeedctrlconditions(const ValueStore& store) -> std::optional<Tsc10bEngrequestedspeedctrlconditionsState> {
-    auto raw = store.try_get_u8(SignalId::tsc1_0b__engrequestedspeedctrlconditions);
+    auto raw = store.template get<SignalId::tsc1_0b__engrequestedspeedctrlconditions>();
     if (!raw) {
         return std::nullopt;
     }
@@ -2756,7 +2757,7 @@ constexpr auto to_raw(Tsc10bOverridectrlmodepriorityState value) -> std::uint8_t
 }
 
 constexpr auto try_get_tsc1_0b__overridectrlmodepriority(const ValueStore& store) -> std::optional<Tsc10bOverridectrlmodepriorityState> {
-    auto raw = store.try_get_u8(SignalId::tsc1_0b__overridectrlmodepriority);
+    auto raw = store.template get<SignalId::tsc1_0b__overridectrlmodepriority>();
     if (!raw) {
         return std::nullopt;
     }
@@ -2841,7 +2842,7 @@ constexpr auto to_raw(Tsc10bTsc1transrateState value) -> std::uint8_t {
 }
 
 constexpr auto try_get_tsc1_0b__tsc1transrate(const ValueStore& store) -> std::optional<Tsc10bTsc1transrateState> {
-    auto raw = store.try_get_u8(SignalId::tsc1_0b__tsc1transrate);
+    auto raw = store.template get<SignalId::tsc1_0b__tsc1transrate>();
     if (!raw) {
         return std::nullopt;
     }
@@ -2926,7 +2927,7 @@ constexpr auto to_raw(Tsc10bTsc1ctrlpurposeState value) -> std::uint8_t {
 }
 
 constexpr auto try_get_tsc1_0b__tsc1ctrlpurpose(const ValueStore& store) -> std::optional<Tsc10bTsc1ctrlpurposeState> {
-    auto raw = store.try_get_u8(SignalId::tsc1_0b__tsc1ctrlpurpose);
+    auto raw = store.template get<SignalId::tsc1_0b__tsc1ctrlpurpose>();
     if (!raw) {
         return std::nullopt;
     }
@@ -2981,7 +2982,7 @@ constexpr auto to_raw(Tsc10bEngrequestedtorquehighresolutionState value) -> std:
 }
 
 constexpr auto try_get_tsc1_0b__engrequestedtorquehighresolution(const ValueStore& store) -> std::optional<Tsc10bEngrequestedtorquehighresolutionState> {
-    auto raw = store.try_get_u8(SignalId::tsc1_0b__engrequestedtorquehighresolution);
+    auto raw = store.template get<SignalId::tsc1_0b__engrequestedtorquehighresolution>();
     if (!raw) {
         return std::nullopt;
     }
@@ -3036,7 +3037,7 @@ constexpr auto to_raw(Dm07TestidentifierState value) -> std::uint8_t {
 }
 
 constexpr auto try_get_dm07__testidentifier(const ValueStore& store) -> std::optional<Dm07TestidentifierState> {
-    auto raw = store.try_get_u8(SignalId::dm07__testidentifier);
+    auto raw = store.template get<SignalId::dm07__testidentifier>();
     if (!raw) {
         return std::nullopt;
     }
@@ -3199,7 +3200,7 @@ constexpr auto to_raw(Dm07Failuremodeidentifier1State value) -> std::uint8_t {
 }
 
 constexpr auto try_get_dm07__failuremodeidentifier1(const ValueStore& store) -> std::optional<Dm07Failuremodeidentifier1State> {
-    auto raw = store.try_get_u8(SignalId::dm07__failuremodeidentifier1);
+    auto raw = store.template get<SignalId::dm07__failuremodeidentifier1>();
     if (!raw) {
         return std::nullopt;
     }
@@ -3254,7 +3255,7 @@ constexpr auto to_raw(Dm08TestidentifierState value) -> std::uint8_t {
 }
 
 constexpr auto try_get_dm08__testidentifier(const ValueStore& store) -> std::optional<Dm08TestidentifierState> {
-    auto raw = store.try_get_u8(SignalId::dm08__testidentifier);
+    auto raw = store.template get<SignalId::dm08__testidentifier>();
     if (!raw) {
         return std::nullopt;
     }
@@ -3315,7 +3316,7 @@ constexpr auto to_raw(Erc1ElectronicRetarderCntrlRetarderenablebrakeassistswitch
 }
 
 constexpr auto try_get_erc1_electronic_retarder_cntrl__retarderenablebrakeassistswitch(const ValueStore& store) -> std::optional<Erc1ElectronicRetarderCntrlRetarderenablebrakeassistswitchState> {
-    auto raw = store.try_get_u8(SignalId::erc1_electronic_retarder_cntrl__retarderenablebrakeassistswitch);
+    auto raw = store.template get<SignalId::erc1_electronic_retarder_cntrl__retarderenablebrakeassistswitch>();
     if (!raw) {
         return std::nullopt;
     }
@@ -3376,7 +3377,7 @@ constexpr auto to_raw(Erc1ElectronicRetarderCntrlRetarderenableshiftassistswitch
 }
 
 constexpr auto try_get_erc1_electronic_retarder_cntrl__retarderenableshiftassistswitch(const ValueStore& store) -> std::optional<Erc1ElectronicRetarderCntrlRetarderenableshiftassistswitchState> {
-    auto raw = store.try_get_u8(SignalId::erc1_electronic_retarder_cntrl__retarderenableshiftassistswitch);
+    auto raw = store.template get<SignalId::erc1_electronic_retarder_cntrl__retarderenableshiftassistswitch>();
     if (!raw) {
         return std::nullopt;
     }
@@ -3437,7 +3438,7 @@ constexpr auto to_raw(Erc1ElectronicRetarderCntrlEngcoolantloadincreaseState val
 }
 
 constexpr auto try_get_erc1_electronic_retarder_cntrl__engcoolantloadincrease(const ValueStore& store) -> std::optional<Erc1ElectronicRetarderCntrlEngcoolantloadincreaseState> {
-    auto raw = store.try_get_u8(SignalId::erc1_electronic_retarder_cntrl__engcoolantloadincrease);
+    auto raw = store.template get<SignalId::erc1_electronic_retarder_cntrl__engcoolantloadincrease>();
     if (!raw) {
         return std::nullopt;
     }
@@ -3498,7 +3499,7 @@ constexpr auto to_raw(Erc1ElectronicRetarderCntrlRetarderrequestingbrakelightSta
 }
 
 constexpr auto try_get_erc1_electronic_retarder_cntrl__retarderrequestingbrakelight(const ValueStore& store) -> std::optional<Erc1ElectronicRetarderCntrlRetarderrequestingbrakelightState> {
-    auto raw = store.try_get_u8(SignalId::erc1_electronic_retarder_cntrl__retarderrequestingbrakelight);
+    auto raw = store.template get<SignalId::erc1_electronic_retarder_cntrl__retarderrequestingbrakelight>();
     if (!raw) {
         return std::nullopt;
     }
@@ -3559,7 +3560,7 @@ constexpr auto to_raw(Erc1ElectronicRetarderCntrlRetarderroadspeedlimitswitchSta
 }
 
 constexpr auto try_get_erc1_electronic_retarder_cntrl__retarderroadspeedlimitswitch(const ValueStore& store) -> std::optional<Erc1ElectronicRetarderCntrlRetarderroadspeedlimitswitchState> {
-    auto raw = store.try_get_u8(SignalId::erc1_electronic_retarder_cntrl__retarderroadspeedlimitswitch);
+    auto raw = store.template get<SignalId::erc1_electronic_retarder_cntrl__retarderroadspeedlimitswitch>();
     if (!raw) {
         return std::nullopt;
     }
@@ -3620,7 +3621,7 @@ constexpr auto to_raw(Erc1ElectronicRetarderCntrlRetarderroadspeedexceededstatus
 }
 
 constexpr auto try_get_erc1_electronic_retarder_cntrl__retarderroadspeedexceededstatus(const ValueStore& store) -> std::optional<Erc1ElectronicRetarderCntrlRetarderroadspeedexceededstatusState> {
-    auto raw = store.try_get_u8(SignalId::erc1_electronic_retarder_cntrl__retarderroadspeedexceededstatus);
+    auto raw = store.template get<SignalId::erc1_electronic_retarder_cntrl__retarderroadspeedexceededstatus>();
     if (!raw) {
         return std::nullopt;
     }
@@ -3681,7 +3682,7 @@ constexpr auto to_raw(Etc1ElectronicTransCntrl1TransdrivelineengagedState value)
 }
 
 constexpr auto try_get_etc1_electronic_trans_cntrl_1__transdrivelineengaged(const ValueStore& store) -> std::optional<Etc1ElectronicTransCntrl1TransdrivelineengagedState> {
-    auto raw = store.try_get_u8(SignalId::etc1_electronic_trans_cntrl_1__transdrivelineengaged);
+    auto raw = store.template get<SignalId::etc1_electronic_trans_cntrl_1__transdrivelineengaged>();
     if (!raw) {
         return std::nullopt;
     }
@@ -3742,7 +3743,7 @@ constexpr auto to_raw(Etc1ElectronicTransCntrl1TrnstorqueconverterlockupengagedS
 }
 
 constexpr auto try_get_etc1_electronic_trans_cntrl_1__trnstorqueconverterlockupengaged(const ValueStore& store) -> std::optional<Etc1ElectronicTransCntrl1TrnstorqueconverterlockupengagedState> {
-    auto raw = store.try_get_u8(SignalId::etc1_electronic_trans_cntrl_1__trnstorqueconverterlockupengaged);
+    auto raw = store.template get<SignalId::etc1_electronic_trans_cntrl_1__trnstorqueconverterlockupengaged>();
     if (!raw) {
         return std::nullopt;
     }
@@ -3803,7 +3804,7 @@ constexpr auto to_raw(Etc1ElectronicTransCntrl1TransshiftinprocessState value) -
 }
 
 constexpr auto try_get_etc1_electronic_trans_cntrl_1__transshiftinprocess(const ValueStore& store) -> std::optional<Etc1ElectronicTransCntrl1TransshiftinprocessState> {
-    auto raw = store.try_get_u8(SignalId::etc1_electronic_trans_cntrl_1__transshiftinprocess);
+    auto raw = store.template get<SignalId::etc1_electronic_trans_cntrl_1__transshiftinprocess>();
     if (!raw) {
         return std::nullopt;
     }
@@ -3864,7 +3865,7 @@ constexpr auto to_raw(Etc1ElectronicTransCntrl1TrnstrqcnvrtrlckptrnstninprocessS
 }
 
 constexpr auto try_get_etc1_electronic_trans_cntrl_1__trnstrqcnvrtrlckptrnstninprocess(const ValueStore& store) -> std::optional<Etc1ElectronicTransCntrl1TrnstrqcnvrtrlckptrnstninprocessState> {
-    auto raw = store.try_get_u8(SignalId::etc1_electronic_trans_cntrl_1__trnstrqcnvrtrlckptrnstninprocess);
+    auto raw = store.template get<SignalId::etc1_electronic_trans_cntrl_1__trnstrqcnvrtrlckptrnstninprocess>();
     if (!raw) {
         return std::nullopt;
     }
@@ -3925,7 +3926,7 @@ constexpr auto to_raw(Etc1ElectronicTransCntrl1EngmomentaryoverspeedenableState 
 }
 
 constexpr auto try_get_etc1_electronic_trans_cntrl_1__engmomentaryoverspeedenable(const ValueStore& store) -> std::optional<Etc1ElectronicTransCntrl1EngmomentaryoverspeedenableState> {
-    auto raw = store.try_get_u8(SignalId::etc1_electronic_trans_cntrl_1__engmomentaryoverspeedenable);
+    auto raw = store.template get<SignalId::etc1_electronic_trans_cntrl_1__engmomentaryoverspeedenable>();
     if (!raw) {
         return std::nullopt;
     }
@@ -3986,7 +3987,7 @@ constexpr auto to_raw(Etc1ElectronicTransCntrl1ProgressiveshiftdisableState valu
 }
 
 constexpr auto try_get_etc1_electronic_trans_cntrl_1__progressiveshiftdisable(const ValueStore& store) -> std::optional<Etc1ElectronicTransCntrl1ProgressiveshiftdisableState> {
-    auto raw = store.try_get_u8(SignalId::etc1_electronic_trans_cntrl_1__progressiveshiftdisable);
+    auto raw = store.template get<SignalId::etc1_electronic_trans_cntrl_1__progressiveshiftdisable>();
     if (!raw) {
         return std::nullopt;
     }
@@ -4047,7 +4048,7 @@ constexpr auto to_raw(Etc1ElectronicTransCntrl1MomentaryengmaxpowerenableState v
 }
 
 constexpr auto try_get_etc1_electronic_trans_cntrl_1__momentaryengmaxpowerenable(const ValueStore& store) -> std::optional<Etc1ElectronicTransCntrl1MomentaryengmaxpowerenableState> {
-    auto raw = store.try_get_u8(SignalId::etc1_electronic_trans_cntrl_1__momentaryengmaxpowerenable);
+    auto raw = store.template get<SignalId::etc1_electronic_trans_cntrl_1__momentaryengmaxpowerenable>();
     if (!raw) {
         return std::nullopt;
     }
@@ -4132,7 +4133,7 @@ constexpr auto to_raw(TciTransferCaseInformationTransfercasestatusState value) -
 }
 
 constexpr auto try_get_tci_transfer_case_information__transfercasestatus(const ValueStore& store) -> std::optional<TciTransferCaseInformationTransfercasestatusState> {
-    auto raw = store.try_get_u8(SignalId::tci_transfer_case_information__transfercasestatus);
+    auto raw = store.template get<SignalId::tci_transfer_case_information__transfercasestatus>();
     if (!raw) {
         return std::nullopt;
     }
@@ -4193,7 +4194,7 @@ constexpr auto to_raw(TciTransferCaseInformationDirstatusState value) -> std::ui
 }
 
 constexpr auto try_get_tci_transfer_case_information__dirstatus(const ValueStore& store) -> std::optional<TciTransferCaseInformationDirstatusState> {
-    auto raw = store.try_get_u8(SignalId::tci_transfer_case_information__dirstatus);
+    auto raw = store.template get<SignalId::tci_transfer_case_information__dirstatus>();
     if (!raw) {
         return std::nullopt;
     }
@@ -4326,7 +4327,7 @@ constexpr auto to_raw(Trf1TransmissionFluids1Transoillevel1countdowntimerState v
 }
 
 constexpr auto try_get_trf1_transmission_fluids_1__transoillevel1countdowntimer(const ValueStore& store) -> std::optional<Trf1TransmissionFluids1Transoillevel1countdowntimerState> {
-    auto raw = store.try_get_u8(SignalId::trf1_transmission_fluids_1__transoillevel1countdowntimer);
+    auto raw = store.template get<SignalId::trf1_transmission_fluids_1__transoillevel1countdowntimer>();
     if (!raw) {
         return std::nullopt;
     }
@@ -4459,7 +4460,7 @@ constexpr auto to_raw(Trf1TransmissionFluids1Transoillevel1measurementstatusStat
 }
 
 constexpr auto try_get_trf1_transmission_fluids_1__transoillevel1measurementstatus(const ValueStore& store) -> std::optional<Trf1TransmissionFluids1Transoillevel1measurementstatusState> {
-    auto raw = store.try_get_u8(SignalId::trf1_transmission_fluids_1__transoillevel1measurementstatus);
+    auto raw = store.template get<SignalId::trf1_transmission_fluids_1__transoillevel1measurementstatus>();
     if (!raw) {
         return std::nullopt;
     }
@@ -4520,7 +4521,7 @@ constexpr auto to_raw(CcssCruiseControlVehicleSpdCtrldiscmdsupportState value) -
 }
 
 constexpr auto try_get_ccss_cruise_control_vehicle_spd__ctrldiscmdsupport(const ValueStore& store) -> std::optional<CcssCruiseControlVehicleSpdCtrldiscmdsupportState> {
-    auto raw = store.try_get_u8(SignalId::ccss_cruise_control_vehicle_spd__ctrldiscmdsupport);
+    auto raw = store.template get<SignalId::ccss_cruise_control_vehicle_spd__ctrldiscmdsupport>();
     if (!raw) {
         return std::nullopt;
     }
@@ -4581,7 +4582,7 @@ constexpr auto to_raw(CcssCruiseControlVehicleSpdCtrlresumecmdsupportState value
 }
 
 constexpr auto try_get_ccss_cruise_control_vehicle_spd__ctrlresumecmdsupport(const ValueStore& store) -> std::optional<CcssCruiseControlVehicleSpdCtrlresumecmdsupportState> {
-    auto raw = store.try_get_u8(SignalId::ccss_cruise_control_vehicle_spd__ctrlresumecmdsupport);
+    auto raw = store.template get<SignalId::ccss_cruise_control_vehicle_spd__ctrlresumecmdsupport>();
     if (!raw) {
         return std::nullopt;
     }
@@ -4642,7 +4643,7 @@ constexpr auto to_raw(CcssCruiseControlVehicleSpdCtrlpausecmdsupportState value)
 }
 
 constexpr auto try_get_ccss_cruise_control_vehicle_spd__ctrlpausecmdsupport(const ValueStore& store) -> std::optional<CcssCruiseControlVehicleSpdCtrlpausecmdsupportState> {
-    auto raw = store.try_get_u8(SignalId::ccss_cruise_control_vehicle_spd__ctrlpausecmdsupport);
+    auto raw = store.template get<SignalId::ccss_cruise_control_vehicle_spd__ctrlpausecmdsupport>();
     if (!raw) {
         return std::nullopt;
     }
@@ -4703,7 +4704,7 @@ constexpr auto to_raw(CcssCruiseControlVehicleSpdCtrlsetcmdsupportState value) -
 }
 
 constexpr auto try_get_ccss_cruise_control_vehicle_spd__ctrlsetcmdsupport(const ValueStore& store) -> std::optional<CcssCruiseControlVehicleSpdCtrlsetcmdsupportState> {
-    auto raw = store.try_get_u8(SignalId::ccss_cruise_control_vehicle_spd__ctrlsetcmdsupport);
+    auto raw = store.template get<SignalId::ccss_cruise_control_vehicle_spd__ctrlsetcmdsupport>();
     if (!raw) {
         return std::nullopt;
     }
@@ -4836,7 +4837,7 @@ constexpr auto to_raw(CcssCruiseControlVehicleSpdPowertrainadaptivecctypeState v
 }
 
 constexpr auto try_get_ccss_cruise_control_vehicle_spd__powertrainadaptivecctype(const ValueStore& store) -> std::optional<CcssCruiseControlVehicleSpdPowertrainadaptivecctypeState> {
-    auto raw = store.try_get_u8(SignalId::ccss_cruise_control_vehicle_spd__powertrainadaptivecctype);
+    auto raw = store.template get<SignalId::ccss_cruise_control_vehicle_spd__powertrainadaptivecctype>();
     if (!raw) {
         return std::nullopt;
     }
@@ -4897,7 +4898,7 @@ constexpr auto to_raw(Ccvs1CruiseControlVehspdTwospeedaxleswitchState value) -> 
 }
 
 constexpr auto try_get_ccvs1_cruise_control_vehspd__twospeedaxleswitch(const ValueStore& store) -> std::optional<Ccvs1CruiseControlVehspdTwospeedaxleswitchState> {
-    auto raw = store.try_get_u8(SignalId::ccvs1_cruise_control_vehspd__twospeedaxleswitch);
+    auto raw = store.template get<SignalId::ccvs1_cruise_control_vehspd__twospeedaxleswitch>();
     if (!raw) {
         return std::nullopt;
     }
@@ -4958,7 +4959,7 @@ constexpr auto to_raw(Ccvs1CruiseControlVehspdParkingbrakeswitchState value) -> 
 }
 
 constexpr auto try_get_ccvs1_cruise_control_vehspd__parkingbrakeswitch(const ValueStore& store) -> std::optional<Ccvs1CruiseControlVehspdParkingbrakeswitchState> {
-    auto raw = store.try_get_u8(SignalId::ccvs1_cruise_control_vehspd__parkingbrakeswitch);
+    auto raw = store.template get<SignalId::ccvs1_cruise_control_vehspd__parkingbrakeswitch>();
     if (!raw) {
         return std::nullopt;
     }
@@ -5019,7 +5020,7 @@ constexpr auto to_raw(Ccvs1CruiseControlVehspdCruisectrlpauseswitchState value) 
 }
 
 constexpr auto try_get_ccvs1_cruise_control_vehspd__cruisectrlpauseswitch(const ValueStore& store) -> std::optional<Ccvs1CruiseControlVehspdCruisectrlpauseswitchState> {
-    auto raw = store.try_get_u8(SignalId::ccvs1_cruise_control_vehspd__cruisectrlpauseswitch);
+    auto raw = store.template get<SignalId::ccvs1_cruise_control_vehspd__cruisectrlpauseswitch>();
     if (!raw) {
         return std::nullopt;
     }
@@ -5080,7 +5081,7 @@ constexpr auto to_raw(Ccvs1CruiseControlVehspdParkbrakereleaseinhibitrqState val
 }
 
 constexpr auto try_get_ccvs1_cruise_control_vehspd__parkbrakereleaseinhibitrq(const ValueStore& store) -> std::optional<Ccvs1CruiseControlVehspdParkbrakereleaseinhibitrqState> {
-    auto raw = store.try_get_u8(SignalId::ccvs1_cruise_control_vehspd__parkbrakereleaseinhibitrq);
+    auto raw = store.template get<SignalId::ccvs1_cruise_control_vehspd__parkbrakereleaseinhibitrq>();
     if (!raw) {
         return std::nullopt;
     }
@@ -5141,7 +5142,7 @@ constexpr auto to_raw(Ccvs1CruiseControlVehspdCruisectrlactiveState value) -> st
 }
 
 constexpr auto try_get_ccvs1_cruise_control_vehspd__cruisectrlactive(const ValueStore& store) -> std::optional<Ccvs1CruiseControlVehspdCruisectrlactiveState> {
-    auto raw = store.try_get_u8(SignalId::ccvs1_cruise_control_vehspd__cruisectrlactive);
+    auto raw = store.template get<SignalId::ccvs1_cruise_control_vehspd__cruisectrlactive>();
     if (!raw) {
         return std::nullopt;
     }
@@ -5202,7 +5203,7 @@ constexpr auto to_raw(Ccvs1CruiseControlVehspdCruisectrlenableswitchState value)
 }
 
 constexpr auto try_get_ccvs1_cruise_control_vehspd__cruisectrlenableswitch(const ValueStore& store) -> std::optional<Ccvs1CruiseControlVehspdCruisectrlenableswitchState> {
-    auto raw = store.try_get_u8(SignalId::ccvs1_cruise_control_vehspd__cruisectrlenableswitch);
+    auto raw = store.template get<SignalId::ccvs1_cruise_control_vehspd__cruisectrlenableswitch>();
     if (!raw) {
         return std::nullopt;
     }
@@ -5263,7 +5264,7 @@ constexpr auto to_raw(Ccvs1CruiseControlVehspdBrakeswitchState value) -> std::ui
 }
 
 constexpr auto try_get_ccvs1_cruise_control_vehspd__brakeswitch(const ValueStore& store) -> std::optional<Ccvs1CruiseControlVehspdBrakeswitchState> {
-    auto raw = store.try_get_u8(SignalId::ccvs1_cruise_control_vehspd__brakeswitch);
+    auto raw = store.template get<SignalId::ccvs1_cruise_control_vehspd__brakeswitch>();
     if (!raw) {
         return std::nullopt;
     }
@@ -5324,7 +5325,7 @@ constexpr auto to_raw(Ccvs1CruiseControlVehspdClutchswitchState value) -> std::u
 }
 
 constexpr auto try_get_ccvs1_cruise_control_vehspd__clutchswitch(const ValueStore& store) -> std::optional<Ccvs1CruiseControlVehspdClutchswitchState> {
-    auto raw = store.try_get_u8(SignalId::ccvs1_cruise_control_vehspd__clutchswitch);
+    auto raw = store.template get<SignalId::ccvs1_cruise_control_vehspd__clutchswitch>();
     if (!raw) {
         return std::nullopt;
     }
@@ -5385,7 +5386,7 @@ constexpr auto to_raw(Ccvs1CruiseControlVehspdCruisectrlsetswitchState value) ->
 }
 
 constexpr auto try_get_ccvs1_cruise_control_vehspd__cruisectrlsetswitch(const ValueStore& store) -> std::optional<Ccvs1CruiseControlVehspdCruisectrlsetswitchState> {
-    auto raw = store.try_get_u8(SignalId::ccvs1_cruise_control_vehspd__cruisectrlsetswitch);
+    auto raw = store.template get<SignalId::ccvs1_cruise_control_vehspd__cruisectrlsetswitch>();
     if (!raw) {
         return std::nullopt;
     }
@@ -5446,7 +5447,7 @@ constexpr auto to_raw(Ccvs1CruiseControlVehspdCruisectrlcoastswitchState value) 
 }
 
 constexpr auto try_get_ccvs1_cruise_control_vehspd__cruisectrlcoastswitch(const ValueStore& store) -> std::optional<Ccvs1CruiseControlVehspdCruisectrlcoastswitchState> {
-    auto raw = store.try_get_u8(SignalId::ccvs1_cruise_control_vehspd__cruisectrlcoastswitch);
+    auto raw = store.template get<SignalId::ccvs1_cruise_control_vehspd__cruisectrlcoastswitch>();
     if (!raw) {
         return std::nullopt;
     }
@@ -5507,7 +5508,7 @@ constexpr auto to_raw(Ccvs1CruiseControlVehspdCruisectrlresumeswitchState value)
 }
 
 constexpr auto try_get_ccvs1_cruise_control_vehspd__cruisectrlresumeswitch(const ValueStore& store) -> std::optional<Ccvs1CruiseControlVehspdCruisectrlresumeswitchState> {
-    auto raw = store.try_get_u8(SignalId::ccvs1_cruise_control_vehspd__cruisectrlresumeswitch);
+    auto raw = store.template get<SignalId::ccvs1_cruise_control_vehspd__cruisectrlresumeswitch>();
     if (!raw) {
         return std::nullopt;
     }
@@ -5568,7 +5569,7 @@ constexpr auto to_raw(Ccvs1CruiseControlVehspdCruisectrlaccelerateswitchState va
 }
 
 constexpr auto try_get_ccvs1_cruise_control_vehspd__cruisectrlaccelerateswitch(const ValueStore& store) -> std::optional<Ccvs1CruiseControlVehspdCruisectrlaccelerateswitchState> {
-    auto raw = store.try_get_u8(SignalId::ccvs1_cruise_control_vehspd__cruisectrlaccelerateswitch);
+    auto raw = store.template get<SignalId::ccvs1_cruise_control_vehspd__cruisectrlaccelerateswitch>();
     if (!raw) {
         return std::nullopt;
     }
@@ -5797,7 +5798,7 @@ constexpr auto to_raw(Ccvs1CruiseControlVehspdPtogovernorstateState value) -> st
 }
 
 constexpr auto try_get_ccvs1_cruise_control_vehspd__ptogovernorstate(const ValueStore& store) -> std::optional<Ccvs1CruiseControlVehspdPtogovernorstateState> {
-    auto raw = store.try_get_u8(SignalId::ccvs1_cruise_control_vehspd__ptogovernorstate);
+    auto raw = store.template get<SignalId::ccvs1_cruise_control_vehspd__ptogovernorstate>();
     if (!raw) {
         return std::nullopt;
     }
@@ -5882,7 +5883,7 @@ constexpr auto to_raw(Ccvs1CruiseControlVehspdCruisectrlstatesState value) -> st
 }
 
 constexpr auto try_get_ccvs1_cruise_control_vehspd__cruisectrlstates(const ValueStore& store) -> std::optional<Ccvs1CruiseControlVehspdCruisectrlstatesState> {
-    auto raw = store.try_get_u8(SignalId::ccvs1_cruise_control_vehspd__cruisectrlstates);
+    auto raw = store.template get<SignalId::ccvs1_cruise_control_vehspd__cruisectrlstates>();
     if (!raw) {
         return std::nullopt;
     }
@@ -5943,7 +5944,7 @@ constexpr auto to_raw(Ccvs1CruiseControlVehspdEngidleincrementswitchState value)
 }
 
 constexpr auto try_get_ccvs1_cruise_control_vehspd__engidleincrementswitch(const ValueStore& store) -> std::optional<Ccvs1CruiseControlVehspdEngidleincrementswitchState> {
-    auto raw = store.try_get_u8(SignalId::ccvs1_cruise_control_vehspd__engidleincrementswitch);
+    auto raw = store.template get<SignalId::ccvs1_cruise_control_vehspd__engidleincrementswitch>();
     if (!raw) {
         return std::nullopt;
     }
@@ -6004,7 +6005,7 @@ constexpr auto to_raw(Ccvs1CruiseControlVehspdEngidledecrementswitchState value)
 }
 
 constexpr auto try_get_ccvs1_cruise_control_vehspd__engidledecrementswitch(const ValueStore& store) -> std::optional<Ccvs1CruiseControlVehspdEngidledecrementswitchState> {
-    auto raw = store.try_get_u8(SignalId::ccvs1_cruise_control_vehspd__engidledecrementswitch);
+    auto raw = store.template get<SignalId::ccvs1_cruise_control_vehspd__engidledecrementswitch>();
     if (!raw) {
         return std::nullopt;
     }
@@ -6065,7 +6066,7 @@ constexpr auto to_raw(Ccvs1CruiseControlVehspdEngtestmodeswitchState value) -> s
 }
 
 constexpr auto try_get_ccvs1_cruise_control_vehspd__engtestmodeswitch(const ValueStore& store) -> std::optional<Ccvs1CruiseControlVehspdEngtestmodeswitchState> {
-    auto raw = store.try_get_u8(SignalId::ccvs1_cruise_control_vehspd__engtestmodeswitch);
+    auto raw = store.template get<SignalId::ccvs1_cruise_control_vehspd__engtestmodeswitch>();
     if (!raw) {
         return std::nullopt;
     }
@@ -6126,7 +6127,7 @@ constexpr auto to_raw(Ccvs1CruiseControlVehspdEngshutdownoverrideswitchState val
 }
 
 constexpr auto try_get_ccvs1_cruise_control_vehspd__engshutdownoverrideswitch(const ValueStore& store) -> std::optional<Ccvs1CruiseControlVehspdEngshutdownoverrideswitchState> {
-    auto raw = store.try_get_u8(SignalId::ccvs1_cruise_control_vehspd__engshutdownoverrideswitch);
+    auto raw = store.template get<SignalId::ccvs1_cruise_control_vehspd__engshutdownoverrideswitch>();
     if (!raw) {
         return std::nullopt;
     }
@@ -6187,7 +6188,7 @@ constexpr auto to_raw(Ebc1ElectronicBrakeCntrlAsrengctrlactiveState value) -> st
 }
 
 constexpr auto try_get_ebc1_electronic_brake_cntrl__asrengctrlactive(const ValueStore& store) -> std::optional<Ebc1ElectronicBrakeCntrlAsrengctrlactiveState> {
-    auto raw = store.try_get_u8(SignalId::ebc1_electronic_brake_cntrl__asrengctrlactive);
+    auto raw = store.template get<SignalId::ebc1_electronic_brake_cntrl__asrengctrlactive>();
     if (!raw) {
         return std::nullopt;
     }
@@ -6248,7 +6249,7 @@ constexpr auto to_raw(Ebc1ElectronicBrakeCntrlAsrbrakectrlactiveState value) -> 
 }
 
 constexpr auto try_get_ebc1_electronic_brake_cntrl__asrbrakectrlactive(const ValueStore& store) -> std::optional<Ebc1ElectronicBrakeCntrlAsrbrakectrlactiveState> {
-    auto raw = store.try_get_u8(SignalId::ebc1_electronic_brake_cntrl__asrbrakectrlactive);
+    auto raw = store.template get<SignalId::ebc1_electronic_brake_cntrl__asrbrakectrlactive>();
     if (!raw) {
         return std::nullopt;
     }
@@ -6309,7 +6310,7 @@ constexpr auto to_raw(Ebc1ElectronicBrakeCntrlAntilockbrakingactiveState value) 
 }
 
 constexpr auto try_get_ebc1_electronic_brake_cntrl__antilockbrakingactive(const ValueStore& store) -> std::optional<Ebc1ElectronicBrakeCntrlAntilockbrakingactiveState> {
-    auto raw = store.try_get_u8(SignalId::ebc1_electronic_brake_cntrl__antilockbrakingactive);
+    auto raw = store.template get<SignalId::ebc1_electronic_brake_cntrl__antilockbrakingactive>();
     if (!raw) {
         return std::nullopt;
     }
@@ -6370,7 +6371,7 @@ constexpr auto to_raw(Ebc1ElectronicBrakeCntrlEbsbrakeswitchState value) -> std:
 }
 
 constexpr auto try_get_ebc1_electronic_brake_cntrl__ebsbrakeswitch(const ValueStore& store) -> std::optional<Ebc1ElectronicBrakeCntrlEbsbrakeswitchState> {
-    auto raw = store.try_get_u8(SignalId::ebc1_electronic_brake_cntrl__ebsbrakeswitch);
+    auto raw = store.template get<SignalId::ebc1_electronic_brake_cntrl__ebsbrakeswitch>();
     if (!raw) {
         return std::nullopt;
     }
@@ -6431,7 +6432,7 @@ constexpr auto to_raw(Ebc1ElectronicBrakeCntrlAbsoffroadswitchState value) -> st
 }
 
 constexpr auto try_get_ebc1_electronic_brake_cntrl__absoffroadswitch(const ValueStore& store) -> std::optional<Ebc1ElectronicBrakeCntrlAbsoffroadswitchState> {
-    auto raw = store.try_get_u8(SignalId::ebc1_electronic_brake_cntrl__absoffroadswitch);
+    auto raw = store.template get<SignalId::ebc1_electronic_brake_cntrl__absoffroadswitch>();
     if (!raw) {
         return std::nullopt;
     }
@@ -6492,7 +6493,7 @@ constexpr auto to_raw(Ebc1ElectronicBrakeCntrlAsroffroadswitchState value) -> st
 }
 
 constexpr auto try_get_ebc1_electronic_brake_cntrl__asroffroadswitch(const ValueStore& store) -> std::optional<Ebc1ElectronicBrakeCntrlAsroffroadswitchState> {
-    auto raw = store.try_get_u8(SignalId::ebc1_electronic_brake_cntrl__asroffroadswitch);
+    auto raw = store.template get<SignalId::ebc1_electronic_brake_cntrl__asroffroadswitch>();
     if (!raw) {
         return std::nullopt;
     }
@@ -6553,7 +6554,7 @@ constexpr auto to_raw(Ebc1ElectronicBrakeCntrlAsrhillholderswitchState value) ->
 }
 
 constexpr auto try_get_ebc1_electronic_brake_cntrl__asrhillholderswitch(const ValueStore& store) -> std::optional<Ebc1ElectronicBrakeCntrlAsrhillholderswitchState> {
-    auto raw = store.try_get_u8(SignalId::ebc1_electronic_brake_cntrl__asrhillholderswitch);
+    auto raw = store.template get<SignalId::ebc1_electronic_brake_cntrl__asrhillholderswitch>();
     if (!raw) {
         return std::nullopt;
     }
@@ -6614,7 +6615,7 @@ constexpr auto to_raw(Ebc1ElectronicBrakeCntrlTractionctrloverrideswitchState va
 }
 
 constexpr auto try_get_ebc1_electronic_brake_cntrl__tractionctrloverrideswitch(const ValueStore& store) -> std::optional<Ebc1ElectronicBrakeCntrlTractionctrloverrideswitchState> {
-    auto raw = store.try_get_u8(SignalId::ebc1_electronic_brake_cntrl__tractionctrloverrideswitch);
+    auto raw = store.template get<SignalId::ebc1_electronic_brake_cntrl__tractionctrloverrideswitch>();
     if (!raw) {
         return std::nullopt;
     }
@@ -6675,7 +6676,7 @@ constexpr auto to_raw(Ebc1ElectronicBrakeCntrlAccelinterlockswitchState value) -
 }
 
 constexpr auto try_get_ebc1_electronic_brake_cntrl__accelinterlockswitch(const ValueStore& store) -> std::optional<Ebc1ElectronicBrakeCntrlAccelinterlockswitchState> {
-    auto raw = store.try_get_u8(SignalId::ebc1_electronic_brake_cntrl__accelinterlockswitch);
+    auto raw = store.template get<SignalId::ebc1_electronic_brake_cntrl__accelinterlockswitch>();
     if (!raw) {
         return std::nullopt;
     }
@@ -6736,7 +6737,7 @@ constexpr auto to_raw(Ebc1ElectronicBrakeCntrlEngderateswitchState value) -> std
 }
 
 constexpr auto try_get_ebc1_electronic_brake_cntrl__engderateswitch(const ValueStore& store) -> std::optional<Ebc1ElectronicBrakeCntrlEngderateswitchState> {
-    auto raw = store.try_get_u8(SignalId::ebc1_electronic_brake_cntrl__engderateswitch);
+    auto raw = store.template get<SignalId::ebc1_electronic_brake_cntrl__engderateswitch>();
     if (!raw) {
         return std::nullopt;
     }
@@ -6797,7 +6798,7 @@ constexpr auto to_raw(Ebc1ElectronicBrakeCntrlEngauxshutdownswitchState value) -
 }
 
 constexpr auto try_get_ebc1_electronic_brake_cntrl__engauxshutdownswitch(const ValueStore& store) -> std::optional<Ebc1ElectronicBrakeCntrlEngauxshutdownswitchState> {
-    auto raw = store.try_get_u8(SignalId::ebc1_electronic_brake_cntrl__engauxshutdownswitch);
+    auto raw = store.template get<SignalId::ebc1_electronic_brake_cntrl__engauxshutdownswitch>();
     if (!raw) {
         return std::nullopt;
     }
@@ -6858,7 +6859,7 @@ constexpr auto to_raw(Ebc1ElectronicBrakeCntrlRemoteaccelenableswitchState value
 }
 
 constexpr auto try_get_ebc1_electronic_brake_cntrl__remoteaccelenableswitch(const ValueStore& store) -> std::optional<Ebc1ElectronicBrakeCntrlRemoteaccelenableswitchState> {
-    auto raw = store.try_get_u8(SignalId::ebc1_electronic_brake_cntrl__remoteaccelenableswitch);
+    auto raw = store.template get<SignalId::ebc1_electronic_brake_cntrl__remoteaccelenableswitch>();
     if (!raw) {
         return std::nullopt;
     }
@@ -6919,7 +6920,7 @@ constexpr auto to_raw(Ebc1ElectronicBrakeCntrlAbsfullyoperationalState value) ->
 }
 
 constexpr auto try_get_ebc1_electronic_brake_cntrl__absfullyoperational(const ValueStore& store) -> std::optional<Ebc1ElectronicBrakeCntrlAbsfullyoperationalState> {
-    auto raw = store.try_get_u8(SignalId::ebc1_electronic_brake_cntrl__absfullyoperational);
+    auto raw = store.template get<SignalId::ebc1_electronic_brake_cntrl__absfullyoperational>();
     if (!raw) {
         return std::nullopt;
     }
@@ -6980,7 +6981,7 @@ constexpr auto to_raw(Ebc1ElectronicBrakeCntrlEbsredwarningsignalState value) ->
 }
 
 constexpr auto try_get_ebc1_electronic_brake_cntrl__ebsredwarningsignal(const ValueStore& store) -> std::optional<Ebc1ElectronicBrakeCntrlEbsredwarningsignalState> {
-    auto raw = store.try_get_u8(SignalId::ebc1_electronic_brake_cntrl__ebsredwarningsignal);
+    auto raw = store.template get<SignalId::ebc1_electronic_brake_cntrl__ebsredwarningsignal>();
     if (!raw) {
         return std::nullopt;
     }
@@ -7041,7 +7042,7 @@ constexpr auto to_raw(Ebc1ElectronicBrakeCntrlAbsEbsamberwarningsignalState valu
 }
 
 constexpr auto try_get_ebc1_electronic_brake_cntrl__abs_ebsamberwarningsignal(const ValueStore& store) -> std::optional<Ebc1ElectronicBrakeCntrlAbsEbsamberwarningsignalState> {
-    auto raw = store.try_get_u8(SignalId::ebc1_electronic_brake_cntrl__abs_ebsamberwarningsignal);
+    auto raw = store.template get<SignalId::ebc1_electronic_brake_cntrl__abs_ebsamberwarningsignal>();
     if (!raw) {
         return std::nullopt;
     }
@@ -7102,7 +7103,7 @@ constexpr auto to_raw(Ebc1ElectronicBrakeCntrlAtcAsrinformationsignalState value
 }
 
 constexpr auto try_get_ebc1_electronic_brake_cntrl__atc_asrinformationsignal(const ValueStore& store) -> std::optional<Ebc1ElectronicBrakeCntrlAtcAsrinformationsignalState> {
-    auto raw = store.try_get_u8(SignalId::ebc1_electronic_brake_cntrl__atc_asrinformationsignal);
+    auto raw = store.template get<SignalId::ebc1_electronic_brake_cntrl__atc_asrinformationsignal>();
     if (!raw) {
         return std::nullopt;
     }
@@ -7163,7 +7164,7 @@ constexpr auto to_raw(Ebc1ElectronicBrakeCntrlRailroadmodeswState value) -> std:
 }
 
 constexpr auto try_get_ebc1_electronic_brake_cntrl__railroadmodesw(const ValueStore& store) -> std::optional<Ebc1ElectronicBrakeCntrlRailroadmodeswState> {
-    auto raw = store.try_get_u8(SignalId::ebc1_electronic_brake_cntrl__railroadmodesw);
+    auto raw = store.template get<SignalId::ebc1_electronic_brake_cntrl__railroadmodesw>();
     if (!raw) {
         return std::nullopt;
     }
@@ -7224,7 +7225,7 @@ constexpr auto to_raw(Ebc1ElectronicBrakeCntrlHaltbrakeswitchState value) -> std
 }
 
 constexpr auto try_get_ebc1_electronic_brake_cntrl__haltbrakeswitch(const ValueStore& store) -> std::optional<Ebc1ElectronicBrakeCntrlHaltbrakeswitchState> {
-    auto raw = store.try_get_u8(SignalId::ebc1_electronic_brake_cntrl__haltbrakeswitch);
+    auto raw = store.template get<SignalId::ebc1_electronic_brake_cntrl__haltbrakeswitch>();
     if (!raw) {
         return std::nullopt;
     }
@@ -7285,7 +7286,7 @@ constexpr auto to_raw(Ebc1ElectronicBrakeCntrlTrailerabsstatusState value) -> st
 }
 
 constexpr auto try_get_ebc1_electronic_brake_cntrl__trailerabsstatus(const ValueStore& store) -> std::optional<Ebc1ElectronicBrakeCntrlTrailerabsstatusState> {
-    auto raw = store.try_get_u8(SignalId::ebc1_electronic_brake_cntrl__trailerabsstatus);
+    auto raw = store.template get<SignalId::ebc1_electronic_brake_cntrl__trailerabsstatus>();
     if (!raw) {
         return std::nullopt;
     }
@@ -7346,7 +7347,7 @@ constexpr auto to_raw(Ebc1ElectronicBrakeCntrlTrctrmntdtrailerabswarningsignalSt
 }
 
 constexpr auto try_get_ebc1_electronic_brake_cntrl__trctrmntdtrailerabswarningsignal(const ValueStore& store) -> std::optional<Ebc1ElectronicBrakeCntrlTrctrmntdtrailerabswarningsignalState> {
-    auto raw = store.try_get_u8(SignalId::ebc1_electronic_brake_cntrl__trctrmntdtrailerabswarningsignal);
+    auto raw = store.template get<SignalId::ebc1_electronic_brake_cntrl__trctrmntdtrailerabswarningsignal>();
     if (!raw) {
         return std::nullopt;
     }
@@ -7407,7 +7408,7 @@ constexpr auto to_raw(ShutdnEngidleshutdownhasshutdownengState value) -> std::ui
 }
 
 constexpr auto try_get_shutdn__engidleshutdownhasshutdowneng(const ValueStore& store) -> std::optional<ShutdnEngidleshutdownhasshutdownengState> {
-    auto raw = store.try_get_u8(SignalId::shutdn__engidleshutdownhasshutdowneng);
+    auto raw = store.template get<SignalId::shutdn__engidleshutdownhasshutdowneng>();
     if (!raw) {
         return std::nullopt;
     }
@@ -7468,7 +7469,7 @@ constexpr auto to_raw(ShutdnEngidleshutdowndriveralertmodeState value) -> std::u
 }
 
 constexpr auto try_get_shutdn__engidleshutdowndriveralertmode(const ValueStore& store) -> std::optional<ShutdnEngidleshutdowndriveralertmodeState> {
-    auto raw = store.try_get_u8(SignalId::shutdn__engidleshutdowndriveralertmode);
+    auto raw = store.template get<SignalId::shutdn__engidleshutdowndriveralertmode>();
     if (!raw) {
         return std::nullopt;
     }
@@ -7529,7 +7530,7 @@ constexpr auto to_raw(ShutdnEngidleshutdowntimeroverrideState value) -> std::uin
 }
 
 constexpr auto try_get_shutdn__engidleshutdowntimeroverride(const ValueStore& store) -> std::optional<ShutdnEngidleshutdowntimeroverrideState> {
-    auto raw = store.try_get_u8(SignalId::shutdn__engidleshutdowntimeroverride);
+    auto raw = store.template get<SignalId::shutdn__engidleshutdowntimeroverride>();
     if (!raw) {
         return std::nullopt;
     }
@@ -7590,7 +7591,7 @@ constexpr auto to_raw(ShutdnEngidleshutdowntimerstateState value) -> std::uint8_
 }
 
 constexpr auto try_get_shutdn__engidleshutdowntimerstate(const ValueStore& store) -> std::optional<ShutdnEngidleshutdowntimerstateState> {
-    auto raw = store.try_get_u8(SignalId::shutdn__engidleshutdowntimerstate);
+    auto raw = store.template get<SignalId::shutdn__engidleshutdowntimerstate>();
     if (!raw) {
         return std::nullopt;
     }
@@ -7651,7 +7652,7 @@ constexpr auto to_raw(ShutdnEngidleshutdowntimerfunctionState value) -> std::uin
 }
 
 constexpr auto try_get_shutdn__engidleshutdowntimerfunction(const ValueStore& store) -> std::optional<ShutdnEngidleshutdowntimerfunctionState> {
-    auto raw = store.try_get_u8(SignalId::shutdn__engidleshutdowntimerfunction);
+    auto raw = store.template get<SignalId::shutdn__engidleshutdowntimerfunction>();
     if (!raw) {
         return std::nullopt;
     }
@@ -7712,7 +7713,7 @@ constexpr auto to_raw(ShutdnAChighpressfanswitchState value) -> std::uint8_t {
 }
 
 constexpr auto try_get_shutdn__a_chighpressfanswitch(const ValueStore& store) -> std::optional<ShutdnAChighpressfanswitchState> {
-    auto raw = store.try_get_u8(SignalId::shutdn__a_chighpressfanswitch);
+    auto raw = store.template get<SignalId::shutdn__a_chighpressfanswitch>();
     if (!raw) {
         return std::nullopt;
     }
@@ -7773,7 +7774,7 @@ constexpr auto to_raw(ShutdnRefrigerantlowpressswitchState value) -> std::uint8_
 }
 
 constexpr auto try_get_shutdn__refrigerantlowpressswitch(const ValueStore& store) -> std::optional<ShutdnRefrigerantlowpressswitchState> {
-    auto raw = store.try_get_u8(SignalId::shutdn__refrigerantlowpressswitch);
+    auto raw = store.template get<SignalId::shutdn__refrigerantlowpressswitch>();
     if (!raw) {
         return std::nullopt;
     }
@@ -7834,7 +7835,7 @@ constexpr auto to_raw(ShutdnRefrigeranthighpressswitchState value) -> std::uint8
 }
 
 constexpr auto try_get_shutdn__refrigeranthighpressswitch(const ValueStore& store) -> std::optional<ShutdnRefrigeranthighpressswitchState> {
-    auto raw = store.try_get_u8(SignalId::shutdn__refrigeranthighpressswitch);
+    auto raw = store.template get<SignalId::shutdn__refrigeranthighpressswitch>();
     if (!raw) {
         return std::nullopt;
     }
@@ -7895,7 +7896,7 @@ constexpr auto to_raw(ShutdnEngwaittostartlampState value) -> std::uint8_t {
 }
 
 constexpr auto try_get_shutdn__engwaittostartlamp(const ValueStore& store) -> std::optional<ShutdnEngwaittostartlampState> {
-    auto raw = store.try_get_u8(SignalId::shutdn__engwaittostartlamp);
+    auto raw = store.template get<SignalId::shutdn__engwaittostartlamp>();
     if (!raw) {
         return std::nullopt;
     }
@@ -7956,7 +7957,7 @@ constexpr auto to_raw(ShutdnEngprtectionsystemhasshutdownengState value) -> std:
 }
 
 constexpr auto try_get_shutdn__engprtectionsystemhasshutdowneng(const ValueStore& store) -> std::optional<ShutdnEngprtectionsystemhasshutdownengState> {
-    auto raw = store.try_get_u8(SignalId::shutdn__engprtectionsystemhasshutdowneng);
+    auto raw = store.template get<SignalId::shutdn__engprtectionsystemhasshutdowneng>();
     if (!raw) {
         return std::nullopt;
     }
@@ -8017,7 +8018,7 @@ constexpr auto to_raw(ShutdnEngprtctnsystmapprachingshutdownState value) -> std:
 }
 
 constexpr auto try_get_shutdn__engprtctnsystmapprachingshutdown(const ValueStore& store) -> std::optional<ShutdnEngprtctnsystmapprachingshutdownState> {
-    auto raw = store.try_get_u8(SignalId::shutdn__engprtctnsystmapprachingshutdown);
+    auto raw = store.template get<SignalId::shutdn__engprtctnsystmapprachingshutdown>();
     if (!raw) {
         return std::nullopt;
     }
@@ -8078,7 +8079,7 @@ constexpr auto to_raw(ShutdnEngprotectionsystemtimeroverrideState value) -> std:
 }
 
 constexpr auto try_get_shutdn__engprotectionsystemtimeroverride(const ValueStore& store) -> std::optional<ShutdnEngprotectionsystemtimeroverrideState> {
-    auto raw = store.try_get_u8(SignalId::shutdn__engprotectionsystemtimeroverride);
+    auto raw = store.template get<SignalId::shutdn__engprotectionsystemtimeroverride>();
     if (!raw) {
         return std::nullopt;
     }
@@ -8139,7 +8140,7 @@ constexpr auto to_raw(ShutdnEngprotectionsystemtimerstateState value) -> std::ui
 }
 
 constexpr auto try_get_shutdn__engprotectionsystemtimerstate(const ValueStore& store) -> std::optional<ShutdnEngprotectionsystemtimerstateState> {
-    auto raw = store.try_get_u8(SignalId::shutdn__engprotectionsystemtimerstate);
+    auto raw = store.template get<SignalId::shutdn__engprotectionsystemtimerstate>();
     if (!raw) {
         return std::nullopt;
     }
@@ -8200,7 +8201,7 @@ constexpr auto to_raw(ShutdnEngprotectionsystemconfigState value) -> std::uint8_
 }
 
 constexpr auto try_get_shutdn__engprotectionsystemconfig(const ValueStore& store) -> std::optional<ShutdnEngprotectionsystemconfigState> {
-    auto raw = store.try_get_u8(SignalId::shutdn__engprotectionsystemconfig);
+    auto raw = store.template get<SignalId::shutdn__engprotectionsystemconfig>();
     if (!raw) {
         return std::nullopt;
     }
@@ -8261,7 +8262,7 @@ constexpr auto to_raw(ShutdnEngalarmacknowledgeState value) -> std::uint8_t {
 }
 
 constexpr auto try_get_shutdn__engalarmacknowledge(const ValueStore& store) -> std::optional<ShutdnEngalarmacknowledgeState> {
-    auto raw = store.try_get_u8(SignalId::shutdn__engalarmacknowledge);
+    auto raw = store.template get<SignalId::shutdn__engalarmacknowledge>();
     if (!raw) {
         return std::nullopt;
     }
@@ -8322,7 +8323,7 @@ constexpr auto to_raw(ShutdnEngalarmoutputcmdstatusState value) -> std::uint8_t 
 }
 
 constexpr auto try_get_shutdn__engalarmoutputcmdstatus(const ValueStore& store) -> std::optional<ShutdnEngalarmoutputcmdstatusState> {
-    auto raw = store.try_get_u8(SignalId::shutdn__engalarmoutputcmdstatus);
+    auto raw = store.template get<SignalId::shutdn__engalarmoutputcmdstatus>();
     if (!raw) {
         return std::nullopt;
     }
@@ -8383,7 +8384,7 @@ constexpr auto to_raw(ShutdnEngairshutoffcmdstatusState value) -> std::uint8_t {
 }
 
 constexpr auto try_get_shutdn__engairshutoffcmdstatus(const ValueStore& store) -> std::optional<ShutdnEngairshutoffcmdstatusState> {
-    auto raw = store.try_get_u8(SignalId::shutdn__engairshutoffcmdstatus);
+    auto raw = store.template get<SignalId::shutdn__engairshutoffcmdstatus>();
     if (!raw) {
         return std::nullopt;
     }
@@ -8444,7 +8445,7 @@ constexpr auto to_raw(ShutdnEngoverspeedtestState value) -> std::uint8_t {
 }
 
 constexpr auto try_get_shutdn__engoverspeedtest(const ValueStore& store) -> std::optional<ShutdnEngoverspeedtestState> {
-    auto raw = store.try_get_u8(SignalId::shutdn__engoverspeedtest);
+    auto raw = store.template get<SignalId::shutdn__engoverspeedtest>();
     if (!raw) {
         return std::nullopt;
     }
@@ -8505,7 +8506,7 @@ constexpr auto to_raw(ShutdnEngairshutoffstatusState value) -> std::uint8_t {
 }
 
 constexpr auto try_get_shutdn__engairshutoffstatus(const ValueStore& store) -> std::optional<ShutdnEngairshutoffstatusState> {
-    auto raw = store.try_get_u8(SignalId::shutdn__engairshutoffstatus);
+    auto raw = store.template get<SignalId::shutdn__engairshutoffstatus>();
     if (!raw) {
         return std::nullopt;
     }
@@ -8566,7 +8567,7 @@ constexpr auto to_raw(ShutdnPtoshutdownhasshutdownengState value) -> std::uint8_
 }
 
 constexpr auto try_get_shutdn__ptoshutdownhasshutdowneng(const ValueStore& store) -> std::optional<ShutdnPtoshutdownhasshutdownengState> {
-    auto raw = store.try_get_u8(SignalId::shutdn__ptoshutdownhasshutdowneng);
+    auto raw = store.template get<SignalId::shutdn__ptoshutdownhasshutdowneng>();
     if (!raw) {
         return std::nullopt;
     }
@@ -8627,7 +8628,7 @@ constexpr auto to_raw(ShutdnClntlvlengprtctionshutdownstatusState value) -> std:
 }
 
 constexpr auto try_get_shutdn__clntlvlengprtctionshutdownstatus(const ValueStore& store) -> std::optional<ShutdnClntlvlengprtctionshutdownstatusState> {
-    auto raw = store.try_get_u8(SignalId::shutdn__clntlvlengprtctionshutdownstatus);
+    auto raw = store.template get<SignalId::shutdn__clntlvlengprtctionshutdownstatus>();
     if (!raw) {
         return std::nullopt;
     }
@@ -8688,7 +8689,7 @@ constexpr auto to_raw(ShutdnEngoilpressswState value) -> std::uint8_t {
 }
 
 constexpr auto try_get_shutdn__engoilpresssw(const ValueStore& store) -> std::optional<ShutdnEngoilpressswState> {
-    auto raw = store.try_get_u8(SignalId::shutdn__engoilpresssw);
+    auto raw = store.template get<SignalId::shutdn__engoilpresssw>();
     if (!raw) {
         return std::nullopt;
     }

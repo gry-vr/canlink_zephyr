@@ -2,6 +2,7 @@
 
 #include "duramax_ids.hpp"
 
+#include <concepts>
 #include <cstdint>
 #include <variant>
 
@@ -545,7 +546,6 @@ using MessageVariant = std::variant<
     Shutdn
 >;
 
-// Message instance -> MessageId mapping
 constexpr auto message_id_of(const Eec5ElectronicEngineControl5&) -> MessageId {
     return MessageId::eec5_electronic_engine_control_5;
 }
@@ -673,7 +673,6 @@ constexpr auto message_id_of(const Shutdn&) -> MessageId {
     return MessageId::shutdn;
 }
 
-// Message type -> MessageId mapping
 template <typename Msg>
 struct message_id_of_type;
 
@@ -850,5 +849,12 @@ template <typename Msg>
 constexpr auto message_id_of() -> MessageId {
     return message_id_of_type<Msg>::value;
 }
+
+template <typename T>
+concept GeneratedMessage =
+    requires(T msg) {
+        { T::id } -> std::convertible_to<MessageId>;
+        { message_id_of(msg) } -> std::same_as<MessageId>;
+    };
 
 } // namespace duramax

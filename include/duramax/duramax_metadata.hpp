@@ -5628,6 +5628,10 @@ constexpr auto signal_parent_message_name(SignalId id) -> std::string_view {
     return signal_meta(id).message_dbc_name;
 }
 
+constexpr auto parent_message_id(SignalId id) -> MessageId {
+    return signal_meta(id).message_id;
+}
+
 constexpr auto message_cycle_time_ms(MessageId id) -> std::uint32_t {
     return message_meta(id).cycle_time_ms;
 }
@@ -5648,5 +5652,3974 @@ constexpr auto find_message_by_frame_id(std::uint32_t frame_id) -> const Message
     }
     return nullptr;
 }
+
+template <SignalId Id>
+struct signal_traits;
+
+template <>
+struct signal_traits<SignalId::eec5_electronic_engine_control_5__engine_turbocharger_1_calculated> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::eec5_electronic_engine_control_5__engine_turbocharger_1_calculated;
+    static constexpr MessageId message_id = MessageId::eec5_electronic_engine_control_5;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 0;
+    static constexpr std::uint8_t bit_length = 16;
+    static constexpr double scale = 0.03125;
+    static constexpr double offset = -273.0;
+};
+template <>
+struct signal_traits<SignalId::eec5_electronic_engine_control_5__commanded_vgt_position> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::eec5_electronic_engine_control_5__commanded_vgt_position;
+    static constexpr MessageId message_id = MessageId::eec5_electronic_engine_control_5;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 32;
+    static constexpr std::uint8_t bit_length = 16;
+    static constexpr double scale = 0.0025;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::eec5_electronic_engine_control_5__engine_variable_geometry_turboch> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::eec5_electronic_engine_control_5__engine_variable_geometry_turboch;
+    static constexpr MessageId message_id = MessageId::eec5_electronic_engine_control_5;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 48;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::eec5_electronic_engine_control_5__engine_fuel_control_control_mode> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::eec5_electronic_engine_control_5__engine_fuel_control_control_mode;
+    static constexpr MessageId message_id = MessageId::eec5_electronic_engine_control_5;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 50;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::eec5_electronic_engine_control_5__engine_vgt_control_mode> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::eec5_electronic_engine_control_5__engine_vgt_control_mode;
+    static constexpr MessageId message_id = MessageId::eec5_electronic_engine_control_5;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 52;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::eec5_electronic_engine_control_5__actual_vgt_position> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::eec5_electronic_engine_control_5__actual_vgt_position;
+    static constexpr MessageId message_id = MessageId::eec5_electronic_engine_control_5;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 56;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 0.4;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::eec9_electronic_engine_control_9__engine_exhaust_gas_recirculation> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::eec9_electronic_engine_control_9__engine_exhaust_gas_recirculation;
+    static constexpr MessageId message_id = MessageId::eec9_electronic_engine_control_9;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 0;
+    static constexpr std::uint8_t bit_length = 16;
+    static constexpr double scale = 0.0025;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::eec9_electronic_engine_control_9__commanded_fuel_rail_pressure> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::eec9_electronic_engine_control_9__commanded_fuel_rail_pressure;
+    static constexpr MessageId message_id = MessageId::eec9_electronic_engine_control_9;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 32;
+    static constexpr std::uint8_t bit_length = 16;
+    static constexpr double scale = 0.00390625;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::eec9_electronic_engine_control_9__commanded_engine_fuel_injection> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::eec9_electronic_engine_control_9__commanded_engine_fuel_injection;
+    static constexpr MessageId message_id = MessageId::eec9_electronic_engine_control_9;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 48;
+    static constexpr std::uint8_t bit_length = 16;
+    static constexpr double scale = 0.00390625;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::ebcc_engine_exhaust_brake_cont__actual_boost_pressure> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::ebcc_engine_exhaust_brake_cont__actual_boost_pressure;
+    static constexpr MessageId message_id = MessageId::ebcc_engine_exhaust_brake_cont;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 0;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 2.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::ebcc_engine_exhaust_brake_cont__desired_boost_pressure> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::ebcc_engine_exhaust_brake_cont__desired_boost_pressure;
+    static constexpr MessageId message_id = MessageId::ebcc_engine_exhaust_brake_cont;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 8;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 2.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::ebcc_engine_exhaust_brake_cont__engine_exhaust_brake_actuator_co> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::ebcc_engine_exhaust_brake_cont__engine_exhaust_brake_actuator_co;
+    static constexpr MessageId message_id = MessageId::ebcc_engine_exhaust_brake_cont;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 16;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 0.4;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::ebcc_engine_exhaust_brake_cont__engine_turbocharger_2_turbine_ou> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::ebcc_engine_exhaust_brake_cont__engine_turbocharger_2_turbine_ou;
+    static constexpr MessageId message_id = MessageId::ebcc_engine_exhaust_brake_cont;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 24;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 2.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::ebcc_engine_exhaust_brake_cont__desired_engine_turbocharger_2_tu> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::ebcc_engine_exhaust_brake_cont__desired_engine_turbocharger_2_tu;
+    static constexpr MessageId message_id = MessageId::ebcc_engine_exhaust_brake_cont;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 32;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 2.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::et3_engine_temperature_3__engine_intake_manifold_1_air_tem> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::et3_engine_temperature_3__engine_intake_manifold_1_air_tem;
+    static constexpr MessageId message_id = MessageId::et3_engine_temperature_3;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 0;
+    static constexpr std::uint8_t bit_length = 16;
+    static constexpr double scale = 0.03125;
+    static constexpr double offset = -273.0;
+};
+template <>
+struct signal_traits<SignalId::et3_engine_temperature_3__engine_coolant_temperature_high> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::et3_engine_temperature_3__engine_coolant_temperature_high;
+    static constexpr MessageId message_id = MessageId::et3_engine_temperature_3;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 16;
+    static constexpr std::uint8_t bit_length = 16;
+    static constexpr double scale = 0.03125;
+    static constexpr double offset = -273.0;
+};
+template <>
+struct signal_traits<SignalId::et3_engine_temperature_3__engine_intake_valve_actuation_sy> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::et3_engine_temperature_3__engine_intake_valve_actuation_sy;
+    static constexpr MessageId message_id = MessageId::et3_engine_temperature_3;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 32;
+    static constexpr std::uint8_t bit_length = 16;
+    static constexpr double scale = 0.03125;
+    static constexpr double offset = -273.0;
+};
+template <>
+struct signal_traits<SignalId::et3_engine_temperature_3__engine_cac_outlet_temperature> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::et3_engine_temperature_3__engine_cac_outlet_temperature;
+    static constexpr MessageId message_id = MessageId::et3_engine_temperature_3;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 48;
+    static constexpr std::uint8_t bit_length = 16;
+    static constexpr double scale = 0.03125;
+    static constexpr double offset = -273.0;
+};
+template <>
+struct signal_traits<SignalId::dm21_diagnostic_readiness_2__engine_run_time_with_mil_on> {
+    using value_type = std::uint16_t;
+    static constexpr SignalId id = SignalId::dm21_diagnostic_readiness_2__engine_run_time_with_mil_on;
+    static constexpr MessageId message_id = MessageId::dm21_diagnostic_readiness_2;
+    static constexpr SignalType signal_type = SignalType::u16;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 32;
+    static constexpr std::uint8_t bit_length = 16;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::dm26_diagnostic_readiness_3__time_since_engine_start> {
+    using value_type = std::uint16_t;
+    static constexpr SignalId id = SignalId::dm26_diagnostic_readiness_3__time_since_engine_start;
+    static constexpr MessageId message_id = MessageId::dm26_diagnostic_readiness_3;
+    static constexpr SignalType signal_type = SignalType::u16;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 0;
+    static constexpr std::uint8_t bit_length = 16;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::ic1_intake_exhaust_cond_1__aft1dpfinpress> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::ic1_intake_exhaust_cond_1__aft1dpfinpress;
+    static constexpr MessageId message_id = MessageId::ic1_intake_exhaust_cond_1;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 0;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 0.5;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::ic1_intake_exhaust_cond_1__engintakemanifold1press> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::ic1_intake_exhaust_cond_1__engintakemanifold1press;
+    static constexpr MessageId message_id = MessageId::ic1_intake_exhaust_cond_1;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 8;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 2.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::ic1_intake_exhaust_cond_1__engintakemanifold1temp> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::ic1_intake_exhaust_cond_1__engintakemanifold1temp;
+    static constexpr MessageId message_id = MessageId::ic1_intake_exhaust_cond_1;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 16;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = -40.0;
+};
+template <>
+struct signal_traits<SignalId::ic1_intake_exhaust_cond_1__engairintakepress> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::ic1_intake_exhaust_cond_1__engairintakepress;
+    static constexpr MessageId message_id = MessageId::ic1_intake_exhaust_cond_1;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 24;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 2.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::ic1_intake_exhaust_cond_1__engairfilter1diffpress> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::ic1_intake_exhaust_cond_1__engairfilter1diffpress;
+    static constexpr MessageId message_id = MessageId::ic1_intake_exhaust_cond_1;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 32;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 0.05;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::ic1_intake_exhaust_cond_1__engexhaustgastemp> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::ic1_intake_exhaust_cond_1__engexhaustgastemp;
+    static constexpr MessageId message_id = MessageId::ic1_intake_exhaust_cond_1;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 40;
+    static constexpr std::uint8_t bit_length = 16;
+    static constexpr double scale = 0.03125;
+    static constexpr double offset = -273.0;
+};
+template <>
+struct signal_traits<SignalId::ic1_intake_exhaust_cond_1__engcoolantfilterdiffpress> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::ic1_intake_exhaust_cond_1__engcoolantfilterdiffpress;
+    static constexpr MessageId message_id = MessageId::ic1_intake_exhaust_cond_1;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 56;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 0.5;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::amb_ambient_conditions__barometric_pressurebarometric_pr> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::amb_ambient_conditions__barometric_pressurebarometric_pr;
+    static constexpr MessageId message_id = MessageId::amb_ambient_conditions;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 0;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 0.5;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::amb_ambient_conditions__cabinteriortemp> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::amb_ambient_conditions__cabinteriortemp;
+    static constexpr MessageId message_id = MessageId::amb_ambient_conditions;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 8;
+    static constexpr std::uint8_t bit_length = 16;
+    static constexpr double scale = 0.03125;
+    static constexpr double offset = -273.0;
+};
+template <>
+struct signal_traits<SignalId::amb_ambient_conditions__ambient_air_temperature> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::amb_ambient_conditions__ambient_air_temperature;
+    static constexpr MessageId message_id = MessageId::amb_ambient_conditions;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 24;
+    static constexpr std::uint8_t bit_length = 16;
+    static constexpr double scale = 0.03125;
+    static constexpr double offset = -273.0;
+};
+template <>
+struct signal_traits<SignalId::amb_ambient_conditions__engine_air_intake_temperature> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::amb_ambient_conditions__engine_air_intake_temperature;
+    static constexpr MessageId message_id = MessageId::amb_ambient_conditions;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 40;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = -40.0;
+};
+template <>
+struct signal_traits<SignalId::amb_ambient_conditions__roadsurfacetemp> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::amb_ambient_conditions__roadsurfacetemp;
+    static constexpr MessageId message_id = MessageId::amb_ambient_conditions;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 48;
+    static constexpr std::uint8_t bit_length = 16;
+    static constexpr double scale = 0.03125;
+    static constexpr double offset = -273.0;
+};
+template <>
+struct signal_traits<SignalId::eec1_electronic_engine_control_1__engine_torque_mode> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::eec1_electronic_engine_control_1__engine_torque_mode;
+    static constexpr MessageId message_id = MessageId::eec1_electronic_engine_control_1;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 0;
+    static constexpr std::uint8_t bit_length = 4;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::eec1_electronic_engine_control_1__actlengprcnttorquehighresolution> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::eec1_electronic_engine_control_1__actlengprcnttorquehighresolution;
+    static constexpr MessageId message_id = MessageId::eec1_electronic_engine_control_1;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 4;
+    static constexpr std::uint8_t bit_length = 4;
+    static constexpr double scale = 0.125;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::eec1_electronic_engine_control_1__drivers_demand_engine_prcnt_torq> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::eec1_electronic_engine_control_1__drivers_demand_engine_prcnt_torq;
+    static constexpr MessageId message_id = MessageId::eec1_electronic_engine_control_1;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 8;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = -125.0;
+};
+template <>
+struct signal_traits<SignalId::eec1_electronic_engine_control_1__actual_engine_percent_torque> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::eec1_electronic_engine_control_1__actual_engine_percent_torque;
+    static constexpr MessageId message_id = MessageId::eec1_electronic_engine_control_1;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 16;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = -125.0;
+};
+template <>
+struct signal_traits<SignalId::eec1_electronic_engine_control_1__engine_speed> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::eec1_electronic_engine_control_1__engine_speed;
+    static constexpr MessageId message_id = MessageId::eec1_electronic_engine_control_1;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 24;
+    static constexpr std::uint8_t bit_length = 16;
+    static constexpr double scale = 0.125;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::eec1_electronic_engine_control_1__srcaddrssofcntrllngdvcforengctrl> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::eec1_electronic_engine_control_1__srcaddrssofcntrllngdvcforengctrl;
+    static constexpr MessageId message_id = MessageId::eec1_electronic_engine_control_1;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 40;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::eec1_electronic_engine_control_1__engstartermode> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::eec1_electronic_engine_control_1__engstartermode;
+    static constexpr MessageId message_id = MessageId::eec1_electronic_engine_control_1;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 48;
+    static constexpr std::uint8_t bit_length = 4;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::eec1_electronic_engine_control_1__engine_demand_percent_torque> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::eec1_electronic_engine_control_1__engine_demand_percent_torque;
+    static constexpr MessageId message_id = MessageId::eec1_electronic_engine_control_1;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 56;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = -125.0;
+};
+template <>
+struct signal_traits<SignalId::eec2_electronic_engine_control_2__accelpedal1lowidleswitch> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::eec2_electronic_engine_control_2__accelpedal1lowidleswitch;
+    static constexpr MessageId message_id = MessageId::eec2_electronic_engine_control_2;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 0;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::eec2_electronic_engine_control_2__accelpedalkickdownswitch> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::eec2_electronic_engine_control_2__accelpedalkickdownswitch;
+    static constexpr MessageId message_id = MessageId::eec2_electronic_engine_control_2;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 2;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::eec2_electronic_engine_control_2__roadspeedlimitstatus> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::eec2_electronic_engine_control_2__roadspeedlimitstatus;
+    static constexpr MessageId message_id = MessageId::eec2_electronic_engine_control_2;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 4;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::eec2_electronic_engine_control_2__accelpedal2lowidleswitch> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::eec2_electronic_engine_control_2__accelpedal2lowidleswitch;
+    static constexpr MessageId message_id = MessageId::eec2_electronic_engine_control_2;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 6;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::eec2_electronic_engine_control_2__accelpedalpos1> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::eec2_electronic_engine_control_2__accelpedalpos1;
+    static constexpr MessageId message_id = MessageId::eec2_electronic_engine_control_2;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 8;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 0.4;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::eec2_electronic_engine_control_2__engpercentloadatcurrentspeed> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::eec2_electronic_engine_control_2__engpercentloadatcurrentspeed;
+    static constexpr MessageId message_id = MessageId::eec2_electronic_engine_control_2;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 16;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::eec2_electronic_engine_control_2__remoteaccelpedalpos> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::eec2_electronic_engine_control_2__remoteaccelpedalpos;
+    static constexpr MessageId message_id = MessageId::eec2_electronic_engine_control_2;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 24;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 0.4;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::eec2_electronic_engine_control_2__accelpedalpos2> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::eec2_electronic_engine_control_2__accelpedalpos2;
+    static constexpr MessageId message_id = MessageId::eec2_electronic_engine_control_2;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 32;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 0.4;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::eec2_electronic_engine_control_2__vhcleaccelerationratelimitstatus> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::eec2_electronic_engine_control_2__vhcleaccelerationratelimitstatus;
+    static constexpr MessageId message_id = MessageId::eec2_electronic_engine_control_2;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 40;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::eec2_electronic_engine_control_2__mmntaryengmaxpowerenablefeedback> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::eec2_electronic_engine_control_2__mmntaryengmaxpowerenablefeedback;
+    static constexpr MessageId message_id = MessageId::eec2_electronic_engine_control_2;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 42;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::eec2_electronic_engine_control_2__dpfthermalmanagementactive> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::eec2_electronic_engine_control_2__dpfthermalmanagementactive;
+    static constexpr MessageId message_id = MessageId::eec2_electronic_engine_control_2;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 44;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::eec2_electronic_engine_control_2__scrthermalmanagementactive> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::eec2_electronic_engine_control_2__scrthermalmanagementactive;
+    static constexpr MessageId message_id = MessageId::eec2_electronic_engine_control_2;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 46;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::eec2_electronic_engine_control_2__actlmaxavailableengpercenttorque> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::eec2_electronic_engine_control_2__actlmaxavailableengpercenttorque;
+    static constexpr MessageId message_id = MessageId::eec2_electronic_engine_control_2;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 48;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 0.4;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::eec2_electronic_engine_control_2__estpumpingpercenttorque> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::eec2_electronic_engine_control_2__estpumpingpercenttorque;
+    static constexpr MessageId message_id = MessageId::eec2_electronic_engine_control_2;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 56;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = -125.0;
+};
+template <>
+struct signal_traits<SignalId::eec3_electronic_engine_control_3__nominalfrictionpercenttorque> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::eec3_electronic_engine_control_3__nominalfrictionpercenttorque;
+    static constexpr MessageId message_id = MessageId::eec3_electronic_engine_control_3;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 0;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = -125.0;
+};
+template <>
+struct signal_traits<SignalId::eec3_electronic_engine_control_3__enginesdesiredoperatingspeed> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::eec3_electronic_engine_control_3__enginesdesiredoperatingspeed;
+    static constexpr MessageId message_id = MessageId::eec3_electronic_engine_control_3;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 8;
+    static constexpr std::uint8_t bit_length = 16;
+    static constexpr double scale = 0.125;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::eec3_electronic_engine_control_3__engnsdsrdoprtngspdasymmtryadjstm> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::eec3_electronic_engine_control_3__engnsdsrdoprtngspdasymmtryadjstm;
+    static constexpr MessageId message_id = MessageId::eec3_electronic_engine_control_3;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 24;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::eec3_electronic_engine_control_3__estengprsiticlossespercenttorque> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::eec3_electronic_engine_control_3__estengprsiticlossespercenttorque;
+    static constexpr MessageId message_id = MessageId::eec3_electronic_engine_control_3;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 32;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = -125.0;
+};
+template <>
+struct signal_traits<SignalId::eec3_electronic_engine_control_3__aft1exhgasmfr> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::eec3_electronic_engine_control_3__aft1exhgasmfr;
+    static constexpr MessageId message_id = MessageId::eec3_electronic_engine_control_3;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 40;
+    static constexpr std::uint8_t bit_length = 16;
+    static constexpr double scale = 0.2;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::eec3_electronic_engine_control_3__aft1indewpoint> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::eec3_electronic_engine_control_3__aft1indewpoint;
+    static constexpr MessageId message_id = MessageId::eec3_electronic_engine_control_3;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 56;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::eec3_electronic_engine_control_3__aft1exhdewpoint> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::eec3_electronic_engine_control_3__aft1exhdewpoint;
+    static constexpr MessageId message_id = MessageId::eec3_electronic_engine_control_3;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 58;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::eec3_electronic_engine_control_3__aft2indewpoint> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::eec3_electronic_engine_control_3__aft2indewpoint;
+    static constexpr MessageId message_id = MessageId::eec3_electronic_engine_control_3;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 60;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::eec3_electronic_engine_control_3__aft2exhdewpoint> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::eec3_electronic_engine_control_3__aft2exhdewpoint;
+    static constexpr MessageId message_id = MessageId::eec3_electronic_engine_control_3;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 62;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::efl_p1_eng_fluid_level_press_1__engfueldeliverypress> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::efl_p1_eng_fluid_level_press_1__engfueldeliverypress;
+    static constexpr MessageId message_id = MessageId::efl_p1_eng_fluid_level_press_1;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 0;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 4.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::efl_p1_eng_fluid_level_press_1__engexcrankcaseblowbypress> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::efl_p1_eng_fluid_level_press_1__engexcrankcaseblowbypress;
+    static constexpr MessageId message_id = MessageId::efl_p1_eng_fluid_level_press_1;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 8;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 0.05;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::efl_p1_eng_fluid_level_press_1__engoillevel> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::efl_p1_eng_fluid_level_press_1__engoillevel;
+    static constexpr MessageId message_id = MessageId::efl_p1_eng_fluid_level_press_1;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 16;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 0.4;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::efl_p1_eng_fluid_level_press_1__engoilpress> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::efl_p1_eng_fluid_level_press_1__engoilpress;
+    static constexpr MessageId message_id = MessageId::efl_p1_eng_fluid_level_press_1;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 24;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 4.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::efl_p1_eng_fluid_level_press_1__engcrankcasepress> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::efl_p1_eng_fluid_level_press_1__engcrankcasepress;
+    static constexpr MessageId message_id = MessageId::efl_p1_eng_fluid_level_press_1;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 32;
+    static constexpr std::uint8_t bit_length = 16;
+    static constexpr double scale = 0.0078125;
+    static constexpr double offset = -250.0;
+};
+template <>
+struct signal_traits<SignalId::efl_p1_eng_fluid_level_press_1__engcoolantpress> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::efl_p1_eng_fluid_level_press_1__engcoolantpress;
+    static constexpr MessageId message_id = MessageId::efl_p1_eng_fluid_level_press_1;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 48;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 2.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::efl_p1_eng_fluid_level_press_1__engcoolantlevel> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::efl_p1_eng_fluid_level_press_1__engcoolantlevel;
+    static constexpr MessageId message_id = MessageId::efl_p1_eng_fluid_level_press_1;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 56;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 0.4;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::efl_p2_eng_fluid_level_press_2__enginjectionctrlpress> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::efl_p2_eng_fluid_level_press_2__enginjectionctrlpress;
+    static constexpr MessageId message_id = MessageId::efl_p2_eng_fluid_level_press_2;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 0;
+    static constexpr std::uint8_t bit_length = 16;
+    static constexpr double scale = 0.00390625;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::efl_p2_eng_fluid_level_press_2__enginjectormeteringrail1press> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::efl_p2_eng_fluid_level_press_2__enginjectormeteringrail1press;
+    static constexpr MessageId message_id = MessageId::efl_p2_eng_fluid_level_press_2;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 16;
+    static constexpr std::uint8_t bit_length = 16;
+    static constexpr double scale = 0.00390625;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::efl_p2_eng_fluid_level_press_2__enginjectortimingrail1press> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::efl_p2_eng_fluid_level_press_2__enginjectortimingrail1press;
+    static constexpr MessageId message_id = MessageId::efl_p2_eng_fluid_level_press_2;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 32;
+    static constexpr std::uint8_t bit_length = 16;
+    static constexpr double scale = 0.00390625;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::efl_p2_eng_fluid_level_press_2__enginjectormeteringrail2press> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::efl_p2_eng_fluid_level_press_2__enginjectormeteringrail2press;
+    static constexpr MessageId message_id = MessageId::efl_p2_eng_fluid_level_press_2;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 48;
+    static constexpr std::uint8_t bit_length = 16;
+    static constexpr double scale = 0.00390625;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::et1_engine_temperature_1__engcoolanttemp> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::et1_engine_temperature_1__engcoolanttemp;
+    static constexpr MessageId message_id = MessageId::et1_engine_temperature_1;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 0;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = -40.0;
+};
+template <>
+struct signal_traits<SignalId::et1_engine_temperature_1__engfueltemp1> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::et1_engine_temperature_1__engfueltemp1;
+    static constexpr MessageId message_id = MessageId::et1_engine_temperature_1;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 8;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = -40.0;
+};
+template <>
+struct signal_traits<SignalId::et1_engine_temperature_1__engoiltemp1> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::et1_engine_temperature_1__engoiltemp1;
+    static constexpr MessageId message_id = MessageId::et1_engine_temperature_1;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 16;
+    static constexpr std::uint8_t bit_length = 16;
+    static constexpr double scale = 0.03125;
+    static constexpr double offset = -273.0;
+};
+template <>
+struct signal_traits<SignalId::et1_engine_temperature_1__engturbooiltemp> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::et1_engine_temperature_1__engturbooiltemp;
+    static constexpr MessageId message_id = MessageId::et1_engine_temperature_1;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 32;
+    static constexpr std::uint8_t bit_length = 16;
+    static constexpr double scale = 0.03125;
+    static constexpr double offset = -273.0;
+};
+template <>
+struct signal_traits<SignalId::et1_engine_temperature_1__engintercoolertemp> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::et1_engine_temperature_1__engintercoolertemp;
+    static constexpr MessageId message_id = MessageId::et1_engine_temperature_1;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 48;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = -40.0;
+};
+template <>
+struct signal_traits<SignalId::et1_engine_temperature_1__engintercoolerthermostatopening> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::et1_engine_temperature_1__engintercoolerthermostatopening;
+    static constexpr MessageId message_id = MessageId::et1_engine_temperature_1;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 56;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 0.4;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::lfe1_fuel_economy_liquid_1__engfuelrate> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::lfe1_fuel_economy_liquid_1__engfuelrate;
+    static constexpr MessageId message_id = MessageId::lfe1_fuel_economy_liquid_1;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 0;
+    static constexpr std::uint8_t bit_length = 16;
+    static constexpr double scale = 0.05;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::lfe1_fuel_economy_liquid_1__enginstantaneousfueleconomy> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::lfe1_fuel_economy_liquid_1__enginstantaneousfueleconomy;
+    static constexpr MessageId message_id = MessageId::lfe1_fuel_economy_liquid_1;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 16;
+    static constexpr std::uint8_t bit_length = 16;
+    static constexpr double scale = 0.00195312;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::lfe1_fuel_economy_liquid_1__engaveragefueleconomy> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::lfe1_fuel_economy_liquid_1__engaveragefueleconomy;
+    static constexpr MessageId message_id = MessageId::lfe1_fuel_economy_liquid_1;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 32;
+    static constexpr std::uint8_t bit_length = 16;
+    static constexpr double scale = 0.00195312;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::lfe1_fuel_economy_liquid_1__engthrottlevalve1pos> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::lfe1_fuel_economy_liquid_1__engthrottlevalve1pos;
+    static constexpr MessageId message_id = MessageId::lfe1_fuel_economy_liquid_1;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 48;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 0.4;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::lfe1_fuel_economy_liquid_1__engthrottlevalve2pos> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::lfe1_fuel_economy_liquid_1__engthrottlevalve2pos;
+    static constexpr MessageId message_id = MessageId::lfe1_fuel_economy_liquid_1;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 56;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 0.4;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::transportprotocol_header__controlbyte> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::transportprotocol_header__controlbyte;
+    static constexpr MessageId message_id = MessageId::transportprotocol_header;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 0;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::transportprotocol_header__totalmessagesizeeoma> {
+    using value_type = std::uint16_t;
+    static constexpr SignalId id = SignalId::transportprotocol_header__totalmessagesizeeoma;
+    static constexpr MessageId message_id = MessageId::transportprotocol_header;
+    static constexpr SignalType signal_type = SignalType::u16;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 8;
+    static constexpr std::uint8_t bit_length = 16;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::transportprotocol_header__connectionabortreason> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::transportprotocol_header__connectionabortreason;
+    static constexpr MessageId message_id = MessageId::transportprotocol_header;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 8;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::transportprotocol_header__totalmessagesize> {
+    using value_type = std::uint16_t;
+    static constexpr SignalId id = SignalId::transportprotocol_header__totalmessagesize;
+    static constexpr MessageId message_id = MessageId::transportprotocol_header;
+    static constexpr SignalType signal_type = SignalType::u16;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 8;
+    static constexpr std::uint8_t bit_length = 16;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::transportprotocol_header__numberofpacketsthatcanbesent> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::transportprotocol_header__numberofpacketsthatcanbesent;
+    static constexpr MessageId message_id = MessageId::transportprotocol_header;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 8;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::transportprotocol_header__totalmessagesizebam> {
+    using value_type = std::uint16_t;
+    static constexpr SignalId id = SignalId::transportprotocol_header__totalmessagesizebam;
+    static constexpr MessageId message_id = MessageId::transportprotocol_header;
+    static constexpr SignalType signal_type = SignalType::u16;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 8;
+    static constexpr std::uint8_t bit_length = 16;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::transportprotocol_header__nextpacketnumbertobesent> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::transportprotocol_header__nextpacketnumbertobesent;
+    static constexpr MessageId message_id = MessageId::transportprotocol_header;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 16;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::transportprotocol_header__totalnumberofpackets> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::transportprotocol_header__totalnumberofpackets;
+    static constexpr MessageId message_id = MessageId::transportprotocol_header;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 24;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::transportprotocol_header__totalnumberofpacketseoma> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::transportprotocol_header__totalnumberofpacketseoma;
+    static constexpr MessageId message_id = MessageId::transportprotocol_header;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 24;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::transportprotocol_header__totalnumberofpacketsbam> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::transportprotocol_header__totalnumberofpacketsbam;
+    static constexpr MessageId message_id = MessageId::transportprotocol_header;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 24;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::transportprotocol_header__maximumnumberofpackets> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::transportprotocol_header__maximumnumberofpackets;
+    static constexpr MessageId message_id = MessageId::transportprotocol_header;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 32;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::transportprotocol_header__pgnumber> {
+    using value_type = std::uint32_t;
+    static constexpr SignalId id = SignalId::transportprotocol_header__pgnumber;
+    static constexpr MessageId message_id = MessageId::transportprotocol_header;
+    static constexpr SignalType signal_type = SignalType::u32;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 40;
+    static constexpr std::uint8_t bit_length = 24;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::transportprotocol_data__sequencenumber> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::transportprotocol_data__sequencenumber;
+    static constexpr MessageId message_id = MessageId::transportprotocol_data;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 0;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::dm01_active_diagnostics__protectlampstatus> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::dm01_active_diagnostics__protectlampstatus;
+    static constexpr MessageId message_id = MessageId::dm01_active_diagnostics;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 0;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::dm01_active_diagnostics__amberwarninglampstatus> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::dm01_active_diagnostics__amberwarninglampstatus;
+    static constexpr MessageId message_id = MessageId::dm01_active_diagnostics;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 2;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::dm01_active_diagnostics__redstoplampstate> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::dm01_active_diagnostics__redstoplampstate;
+    static constexpr MessageId message_id = MessageId::dm01_active_diagnostics;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 4;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::dm01_active_diagnostics__malfunctionindicatorlampstatus> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::dm01_active_diagnostics__malfunctionindicatorlampstatus;
+    static constexpr MessageId message_id = MessageId::dm01_active_diagnostics;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 6;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::dm01_active_diagnostics__flashprotectlamp> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::dm01_active_diagnostics__flashprotectlamp;
+    static constexpr MessageId message_id = MessageId::dm01_active_diagnostics;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 8;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::dm01_active_diagnostics__flashamberwarninglamp> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::dm01_active_diagnostics__flashamberwarninglamp;
+    static constexpr MessageId message_id = MessageId::dm01_active_diagnostics;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 10;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::dm01_active_diagnostics__flashredstoplamp> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::dm01_active_diagnostics__flashredstoplamp;
+    static constexpr MessageId message_id = MessageId::dm01_active_diagnostics;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 12;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::dm01_active_diagnostics__flashmalfuncindicatorlamp> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::dm01_active_diagnostics__flashmalfuncindicatorlamp;
+    static constexpr MessageId message_id = MessageId::dm01_active_diagnostics;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 14;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::dm01_active_diagnostics__dtc1> {
+    using value_type = std::uint32_t;
+    static constexpr SignalId id = SignalId::dm01_active_diagnostics__dtc1;
+    static constexpr MessageId message_id = MessageId::dm01_active_diagnostics;
+    static constexpr SignalType signal_type = SignalType::u32;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 16;
+    static constexpr std::uint8_t bit_length = 32;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::tsc1_31__engoverridectrlmode> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::tsc1_31__engoverridectrlmode;
+    static constexpr MessageId message_id = MessageId::tsc1_31;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 0;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::tsc1_31__engrequestedspeedctrlconditions> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::tsc1_31__engrequestedspeedctrlconditions;
+    static constexpr MessageId message_id = MessageId::tsc1_31;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 2;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::tsc1_31__overridectrlmodepriority> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::tsc1_31__overridectrlmodepriority;
+    static constexpr MessageId message_id = MessageId::tsc1_31;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 4;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::tsc1_31__engrequestedspeed_speedlimit> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::tsc1_31__engrequestedspeed_speedlimit;
+    static constexpr MessageId message_id = MessageId::tsc1_31;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 8;
+    static constexpr std::uint8_t bit_length = 16;
+    static constexpr double scale = 0.125;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::tsc1_31__engrequestedtorque_torquelimit> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::tsc1_31__engrequestedtorque_torquelimit;
+    static constexpr MessageId message_id = MessageId::tsc1_31;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 24;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = -125.0;
+};
+template <>
+struct signal_traits<SignalId::tsc1_31__tsc1transrate> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::tsc1_31__tsc1transrate;
+    static constexpr MessageId message_id = MessageId::tsc1_31;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 32;
+    static constexpr std::uint8_t bit_length = 3;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::tsc1_31__tsc1ctrlpurpose> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::tsc1_31__tsc1ctrlpurpose;
+    static constexpr MessageId message_id = MessageId::tsc1_31;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 35;
+    static constexpr std::uint8_t bit_length = 5;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::tsc1_31__engrequestedtorquehighresolution> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::tsc1_31__engrequestedtorquehighresolution;
+    static constexpr MessageId message_id = MessageId::tsc1_31;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 40;
+    static constexpr std::uint8_t bit_length = 4;
+    static constexpr double scale = 0.125;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::tsc1_31__messagecounter> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::tsc1_31__messagecounter;
+    static constexpr MessageId message_id = MessageId::tsc1_31;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 56;
+    static constexpr std::uint8_t bit_length = 4;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::tsc1_31__messagechecksum> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::tsc1_31__messagechecksum;
+    static constexpr MessageId message_id = MessageId::tsc1_31;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 60;
+    static constexpr std::uint8_t bit_length = 4;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::cac1_charge_air_cooler_1__engine_charge_air_cooler_1_intak> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::cac1_charge_air_cooler_1__engine_charge_air_cooler_1_intak;
+    static constexpr MessageId message_id = MessageId::cac1_charge_air_cooler_1;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 0;
+    static constexpr std::uint8_t bit_length = 16;
+    static constexpr double scale = 0.03125;
+    static constexpr double offset = -273.0;
+};
+template <>
+struct signal_traits<SignalId::cac1_charge_air_cooler_1__engine_charge_air_cooler_1_ambie> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::cac1_charge_air_cooler_1__engine_charge_air_cooler_1_ambie;
+    static constexpr MessageId message_id = MessageId::cac1_charge_air_cooler_1;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 16;
+    static constexpr std::uint8_t bit_length = 16;
+    static constexpr double scale = 0.03125;
+    static constexpr double offset = -273.0;
+};
+template <>
+struct signal_traits<SignalId::cac1_charge_air_cooler_1__engine_charge_air_cooler_1_effic> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::cac1_charge_air_cooler_1__engine_charge_air_cooler_1_effic;
+    static constexpr MessageId message_id = MessageId::cac1_charge_air_cooler_1;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 32;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 0.4;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::hours_engine_hours_revolutions__engine_total_hours_of_operation> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::hours_engine_hours_revolutions__engine_total_hours_of_operation;
+    static constexpr MessageId message_id = MessageId::hours_engine_hours_revolutions;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 0;
+    static constexpr std::uint8_t bit_length = 32;
+    static constexpr double scale = 0.05;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::hours_engine_hours_revolutions__engine_total_revolutions_249> {
+    using value_type = std::uint32_t;
+    static constexpr SignalId id = SignalId::hours_engine_hours_revolutions__engine_total_revolutions_249;
+    static constexpr MessageId message_id = MessageId::hours_engine_hours_revolutions;
+    static constexpr SignalType signal_type = SignalType::u32;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 32;
+    static constexpr std::uint8_t bit_length = 32;
+    static constexpr double scale = 1000.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::tci5_turbocharger_information_5__engine_turbocharger_1_turbine_ou> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::tci5_turbocharger_information_5__engine_turbocharger_1_turbine_ou;
+    static constexpr MessageId message_id = MessageId::tci5_turbocharger_information_5;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 0;
+    static constexpr std::uint8_t bit_length = 16;
+    static constexpr double scale = 0.03125;
+    static constexpr double offset = -273.0;
+};
+template <>
+struct signal_traits<SignalId::tci5_turbocharger_information_5__engine_turbocharger_2_turbine_ou> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::tci5_turbocharger_information_5__engine_turbocharger_2_turbine_ou;
+    static constexpr MessageId message_id = MessageId::tci5_turbocharger_information_5;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 16;
+    static constexpr std::uint8_t bit_length = 16;
+    static constexpr double scale = 0.03125;
+    static constexpr double offset = -273.0;
+};
+template <>
+struct signal_traits<SignalId::tci5_turbocharger_information_5__engine_turbocharger_3_turbine_ou> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::tci5_turbocharger_information_5__engine_turbocharger_3_turbine_ou;
+    static constexpr MessageId message_id = MessageId::tci5_turbocharger_information_5;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 32;
+    static constexpr std::uint8_t bit_length = 16;
+    static constexpr double scale = 0.03125;
+    static constexpr double offset = -273.0;
+};
+template <>
+struct signal_traits<SignalId::tci5_turbocharger_information_5__engine_turbocharger_4_turbine_ou> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::tci5_turbocharger_information_5__engine_turbocharger_4_turbine_ou;
+    static constexpr MessageId message_id = MessageId::tci5_turbocharger_information_5;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 48;
+    static constexpr std::uint8_t bit_length = 16;
+    static constexpr double scale = 0.03125;
+    static constexpr double offset = -273.0;
+};
+template <>
+struct signal_traits<SignalId::vep1_vehicle_electrical_power_1__net_battery_current_114> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::vep1_vehicle_electrical_power_1__net_battery_current_114;
+    static constexpr MessageId message_id = MessageId::vep1_vehicle_electrical_power_1;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 0;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = -125.0;
+};
+template <>
+struct signal_traits<SignalId::vep1_vehicle_electrical_power_1__alternator_current_115> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::vep1_vehicle_electrical_power_1__alternator_current_115;
+    static constexpr MessageId message_id = MessageId::vep1_vehicle_electrical_power_1;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 8;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::vep1_vehicle_electrical_power_1__charging_system_potential_volta> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::vep1_vehicle_electrical_power_1__charging_system_potential_volta;
+    static constexpr MessageId message_id = MessageId::vep1_vehicle_electrical_power_1;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 16;
+    static constexpr std::uint8_t bit_length = 16;
+    static constexpr double scale = 0.05;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::vep1_vehicle_electrical_power_1__battery_potential_power_input_1> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::vep1_vehicle_electrical_power_1__battery_potential_power_input_1;
+    static constexpr MessageId message_id = MessageId::vep1_vehicle_electrical_power_1;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 32;
+    static constexpr std::uint8_t bit_length = 16;
+    static constexpr double scale = 0.05;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::vep1_vehicle_electrical_power_1__keyswitch_battery_potential_158> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::vep1_vehicle_electrical_power_1__keyswitch_battery_potential_158;
+    static constexpr MessageId message_id = MessageId::vep1_vehicle_electrical_power_1;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 48;
+    static constexpr std::uint8_t bit_length = 16;
+    static constexpr double scale = 0.05;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::eec20_electronic_engine_control__absolute_engine_load> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::eec20_electronic_engine_control__absolute_engine_load;
+    static constexpr MessageId message_id = MessageId::eec20_electronic_engine_control;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 40;
+    static constexpr std::uint8_t bit_length = 16;
+    static constexpr double scale = 0.025;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::easi_engine_air_system_info__engine_intake_maf> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::easi_engine_air_system_info__engine_intake_maf;
+    static constexpr MessageId message_id = MessageId::easi_engine_air_system_info;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 16;
+    static constexpr std::uint8_t bit_length = 16;
+    static constexpr double scale = 0.000976562;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::tsc1_03__engoverridectrlmode> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::tsc1_03__engoverridectrlmode;
+    static constexpr MessageId message_id = MessageId::tsc1_03;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 0;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::tsc1_03__engrequestedspeedctrlconditions> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::tsc1_03__engrequestedspeedctrlconditions;
+    static constexpr MessageId message_id = MessageId::tsc1_03;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 2;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::tsc1_03__overridectrlmodepriority> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::tsc1_03__overridectrlmodepriority;
+    static constexpr MessageId message_id = MessageId::tsc1_03;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 4;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::tsc1_03__engrequestedspeed_speedlimit> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::tsc1_03__engrequestedspeed_speedlimit;
+    static constexpr MessageId message_id = MessageId::tsc1_03;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 8;
+    static constexpr std::uint8_t bit_length = 16;
+    static constexpr double scale = 0.125;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::tsc1_03__engrequestedtorque_torquelimit> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::tsc1_03__engrequestedtorque_torquelimit;
+    static constexpr MessageId message_id = MessageId::tsc1_03;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 24;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = -125.0;
+};
+template <>
+struct signal_traits<SignalId::tsc1_03__tsc1transrate> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::tsc1_03__tsc1transrate;
+    static constexpr MessageId message_id = MessageId::tsc1_03;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 32;
+    static constexpr std::uint8_t bit_length = 3;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::tsc1_03__tsc1ctrlpurpose> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::tsc1_03__tsc1ctrlpurpose;
+    static constexpr MessageId message_id = MessageId::tsc1_03;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 35;
+    static constexpr std::uint8_t bit_length = 5;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::tsc1_03__engrequestedtorquehighresolution> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::tsc1_03__engrequestedtorquehighresolution;
+    static constexpr MessageId message_id = MessageId::tsc1_03;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 40;
+    static constexpr std::uint8_t bit_length = 4;
+    static constexpr double scale = 0.125;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::tsc1_03__messagecounter> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::tsc1_03__messagecounter;
+    static constexpr MessageId message_id = MessageId::tsc1_03;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 56;
+    static constexpr std::uint8_t bit_length = 4;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::tsc1_03__messagechecksum> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::tsc1_03__messagechecksum;
+    static constexpr MessageId message_id = MessageId::tsc1_03;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 60;
+    static constexpr std::uint8_t bit_length = 4;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::tsc1_0b__engoverridectrlmode> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::tsc1_0b__engoverridectrlmode;
+    static constexpr MessageId message_id = MessageId::tsc1_0b;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 0;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::tsc1_0b__engrequestedspeedctrlconditions> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::tsc1_0b__engrequestedspeedctrlconditions;
+    static constexpr MessageId message_id = MessageId::tsc1_0b;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 2;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::tsc1_0b__overridectrlmodepriority> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::tsc1_0b__overridectrlmodepriority;
+    static constexpr MessageId message_id = MessageId::tsc1_0b;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 4;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::tsc1_0b__engrequestedspeed_speedlimit> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::tsc1_0b__engrequestedspeed_speedlimit;
+    static constexpr MessageId message_id = MessageId::tsc1_0b;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 8;
+    static constexpr std::uint8_t bit_length = 16;
+    static constexpr double scale = 0.125;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::tsc1_0b__engrequestedtorque_torquelimit> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::tsc1_0b__engrequestedtorque_torquelimit;
+    static constexpr MessageId message_id = MessageId::tsc1_0b;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 24;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = -125.0;
+};
+template <>
+struct signal_traits<SignalId::tsc1_0b__tsc1transrate> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::tsc1_0b__tsc1transrate;
+    static constexpr MessageId message_id = MessageId::tsc1_0b;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 32;
+    static constexpr std::uint8_t bit_length = 3;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::tsc1_0b__tsc1ctrlpurpose> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::tsc1_0b__tsc1ctrlpurpose;
+    static constexpr MessageId message_id = MessageId::tsc1_0b;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 35;
+    static constexpr std::uint8_t bit_length = 5;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::tsc1_0b__engrequestedtorquehighresolution> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::tsc1_0b__engrequestedtorquehighresolution;
+    static constexpr MessageId message_id = MessageId::tsc1_0b;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 40;
+    static constexpr std::uint8_t bit_length = 4;
+    static constexpr double scale = 0.125;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::tsc1_0b__messagecounter> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::tsc1_0b__messagecounter;
+    static constexpr MessageId message_id = MessageId::tsc1_0b;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 56;
+    static constexpr std::uint8_t bit_length = 4;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::tsc1_0b__messagechecksum> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::tsc1_0b__messagechecksum;
+    static constexpr MessageId message_id = MessageId::tsc1_0b;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 60;
+    static constexpr std::uint8_t bit_length = 4;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::dm07__testidentifier> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::dm07__testidentifier;
+    static constexpr MessageId message_id = MessageId::dm07;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 0;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::dm07__spn1> {
+    using value_type = std::uint16_t;
+    static constexpr SignalId id = SignalId::dm07__spn1;
+    static constexpr MessageId message_id = MessageId::dm07;
+    static constexpr SignalType signal_type = SignalType::u16;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 8;
+    static constexpr std::uint8_t bit_length = 16;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::dm07__failuremodeidentifier1> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::dm07__failuremodeidentifier1;
+    static constexpr MessageId message_id = MessageId::dm07;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 24;
+    static constexpr std::uint8_t bit_length = 5;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::dm07__spn1high> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::dm07__spn1high;
+    static constexpr MessageId message_id = MessageId::dm07;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 29;
+    static constexpr std::uint8_t bit_length = 3;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::dm08__testidentifier> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::dm08__testidentifier;
+    static constexpr MessageId message_id = MessageId::dm08;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 0;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::dm08__testtype> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::dm08__testtype;
+    static constexpr MessageId message_id = MessageId::dm08;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 8;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::dm08__testvalue> {
+    using value_type = std::uint16_t;
+    static constexpr SignalId id = SignalId::dm08__testvalue;
+    static constexpr MessageId message_id = MessageId::dm08;
+    static constexpr SignalType signal_type = SignalType::u16;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 16;
+    static constexpr std::uint8_t bit_length = 16;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::dm08__testlimitmaximum> {
+    using value_type = std::uint16_t;
+    static constexpr SignalId id = SignalId::dm08__testlimitmaximum;
+    static constexpr MessageId message_id = MessageId::dm08;
+    static constexpr SignalType signal_type = SignalType::u16;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 32;
+    static constexpr std::uint8_t bit_length = 16;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::dm08__testlimitminimum> {
+    using value_type = std::uint16_t;
+    static constexpr SignalId id = SignalId::dm08__testlimitminimum;
+    static constexpr MessageId message_id = MessageId::dm08;
+    static constexpr SignalType signal_type = SignalType::u16;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 48;
+    static constexpr std::uint8_t bit_length = 16;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::erc1_electronic_retarder_cntrl__retardertorquemode> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::erc1_electronic_retarder_cntrl__retardertorquemode;
+    static constexpr MessageId message_id = MessageId::erc1_electronic_retarder_cntrl;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 0;
+    static constexpr std::uint8_t bit_length = 4;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::erc1_electronic_retarder_cntrl__retarderenablebrakeassistswitch> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::erc1_electronic_retarder_cntrl__retarderenablebrakeassistswitch;
+    static constexpr MessageId message_id = MessageId::erc1_electronic_retarder_cntrl;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 4;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::erc1_electronic_retarder_cntrl__retarderenableshiftassistswitch> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::erc1_electronic_retarder_cntrl__retarderenableshiftassistswitch;
+    static constexpr MessageId message_id = MessageId::erc1_electronic_retarder_cntrl;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 6;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::erc1_electronic_retarder_cntrl__actualretarderpercenttorque> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::erc1_electronic_retarder_cntrl__actualretarderpercenttorque;
+    static constexpr MessageId message_id = MessageId::erc1_electronic_retarder_cntrl;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 8;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = -125.0;
+};
+template <>
+struct signal_traits<SignalId::erc1_electronic_retarder_cntrl__intendedretarderpercenttorque> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::erc1_electronic_retarder_cntrl__intendedretarderpercenttorque;
+    static constexpr MessageId message_id = MessageId::erc1_electronic_retarder_cntrl;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 16;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = -125.0;
+};
+template <>
+struct signal_traits<SignalId::erc1_electronic_retarder_cntrl__engcoolantloadincrease> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::erc1_electronic_retarder_cntrl__engcoolantloadincrease;
+    static constexpr MessageId message_id = MessageId::erc1_electronic_retarder_cntrl;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 24;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::erc1_electronic_retarder_cntrl__retarderrequestingbrakelight> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::erc1_electronic_retarder_cntrl__retarderrequestingbrakelight;
+    static constexpr MessageId message_id = MessageId::erc1_electronic_retarder_cntrl;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 26;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::erc1_electronic_retarder_cntrl__retarderroadspeedlimitswitch> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::erc1_electronic_retarder_cntrl__retarderroadspeedlimitswitch;
+    static constexpr MessageId message_id = MessageId::erc1_electronic_retarder_cntrl;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 28;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::erc1_electronic_retarder_cntrl__retarderroadspeedexceededstatus> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::erc1_electronic_retarder_cntrl__retarderroadspeedexceededstatus;
+    static constexpr MessageId message_id = MessageId::erc1_electronic_retarder_cntrl;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 30;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::erc1_electronic_retarder_cntrl__srcaddrssofcntrllngdvcfrrtrdrctr> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::erc1_electronic_retarder_cntrl__srcaddrssofcntrllngdvcfrrtrdrctr;
+    static constexpr MessageId message_id = MessageId::erc1_electronic_retarder_cntrl;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 32;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::erc1_electronic_retarder_cntrl__drvrsdemandretarderpercenttorque> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::erc1_electronic_retarder_cntrl__drvrsdemandretarderpercenttorque;
+    static constexpr MessageId message_id = MessageId::erc1_electronic_retarder_cntrl;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 40;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = -125.0;
+};
+template <>
+struct signal_traits<SignalId::erc1_electronic_retarder_cntrl__retarderselectionnonengine> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::erc1_electronic_retarder_cntrl__retarderselectionnonengine;
+    static constexpr MessageId message_id = MessageId::erc1_electronic_retarder_cntrl;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 48;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 0.4;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::erc1_electronic_retarder_cntrl__actlmxavlblretarderpercenttorque> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::erc1_electronic_retarder_cntrl__actlmxavlblretarderpercenttorque;
+    static constexpr MessageId message_id = MessageId::erc1_electronic_retarder_cntrl;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 56;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = -125.0;
+};
+template <>
+struct signal_traits<SignalId::etc1_electronic_trans_cntrl_1__transdrivelineengaged> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::etc1_electronic_trans_cntrl_1__transdrivelineengaged;
+    static constexpr MessageId message_id = MessageId::etc1_electronic_trans_cntrl_1;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 0;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::etc1_electronic_trans_cntrl_1__trnstorqueconverterlockupengaged> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::etc1_electronic_trans_cntrl_1__trnstorqueconverterlockupengaged;
+    static constexpr MessageId message_id = MessageId::etc1_electronic_trans_cntrl_1;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 2;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::etc1_electronic_trans_cntrl_1__transshiftinprocess> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::etc1_electronic_trans_cntrl_1__transshiftinprocess;
+    static constexpr MessageId message_id = MessageId::etc1_electronic_trans_cntrl_1;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 4;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::etc1_electronic_trans_cntrl_1__trnstrqcnvrtrlckptrnstninprocess> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::etc1_electronic_trans_cntrl_1__trnstrqcnvrtrlckptrnstninprocess;
+    static constexpr MessageId message_id = MessageId::etc1_electronic_trans_cntrl_1;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 6;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::etc1_electronic_trans_cntrl_1__transoutputshaftspeed> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::etc1_electronic_trans_cntrl_1__transoutputshaftspeed;
+    static constexpr MessageId message_id = MessageId::etc1_electronic_trans_cntrl_1;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 8;
+    static constexpr std::uint8_t bit_length = 16;
+    static constexpr double scale = 0.125;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::etc1_electronic_trans_cntrl_1__percentclutchslip> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::etc1_electronic_trans_cntrl_1__percentclutchslip;
+    static constexpr MessageId message_id = MessageId::etc1_electronic_trans_cntrl_1;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 24;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 0.4;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::etc1_electronic_trans_cntrl_1__engmomentaryoverspeedenable> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::etc1_electronic_trans_cntrl_1__engmomentaryoverspeedenable;
+    static constexpr MessageId message_id = MessageId::etc1_electronic_trans_cntrl_1;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 32;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::etc1_electronic_trans_cntrl_1__progressiveshiftdisable> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::etc1_electronic_trans_cntrl_1__progressiveshiftdisable;
+    static constexpr MessageId message_id = MessageId::etc1_electronic_trans_cntrl_1;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 34;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::etc1_electronic_trans_cntrl_1__momentaryengmaxpowerenable> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::etc1_electronic_trans_cntrl_1__momentaryengmaxpowerenable;
+    static constexpr MessageId message_id = MessageId::etc1_electronic_trans_cntrl_1;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 36;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::etc1_electronic_trans_cntrl_1__transinputshaftspeed> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::etc1_electronic_trans_cntrl_1__transinputshaftspeed;
+    static constexpr MessageId message_id = MessageId::etc1_electronic_trans_cntrl_1;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 40;
+    static constexpr std::uint8_t bit_length = 16;
+    static constexpr double scale = 0.125;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::etc1_electronic_trans_cntrl_1__srcaddrssofcntrllngdvcfrtrnsctrl> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::etc1_electronic_trans_cntrl_1__srcaddrssofcntrllngdvcfrtrnsctrl;
+    static constexpr MessageId message_id = MessageId::etc1_electronic_trans_cntrl_1;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 56;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::etc2_electronic_trans_cntrl_2__transselectedgear> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::etc2_electronic_trans_cntrl_2__transselectedgear;
+    static constexpr MessageId message_id = MessageId::etc2_electronic_trans_cntrl_2;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 0;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = -125.0;
+};
+template <>
+struct signal_traits<SignalId::etc2_electronic_trans_cntrl_2__transactualgearratio> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::etc2_electronic_trans_cntrl_2__transactualgearratio;
+    static constexpr MessageId message_id = MessageId::etc2_electronic_trans_cntrl_2;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 8;
+    static constexpr std::uint8_t bit_length = 16;
+    static constexpr double scale = 0.001;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::etc2_electronic_trans_cntrl_2__transcurrentgear> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::etc2_electronic_trans_cntrl_2__transcurrentgear;
+    static constexpr MessageId message_id = MessageId::etc2_electronic_trans_cntrl_2;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 24;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = -125.0;
+};
+template <>
+struct signal_traits<SignalId::etc2_electronic_trans_cntrl_2__transrequestedrange> {
+    using value_type = std::uint16_t;
+    static constexpr SignalId id = SignalId::etc2_electronic_trans_cntrl_2__transrequestedrange;
+    static constexpr MessageId message_id = MessageId::etc2_electronic_trans_cntrl_2;
+    static constexpr SignalType signal_type = SignalType::u16;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::big_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 39;
+    static constexpr std::uint8_t bit_length = 16;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::etc2_electronic_trans_cntrl_2__transcurrentrange> {
+    using value_type = std::uint16_t;
+    static constexpr SignalId id = SignalId::etc2_electronic_trans_cntrl_2__transcurrentrange;
+    static constexpr MessageId message_id = MessageId::etc2_electronic_trans_cntrl_2;
+    static constexpr SignalType signal_type = SignalType::u16;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::big_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 55;
+    static constexpr std::uint8_t bit_length = 16;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::rqst_00_5e__parametergroupnumber> {
+    using value_type = std::uint32_t;
+    static constexpr SignalId id = SignalId::rqst_00_5e__parametergroupnumber;
+    static constexpr MessageId message_id = MessageId::rqst_00_5e;
+    static constexpr SignalType signal_type = SignalType::u32;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 0;
+    static constexpr std::uint8_t bit_length = 24;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::rqst_00_21__parametergroupnumber> {
+    using value_type = std::uint32_t;
+    static constexpr SignalId id = SignalId::rqst_00_21__parametergroupnumber;
+    static constexpr MessageId message_id = MessageId::rqst_00_21;
+    static constexpr SignalType signal_type = SignalType::u32;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 0;
+    static constexpr std::uint8_t bit_length = 24;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::rqst_global_5e__parametergroupnumber> {
+    using value_type = std::uint32_t;
+    static constexpr SignalId id = SignalId::rqst_global_5e__parametergroupnumber;
+    static constexpr MessageId message_id = MessageId::rqst_global_5e;
+    static constexpr SignalType signal_type = SignalType::u32;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 0;
+    static constexpr std::uint8_t bit_length = 24;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::rqst_global_03__parametergroupnumber> {
+    using value_type = std::uint32_t;
+    static constexpr SignalId id = SignalId::rqst_global_03__parametergroupnumber;
+    static constexpr MessageId message_id = MessageId::rqst_global_03;
+    static constexpr SignalType signal_type = SignalType::u32;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 0;
+    static constexpr std::uint8_t bit_length = 24;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::tci_transfer_case_information__transfercasestatus> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::tci_transfer_case_information__transfercasestatus;
+    static constexpr MessageId message_id = MessageId::tci_transfer_case_information;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 0;
+    static constexpr std::uint8_t bit_length = 3;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::tci_transfer_case_information__dirstatus> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::tci_transfer_case_information__dirstatus;
+    static constexpr MessageId message_id = MessageId::tci_transfer_case_information;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 3;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::tci_transfer_case_information__actualgearratio> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::tci_transfer_case_information__actualgearratio;
+    static constexpr MessageId message_id = MessageId::tci_transfer_case_information;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 8;
+    static constexpr std::uint8_t bit_length = 16;
+    static constexpr double scale = 0.01;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::tci_transfer_case_information__messagecounter> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::tci_transfer_case_information__messagecounter;
+    static constexpr MessageId message_id = MessageId::tci_transfer_case_information;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 56;
+    static constexpr std::uint8_t bit_length = 4;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::tci_transfer_case_information__messagechecksum> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::tci_transfer_case_information__messagechecksum;
+    static constexpr MessageId message_id = MessageId::tci_transfer_case_information;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 60;
+    static constexpr std::uint8_t bit_length = 4;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::trf1_transmission_fluids_1__clutchpress> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::trf1_transmission_fluids_1__clutchpress;
+    static constexpr MessageId message_id = MessageId::trf1_transmission_fluids_1;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 0;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 16.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::trf1_transmission_fluids_1__transoillevel1> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::trf1_transmission_fluids_1__transoillevel1;
+    static constexpr MessageId message_id = MessageId::trf1_transmission_fluids_1;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 8;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 0.4;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::trf1_transmission_fluids_1__transfilterdiffpress> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::trf1_transmission_fluids_1__transfilterdiffpress;
+    static constexpr MessageId message_id = MessageId::trf1_transmission_fluids_1;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 16;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 2.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::trf1_transmission_fluids_1__transoilpress> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::trf1_transmission_fluids_1__transoilpress;
+    static constexpr MessageId message_id = MessageId::trf1_transmission_fluids_1;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 24;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 16.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::trf1_transmission_fluids_1__transoiltemp1> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::trf1_transmission_fluids_1__transoiltemp1;
+    static constexpr MessageId message_id = MessageId::trf1_transmission_fluids_1;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 32;
+    static constexpr std::uint8_t bit_length = 16;
+    static constexpr double scale = 0.03125;
+    static constexpr double offset = -273.0;
+};
+template <>
+struct signal_traits<SignalId::trf1_transmission_fluids_1__transoillevel1high_low> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::trf1_transmission_fluids_1__transoillevel1high_low;
+    static constexpr MessageId message_id = MessageId::trf1_transmission_fluids_1;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 48;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 0.5;
+    static constexpr double offset = -62.5;
+};
+template <>
+struct signal_traits<SignalId::trf1_transmission_fluids_1__transoillevel1countdowntimer> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::trf1_transmission_fluids_1__transoillevel1countdowntimer;
+    static constexpr MessageId message_id = MessageId::trf1_transmission_fluids_1;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 56;
+    static constexpr std::uint8_t bit_length = 4;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::trf1_transmission_fluids_1__transoillevel1measurementstatus> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::trf1_transmission_fluids_1__transoillevel1measurementstatus;
+    static constexpr MessageId message_id = MessageId::trf1_transmission_fluids_1;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 60;
+    static constexpr std::uint8_t bit_length = 4;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::ccss_cruise_control_vehicle_spd__maxvehiclespeedlimit> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::ccss_cruise_control_vehicle_spd__maxvehiclespeedlimit;
+    static constexpr MessageId message_id = MessageId::ccss_cruise_control_vehicle_spd;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 0;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::ccss_cruise_control_vehicle_spd__cruisectrlhighsetlimitspeed> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::ccss_cruise_control_vehicle_spd__cruisectrlhighsetlimitspeed;
+    static constexpr MessageId message_id = MessageId::ccss_cruise_control_vehicle_spd;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 8;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::ccss_cruise_control_vehicle_spd__cruisectrllowsetlimitspeed> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::ccss_cruise_control_vehicle_spd__cruisectrllowsetlimitspeed;
+    static constexpr MessageId message_id = MessageId::ccss_cruise_control_vehicle_spd;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 16;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::ccss_cruise_control_vehicle_spd__maxvehiclespeedlimit6808> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::ccss_cruise_control_vehicle_spd__maxvehiclespeedlimit6808;
+    static constexpr MessageId message_id = MessageId::ccss_cruise_control_vehicle_spd;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 24;
+    static constexpr std::uint8_t bit_length = 16;
+    static constexpr double scale = 0.00390625;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::ccss_cruise_control_vehicle_spd__ctrlsyslowsetlmtspd> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::ccss_cruise_control_vehicle_spd__ctrlsyslowsetlmtspd;
+    static constexpr MessageId message_id = MessageId::ccss_cruise_control_vehicle_spd;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 40;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::ccss_cruise_control_vehicle_spd__ctrldiscmdsupport> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::ccss_cruise_control_vehicle_spd__ctrldiscmdsupport;
+    static constexpr MessageId message_id = MessageId::ccss_cruise_control_vehicle_spd;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 48;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::ccss_cruise_control_vehicle_spd__ctrlresumecmdsupport> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::ccss_cruise_control_vehicle_spd__ctrlresumecmdsupport;
+    static constexpr MessageId message_id = MessageId::ccss_cruise_control_vehicle_spd;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 50;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::ccss_cruise_control_vehicle_spd__ctrlpausecmdsupport> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::ccss_cruise_control_vehicle_spd__ctrlpausecmdsupport;
+    static constexpr MessageId message_id = MessageId::ccss_cruise_control_vehicle_spd;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 52;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::ccss_cruise_control_vehicle_spd__ctrlsetcmdsupport> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::ccss_cruise_control_vehicle_spd__ctrlsetcmdsupport;
+    static constexpr MessageId message_id = MessageId::ccss_cruise_control_vehicle_spd;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 54;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::ccss_cruise_control_vehicle_spd__powertrainadaptivecctype> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::ccss_cruise_control_vehicle_spd__powertrainadaptivecctype;
+    static constexpr MessageId message_id = MessageId::ccss_cruise_control_vehicle_spd;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 56;
+    static constexpr std::uint8_t bit_length = 4;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::ccvs1_cruise_control_vehspd__twospeedaxleswitch> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::ccvs1_cruise_control_vehspd__twospeedaxleswitch;
+    static constexpr MessageId message_id = MessageId::ccvs1_cruise_control_vehspd;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 0;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::ccvs1_cruise_control_vehspd__parkingbrakeswitch> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::ccvs1_cruise_control_vehspd__parkingbrakeswitch;
+    static constexpr MessageId message_id = MessageId::ccvs1_cruise_control_vehspd;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 2;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::ccvs1_cruise_control_vehspd__cruisectrlpauseswitch> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::ccvs1_cruise_control_vehspd__cruisectrlpauseswitch;
+    static constexpr MessageId message_id = MessageId::ccvs1_cruise_control_vehspd;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 4;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::ccvs1_cruise_control_vehspd__parkbrakereleaseinhibitrq> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::ccvs1_cruise_control_vehspd__parkbrakereleaseinhibitrq;
+    static constexpr MessageId message_id = MessageId::ccvs1_cruise_control_vehspd;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 6;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::ccvs1_cruise_control_vehspd__wheelbasedvehiclespeed> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::ccvs1_cruise_control_vehspd__wheelbasedvehiclespeed;
+    static constexpr MessageId message_id = MessageId::ccvs1_cruise_control_vehspd;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 8;
+    static constexpr std::uint8_t bit_length = 16;
+    static constexpr double scale = 0.00390625;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::ccvs1_cruise_control_vehspd__cruisectrlactive> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::ccvs1_cruise_control_vehspd__cruisectrlactive;
+    static constexpr MessageId message_id = MessageId::ccvs1_cruise_control_vehspd;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 24;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::ccvs1_cruise_control_vehspd__cruisectrlenableswitch> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::ccvs1_cruise_control_vehspd__cruisectrlenableswitch;
+    static constexpr MessageId message_id = MessageId::ccvs1_cruise_control_vehspd;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 26;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::ccvs1_cruise_control_vehspd__brakeswitch> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::ccvs1_cruise_control_vehspd__brakeswitch;
+    static constexpr MessageId message_id = MessageId::ccvs1_cruise_control_vehspd;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 28;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::ccvs1_cruise_control_vehspd__clutchswitch> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::ccvs1_cruise_control_vehspd__clutchswitch;
+    static constexpr MessageId message_id = MessageId::ccvs1_cruise_control_vehspd;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 30;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::ccvs1_cruise_control_vehspd__cruisectrlsetswitch> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::ccvs1_cruise_control_vehspd__cruisectrlsetswitch;
+    static constexpr MessageId message_id = MessageId::ccvs1_cruise_control_vehspd;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 32;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::ccvs1_cruise_control_vehspd__cruisectrlcoastswitch> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::ccvs1_cruise_control_vehspd__cruisectrlcoastswitch;
+    static constexpr MessageId message_id = MessageId::ccvs1_cruise_control_vehspd;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 34;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::ccvs1_cruise_control_vehspd__cruisectrlresumeswitch> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::ccvs1_cruise_control_vehspd__cruisectrlresumeswitch;
+    static constexpr MessageId message_id = MessageId::ccvs1_cruise_control_vehspd;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 36;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::ccvs1_cruise_control_vehspd__cruisectrlaccelerateswitch> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::ccvs1_cruise_control_vehspd__cruisectrlaccelerateswitch;
+    static constexpr MessageId message_id = MessageId::ccvs1_cruise_control_vehspd;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 38;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::ccvs1_cruise_control_vehspd__cruisectrlsetspeed> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::ccvs1_cruise_control_vehspd__cruisectrlsetspeed;
+    static constexpr MessageId message_id = MessageId::ccvs1_cruise_control_vehspd;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 40;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::ccvs1_cruise_control_vehspd__ptogovernorstate> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::ccvs1_cruise_control_vehspd__ptogovernorstate;
+    static constexpr MessageId message_id = MessageId::ccvs1_cruise_control_vehspd;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 48;
+    static constexpr std::uint8_t bit_length = 5;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::ccvs1_cruise_control_vehspd__cruisectrlstates> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::ccvs1_cruise_control_vehspd__cruisectrlstates;
+    static constexpr MessageId message_id = MessageId::ccvs1_cruise_control_vehspd;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 53;
+    static constexpr std::uint8_t bit_length = 3;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::ccvs1_cruise_control_vehspd__engidleincrementswitch> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::ccvs1_cruise_control_vehspd__engidleincrementswitch;
+    static constexpr MessageId message_id = MessageId::ccvs1_cruise_control_vehspd;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 56;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::ccvs1_cruise_control_vehspd__engidledecrementswitch> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::ccvs1_cruise_control_vehspd__engidledecrementswitch;
+    static constexpr MessageId message_id = MessageId::ccvs1_cruise_control_vehspd;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 58;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::ccvs1_cruise_control_vehspd__engtestmodeswitch> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::ccvs1_cruise_control_vehspd__engtestmodeswitch;
+    static constexpr MessageId message_id = MessageId::ccvs1_cruise_control_vehspd;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 60;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::ccvs1_cruise_control_vehspd__engshutdownoverrideswitch> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::ccvs1_cruise_control_vehspd__engshutdownoverrideswitch;
+    static constexpr MessageId message_id = MessageId::ccvs1_cruise_control_vehspd;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 62;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::ebc1_electronic_brake_cntrl__asrengctrlactive> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::ebc1_electronic_brake_cntrl__asrengctrlactive;
+    static constexpr MessageId message_id = MessageId::ebc1_electronic_brake_cntrl;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 0;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::ebc1_electronic_brake_cntrl__asrbrakectrlactive> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::ebc1_electronic_brake_cntrl__asrbrakectrlactive;
+    static constexpr MessageId message_id = MessageId::ebc1_electronic_brake_cntrl;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 2;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::ebc1_electronic_brake_cntrl__antilockbrakingactive> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::ebc1_electronic_brake_cntrl__antilockbrakingactive;
+    static constexpr MessageId message_id = MessageId::ebc1_electronic_brake_cntrl;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 4;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::ebc1_electronic_brake_cntrl__ebsbrakeswitch> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::ebc1_electronic_brake_cntrl__ebsbrakeswitch;
+    static constexpr MessageId message_id = MessageId::ebc1_electronic_brake_cntrl;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 6;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::ebc1_electronic_brake_cntrl__brakepedalpos> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::ebc1_electronic_brake_cntrl__brakepedalpos;
+    static constexpr MessageId message_id = MessageId::ebc1_electronic_brake_cntrl;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 8;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 0.4;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::ebc1_electronic_brake_cntrl__absoffroadswitch> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::ebc1_electronic_brake_cntrl__absoffroadswitch;
+    static constexpr MessageId message_id = MessageId::ebc1_electronic_brake_cntrl;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 16;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::ebc1_electronic_brake_cntrl__asroffroadswitch> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::ebc1_electronic_brake_cntrl__asroffroadswitch;
+    static constexpr MessageId message_id = MessageId::ebc1_electronic_brake_cntrl;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 18;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::ebc1_electronic_brake_cntrl__asrhillholderswitch> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::ebc1_electronic_brake_cntrl__asrhillholderswitch;
+    static constexpr MessageId message_id = MessageId::ebc1_electronic_brake_cntrl;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 20;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::ebc1_electronic_brake_cntrl__tractionctrloverrideswitch> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::ebc1_electronic_brake_cntrl__tractionctrloverrideswitch;
+    static constexpr MessageId message_id = MessageId::ebc1_electronic_brake_cntrl;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 22;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::ebc1_electronic_brake_cntrl__accelinterlockswitch> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::ebc1_electronic_brake_cntrl__accelinterlockswitch;
+    static constexpr MessageId message_id = MessageId::ebc1_electronic_brake_cntrl;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 24;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::ebc1_electronic_brake_cntrl__engderateswitch> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::ebc1_electronic_brake_cntrl__engderateswitch;
+    static constexpr MessageId message_id = MessageId::ebc1_electronic_brake_cntrl;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 26;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::ebc1_electronic_brake_cntrl__engauxshutdownswitch> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::ebc1_electronic_brake_cntrl__engauxshutdownswitch;
+    static constexpr MessageId message_id = MessageId::ebc1_electronic_brake_cntrl;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 28;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::ebc1_electronic_brake_cntrl__remoteaccelenableswitch> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::ebc1_electronic_brake_cntrl__remoteaccelenableswitch;
+    static constexpr MessageId message_id = MessageId::ebc1_electronic_brake_cntrl;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 30;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::ebc1_electronic_brake_cntrl__engretarderselection> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::ebc1_electronic_brake_cntrl__engretarderselection;
+    static constexpr MessageId message_id = MessageId::ebc1_electronic_brake_cntrl;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 32;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 0.4;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::ebc1_electronic_brake_cntrl__absfullyoperational> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::ebc1_electronic_brake_cntrl__absfullyoperational;
+    static constexpr MessageId message_id = MessageId::ebc1_electronic_brake_cntrl;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 40;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::ebc1_electronic_brake_cntrl__ebsredwarningsignal> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::ebc1_electronic_brake_cntrl__ebsredwarningsignal;
+    static constexpr MessageId message_id = MessageId::ebc1_electronic_brake_cntrl;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 42;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::ebc1_electronic_brake_cntrl__abs_ebsamberwarningsignal> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::ebc1_electronic_brake_cntrl__abs_ebsamberwarningsignal;
+    static constexpr MessageId message_id = MessageId::ebc1_electronic_brake_cntrl;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 44;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::ebc1_electronic_brake_cntrl__atc_asrinformationsignal> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::ebc1_electronic_brake_cntrl__atc_asrinformationsignal;
+    static constexpr MessageId message_id = MessageId::ebc1_electronic_brake_cntrl;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 46;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::ebc1_electronic_brake_cntrl__srcaddrssofcntrllngdvcfrbrkectrl> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::ebc1_electronic_brake_cntrl__srcaddrssofcntrllngdvcfrbrkectrl;
+    static constexpr MessageId message_id = MessageId::ebc1_electronic_brake_cntrl;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = false;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 48;
+    static constexpr std::uint8_t bit_length = 8;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::ebc1_electronic_brake_cntrl__railroadmodesw> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::ebc1_electronic_brake_cntrl__railroadmodesw;
+    static constexpr MessageId message_id = MessageId::ebc1_electronic_brake_cntrl;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 56;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::ebc1_electronic_brake_cntrl__haltbrakeswitch> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::ebc1_electronic_brake_cntrl__haltbrakeswitch;
+    static constexpr MessageId message_id = MessageId::ebc1_electronic_brake_cntrl;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 58;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::ebc1_electronic_brake_cntrl__trailerabsstatus> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::ebc1_electronic_brake_cntrl__trailerabsstatus;
+    static constexpr MessageId message_id = MessageId::ebc1_electronic_brake_cntrl;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 60;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::ebc1_electronic_brake_cntrl__trctrmntdtrailerabswarningsignal> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::ebc1_electronic_brake_cntrl__trctrmntdtrailerabswarningsignal;
+    static constexpr MessageId message_id = MessageId::ebc1_electronic_brake_cntrl;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 62;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::shutdn__engidleshutdownhasshutdowneng> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::shutdn__engidleshutdownhasshutdowneng;
+    static constexpr MessageId message_id = MessageId::shutdn;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 0;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::shutdn__engidleshutdowndriveralertmode> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::shutdn__engidleshutdowndriveralertmode;
+    static constexpr MessageId message_id = MessageId::shutdn;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 2;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::shutdn__engidleshutdowntimeroverride> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::shutdn__engidleshutdowntimeroverride;
+    static constexpr MessageId message_id = MessageId::shutdn;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 4;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::shutdn__engidleshutdowntimerstate> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::shutdn__engidleshutdowntimerstate;
+    static constexpr MessageId message_id = MessageId::shutdn;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 6;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::shutdn__engidleshutdowntimerfunction> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::shutdn__engidleshutdowntimerfunction;
+    static constexpr MessageId message_id = MessageId::shutdn;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 14;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::shutdn__a_chighpressfanswitch> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::shutdn__a_chighpressfanswitch;
+    static constexpr MessageId message_id = MessageId::shutdn;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 16;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::shutdn__refrigerantlowpressswitch> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::shutdn__refrigerantlowpressswitch;
+    static constexpr MessageId message_id = MessageId::shutdn;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 18;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::shutdn__refrigeranthighpressswitch> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::shutdn__refrigeranthighpressswitch;
+    static constexpr MessageId message_id = MessageId::shutdn;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 20;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::shutdn__engwaittostartlamp> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::shutdn__engwaittostartlamp;
+    static constexpr MessageId message_id = MessageId::shutdn;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 24;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::shutdn__engprtectionsystemhasshutdowneng> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::shutdn__engprtectionsystemhasshutdowneng;
+    static constexpr MessageId message_id = MessageId::shutdn;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 32;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::shutdn__engprtctnsystmapprachingshutdown> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::shutdn__engprtctnsystmapprachingshutdown;
+    static constexpr MessageId message_id = MessageId::shutdn;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 34;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::shutdn__engprotectionsystemtimeroverride> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::shutdn__engprotectionsystemtimeroverride;
+    static constexpr MessageId message_id = MessageId::shutdn;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 36;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::shutdn__engprotectionsystemtimerstate> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::shutdn__engprotectionsystemtimerstate;
+    static constexpr MessageId message_id = MessageId::shutdn;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 38;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::shutdn__engprotectionsystemconfig> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::shutdn__engprotectionsystemconfig;
+    static constexpr MessageId message_id = MessageId::shutdn;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 46;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::shutdn__engalarmacknowledge> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::shutdn__engalarmacknowledge;
+    static constexpr MessageId message_id = MessageId::shutdn;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 48;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::shutdn__engalarmoutputcmdstatus> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::shutdn__engalarmoutputcmdstatus;
+    static constexpr MessageId message_id = MessageId::shutdn;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 50;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::shutdn__engairshutoffcmdstatus> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::shutdn__engairshutoffcmdstatus;
+    static constexpr MessageId message_id = MessageId::shutdn;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 52;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::shutdn__engoverspeedtest> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::shutdn__engoverspeedtest;
+    static constexpr MessageId message_id = MessageId::shutdn;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 54;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::shutdn__engairshutoffstatus> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::shutdn__engairshutoffstatus;
+    static constexpr MessageId message_id = MessageId::shutdn;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 56;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::shutdn__ptoshutdownhasshutdowneng> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::shutdn__ptoshutdownhasshutdowneng;
+    static constexpr MessageId message_id = MessageId::shutdn;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 58;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::shutdn__clntlvlengprtctionshutdownstatus> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::shutdn__clntlvlengprtctionshutdownstatus;
+    static constexpr MessageId message_id = MessageId::shutdn;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 60;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+template <>
+struct signal_traits<SignalId::shutdn__engoilpresssw> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::shutdn__engoilpresssw;
+    static constexpr MessageId message_id = MessageId::shutdn;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr bool has_choices = true;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr std::uint16_t start_bit = 62;
+    static constexpr std::uint8_t bit_length = 2;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+};
+
+template <SignalId Id>
+using signal_value_t = typename signal_traits<Id>::value_type;
 
 } // namespace duramax

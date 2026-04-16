@@ -1,13 +1,12 @@
 #pragma once
 
-#include "duramax_types.hpp"
+#include "reacher_types.hpp"
 
 #include <cstddef>
 #include <cstdint>
 #include <expected>
-#include <type_traits>
 
-namespace duramax {
+namespace reacher {
 
 enum class DecodeError : std::uint8_t {
     unknown_message,
@@ -33,7 +32,7 @@ public:
                        std::size_t out_size)
         -> std::expected<std::uint8_t, EncodeError>;
 
-    template <typename Msg>
+    template <GeneratedMessage Msg>
     static auto encode(const Msg& msg,
                        std::uint8_t* out,
                        std::size_t out_size)
@@ -43,4 +42,4 @@ public:
     }
 };
 
-} // namespace duramax
+} // namespace reacher

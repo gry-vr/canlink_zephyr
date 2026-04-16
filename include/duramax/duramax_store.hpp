@@ -5,7 +5,9 @@
 
 #include <array>
 #include <cstdint>
+#include <expected>
 #include <optional>
+#include <type_traits>
 #include <variant>
 
 namespace duramax {
@@ -34,6 +36,21 @@ struct MessageFreshness {
     std::uint32_t last_rx_ms{};
 };
 
+enum class StoreAccessError : std::uint8_t {
+    missing_signal,
+    type_mismatch,
+    unsupported_signal_type
+};
+
+using SignalPhysicalValue = std::variant<
+    std::uint8_t,
+    std::uint16_t,
+    std::int16_t,
+    std::uint32_t,
+    double,
+    bool
+>;
+
 class ValueStore {
 public:
     std::array<SignalSlot, kSignalCount> slots{};
@@ -59,6 +76,10 @@ public:
 
     constexpr auto signal_source_message_time_ms(SignalId id) const -> std::uint32_t {
         return slots[to_index(id)].source_message_time_ms;
+    }
+
+    constexpr auto signal_valid(SignalId id) const -> bool {
+        return slots[to_index(id)].valid;
     }
 
     constexpr void set_signal_u8(SignalId id, std::uint8_t value, std::uint32_t now_ms) {
@@ -162,6 +183,126 @@ public:
         }
         return s.value.b;
     }
+
+    template <SignalId Id>
+    constexpr void set(signal_value_t<Id> value, std::uint32_t now_ms) {
+        constexpr auto ty = signal_traits<Id>::signal_type;
+        if constexpr (ty == SignalType::u8) {
+            set_signal_u8(Id, value, now_ms);
+        } else if constexpr (ty == SignalType::u16) {
+            set_signal_u16(Id, value, now_ms);
+        } else if constexpr (ty == SignalType::i16) {
+            set_signal_i16(Id, value, now_ms);
+        } else if constexpr (ty == SignalType::u32) {
+            set_signal_u32(Id, value, now_ms);
+        } else if constexpr (ty == SignalType::f64) {
+            set_signal_f64(Id, value, now_ms);
+        } else if constexpr (ty == SignalType::boolean) {
+            set_signal_bool(Id, value, now_ms);
+        }
+    }
+
+    template <SignalId Id>
+    constexpr auto get() const -> std::optional<signal_value_t<Id>> {
+        constexpr auto ty = signal_traits<Id>::signal_type;
+        if constexpr (ty == SignalType::u8) {
+            return try_get_u8(Id);
+        } else if constexpr (ty == SignalType::u16) {
+            return try_get_u16(Id);
+        } else if constexpr (ty == SignalType::i16) {
+            return try_get_i16(Id);
+        } else if constexpr (ty == SignalType::u32) {
+            return try_get_u32(Id);
+        } else if constexpr (ty == SignalType::f64) {
+            return try_get_f64(Id);
+        } else {
+            return try_get_bool(Id);
+        }
+    }
+
+    auto set_signal_physical(SignalId id,
+                             const SignalPhysicalValue& value,
+                             std::uint32_t now_ms)
+        -> std::expected<void, StoreAccessError>
+    {
+        switch (signal_meta(id).type) {
+        case SignalType::u8:
+            if (const auto* v = std::get_if<std::uint8_t>(&value)) {
+                set_signal_u8(id, *v, now_ms);
+                return {};
+            }
+            return std::unexpected(StoreAccessError::type_mismatch);
+        case SignalType::u16:
+            if (const auto* v = std::get_if<std::uint16_t>(&value)) {
+                set_signal_u16(id, *v, now_ms);
+                return {};
+            }
+            return std::unexpected(StoreAccessError::type_mismatch);
+        case SignalType::i16:
+            if (const auto* v = std::get_if<std::int16_t>(&value)) {
+                set_signal_i16(id, *v, now_ms);
+                return {};
+            }
+            return std::unexpected(StoreAccessError::type_mismatch);
+        case SignalType::u32:
+            if (const auto* v = std::get_if<std::uint32_t>(&value)) {
+                set_signal_u32(id, *v, now_ms);
+                return {};
+            }
+            return std::unexpected(StoreAccessError::type_mismatch);
+        case SignalType::f64:
+            if (const auto* v = std::get_if<double>(&value)) {
+                set_signal_f64(id, *v, now_ms);
+                return {};
+            }
+            return std::unexpected(StoreAccessError::type_mismatch);
+        case SignalType::boolean:
+            if (const auto* v = std::get_if<bool>(&value)) {
+                set_signal_bool(id, *v, now_ms);
+                return {};
+            }
+            return std::unexpected(StoreAccessError::type_mismatch);
+        }
+        return std::unexpected(StoreAccessError::unsupported_signal_type);
+    }
+
+    auto get_signal_physical(SignalId id) const
+        -> std::expected<SignalPhysicalValue, StoreAccessError>
+    {
+        switch (signal_meta(id).type) {
+        case SignalType::u8: {
+            auto v = try_get_u8(id);
+            if (!v) return std::unexpected(StoreAccessError::missing_signal);
+            return SignalPhysicalValue{*v};
+        }
+        case SignalType::u16: {
+            auto v = try_get_u16(id);
+            if (!v) return std::unexpected(StoreAccessError::missing_signal);
+            return SignalPhysicalValue{*v};
+        }
+        case SignalType::i16: {
+            auto v = try_get_i16(id);
+            if (!v) return std::unexpected(StoreAccessError::missing_signal);
+            return SignalPhysicalValue{*v};
+        }
+        case SignalType::u32: {
+            auto v = try_get_u32(id);
+            if (!v) return std::unexpected(StoreAccessError::missing_signal);
+            return SignalPhysicalValue{*v};
+        }
+        case SignalType::f64: {
+            auto v = try_get_f64(id);
+            if (!v) return std::unexpected(StoreAccessError::missing_signal);
+            return SignalPhysicalValue{*v};
+        }
+        case SignalType::boolean: {
+            auto v = try_get_bool(id);
+            if (!v) return std::unexpected(StoreAccessError::missing_signal);
+            return SignalPhysicalValue{*v};
+        }
+        }
+        return std::unexpected(StoreAccessError::unsupported_signal_type);
+    }
 };
 
 struct Eec5ElectronicEngineControl5;
@@ -249,8 +390,6 @@ void update_from(ValueStore& store, const Ebc1ElectronicBrakeCntrl& m, std::uint
 struct Shutdn;
 void update_from(ValueStore& store, const Shutdn& m, std::uint32_t now_ms);
 
-// Clearer TX-facing alias.
-// For now this is just a semantic wrapper around update_from(...).
 inline void apply_to_store(ValueStore& store,
                            const Eec5ElectronicEngineControl5& msg,
                            std::uint32_t now_ms) {

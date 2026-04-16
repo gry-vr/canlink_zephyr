@@ -1,5 +1,5 @@
-#include "duramax_codec.hpp"
-#include "duramax_metadata.hpp"
+#include "duramax/duramax_codec.hpp"
+#include "duramax/duramax_metadata.hpp"
 
 #include <algorithm>
 #include <array>

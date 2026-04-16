@@ -102,4 +102,7 @@ auto build_shutdn_from_store(const ValueStore& store)
 auto build_message_from_store(MessageId id, const ValueStore& store)
     -> std::expected<MessageVariant, BuildError>;
 
+auto validate_message_buildable(MessageId id, const ValueStore& store)
+    -> std::expected<void, BuildError>;
+
 } // namespace duramax
