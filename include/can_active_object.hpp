@@ -5,6 +5,8 @@
 #include <zephyr/kernel.h>
 #include <zephyr/sys/printk.h>
 
+#include "can_endpoint.hpp"
+
 #include <array>
 #include <cstdint>
 #include <expected>
@@ -21,45 +23,6 @@ enum class InitError : std::uint8_t {
     already_started,
 };
 
-enum class TxPolicy : std::uint8_t {
-    send_once,
-    periodic_enable,
-    periodic_disable,
-};
-
-template <typename Db>
-concept HasDbSignalPhysicalValue = requires {
-    typename Db::SignalPhysicalValue;
-};
-
-template <typename Db>
-using SignalPhysicalValueT = typename Db::SignalPhysicalValue;
-
-template <typename Db>
-struct TxCommand {
-    using MessageId = typename Db::MessageId;
-    using MessageVariant = typename Db::MessageVariant;
-    using SignalId = typename Db::SignalId;
-    using SignalPhysicalValue = SignalPhysicalValueT<Db>;
-
-    struct SendMessage {
-        MessageVariant message;
-        TxPolicy policy{TxPolicy::periodic_enable};
-        std::uint32_t period_ms_override{0};
-    };
-
-    struct UpdateSignal {
-        SignalId signal_id;
-        SignalPhysicalValue value;
-        bool trigger_parent_send{false};
-    };
-
-    struct DisableMessage {
-        MessageId message_id;
-    };
-
-    using Variant = std::variant<SendMessage, UpdateSignal, DisableMessage>;
-};
 
 template <typename Db>
 struct TxScheduleSlot {
@@ -166,6 +129,11 @@ public:
     using MessageVariant = typename Db::MessageVariant;
     using ValueStore = typename Db::ValueStore;
     using Command = typename TxCommand<Db>::Variant;
+    using Endpoint = canfw::CanEndpoint<Db>;
+    using Snapshot = canfw::SnapshotReply<Db>;
+    using TxCommandType = TxCommand<Db>;
+    using TxPolicyType = TxPolicy;
+    using SignalPhysicalValue = typename Db::SignalPhysicalValue;
 
     static constexpr std::size_t RxQueueDepth = 64;
     static constexpr std::size_t TxQueueDepth = 16;
@@ -236,6 +204,14 @@ public:
 
             run_due_tx(wake_ms);
         }
+    }
+
+    Endpoint endpoint() {
+    return Endpoint{&tx_cmd_msgq_};
+    }
+
+    Endpoint endpoint() const {
+        return Endpoint{const_cast<k_msgq*>(&tx_cmd_msgq_)};
     }
 
 private:
@@ -334,12 +310,14 @@ private:
                 continue;
             }
 
-            Db::apply_to_store(rx_store_, *decoded, now_ms);
+            MessageVariant decoded_t = *decoded;
+
+            Db::apply_to_store(rx_store_, decoded_t, now_ms);
 
             std::visit([&](const auto& msg) {
                 dispatch_on_rx<Hooks, std::decay_t<decltype(msg)>, Db>(
                     hooks_, msg, rx_store_, now_ms);
-            }, *decoded);
+            }, decoded_t);
         }
     }
 
@@ -376,6 +354,21 @@ private:
 
     void handle_tx_command(const typename TxCommand<Db>::DisableMessage& cmd, std::uint32_t) {
         tx_scheduler_.disable(cmd.message_id);
+    }
+
+    void handle_tx_command(const typename TxCommand<Db>::RequestSnapshot& cmd,
+                       std::uint32_t now_ms)
+    {
+        if (cmd.reply_q == nullptr) {
+            return;
+        }
+
+        Snapshot reply{};
+        reply.store = rx_store_;
+        reply.valid = true;
+        reply.timestamp_ms = now_ms;
+
+        (void)k_msgq_put(cmd.reply_q, &reply, K_NO_WAIT);
     }
 
     void handle_message_policy(MessageId id,
@@ -448,7 +441,7 @@ private:
 
         //auto encoded = Db::encode_from_store(id, tx_store_, frame.data, sizeof(frame.data));
         if (!encoded) {
-            printk("we failed %d", encoded.error())
+            printk("we failed %d", encoded.error());
             ++tx_encode_failures_;
             return -EINVAL;
         }

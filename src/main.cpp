@@ -4,148 +4,100 @@
 #include <zephyr/sys/printk.h>
 
 #include "can_active_object.hpp"
+#include "can_endpoint.hpp"
+
 #include "duramax/duramax_db.hpp"
 #include "duramax/duramax_hooks.hpp"
+#include "duramax/duramax_choices.hpp"
 
 #include "reacher/reacher_db.hpp"
 #include "reacher/reacher_hooks.hpp"
 
-#include "duramax/duramax_choices.hpp"
-
 namespace {
 
 using DuramaxAo = canfw::CanActiveObject<duramax::DuramaxDb, DuramaxHooks>;
-using DuramaxTx = canfw::TxCommand<duramax::DuramaxDb>;
+using ReacherAo = canfw::CanActiveObject<reacher::ReacherDb, ReacherHooks>;
 
 const device* const dm_bus = DEVICE_DT_GET(DT_ALIAS(can0));
-
-using ReacherAo = canfw::CanActiveObject<reacher::ReacherDb, ReacherHooks>;
-using ReacherTx = canfw::TxCommand<reacher::ReacherDb>;
-
 const device* const reacher_bus = DEVICE_DT_GET(DT_ALIAS(can1));
+
+K_MSGQ_DEFINE(reacher_reply_q,
+              sizeof(canfw::SnapshotReply<reacher::ReacherDb>),
+              1,
+              alignof(canfw::SnapshotReply<reacher::ReacherDb>));
 
 } // namespace
 
 int main(void)
 {
-
-    auto ao_result = DuramaxAo::create(dm_bus, DuramaxHooks{}, true);
-    if (!ao_result) {
-        printk("DuramaxAo init failed: %d\n", static_cast<int>(ao_result.error()));
+    auto duramax_result = DuramaxAo::create(dm_bus, DuramaxHooks{}, true);
+    if (!duramax_result) {
+        printk("DuramaxAo init failed: %d\n", static_cast<int>(duramax_result.error()));
         return -1;
     }
 
-    auto reacher_ao_result = ReacherAo::create(reacher_bus, ReacherHooks{}, false);
-    if(!reacher_ao_result){
-        printk("Reacher init failed %d\n", static_cast<int>(reacher_ao_result.error()));
+    auto reacher_result = ReacherAo::create(reacher_bus, ReacherHooks{}, false);
+    if (!reacher_result) {
+        printk("ReacherAo init failed: %d\n", static_cast<int>(reacher_result.error()));
         return -1;
     }
 
+    auto* duramax_ao = *duramax_result;
+    auto* reacher_ao = *reacher_result;
 
+    auto duramax_ep = duramax_ao->endpoint();
+    auto reacher_ep = reacher_ao->endpoint();
 
+    duramax::Tsc131 tsc1{};
+    tsc1.engoverridectrlmode = 0;
+    tsc1.engrequestedspeedctrlconditions = 0;
+    tsc1.overridectrlmodepriority = 0;
+    tsc1.engrequestedspeed_speedlimit = 0;
+    tsc1.engrequestedtorque_torquelimit = -125;
+    tsc1.tsc1transrate = std::to_underlying(
+        duramax::Tsc131Tsc1transrateState::use_standard_tsc1_transmission_rates_of_10_ms_to_engine);
+    tsc1.tsc1ctrlpurpose = 0;
+    tsc1.engrequestedtorquehighresolution = 0;
 
-    auto* reacher_ao = *reacher_ao_result;
-
-    // here I am going to do reacher related canbus things
-
-    auto& reacher_store = reacher_ao->rx_store();
-
-    auto vehicle_command = reacher_store.get<reacher::SignalId::reacher_ctrl__throttle_rpm>();
-
-
-    if(!vehicle_command){
-        printk("welp the api sucks");
-    }
-
-
-
-    auto* ao = *ao_result;
-
-    duramax::Cac1ChargeAirCooler1 cac1{};
-    cac1.engine_charge_air_cooler_1_intak = 50;
-    cac1.engine_charge_air_cooler_1_ambie = 34;
-    cac1.engine_charge_air_cooler_1_effic = 90;
-
-    DuramaxTx::SendMessage send_cmd{};
-    send_cmd.message = duramax::MessageVariant{cac1};
-    send_cmd.policy = canfw::TxPolicy::periodic_enable;
-    send_cmd.period_ms_override = 1000;
-
-    int rc = ao->post_tx(DuramaxTx::Variant{send_cmd}, K_NO_WAIT);
+    int rc = duramax_ep.enable_periodic(tsc1, 10);
     if (rc != 0) {
-        printk("post_tx failed: %d\n", rc);
-    }
-    uint16_t counter = 0;
-    DuramaxTx::UpdateSignal update_signal{};
-    update_signal.signal_id = duramax::SignalId::cac1_charge_air_cooler_1__engine_charge_air_cooler_1_ambie;
-    update_signal.trigger_parent_send = false;
-    double value = 50;
-    update_signal.value = value;
-    
-    duramax::Tsc131 tsc1_31{};
-    tsc1_31.engoverridectrlmode = 0;
-    tsc1_31.engrequestedspeedctrlconditions = 0;
-    tsc1_31.overridectrlmodepriority = 0;
-    tsc1_31.engrequestedspeed_speedlimit = 0;
-    tsc1_31.engrequestedtorque_torquelimit = -125;
-    tsc1_31.tsc1transrate = std::to_underlying(duramax::Tsc131Tsc1transrateState::use_standard_tsc1_transmission_rates_of_10_ms_to_engine);
-
-    tsc1_31.tsc1ctrlpurpose = 0;
-    tsc1_31.engrequestedtorquehighresolution = 0;
-    
-    DuramaxTx::UpdateSignal update_throttle_signal{};
-    update_throttle_signal.signal_id = duramax::SignalId::tsc1_31__engrequestedspeed_speedlimit;
-    
-    update_throttle_signal.trigger_parent_send = false;
-    update_throttle_signal.value = (double)0;
-
-
-    DuramaxTx::SendMessage send_throttle{};
-    send_throttle.message = duramax::MessageVariant{tsc1_31};
-    send_throttle.policy = canfw::TxPolicy::periodic_enable;
-    send_throttle.period_ms_override = 10;
-
-    rc = ao->post_tx(DuramaxTx::Variant{send_throttle}, K_NO_WAIT);
-    if (rc != 0) {
-        printk("post_tx failed: %d\n", rc);
+        printk("enable_periodic failed: %d\n", rc);
     }
 
     while (true) {
-        ++counter;
+        auto maybe_snapshot = reacher_ep.request_snapshot_blocking(reacher_reply_q);
+
+        if (maybe_snapshot && maybe_snapshot->valid) {
+            auto throttle =
+                maybe_snapshot->store.template get<reacher::SignalId::reacher_ctrl__throttle_rpm>();
+
+            if (throttle) {
+                printk("reacher throttle rpm: %d\n", static_cast<int>(*throttle));
+
+                rc = duramax_ep.update_signal(
+                    duramax::SignalId::tsc1_31__engrequestedspeed_speedlimit,
+                    static_cast<double>(*throttle),
+                    false);
+
+                if (rc != 0) {
+                    printk("update_signal failed: %d\n", rc);
+                }
+            } else {
+                printk("reacher throttle rpm: <missing>\n");
+            }
+        } else {
+            printk("snapshot request failed or timed out\n");
+        }
 
         printk("duramax decode_failures=%u tx_build_failures=%u tx_encode_failures=%u\n",
-            ao->decode_failures(),
-            ao->tx_build_failures(),
-            ao->tx_encode_failures());
+               duramax_ao->decode_failures(),
+               duramax_ao->tx_build_failures(),
+               duramax_ao->tx_encode_failures());
 
         printk("reacher decode_failures=%u tx_build_failures=%u tx_encode_failures=%u\n",
-            reacher_ao->decode_failures(),
-            reacher_ao->tx_build_failures(),
-            reacher_ao->tx_encode_failures());
-
-        if ((counter % 20) == 0) {
-            value += 1.0;
-            update_signal.value = value;
-            rc = ao->post_tx(DuramaxTx::Variant{update_signal}, K_NO_WAIT);
-            if (rc != 0) {
-                printk("post tx failed: %d\n", rc);
-            }
-        }
-
-        auto vehicle_command =
-            reacher_ao->rx_store().get<reacher::SignalId::reacher_ctrl__throttle_rpm>();
-
-        if (vehicle_command) {
-            printk("reacher throttle rpm: %d\n", static_cast<int>(*vehicle_command));
-            update_throttle_signal.value = static_cast<double>(*vehicle_command);
-            
-        } else {
-            printk("reacher throttle rpm: <missing>\n");
-        }
-        rc = ao->post_tx(DuramaxTx::Variant{update_throttle_signal}, K_NO_WAIT);
-        if (rc != 0) {
-            printk("post throttle update failed: %d\n", rc);
-        }
+               reacher_ao->decode_failures(),
+               reacher_ao->tx_build_failures(),
+               reacher_ao->tx_encode_failures());
 
         k_sleep(K_SECONDS(1));
     }
