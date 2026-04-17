@@ -124,6 +124,23 @@ static void dispatch_on_rx(Hooks& hooks,
     }
 }
 
+
+template <typename Hooks, typename Msg, typename Db>
+concept HasBeforeSend = 
+    requires(Hooks& h, Msg& msg, typename Db::ValueStore& store, std::uint32_t now_ms){
+        { h.on_before_send(msg, store, now_ms)};
+    };
+
+template <typename Hooks, typename Msg, typename Db>
+static void dispatch_before_send(Hooks& hooks, Msg& msg, typename Db::ValueStore& tx_store, std::uint32_t now_ms)
+{
+    if constexpr (HasBeforeSend<Hooks, Msg, Db>){
+        hooks.on_before_send(msg, tx_store, now_ms);
+    }
+}
+
+
+
 template <typename Db>
 concept HasMessageIdOfTemplate = requires {
     Db::template message_id_of<typename Db::MessageVariant>();
@@ -184,14 +201,11 @@ public:
     int post_tx(const Command& cmd, k_timeout_t timeout = K_NO_WAIT) {
 
         int rc = k_msgq_put(&tx_cmd_msgq_, &cmd, timeout);
-        printk("post_tx rc=%d used=%u free=%u\n",
-           rc,
-           k_msgq_num_used_get(&tx_cmd_msgq_),
-           k_msgq_num_free_get(&tx_cmd_msgq_));
         return rc;
     }
 
     const ValueStore& rx_store() const { return rx_store_; }
+    ValueStore get_rx_store_copy()  { return this->rx_store_; }
     const ValueStore& tx_store() const { return tx_store_; }
 
     [[nodiscard]] std::uint32_t decode_failures() const { return decode_failures_; }
@@ -208,11 +222,7 @@ public:
             }
 
             const int rc = k_poll(events_.data(), events_.size(), timeout);
-            printk("k_poll rc=%d ev0=%u ev1=%u used_tx=%u\n",
-            rc,
-            events_[0].state,
-            events_[1].state,
-            k_msgq_num_used_get(&tx_cmd_msgq_));
+            
             const std::uint32_t wake_ms = k_uptime_get_32();
 
             if (rc == 0) {
@@ -403,19 +413,42 @@ private:
 
             if (send_one(id, now_ms) == 0) {
                 slot.last_tx_ms = now_ms;
-            }
+            } // because we might fail on send_one i.e. return non zero then what do we do ?
+            // the issue here is that we failed but what should that mean ? 
+            // we never update the now_ms. so that means we never send anything else
+            // we keep getting the timer running up for that message and never send it
+            // because we fail on building the message / encoding
+            
         }
     }
 
     int send_one(MessageId id, std::uint32_t) {
+        auto built = Db::build_message_from_store(id, tx_store_);
+        if(!built){
+            ++tx_build_failures_;
+            return -EINVAL;
+        }
+
+
         can_frame frame{};
         const auto& meta = Db::message_meta(id);
+
+
+        
+        uint32_t now_ms = k_uptime_get_32();
 
         frame.id = meta.frame_id;
         frame.flags = meta.is_extended ? CAN_FRAME_IDE : 0U;
 
-        auto encoded = Db::encode_from_store(id, tx_store_, frame.data, sizeof(frame.data));
+        auto encoded = std::visit([&](auto& msg) -> std::expected<std::uint8_t, typename Db::EncodeError>{
+            dispatch_before_send<Hooks, std::decay_t<decltype(msg)>, Db>( hooks_, msg, tx_store_, now_ms);
+
+            return Db::encode(msg, frame.data, sizeof(frame.data));
+        }, *built);
+
+        //auto encoded = Db::encode_from_store(id, tx_store_, frame.data, sizeof(frame.data));
         if (!encoded) {
+            printk("we failed %d", encoded.error())
             ++tx_encode_failures_;
             return -EINVAL;
         }

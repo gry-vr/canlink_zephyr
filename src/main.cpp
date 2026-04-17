@@ -10,7 +10,7 @@
 #include "reacher/reacher_db.hpp"
 #include "reacher/reacher_hooks.hpp"
 
-
+#include "duramax/duramax_choices.hpp"
 
 namespace {
 
@@ -82,6 +82,33 @@ int main(void)
     double value = 50;
     update_signal.value = value;
     
+    duramax::Tsc131 tsc1_31{};
+    tsc1_31.engoverridectrlmode = 0;
+    tsc1_31.engrequestedspeedctrlconditions = 0;
+    tsc1_31.overridectrlmodepriority = 0;
+    tsc1_31.engrequestedspeed_speedlimit = 0;
+    tsc1_31.engrequestedtorque_torquelimit = -125;
+    tsc1_31.tsc1transrate = std::to_underlying(duramax::Tsc131Tsc1transrateState::use_standard_tsc1_transmission_rates_of_10_ms_to_engine);
+
+    tsc1_31.tsc1ctrlpurpose = 0;
+    tsc1_31.engrequestedtorquehighresolution = 0;
+    
+    DuramaxTx::UpdateSignal update_throttle_signal{};
+    update_throttle_signal.signal_id = duramax::SignalId::tsc1_31__engrequestedspeed_speedlimit;
+    
+    update_throttle_signal.trigger_parent_send = false;
+    update_throttle_signal.value = (double)0;
+
+
+    DuramaxTx::SendMessage send_throttle{};
+    send_throttle.message = duramax::MessageVariant{tsc1_31};
+    send_throttle.policy = canfw::TxPolicy::periodic_enable;
+    send_throttle.period_ms_override = 10;
+
+    rc = ao->post_tx(DuramaxTx::Variant{send_throttle}, K_NO_WAIT);
+    if (rc != 0) {
+        printk("post_tx failed: %d\n", rc);
+    }
 
     while (true) {
         ++counter;
@@ -110,8 +137,14 @@ int main(void)
 
         if (vehicle_command) {
             printk("reacher throttle rpm: %d\n", static_cast<int>(*vehicle_command));
+            update_throttle_signal.value = static_cast<double>(*vehicle_command);
+            
         } else {
             printk("reacher throttle rpm: <missing>\n");
+        }
+        rc = ao->post_tx(DuramaxTx::Variant{update_throttle_signal}, K_NO_WAIT);
+        if (rc != 0) {
+            printk("post throttle update failed: %d\n", rc);
         }
 
         k_sleep(K_SECONDS(1));
