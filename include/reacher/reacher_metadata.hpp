@@ -485,6 +485,173 @@ inline constexpr std::array<SignalId, kSignalCount> kMessageSignalsFlat{ {
     SignalId::servo_batt__servo_bus_voltage,
 } };
 
+template <SignalId Id>
+struct signal_traits;
+
+template <>
+struct signal_traits<SignalId::reacher_ctrl__eng_on> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId signal_id = SignalId::reacher_ctrl__eng_on;
+    static constexpr MessageId message_id = MessageId::reacher_ctrl;
+    static constexpr MessageId parent_message_id = MessageId::reacher_ctrl;
+    static constexpr SignalType signal_type = SignalType::u8;
+};
+template <>
+struct signal_traits<SignalId::reacher_ctrl__start> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId signal_id = SignalId::reacher_ctrl__start;
+    static constexpr MessageId message_id = MessageId::reacher_ctrl;
+    static constexpr MessageId parent_message_id = MessageId::reacher_ctrl;
+    static constexpr SignalType signal_type = SignalType::u8;
+};
+template <>
+struct signal_traits<SignalId::reacher_ctrl__arm> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId signal_id = SignalId::reacher_ctrl__arm;
+    static constexpr MessageId message_id = MessageId::reacher_ctrl;
+    static constexpr MessageId parent_message_id = MessageId::reacher_ctrl;
+    static constexpr SignalType signal_type = SignalType::u8;
+};
+template <>
+struct signal_traits<SignalId::reacher_ctrl__test> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId signal_id = SignalId::reacher_ctrl__test;
+    static constexpr MessageId message_id = MessageId::reacher_ctrl;
+    static constexpr MessageId parent_message_id = MessageId::reacher_ctrl;
+    static constexpr SignalType signal_type = SignalType::u8;
+};
+template <>
+struct signal_traits<SignalId::reacher_ctrl__aux_1> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId signal_id = SignalId::reacher_ctrl__aux_1;
+    static constexpr MessageId message_id = MessageId::reacher_ctrl;
+    static constexpr MessageId parent_message_id = MessageId::reacher_ctrl;
+    static constexpr SignalType signal_type = SignalType::u8;
+};
+template <>
+struct signal_traits<SignalId::reacher_ctrl__throttle_rpm> {
+    using value_type = std::uint16_t;
+    static constexpr SignalId signal_id = SignalId::reacher_ctrl__throttle_rpm;
+    static constexpr MessageId message_id = MessageId::reacher_ctrl;
+    static constexpr MessageId parent_message_id = MessageId::reacher_ctrl;
+    static constexpr SignalType signal_type = SignalType::u16;
+};
+template <>
+struct signal_traits<SignalId::reacher_ctrl__aux_2> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId signal_id = SignalId::reacher_ctrl__aux_2;
+    static constexpr MessageId message_id = MessageId::reacher_ctrl;
+    static constexpr MessageId parent_message_id = MessageId::reacher_ctrl;
+    static constexpr SignalType signal_type = SignalType::u8;
+};
+template <>
+struct signal_traits<SignalId::reacher_engine_feedback__ecu_on> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId signal_id = SignalId::reacher_engine_feedback__ecu_on;
+    static constexpr MessageId message_id = MessageId::reacher_engine_feedback;
+    static constexpr MessageId parent_message_id = MessageId::reacher_engine_feedback;
+    static constexpr SignalType signal_type = SignalType::u8;
+};
+template <>
+struct signal_traits<SignalId::reacher_engine_feedback__f_pump_on> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId signal_id = SignalId::reacher_engine_feedback__f_pump_on;
+    static constexpr MessageId message_id = MessageId::reacher_engine_feedback;
+    static constexpr MessageId parent_message_id = MessageId::reacher_engine_feedback;
+    static constexpr SignalType signal_type = SignalType::u8;
+};
+template <>
+struct signal_traits<SignalId::reacher_engine_feedback__st_solenoid_on> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId signal_id = SignalId::reacher_engine_feedback__st_solenoid_on;
+    static constexpr MessageId message_id = MessageId::reacher_engine_feedback;
+    static constexpr MessageId parent_message_id = MessageId::reacher_engine_feedback;
+    static constexpr SignalType signal_type = SignalType::u8;
+};
+template <>
+struct signal_traits<SignalId::export_0__eng_speed> {
+    using value_type = std::uint16_t;
+    static constexpr SignalId signal_id = SignalId::export_0__eng_speed;
+    static constexpr MessageId message_id = MessageId::export_0;
+    static constexpr MessageId parent_message_id = MessageId::export_0;
+    static constexpr SignalType signal_type = SignalType::u16;
+};
+template <>
+struct signal_traits<SignalId::export_0__actual_throttle> {
+    using value_type = double;
+    static constexpr SignalId signal_id = SignalId::export_0__actual_throttle;
+    static constexpr MessageId message_id = MessageId::export_0;
+    static constexpr MessageId parent_message_id = MessageId::export_0;
+    static constexpr SignalType signal_type = SignalType::f64;
+};
+template <>
+struct signal_traits<SignalId::export_0__manifold_press> {
+    using value_type = std::uint16_t;
+    static constexpr SignalId signal_id = SignalId::export_0__manifold_press;
+    static constexpr MessageId message_id = MessageId::export_0;
+    static constexpr MessageId parent_message_id = MessageId::export_0;
+    static constexpr SignalType signal_type = SignalType::u16;
+};
+template <>
+struct signal_traits<SignalId::export_3__fuel_rail_pressure> {
+    using value_type = std::int16_t;
+    static constexpr SignalId signal_id = SignalId::export_3__fuel_rail_pressure;
+    static constexpr MessageId message_id = MessageId::export_3;
+    static constexpr MessageId parent_message_id = MessageId::export_3;
+    static constexpr SignalType signal_type = SignalType::i16;
+};
+template <>
+struct signal_traits<SignalId::export_8__battery_bus_voltage> {
+    using value_type = double;
+    static constexpr SignalId signal_id = SignalId::export_8__battery_bus_voltage;
+    static constexpr MessageId message_id = MessageId::export_8;
+    static constexpr MessageId parent_message_id = MessageId::export_8;
+    static constexpr SignalType signal_type = SignalType::f64;
+};
+template <>
+struct signal_traits<SignalId::export_b__coolant_temp> {
+    using value_type = double;
+    static constexpr SignalId signal_id = SignalId::export_b__coolant_temp;
+    static constexpr MessageId message_id = MessageId::export_b;
+    static constexpr MessageId parent_message_id = MessageId::export_b;
+    static constexpr SignalType signal_type = SignalType::f64;
+};
+template <>
+struct signal_traits<SignalId::export_b__oil_temp> {
+    using value_type = double;
+    static constexpr SignalId signal_id = SignalId::export_b__oil_temp;
+    static constexpr MessageId message_id = MessageId::export_b;
+    static constexpr MessageId parent_message_id = MessageId::export_b;
+    static constexpr SignalType signal_type = SignalType::f64;
+};
+template <>
+struct signal_traits<SignalId::export_b__oil_pressure> {
+    using value_type = double;
+    static constexpr SignalId signal_id = SignalId::export_b__oil_pressure;
+    static constexpr MessageId message_id = MessageId::export_b;
+    static constexpr MessageId parent_message_id = MessageId::export_b;
+    static constexpr SignalType signal_type = SignalType::f64;
+};
+template <>
+struct signal_traits<SignalId::export_b__exhaust_gas_temp> {
+    using value_type = double;
+    static constexpr SignalId signal_id = SignalId::export_b__exhaust_gas_temp;
+    static constexpr MessageId message_id = MessageId::export_b;
+    static constexpr MessageId parent_message_id = MessageId::export_b;
+    static constexpr SignalType signal_type = SignalType::f64;
+};
+template <>
+struct signal_traits<SignalId::servo_batt__servo_bus_voltage> {
+    using value_type = std::uint16_t;
+    static constexpr SignalId signal_id = SignalId::servo_batt__servo_bus_voltage;
+    static constexpr MessageId message_id = MessageId::servo_batt;
+    static constexpr MessageId parent_message_id = MessageId::servo_batt;
+    static constexpr SignalType signal_type = SignalType::u16;
+};
+
+template <SignalId Id>
+using signal_value_t = typename signal_traits<Id>::value_type;
+
 constexpr auto message_meta(MessageId id) -> const MessageMeta& {
     return kMessagesById[to_index(id)];
 }
@@ -533,292 +700,5 @@ constexpr auto find_message_by_frame_id(std::uint32_t frame_id) -> const Message
     }
     return nullptr;
 }
-
-template <SignalId Id>
-struct signal_traits;
-
-template <>
-struct signal_traits<SignalId::reacher_ctrl__eng_on> {
-    using value_type = std::uint8_t;
-    static constexpr SignalId id = SignalId::reacher_ctrl__eng_on;
-    static constexpr MessageId message_id = MessageId::reacher_ctrl;
-    static constexpr SignalType signal_type = SignalType::u8;
-    static constexpr bool has_choices = true;
-    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
-    static constexpr bool is_signed = false;
-    static constexpr std::uint16_t start_bit = 0;
-    static constexpr std::uint8_t bit_length = 8;
-    static constexpr double scale = 1.0;
-    static constexpr double offset = 0.0;
-};
-template <>
-struct signal_traits<SignalId::reacher_ctrl__start> {
-    using value_type = std::uint8_t;
-    static constexpr SignalId id = SignalId::reacher_ctrl__start;
-    static constexpr MessageId message_id = MessageId::reacher_ctrl;
-    static constexpr SignalType signal_type = SignalType::u8;
-    static constexpr bool has_choices = true;
-    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
-    static constexpr bool is_signed = false;
-    static constexpr std::uint16_t start_bit = 8;
-    static constexpr std::uint8_t bit_length = 8;
-    static constexpr double scale = 1.0;
-    static constexpr double offset = 0.0;
-};
-template <>
-struct signal_traits<SignalId::reacher_ctrl__arm> {
-    using value_type = std::uint8_t;
-    static constexpr SignalId id = SignalId::reacher_ctrl__arm;
-    static constexpr MessageId message_id = MessageId::reacher_ctrl;
-    static constexpr SignalType signal_type = SignalType::u8;
-    static constexpr bool has_choices = true;
-    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
-    static constexpr bool is_signed = false;
-    static constexpr std::uint16_t start_bit = 16;
-    static constexpr std::uint8_t bit_length = 8;
-    static constexpr double scale = 1.0;
-    static constexpr double offset = 0.0;
-};
-template <>
-struct signal_traits<SignalId::reacher_ctrl__test> {
-    using value_type = std::uint8_t;
-    static constexpr SignalId id = SignalId::reacher_ctrl__test;
-    static constexpr MessageId message_id = MessageId::reacher_ctrl;
-    static constexpr SignalType signal_type = SignalType::u8;
-    static constexpr bool has_choices = true;
-    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
-    static constexpr bool is_signed = false;
-    static constexpr std::uint16_t start_bit = 24;
-    static constexpr std::uint8_t bit_length = 8;
-    static constexpr double scale = 1.0;
-    static constexpr double offset = 0.0;
-};
-template <>
-struct signal_traits<SignalId::reacher_ctrl__aux_1> {
-    using value_type = std::uint8_t;
-    static constexpr SignalId id = SignalId::reacher_ctrl__aux_1;
-    static constexpr MessageId message_id = MessageId::reacher_ctrl;
-    static constexpr SignalType signal_type = SignalType::u8;
-    static constexpr bool has_choices = false;
-    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
-    static constexpr bool is_signed = false;
-    static constexpr std::uint16_t start_bit = 32;
-    static constexpr std::uint8_t bit_length = 8;
-    static constexpr double scale = 1.0;
-    static constexpr double offset = 0.0;
-};
-template <>
-struct signal_traits<SignalId::reacher_ctrl__throttle_rpm> {
-    using value_type = std::uint16_t;
-    static constexpr SignalId id = SignalId::reacher_ctrl__throttle_rpm;
-    static constexpr MessageId message_id = MessageId::reacher_ctrl;
-    static constexpr SignalType signal_type = SignalType::u16;
-    static constexpr bool has_choices = false;
-    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
-    static constexpr bool is_signed = false;
-    static constexpr std::uint16_t start_bit = 40;
-    static constexpr std::uint8_t bit_length = 16;
-    static constexpr double scale = 1.0;
-    static constexpr double offset = 0.0;
-};
-template <>
-struct signal_traits<SignalId::reacher_ctrl__aux_2> {
-    using value_type = std::uint8_t;
-    static constexpr SignalId id = SignalId::reacher_ctrl__aux_2;
-    static constexpr MessageId message_id = MessageId::reacher_ctrl;
-    static constexpr SignalType signal_type = SignalType::u8;
-    static constexpr bool has_choices = false;
-    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
-    static constexpr bool is_signed = false;
-    static constexpr std::uint16_t start_bit = 56;
-    static constexpr std::uint8_t bit_length = 8;
-    static constexpr double scale = 1.0;
-    static constexpr double offset = 0.0;
-};
-template <>
-struct signal_traits<SignalId::reacher_engine_feedback__ecu_on> {
-    using value_type = std::uint8_t;
-    static constexpr SignalId id = SignalId::reacher_engine_feedback__ecu_on;
-    static constexpr MessageId message_id = MessageId::reacher_engine_feedback;
-    static constexpr SignalType signal_type = SignalType::u8;
-    static constexpr bool has_choices = false;
-    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
-    static constexpr bool is_signed = false;
-    static constexpr std::uint16_t start_bit = 8;
-    static constexpr std::uint8_t bit_length = 8;
-    static constexpr double scale = 1.0;
-    static constexpr double offset = 0.0;
-};
-template <>
-struct signal_traits<SignalId::reacher_engine_feedback__f_pump_on> {
-    using value_type = std::uint8_t;
-    static constexpr SignalId id = SignalId::reacher_engine_feedback__f_pump_on;
-    static constexpr MessageId message_id = MessageId::reacher_engine_feedback;
-    static constexpr SignalType signal_type = SignalType::u8;
-    static constexpr bool has_choices = false;
-    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
-    static constexpr bool is_signed = false;
-    static constexpr std::uint16_t start_bit = 16;
-    static constexpr std::uint8_t bit_length = 8;
-    static constexpr double scale = 1.0;
-    static constexpr double offset = 0.0;
-};
-template <>
-struct signal_traits<SignalId::reacher_engine_feedback__st_solenoid_on> {
-    using value_type = std::uint8_t;
-    static constexpr SignalId id = SignalId::reacher_engine_feedback__st_solenoid_on;
-    static constexpr MessageId message_id = MessageId::reacher_engine_feedback;
-    static constexpr SignalType signal_type = SignalType::u8;
-    static constexpr bool has_choices = false;
-    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
-    static constexpr bool is_signed = false;
-    static constexpr std::uint16_t start_bit = 24;
-    static constexpr std::uint8_t bit_length = 8;
-    static constexpr double scale = 1.0;
-    static constexpr double offset = 0.0;
-};
-template <>
-struct signal_traits<SignalId::export_0__eng_speed> {
-    using value_type = std::uint16_t;
-    static constexpr SignalId id = SignalId::export_0__eng_speed;
-    static constexpr MessageId message_id = MessageId::export_0;
-    static constexpr SignalType signal_type = SignalType::u16;
-    static constexpr bool has_choices = false;
-    static constexpr ByteOrder byte_order = ByteOrder::big_endian;
-    static constexpr bool is_signed = false;
-    static constexpr std::uint16_t start_bit = 7;
-    static constexpr std::uint8_t bit_length = 16;
-    static constexpr double scale = 1.0;
-    static constexpr double offset = 0.0;
-};
-template <>
-struct signal_traits<SignalId::export_0__actual_throttle> {
-    using value_type = double;
-    static constexpr SignalId id = SignalId::export_0__actual_throttle;
-    static constexpr MessageId message_id = MessageId::export_0;
-    static constexpr SignalType signal_type = SignalType::f64;
-    static constexpr bool has_choices = false;
-    static constexpr ByteOrder byte_order = ByteOrder::big_endian;
-    static constexpr bool is_signed = false;
-    static constexpr std::uint16_t start_bit = 23;
-    static constexpr std::uint8_t bit_length = 8;
-    static constexpr double scale = 0.00392156862745;
-    static constexpr double offset = 0.0;
-};
-template <>
-struct signal_traits<SignalId::export_0__manifold_press> {
-    using value_type = std::uint16_t;
-    static constexpr SignalId id = SignalId::export_0__manifold_press;
-    static constexpr MessageId message_id = MessageId::export_0;
-    static constexpr SignalType signal_type = SignalType::u16;
-    static constexpr bool has_choices = false;
-    static constexpr ByteOrder byte_order = ByteOrder::big_endian;
-    static constexpr bool is_signed = false;
-    static constexpr std::uint16_t start_bit = 39;
-    static constexpr std::uint8_t bit_length = 16;
-    static constexpr double scale = 1.0;
-    static constexpr double offset = 0.0;
-};
-template <>
-struct signal_traits<SignalId::export_3__fuel_rail_pressure> {
-    using value_type = std::int16_t;
-    static constexpr SignalId id = SignalId::export_3__fuel_rail_pressure;
-    static constexpr MessageId message_id = MessageId::export_3;
-    static constexpr SignalType signal_type = SignalType::i16;
-    static constexpr bool has_choices = false;
-    static constexpr ByteOrder byte_order = ByteOrder::big_endian;
-    static constexpr bool is_signed = true;
-    static constexpr std::uint16_t start_bit = 55;
-    static constexpr std::uint8_t bit_length = 16;
-    static constexpr double scale = 1.0;
-    static constexpr double offset = 0.0;
-};
-template <>
-struct signal_traits<SignalId::export_8__battery_bus_voltage> {
-    using value_type = double;
-    static constexpr SignalId id = SignalId::export_8__battery_bus_voltage;
-    static constexpr MessageId message_id = MessageId::export_8;
-    static constexpr SignalType signal_type = SignalType::f64;
-    static constexpr bool has_choices = false;
-    static constexpr ByteOrder byte_order = ByteOrder::big_endian;
-    static constexpr bool is_signed = false;
-    static constexpr std::uint16_t start_bit = 7;
-    static constexpr std::uint8_t bit_length = 16;
-    static constexpr double scale = 0.0175953079179;
-    static constexpr double offset = 0.0;
-};
-template <>
-struct signal_traits<SignalId::export_b__coolant_temp> {
-    using value_type = double;
-    static constexpr SignalId id = SignalId::export_b__coolant_temp;
-    static constexpr MessageId message_id = MessageId::export_b;
-    static constexpr SignalType signal_type = SignalType::f64;
-    static constexpr bool has_choices = false;
-    static constexpr ByteOrder byte_order = ByteOrder::big_endian;
-    static constexpr bool is_signed = false;
-    static constexpr std::uint16_t start_bit = 7;
-    static constexpr std::uint8_t bit_length = 8;
-    static constexpr double scale = 1.12941176471;
-    static constexpr double offset = 14.0;
-};
-template <>
-struct signal_traits<SignalId::export_b__oil_temp> {
-    using value_type = double;
-    static constexpr SignalId id = SignalId::export_b__oil_temp;
-    static constexpr MessageId message_id = MessageId::export_b;
-    static constexpr SignalType signal_type = SignalType::f64;
-    static constexpr bool has_choices = false;
-    static constexpr ByteOrder byte_order = ByteOrder::big_endian;
-    static constexpr bool is_signed = false;
-    static constexpr std::uint16_t start_bit = 15;
-    static constexpr std::uint8_t bit_length = 16;
-    static constexpr double scale = 1.8;
-    static constexpr double offset = 32.0;
-};
-template <>
-struct signal_traits<SignalId::export_b__oil_pressure> {
-    using value_type = double;
-    static constexpr SignalId id = SignalId::export_b__oil_pressure;
-    static constexpr MessageId message_id = MessageId::export_b;
-    static constexpr SignalType signal_type = SignalType::f64;
-    static constexpr bool has_choices = false;
-    static constexpr ByteOrder byte_order = ByteOrder::big_endian;
-    static constexpr bool is_signed = false;
-    static constexpr std::uint16_t start_bit = 39;
-    static constexpr std::uint8_t bit_length = 8;
-    static constexpr double scale = 0.580152;
-    static constexpr double offset = 0.0;
-};
-template <>
-struct signal_traits<SignalId::export_b__exhaust_gas_temp> {
-    using value_type = double;
-    static constexpr SignalId id = SignalId::export_b__exhaust_gas_temp;
-    static constexpr MessageId message_id = MessageId::export_b;
-    static constexpr SignalType signal_type = SignalType::f64;
-    static constexpr bool has_choices = false;
-    static constexpr ByteOrder byte_order = ByteOrder::big_endian;
-    static constexpr bool is_signed = false;
-    static constexpr std::uint16_t start_bit = 55;
-    static constexpr std::uint8_t bit_length = 16;
-    static constexpr double scale = 1.8;
-    static constexpr double offset = 32.0;
-};
-template <>
-struct signal_traits<SignalId::servo_batt__servo_bus_voltage> {
-    using value_type = std::uint16_t;
-    static constexpr SignalId id = SignalId::servo_batt__servo_bus_voltage;
-    static constexpr MessageId message_id = MessageId::servo_batt;
-    static constexpr SignalType signal_type = SignalType::u16;
-    static constexpr bool has_choices = false;
-    static constexpr ByteOrder byte_order = ByteOrder::big_endian;
-    static constexpr bool is_signed = false;
-    static constexpr std::uint16_t start_bit = 15;
-    static constexpr std::uint8_t bit_length = 16;
-    static constexpr double scale = 100.0;
-    static constexpr double offset = 0.0;
-};
-
-template <SignalId Id>
-using signal_value_t = typename signal_traits<Id>::value_type;
 
 } // namespace reacher

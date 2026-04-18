@@ -6,6 +6,7 @@
 #include "duramax_metadata.hpp"
 #include "duramax_store.hpp"
 #include "duramax_types.hpp"
+#include "duramax_validate.hpp"
 
 #include <cstddef>
 #include <cstdint>
@@ -27,6 +28,27 @@ struct DuramaxDb {
     using BuildError = duramax::BuildError;
     using StoreAccessError = duramax::StoreAccessError;
     using SignalPhysicalValue = duramax::SignalPhysicalValue;
+    using ValidationError = duramax::ValidationError;
+    using ValidationIssue = duramax::ValidationIssue;
+
+    template <SignalId Id>
+    using signal_traits = duramax::signal_traits<Id>;
+
+    template <SignalId Id>
+    using signal_value_t = duramax::signal_value_t<Id>;
+
+    template <GeneratedMessage Msg>
+    static auto validate_message(const Msg& msg)
+        -> std::expected<void, ValidationIssue>
+    {
+        return duramax::validate_message(msg);
+    }
+
+    static auto validate_message(const MessageVariant& msg)
+        -> std::expected<void, ValidationIssue>
+    {
+        return duramax::validate_message(msg);
+    }
 
     struct EncodeFromStoreError {
         enum class Stage : std::uint8_t {

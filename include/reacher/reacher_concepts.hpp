@@ -1,15 +1,22 @@
 #pragma once
 
+#include "reacher_metadata.hpp"
 #include "reacher_types.hpp"
 
 #include <concepts>
 #include <cstddef>
 #include <cstdint>
-#include <expected>
 #include <span>
 #include <type_traits>
 
 namespace reacher {
+
+template <typename T>
+concept GeneratedMessage =
+    requires(T msg) {
+        { T::id } -> std::convertible_to<MessageId>;
+        { message_id_of(msg) } -> std::same_as<MessageId>;
+    };
 
 template <typename E>
 concept ChoiceEnum = std::is_enum_v<E>;
@@ -47,5 +54,16 @@ concept CanDatabase =
         { Db::parent_message_id(sig_id) } -> std::same_as<typename Db::MessageId>;
         Db::apply_to_store(mutable_store, mv, now_ms);
     };
+
+template <typename SrcDb, auto SrcSig, typename DstDb, auto DstSig>
+concept compatible_signal_types =
+    requires {
+        typename SrcDb::template signal_value_t<SrcSig>;
+        typename DstDb::template signal_value_t<DstSig>;
+    } &&
+    std::same_as<
+        typename SrcDb::template signal_value_t<SrcSig>,
+        typename DstDb::template signal_value_t<DstSig>
+    >;
 
 } // namespace reacher

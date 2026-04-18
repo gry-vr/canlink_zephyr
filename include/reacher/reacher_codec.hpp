@@ -1,6 +1,7 @@
 #pragma once
 
 #include "reacher_types.hpp"
+#include "reacher_concepts.hpp"
 
 #include <cstddef>
 #include <cstdint>

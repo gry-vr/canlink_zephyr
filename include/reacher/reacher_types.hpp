@@ -2,7 +2,6 @@
 
 #include "reacher_ids.hpp"
 
-#include <concepts>
 #include <cstdint>
 #include <variant>
 
@@ -131,12 +130,5 @@ template <typename Msg>
 constexpr auto message_id_of() -> MessageId {
     return message_id_of_type<Msg>::value;
 }
-
-template <typename T>
-concept GeneratedMessage =
-    requires(T msg) {
-        { T::id } -> std::convertible_to<MessageId>;
-        { message_id_of(msg) } -> std::same_as<MessageId>;
-    };
 
 } // namespace reacher

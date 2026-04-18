@@ -1,6 +1,7 @@
 #pragma once
 
 #include "duramax_types.hpp"
+#include "duramax_concepts.hpp"
 
 #include <cstddef>
 #include <cstdint>

@@ -6,6 +6,7 @@
 #include "reacher_metadata.hpp"
 #include "reacher_store.hpp"
 #include "reacher_types.hpp"
+#include "reacher_validate.hpp"
 
 #include <cstddef>
 #include <cstdint>
@@ -27,6 +28,27 @@ struct ReacherDb {
     using BuildError = reacher::BuildError;
     using StoreAccessError = reacher::StoreAccessError;
     using SignalPhysicalValue = reacher::SignalPhysicalValue;
+    using ValidationError = reacher::ValidationError;
+    using ValidationIssue = reacher::ValidationIssue;
+
+    template <SignalId Id>
+    using signal_traits = reacher::signal_traits<Id>;
+
+    template <SignalId Id>
+    using signal_value_t = reacher::signal_value_t<Id>;
+
+    template <GeneratedMessage Msg>
+    static auto validate_message(const Msg& msg)
+        -> std::expected<void, ValidationIssue>
+    {
+        return reacher::validate_message(msg);
+    }
+
+    static auto validate_message(const MessageVariant& msg)
+        -> std::expected<void, ValidationIssue>
+    {
+        return reacher::validate_message(msg);
+    }
 
     struct EncodeFromStoreError {
         enum class Stage : std::uint8_t {
