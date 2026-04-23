@@ -179,6 +179,7 @@ public:
     [[nodiscard]] std::uint32_t decode_failures() const { return decode_failures_; }
     [[nodiscard]] std::uint32_t tx_build_failures() const { return tx_build_failures_; }
     [[nodiscard]] std::uint32_t tx_encode_failures() const { return tx_encode_failures_; }
+    [[nodiscard]] std::uint32_t tx_validation_failures() const { return tx_validation_failures_; }
 
     void run_forever() {
         while (true) {
@@ -392,56 +393,60 @@ private:
     }
 
     void run_due_tx(std::uint32_t now_ms) {
-        for (std::size_t i = 0; i < tx_scheduler_.active_count; ++i) {
-            const auto id = tx_scheduler_.active_ids[i];
-            auto& slot = tx_scheduler_.slots[Db::to_index(id)];
+    for (std::size_t i = 0; i < tx_scheduler_.active_count; ++i) {
+        const auto id = tx_scheduler_.active_ids[i];
+        auto& slot = tx_scheduler_.slots[Db::to_index(id)];
 
-            if (!slot.enabled || slot.period_ms == 0U) {
-                continue;
-            }
-
-            if ((now_ms - slot.last_tx_ms) < slot.period_ms) {
-                continue;
-            }
-
-            if (send_one(id, now_ms) == 0) {
-                slot.last_tx_ms = now_ms;
-            } // because we might fail on send_one i.e. return non zero then what do we do ?
-            // the issue here is that we failed but what should that mean ? 
-            // we never update the now_ms. so that means we never send anything else
-            // we keep getting the timer running up for that message and never send it
-            // because we fail on building the message / encoding
-            
+        if (!slot.enabled || slot.period_ms == 0U) {
+            continue;
         }
-    }
 
-    int send_one(MessageId id, std::uint32_t) {
+        if ((now_ms - slot.last_tx_ms) < slot.period_ms) {
+            continue;
+        }
+
+        const int rc = send_one(id, now_ms);
+        slot.last_tx_ms = now_ms;
+
+        (void)rc;
+    }
+}
+
+    int send_one(MessageId id, std::uint32_t now_ms) {
         auto built = Db::build_message_from_store(id, tx_store_);
-        if(!built){
+        if (!built) {
             ++tx_build_failures_;
             return -EINVAL;
         }
 
-
         can_frame frame{};
         const auto& meta = Db::message_meta(id);
-
-
-        
-        uint32_t now_ms = k_uptime_get_32();
 
         frame.id = meta.frame_id;
         frame.flags = meta.is_extended ? CAN_FRAME_IDE : 0U;
 
-        auto encoded = std::visit([&](auto& msg) -> std::expected<std::uint8_t, typename Db::EncodeError>{
-            dispatch_before_send<Hooks, std::decay_t<decltype(msg)>, Db>( hooks_, msg, tx_store_, now_ms);
+        auto encoded = std::visit(
+            [&](auto& msg) -> std::expected<std::uint8_t, typename Db::EncodeError> {
+                using Msg = std::decay_t<decltype(msg)>;
 
-            return Db::encode(msg, frame.data, sizeof(frame.data));
-        }, *built);
+                dispatch_before_send<Hooks, Msg, Db>(hooks_, msg, tx_store_, now_ms);
 
-        //auto encoded = Db::encode_from_store(id, tx_store_, frame.data, sizeof(frame.data));
+                auto validated = Db::validate_message(msg);
+                if (!validated) {
+                    ++tx_validation_failures_;
+                    printk("validation failed for msg idx=%u signal idx=%u err=%d\n",
+                        static_cast<unsigned>(Db::to_index(id)),
+                        static_cast<unsigned>(Db::to_index(validated.error().signal_id)),
+                        static_cast<int>(validated.error().error));
+                    return std::unexpected(Db::EncodeError::value_out_of_range);
+                }
+
+                return Db::encode(msg, frame.data, sizeof(frame.data));
+            },
+            *built
+        );
+
         if (!encoded) {
-            printk("we failed %d", encoded.error());
             ++tx_encode_failures_;
             return -EINVAL;
         }
@@ -475,6 +480,8 @@ private:
     std::uint32_t decode_failures_{0};
     std::uint32_t tx_build_failures_{0};
     std::uint32_t tx_encode_failures_{0};
+    std::uint32_t tx_validation_failures_{0};
+
 };
 
 } // namespace canfw

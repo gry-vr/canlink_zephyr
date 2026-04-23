@@ -30,6 +30,10 @@ struct SignalMeta {
     bool is_signed;
     double scale;
     double offset;
+    bool has_minimum;
+    double minimum;
+    bool has_maximum;
+    double maximum;
     SignalType type;
     bool has_choices;
     std::string_view dbc_name;
@@ -129,6 +133,10 @@ inline constexpr std::array<SignalMeta, kSignalCount> kSignalsById{ {
         .is_signed = false,
         .scale = 1.0,
         .offset = 0.0,
+        .has_minimum = true,
+        .minimum = 0.0,
+        .has_maximum = true,
+        .maximum = 255.0,
         .type = SignalType::u8,
         .has_choices = true,
         .dbc_name = "eng_on",
@@ -146,6 +154,10 @@ inline constexpr std::array<SignalMeta, kSignalCount> kSignalsById{ {
         .is_signed = false,
         .scale = 1.0,
         .offset = 0.0,
+        .has_minimum = true,
+        .minimum = 0.0,
+        .has_maximum = true,
+        .maximum = 255.0,
         .type = SignalType::u8,
         .has_choices = true,
         .dbc_name = "start",
@@ -163,6 +175,10 @@ inline constexpr std::array<SignalMeta, kSignalCount> kSignalsById{ {
         .is_signed = false,
         .scale = 1.0,
         .offset = 0.0,
+        .has_minimum = true,
+        .minimum = 0.0,
+        .has_maximum = true,
+        .maximum = 255.0,
         .type = SignalType::u8,
         .has_choices = true,
         .dbc_name = "arm",
@@ -180,6 +196,10 @@ inline constexpr std::array<SignalMeta, kSignalCount> kSignalsById{ {
         .is_signed = false,
         .scale = 1.0,
         .offset = 0.0,
+        .has_minimum = true,
+        .minimum = 0.0,
+        .has_maximum = true,
+        .maximum = 255.0,
         .type = SignalType::u8,
         .has_choices = true,
         .dbc_name = "test",
@@ -197,6 +217,10 @@ inline constexpr std::array<SignalMeta, kSignalCount> kSignalsById{ {
         .is_signed = false,
         .scale = 1.0,
         .offset = 0.0,
+        .has_minimum = true,
+        .minimum = 0.0,
+        .has_maximum = true,
+        .maximum = 255.0,
         .type = SignalType::u8,
         .has_choices = false,
         .dbc_name = "aux_1",
@@ -212,14 +236,18 @@ inline constexpr std::array<SignalMeta, kSignalCount> kSignalsById{ {
         .bit_length = 16,
         .byte_order = ByteOrder::little_endian,
         .is_signed = false,
-        .scale = 1.0,
+        .scale = 0.125,
         .offset = 0.0,
-        .type = SignalType::u16,
+        .has_minimum = true,
+        .minimum = 0.0,
+        .has_maximum = true,
+        .maximum = 8031.875,
+        .type = SignalType::f64,
         .has_choices = false,
         .dbc_name = "throttle_rpm",
         .cpp_name = "throttle_rpm",
         .message_dbc_name = "REACHER_CTRL",
-        .unit = "",
+        .unit = "rpm",
         .choice_enum_name = "",
     },
     SignalMeta{
@@ -231,6 +259,10 @@ inline constexpr std::array<SignalMeta, kSignalCount> kSignalsById{ {
         .is_signed = false,
         .scale = 1.0,
         .offset = 0.0,
+        .has_minimum = true,
+        .minimum = 0.0,
+        .has_maximum = true,
+        .maximum = 255.0,
         .type = SignalType::u8,
         .has_choices = false,
         .dbc_name = "aux_2",
@@ -248,6 +280,10 @@ inline constexpr std::array<SignalMeta, kSignalCount> kSignalsById{ {
         .is_signed = false,
         .scale = 1.0,
         .offset = 0.0,
+        .has_minimum = true,
+        .minimum = 0.0,
+        .has_maximum = true,
+        .maximum = 255.0,
         .type = SignalType::u8,
         .has_choices = false,
         .dbc_name = "ecu_on",
@@ -265,6 +301,10 @@ inline constexpr std::array<SignalMeta, kSignalCount> kSignalsById{ {
         .is_signed = false,
         .scale = 1.0,
         .offset = 0.0,
+        .has_minimum = true,
+        .minimum = 0.0,
+        .has_maximum = true,
+        .maximum = 255.0,
         .type = SignalType::u8,
         .has_choices = false,
         .dbc_name = "f_pump_on",
@@ -282,6 +322,10 @@ inline constexpr std::array<SignalMeta, kSignalCount> kSignalsById{ {
         .is_signed = false,
         .scale = 1.0,
         .offset = 0.0,
+        .has_minimum = true,
+        .minimum = 0.0,
+        .has_maximum = true,
+        .maximum = 255.0,
         .type = SignalType::u8,
         .has_choices = false,
         .dbc_name = "st_solenoid_on",
@@ -299,6 +343,10 @@ inline constexpr std::array<SignalMeta, kSignalCount> kSignalsById{ {
         .is_signed = false,
         .scale = 1.0,
         .offset = 0.0,
+        .has_minimum = true,
+        .minimum = 0.0,
+        .has_maximum = true,
+        .maximum = 8032.0,
         .type = SignalType::u16,
         .has_choices = false,
         .dbc_name = "eng_speed",
@@ -314,14 +362,18 @@ inline constexpr std::array<SignalMeta, kSignalCount> kSignalsById{ {
         .bit_length = 8,
         .byte_order = ByteOrder::big_endian,
         .is_signed = false,
-        .scale = 0.00392156862745,
+        .scale = 0.4,
         .offset = 0.0,
+        .has_minimum = true,
+        .minimum = 0.0,
+        .has_maximum = true,
+        .maximum = 100.0,
         .type = SignalType::f64,
         .has_choices = false,
         .dbc_name = "actual_throttle",
         .cpp_name = "actual_throttle",
         .message_dbc_name = "EXPORT_0",
-        .unit = "n%",
+        .unit = "%",
         .choice_enum_name = "",
     },
     SignalMeta{
@@ -333,6 +385,10 @@ inline constexpr std::array<SignalMeta, kSignalCount> kSignalsById{ {
         .is_signed = false,
         .scale = 1.0,
         .offset = 0.0,
+        .has_minimum = false,
+        .minimum = 0.0,
+        .has_maximum = false,
+        .maximum = 0.0,
         .type = SignalType::u16,
         .has_choices = false,
         .dbc_name = "manifold_press",
@@ -350,6 +406,10 @@ inline constexpr std::array<SignalMeta, kSignalCount> kSignalsById{ {
         .is_signed = true,
         .scale = 1.0,
         .offset = 0.0,
+        .has_minimum = false,
+        .minimum = 0.0,
+        .has_maximum = false,
+        .maximum = 0.0,
         .type = SignalType::i16,
         .has_choices = false,
         .dbc_name = "fuel_rail_pressure",
@@ -365,14 +425,18 @@ inline constexpr std::array<SignalMeta, kSignalCount> kSignalsById{ {
         .bit_length = 16,
         .byte_order = ByteOrder::big_endian,
         .is_signed = false,
-        .scale = 0.0175953079179,
+        .scale = 0.05,
         .offset = 0.0,
+        .has_minimum = true,
+        .minimum = 0.0,
+        .has_maximum = true,
+        .maximum = 3212.75,
         .type = SignalType::f64,
         .has_choices = false,
         .dbc_name = "battery_bus_voltage",
         .cpp_name = "battery_bus_voltage",
         .message_dbc_name = "EXPORT_8",
-        .unit = "0 = 0V, 1023 = 18V",
+        .unit = "V",
         .choice_enum_name = "",
     },
     SignalMeta{
@@ -382,8 +446,12 @@ inline constexpr std::array<SignalMeta, kSignalCount> kSignalsById{ {
         .bit_length = 8,
         .byte_order = ByteOrder::big_endian,
         .is_signed = false,
-        .scale = 1.12941176471,
-        .offset = 14.0,
+        .scale = 1.8,
+        .offset = -40.0,
+        .has_minimum = true,
+        .minimum = -40.0,
+        .has_maximum = true,
+        .maximum = 410.0,
         .type = SignalType::f64,
         .has_choices = false,
         .dbc_name = "coolant_temp",
@@ -399,9 +467,13 @@ inline constexpr std::array<SignalMeta, kSignalCount> kSignalsById{ {
         .bit_length = 16,
         .byte_order = ByteOrder::big_endian,
         .is_signed = false,
-        .scale = 1.8,
-        .offset = 32.0,
-        .type = SignalType::f64,
+        .scale = 1.0,
+        .offset = 0.0,
+        .has_minimum = true,
+        .minimum = 0.0,
+        .has_maximum = true,
+        .maximum = 65536.0,
+        .type = SignalType::u16,
         .has_choices = false,
         .dbc_name = "oil_temp",
         .cpp_name = "oil_temp",
@@ -418,6 +490,10 @@ inline constexpr std::array<SignalMeta, kSignalCount> kSignalsById{ {
         .is_signed = false,
         .scale = 0.580152,
         .offset = 0.0,
+        .has_minimum = true,
+        .minimum = 0.0,
+        .has_maximum = true,
+        .maximum = 200.0,
         .type = SignalType::f64,
         .has_choices = false,
         .dbc_name = "oil_pressure",
@@ -433,8 +509,12 @@ inline constexpr std::array<SignalMeta, kSignalCount> kSignalsById{ {
         .bit_length = 16,
         .byte_order = ByteOrder::big_endian,
         .is_signed = false,
-        .scale = 1.8,
-        .offset = 32.0,
+        .scale = 0.05625,
+        .offset = -459.4,
+        .has_minimum = true,
+        .minimum = -459.4,
+        .has_maximum = true,
+        .maximum = 3154.94375,
         .type = SignalType::f64,
         .has_choices = false,
         .dbc_name = "exhaust_gas_temp",
@@ -452,7 +532,11 @@ inline constexpr std::array<SignalMeta, kSignalCount> kSignalsById{ {
         .is_signed = false,
         .scale = 100.0,
         .offset = 0.0,
-        .type = SignalType::u16,
+        .has_minimum = true,
+        .minimum = 0.0,
+        .has_maximum = true,
+        .maximum = 28.0,
+        .type = SignalType::u32,
         .has_choices = false,
         .dbc_name = "servo_bus_voltage",
         .cpp_name = "servo_bus_voltage",
@@ -485,173 +569,6 @@ inline constexpr std::array<SignalId, kSignalCount> kMessageSignalsFlat{ {
     SignalId::servo_batt__servo_bus_voltage,
 } };
 
-template <SignalId Id>
-struct signal_traits;
-
-template <>
-struct signal_traits<SignalId::reacher_ctrl__eng_on> {
-    using value_type = std::uint8_t;
-    static constexpr SignalId signal_id = SignalId::reacher_ctrl__eng_on;
-    static constexpr MessageId message_id = MessageId::reacher_ctrl;
-    static constexpr MessageId parent_message_id = MessageId::reacher_ctrl;
-    static constexpr SignalType signal_type = SignalType::u8;
-};
-template <>
-struct signal_traits<SignalId::reacher_ctrl__start> {
-    using value_type = std::uint8_t;
-    static constexpr SignalId signal_id = SignalId::reacher_ctrl__start;
-    static constexpr MessageId message_id = MessageId::reacher_ctrl;
-    static constexpr MessageId parent_message_id = MessageId::reacher_ctrl;
-    static constexpr SignalType signal_type = SignalType::u8;
-};
-template <>
-struct signal_traits<SignalId::reacher_ctrl__arm> {
-    using value_type = std::uint8_t;
-    static constexpr SignalId signal_id = SignalId::reacher_ctrl__arm;
-    static constexpr MessageId message_id = MessageId::reacher_ctrl;
-    static constexpr MessageId parent_message_id = MessageId::reacher_ctrl;
-    static constexpr SignalType signal_type = SignalType::u8;
-};
-template <>
-struct signal_traits<SignalId::reacher_ctrl__test> {
-    using value_type = std::uint8_t;
-    static constexpr SignalId signal_id = SignalId::reacher_ctrl__test;
-    static constexpr MessageId message_id = MessageId::reacher_ctrl;
-    static constexpr MessageId parent_message_id = MessageId::reacher_ctrl;
-    static constexpr SignalType signal_type = SignalType::u8;
-};
-template <>
-struct signal_traits<SignalId::reacher_ctrl__aux_1> {
-    using value_type = std::uint8_t;
-    static constexpr SignalId signal_id = SignalId::reacher_ctrl__aux_1;
-    static constexpr MessageId message_id = MessageId::reacher_ctrl;
-    static constexpr MessageId parent_message_id = MessageId::reacher_ctrl;
-    static constexpr SignalType signal_type = SignalType::u8;
-};
-template <>
-struct signal_traits<SignalId::reacher_ctrl__throttle_rpm> {
-    using value_type = std::uint16_t;
-    static constexpr SignalId signal_id = SignalId::reacher_ctrl__throttle_rpm;
-    static constexpr MessageId message_id = MessageId::reacher_ctrl;
-    static constexpr MessageId parent_message_id = MessageId::reacher_ctrl;
-    static constexpr SignalType signal_type = SignalType::u16;
-};
-template <>
-struct signal_traits<SignalId::reacher_ctrl__aux_2> {
-    using value_type = std::uint8_t;
-    static constexpr SignalId signal_id = SignalId::reacher_ctrl__aux_2;
-    static constexpr MessageId message_id = MessageId::reacher_ctrl;
-    static constexpr MessageId parent_message_id = MessageId::reacher_ctrl;
-    static constexpr SignalType signal_type = SignalType::u8;
-};
-template <>
-struct signal_traits<SignalId::reacher_engine_feedback__ecu_on> {
-    using value_type = std::uint8_t;
-    static constexpr SignalId signal_id = SignalId::reacher_engine_feedback__ecu_on;
-    static constexpr MessageId message_id = MessageId::reacher_engine_feedback;
-    static constexpr MessageId parent_message_id = MessageId::reacher_engine_feedback;
-    static constexpr SignalType signal_type = SignalType::u8;
-};
-template <>
-struct signal_traits<SignalId::reacher_engine_feedback__f_pump_on> {
-    using value_type = std::uint8_t;
-    static constexpr SignalId signal_id = SignalId::reacher_engine_feedback__f_pump_on;
-    static constexpr MessageId message_id = MessageId::reacher_engine_feedback;
-    static constexpr MessageId parent_message_id = MessageId::reacher_engine_feedback;
-    static constexpr SignalType signal_type = SignalType::u8;
-};
-template <>
-struct signal_traits<SignalId::reacher_engine_feedback__st_solenoid_on> {
-    using value_type = std::uint8_t;
-    static constexpr SignalId signal_id = SignalId::reacher_engine_feedback__st_solenoid_on;
-    static constexpr MessageId message_id = MessageId::reacher_engine_feedback;
-    static constexpr MessageId parent_message_id = MessageId::reacher_engine_feedback;
-    static constexpr SignalType signal_type = SignalType::u8;
-};
-template <>
-struct signal_traits<SignalId::export_0__eng_speed> {
-    using value_type = std::uint16_t;
-    static constexpr SignalId signal_id = SignalId::export_0__eng_speed;
-    static constexpr MessageId message_id = MessageId::export_0;
-    static constexpr MessageId parent_message_id = MessageId::export_0;
-    static constexpr SignalType signal_type = SignalType::u16;
-};
-template <>
-struct signal_traits<SignalId::export_0__actual_throttle> {
-    using value_type = double;
-    static constexpr SignalId signal_id = SignalId::export_0__actual_throttle;
-    static constexpr MessageId message_id = MessageId::export_0;
-    static constexpr MessageId parent_message_id = MessageId::export_0;
-    static constexpr SignalType signal_type = SignalType::f64;
-};
-template <>
-struct signal_traits<SignalId::export_0__manifold_press> {
-    using value_type = std::uint16_t;
-    static constexpr SignalId signal_id = SignalId::export_0__manifold_press;
-    static constexpr MessageId message_id = MessageId::export_0;
-    static constexpr MessageId parent_message_id = MessageId::export_0;
-    static constexpr SignalType signal_type = SignalType::u16;
-};
-template <>
-struct signal_traits<SignalId::export_3__fuel_rail_pressure> {
-    using value_type = std::int16_t;
-    static constexpr SignalId signal_id = SignalId::export_3__fuel_rail_pressure;
-    static constexpr MessageId message_id = MessageId::export_3;
-    static constexpr MessageId parent_message_id = MessageId::export_3;
-    static constexpr SignalType signal_type = SignalType::i16;
-};
-template <>
-struct signal_traits<SignalId::export_8__battery_bus_voltage> {
-    using value_type = double;
-    static constexpr SignalId signal_id = SignalId::export_8__battery_bus_voltage;
-    static constexpr MessageId message_id = MessageId::export_8;
-    static constexpr MessageId parent_message_id = MessageId::export_8;
-    static constexpr SignalType signal_type = SignalType::f64;
-};
-template <>
-struct signal_traits<SignalId::export_b__coolant_temp> {
-    using value_type = double;
-    static constexpr SignalId signal_id = SignalId::export_b__coolant_temp;
-    static constexpr MessageId message_id = MessageId::export_b;
-    static constexpr MessageId parent_message_id = MessageId::export_b;
-    static constexpr SignalType signal_type = SignalType::f64;
-};
-template <>
-struct signal_traits<SignalId::export_b__oil_temp> {
-    using value_type = double;
-    static constexpr SignalId signal_id = SignalId::export_b__oil_temp;
-    static constexpr MessageId message_id = MessageId::export_b;
-    static constexpr MessageId parent_message_id = MessageId::export_b;
-    static constexpr SignalType signal_type = SignalType::f64;
-};
-template <>
-struct signal_traits<SignalId::export_b__oil_pressure> {
-    using value_type = double;
-    static constexpr SignalId signal_id = SignalId::export_b__oil_pressure;
-    static constexpr MessageId message_id = MessageId::export_b;
-    static constexpr MessageId parent_message_id = MessageId::export_b;
-    static constexpr SignalType signal_type = SignalType::f64;
-};
-template <>
-struct signal_traits<SignalId::export_b__exhaust_gas_temp> {
-    using value_type = double;
-    static constexpr SignalId signal_id = SignalId::export_b__exhaust_gas_temp;
-    static constexpr MessageId message_id = MessageId::export_b;
-    static constexpr MessageId parent_message_id = MessageId::export_b;
-    static constexpr SignalType signal_type = SignalType::f64;
-};
-template <>
-struct signal_traits<SignalId::servo_batt__servo_bus_voltage> {
-    using value_type = std::uint16_t;
-    static constexpr SignalId signal_id = SignalId::servo_batt__servo_bus_voltage;
-    static constexpr MessageId message_id = MessageId::servo_batt;
-    static constexpr MessageId parent_message_id = MessageId::servo_batt;
-    static constexpr SignalType signal_type = SignalType::u16;
-};
-
-template <SignalId Id>
-using signal_value_t = typename signal_traits<Id>::value_type;
-
 constexpr auto message_meta(MessageId id) -> const MessageMeta& {
     return kMessagesById[to_index(id)];
 }
@@ -659,6 +576,353 @@ constexpr auto message_meta(MessageId id) -> const MessageMeta& {
 constexpr auto signal_meta(SignalId id) -> const SignalMeta& {
     return kSignalsById[to_index(id)];
 }
+
+template <SignalId Id>
+struct signal_traits;
+
+template <>
+struct signal_traits<SignalId::reacher_ctrl__eng_on> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::reacher_ctrl__eng_on;
+    static constexpr MessageId message_id = MessageId::reacher_ctrl;
+    static constexpr MessageId parent_message_id = MessageId::reacher_ctrl;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+    static constexpr bool has_minimum = true;
+    static constexpr double minimum = 0.0;
+    static constexpr bool has_maximum = true;
+    static constexpr double maximum = 255.0;
+    static constexpr bool has_choices = true;
+};
+template <>
+struct signal_traits<SignalId::reacher_ctrl__start> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::reacher_ctrl__start;
+    static constexpr MessageId message_id = MessageId::reacher_ctrl;
+    static constexpr MessageId parent_message_id = MessageId::reacher_ctrl;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+    static constexpr bool has_minimum = true;
+    static constexpr double minimum = 0.0;
+    static constexpr bool has_maximum = true;
+    static constexpr double maximum = 255.0;
+    static constexpr bool has_choices = true;
+};
+template <>
+struct signal_traits<SignalId::reacher_ctrl__arm> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::reacher_ctrl__arm;
+    static constexpr MessageId message_id = MessageId::reacher_ctrl;
+    static constexpr MessageId parent_message_id = MessageId::reacher_ctrl;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+    static constexpr bool has_minimum = true;
+    static constexpr double minimum = 0.0;
+    static constexpr bool has_maximum = true;
+    static constexpr double maximum = 255.0;
+    static constexpr bool has_choices = true;
+};
+template <>
+struct signal_traits<SignalId::reacher_ctrl__test> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::reacher_ctrl__test;
+    static constexpr MessageId message_id = MessageId::reacher_ctrl;
+    static constexpr MessageId parent_message_id = MessageId::reacher_ctrl;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+    static constexpr bool has_minimum = true;
+    static constexpr double minimum = 0.0;
+    static constexpr bool has_maximum = true;
+    static constexpr double maximum = 255.0;
+    static constexpr bool has_choices = true;
+};
+template <>
+struct signal_traits<SignalId::reacher_ctrl__aux_1> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::reacher_ctrl__aux_1;
+    static constexpr MessageId message_id = MessageId::reacher_ctrl;
+    static constexpr MessageId parent_message_id = MessageId::reacher_ctrl;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+    static constexpr bool has_minimum = true;
+    static constexpr double minimum = 0.0;
+    static constexpr bool has_maximum = true;
+    static constexpr double maximum = 255.0;
+    static constexpr bool has_choices = false;
+};
+template <>
+struct signal_traits<SignalId::reacher_ctrl__throttle_rpm> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::reacher_ctrl__throttle_rpm;
+    static constexpr MessageId message_id = MessageId::reacher_ctrl;
+    static constexpr MessageId parent_message_id = MessageId::reacher_ctrl;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr double scale = 0.125;
+    static constexpr double offset = 0.0;
+    static constexpr bool has_minimum = true;
+    static constexpr double minimum = 0.0;
+    static constexpr bool has_maximum = true;
+    static constexpr double maximum = 8031.875;
+    static constexpr bool has_choices = false;
+};
+template <>
+struct signal_traits<SignalId::reacher_ctrl__aux_2> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::reacher_ctrl__aux_2;
+    static constexpr MessageId message_id = MessageId::reacher_ctrl;
+    static constexpr MessageId parent_message_id = MessageId::reacher_ctrl;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+    static constexpr bool has_minimum = true;
+    static constexpr double minimum = 0.0;
+    static constexpr bool has_maximum = true;
+    static constexpr double maximum = 255.0;
+    static constexpr bool has_choices = false;
+};
+template <>
+struct signal_traits<SignalId::reacher_engine_feedback__ecu_on> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::reacher_engine_feedback__ecu_on;
+    static constexpr MessageId message_id = MessageId::reacher_engine_feedback;
+    static constexpr MessageId parent_message_id = MessageId::reacher_engine_feedback;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+    static constexpr bool has_minimum = true;
+    static constexpr double minimum = 0.0;
+    static constexpr bool has_maximum = true;
+    static constexpr double maximum = 255.0;
+    static constexpr bool has_choices = false;
+};
+template <>
+struct signal_traits<SignalId::reacher_engine_feedback__f_pump_on> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::reacher_engine_feedback__f_pump_on;
+    static constexpr MessageId message_id = MessageId::reacher_engine_feedback;
+    static constexpr MessageId parent_message_id = MessageId::reacher_engine_feedback;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+    static constexpr bool has_minimum = true;
+    static constexpr double minimum = 0.0;
+    static constexpr bool has_maximum = true;
+    static constexpr double maximum = 255.0;
+    static constexpr bool has_choices = false;
+};
+template <>
+struct signal_traits<SignalId::reacher_engine_feedback__st_solenoid_on> {
+    using value_type = std::uint8_t;
+    static constexpr SignalId id = SignalId::reacher_engine_feedback__st_solenoid_on;
+    static constexpr MessageId message_id = MessageId::reacher_engine_feedback;
+    static constexpr MessageId parent_message_id = MessageId::reacher_engine_feedback;
+    static constexpr SignalType signal_type = SignalType::u8;
+    static constexpr ByteOrder byte_order = ByteOrder::little_endian;
+    static constexpr bool is_signed = false;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+    static constexpr bool has_minimum = true;
+    static constexpr double minimum = 0.0;
+    static constexpr bool has_maximum = true;
+    static constexpr double maximum = 255.0;
+    static constexpr bool has_choices = false;
+};
+template <>
+struct signal_traits<SignalId::export_0__eng_speed> {
+    using value_type = std::uint16_t;
+    static constexpr SignalId id = SignalId::export_0__eng_speed;
+    static constexpr MessageId message_id = MessageId::export_0;
+    static constexpr MessageId parent_message_id = MessageId::export_0;
+    static constexpr SignalType signal_type = SignalType::u16;
+    static constexpr ByteOrder byte_order = ByteOrder::big_endian;
+    static constexpr bool is_signed = false;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+    static constexpr bool has_minimum = true;
+    static constexpr double minimum = 0.0;
+    static constexpr bool has_maximum = true;
+    static constexpr double maximum = 8032.0;
+    static constexpr bool has_choices = false;
+};
+template <>
+struct signal_traits<SignalId::export_0__actual_throttle> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::export_0__actual_throttle;
+    static constexpr MessageId message_id = MessageId::export_0;
+    static constexpr MessageId parent_message_id = MessageId::export_0;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr ByteOrder byte_order = ByteOrder::big_endian;
+    static constexpr bool is_signed = false;
+    static constexpr double scale = 0.4;
+    static constexpr double offset = 0.0;
+    static constexpr bool has_minimum = true;
+    static constexpr double minimum = 0.0;
+    static constexpr bool has_maximum = true;
+    static constexpr double maximum = 100.0;
+    static constexpr bool has_choices = false;
+};
+template <>
+struct signal_traits<SignalId::export_0__manifold_press> {
+    using value_type = std::uint16_t;
+    static constexpr SignalId id = SignalId::export_0__manifold_press;
+    static constexpr MessageId message_id = MessageId::export_0;
+    static constexpr MessageId parent_message_id = MessageId::export_0;
+    static constexpr SignalType signal_type = SignalType::u16;
+    static constexpr ByteOrder byte_order = ByteOrder::big_endian;
+    static constexpr bool is_signed = false;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+    static constexpr bool has_minimum = false;
+    static constexpr double minimum = 0.0;
+    static constexpr bool has_maximum = false;
+    static constexpr double maximum = 0.0;
+    static constexpr bool has_choices = false;
+};
+template <>
+struct signal_traits<SignalId::export_3__fuel_rail_pressure> {
+    using value_type = std::int16_t;
+    static constexpr SignalId id = SignalId::export_3__fuel_rail_pressure;
+    static constexpr MessageId message_id = MessageId::export_3;
+    static constexpr MessageId parent_message_id = MessageId::export_3;
+    static constexpr SignalType signal_type = SignalType::i16;
+    static constexpr ByteOrder byte_order = ByteOrder::big_endian;
+    static constexpr bool is_signed = true;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+    static constexpr bool has_minimum = false;
+    static constexpr double minimum = 0.0;
+    static constexpr bool has_maximum = false;
+    static constexpr double maximum = 0.0;
+    static constexpr bool has_choices = false;
+};
+template <>
+struct signal_traits<SignalId::export_8__battery_bus_voltage> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::export_8__battery_bus_voltage;
+    static constexpr MessageId message_id = MessageId::export_8;
+    static constexpr MessageId parent_message_id = MessageId::export_8;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr ByteOrder byte_order = ByteOrder::big_endian;
+    static constexpr bool is_signed = false;
+    static constexpr double scale = 0.05;
+    static constexpr double offset = 0.0;
+    static constexpr bool has_minimum = true;
+    static constexpr double minimum = 0.0;
+    static constexpr bool has_maximum = true;
+    static constexpr double maximum = 3212.75;
+    static constexpr bool has_choices = false;
+};
+template <>
+struct signal_traits<SignalId::export_b__coolant_temp> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::export_b__coolant_temp;
+    static constexpr MessageId message_id = MessageId::export_b;
+    static constexpr MessageId parent_message_id = MessageId::export_b;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr ByteOrder byte_order = ByteOrder::big_endian;
+    static constexpr bool is_signed = false;
+    static constexpr double scale = 1.8;
+    static constexpr double offset = -40.0;
+    static constexpr bool has_minimum = true;
+    static constexpr double minimum = -40.0;
+    static constexpr bool has_maximum = true;
+    static constexpr double maximum = 410.0;
+    static constexpr bool has_choices = false;
+};
+template <>
+struct signal_traits<SignalId::export_b__oil_temp> {
+    using value_type = std::uint16_t;
+    static constexpr SignalId id = SignalId::export_b__oil_temp;
+    static constexpr MessageId message_id = MessageId::export_b;
+    static constexpr MessageId parent_message_id = MessageId::export_b;
+    static constexpr SignalType signal_type = SignalType::u16;
+    static constexpr ByteOrder byte_order = ByteOrder::big_endian;
+    static constexpr bool is_signed = false;
+    static constexpr double scale = 1.0;
+    static constexpr double offset = 0.0;
+    static constexpr bool has_minimum = true;
+    static constexpr double minimum = 0.0;
+    static constexpr bool has_maximum = true;
+    static constexpr double maximum = 65536.0;
+    static constexpr bool has_choices = false;
+};
+template <>
+struct signal_traits<SignalId::export_b__oil_pressure> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::export_b__oil_pressure;
+    static constexpr MessageId message_id = MessageId::export_b;
+    static constexpr MessageId parent_message_id = MessageId::export_b;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr ByteOrder byte_order = ByteOrder::big_endian;
+    static constexpr bool is_signed = false;
+    static constexpr double scale = 0.580152;
+    static constexpr double offset = 0.0;
+    static constexpr bool has_minimum = true;
+    static constexpr double minimum = 0.0;
+    static constexpr bool has_maximum = true;
+    static constexpr double maximum = 200.0;
+    static constexpr bool has_choices = false;
+};
+template <>
+struct signal_traits<SignalId::export_b__exhaust_gas_temp> {
+    using value_type = double;
+    static constexpr SignalId id = SignalId::export_b__exhaust_gas_temp;
+    static constexpr MessageId message_id = MessageId::export_b;
+    static constexpr MessageId parent_message_id = MessageId::export_b;
+    static constexpr SignalType signal_type = SignalType::f64;
+    static constexpr ByteOrder byte_order = ByteOrder::big_endian;
+    static constexpr bool is_signed = false;
+    static constexpr double scale = 0.05625;
+    static constexpr double offset = -459.4;
+    static constexpr bool has_minimum = true;
+    static constexpr double minimum = -459.4;
+    static constexpr bool has_maximum = true;
+    static constexpr double maximum = 3154.94375;
+    static constexpr bool has_choices = false;
+};
+template <>
+struct signal_traits<SignalId::servo_batt__servo_bus_voltage> {
+    using value_type = std::uint32_t;
+    static constexpr SignalId id = SignalId::servo_batt__servo_bus_voltage;
+    static constexpr MessageId message_id = MessageId::servo_batt;
+    static constexpr MessageId parent_message_id = MessageId::servo_batt;
+    static constexpr SignalType signal_type = SignalType::u32;
+    static constexpr ByteOrder byte_order = ByteOrder::big_endian;
+    static constexpr bool is_signed = false;
+    static constexpr double scale = 100.0;
+    static constexpr double offset = 0.0;
+    static constexpr bool has_minimum = true;
+    static constexpr double minimum = 0.0;
+    static constexpr bool has_maximum = true;
+    static constexpr double maximum = 28.0;
+    static constexpr bool has_choices = false;
+};
+
+template <SignalId Id>
+using signal_value_t = typename signal_traits<Id>::value_type;
 
 constexpr auto message_name(MessageId id) -> std::string_view {
     return message_meta(id).dbc_name;
@@ -678,6 +942,22 @@ constexpr auto signal_parent_message_name(SignalId id) -> std::string_view {
 
 constexpr auto parent_message_id(SignalId id) -> MessageId {
     return signal_meta(id).message_id;
+}
+
+constexpr auto signal_has_minimum(SignalId id) -> bool {
+    return signal_meta(id).has_minimum;
+}
+
+constexpr auto signal_minimum(SignalId id) -> double {
+    return signal_meta(id).minimum;
+}
+
+constexpr auto signal_has_maximum(SignalId id) -> bool {
+    return signal_meta(id).has_maximum;
+}
+
+constexpr auto signal_maximum(SignalId id) -> double {
+    return signal_meta(id).maximum;
 }
 
 constexpr auto message_cycle_time_ms(MessageId id) -> std::uint32_t {

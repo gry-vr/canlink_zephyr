@@ -37,6 +37,28 @@ struct ReacherDb {
     template <SignalId Id>
     using signal_value_t = reacher::signal_value_t<Id>;
 
+
+    template <SignalId Id>
+    static auto validate_signal_encodable(signal_value_t<Id> value)
+        -> std::expected<void, ValidationIssue>
+    {
+        return reacher::validate_signal_encodable<Id>(value);
+    }
+
+    template <SignalId Id>
+    static auto validate_signal_within_dbc_range(signal_value_t<Id> value)
+        -> std::expected<void, ValidationIssue>
+    {
+        return reacher::validate_signal_within_dbc_range<Id>(value);
+    }
+
+    template <SignalId Id>
+    static auto validate_signal_value(signal_value_t<Id> value)
+        -> std::expected<void, ValidationIssue>
+    {
+        return reacher::validate_signal_value<Id>(value);
+    }
+
     template <GeneratedMessage Msg>
     static auto validate_message(const Msg& msg)
         -> std::expected<void, ValidationIssue>
@@ -131,6 +153,22 @@ struct ReacherDb {
 
     static constexpr auto parent_message_id(SignalId sid) -> MessageId {
         return reacher::parent_message_id(sid);
+    }
+
+    static constexpr auto signal_has_minimum(SignalId id) -> bool {
+        return reacher::signal_has_minimum(id);
+    }
+
+    static constexpr auto signal_minimum(SignalId id) -> double {
+        return reacher::signal_minimum(id);
+    }
+
+    static constexpr auto signal_has_maximum(SignalId id) -> bool {
+        return reacher::signal_has_maximum(id);
+    }
+
+    static constexpr auto signal_maximum(SignalId id) -> double {
+        return reacher::signal_maximum(id);
     }
 
     static constexpr auto message_cycle_time_ms(MessageId id) -> std::uint32_t {

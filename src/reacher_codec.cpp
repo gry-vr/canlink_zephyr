@@ -55,7 +55,7 @@ inline auto extract_be(const std::uint8_t* data,
     for (unsigned i = 0; i < bit_length; ++i) {
         const unsigned byte_index = current_bit / 8U;
         const unsigned bit_in_byte = current_bit % 8U;
-        const unsigned shift = 7U - bit_in_byte;
+        const unsigned shift = bit_in_byte;
 
         if (byte_index >= size) {
             break;
@@ -171,7 +171,7 @@ inline void insert_be(std::array<std::uint8_t, 8>& data,
 
         const unsigned byte_index = current_bit / 8U;
         const unsigned bit_in_byte = current_bit % 8U;
-        const unsigned shift = 7U - bit_in_byte;
+        const unsigned shift = bit_in_byte;
 
         data[byte_index] &= static_cast<std::uint8_t>(~(1U << shift));
         data[byte_index] |= static_cast<std::uint8_t>(bit << shift);
@@ -314,32 +314,36 @@ auto Codec::decode(std::uint32_t can_id,
             );
         msg.aux_1 =
             static_cast<std::uint8_t>(
-                detail::decode_unsigned(
+                detail::to_physical_unsigned(
                     data,
                     size,
                     32U,
                     8U,
-                    ByteOrder::little_endian
+                    ByteOrder::little_endian,
+                    1.0,
+                    0.0
                 )
             );
         msg.throttle_rpm =
-            static_cast<std::uint16_t>(
-                detail::decode_unsigned(
-                    data,
-                    size,
-                    40U,
-                    16U,
-                    ByteOrder::little_endian
-                )
+            detail::to_physical_unsigned(
+                data,
+                size,
+                40U,
+                16U,
+                ByteOrder::little_endian,
+                0.125,
+                0.0
             );
         msg.aux_2 =
             static_cast<std::uint8_t>(
-                detail::decode_unsigned(
+                detail::to_physical_unsigned(
                     data,
                     size,
                     56U,
                     8U,
-                    ByteOrder::little_endian
+                    ByteOrder::little_endian,
+                    1.0,
+                    0.0
                 )
             );
 
@@ -353,32 +357,38 @@ auto Codec::decode(std::uint32_t can_id,
         ReacherEngineFeedback msg{};
         msg.ecu_on =
             static_cast<std::uint8_t>(
-                detail::decode_unsigned(
+                detail::to_physical_unsigned(
                     data,
                     size,
                     8U,
                     8U,
-                    ByteOrder::little_endian
+                    ByteOrder::little_endian,
+                    1.0,
+                    0.0
                 )
             );
         msg.f_pump_on =
             static_cast<std::uint8_t>(
-                detail::decode_unsigned(
+                detail::to_physical_unsigned(
                     data,
                     size,
                     16U,
                     8U,
-                    ByteOrder::little_endian
+                    ByteOrder::little_endian,
+                    1.0,
+                    0.0
                 )
             );
         msg.st_solenoid_on =
             static_cast<std::uint8_t>(
-                detail::decode_unsigned(
+                detail::to_physical_unsigned(
                     data,
                     size,
                     24U,
                     8U,
-                    ByteOrder::little_endian
+                    ByteOrder::little_endian,
+                    1.0,
+                    0.0
                 )
             );
 
@@ -392,12 +402,14 @@ auto Codec::decode(std::uint32_t can_id,
         Export0 msg{};
         msg.eng_speed =
             static_cast<std::uint16_t>(
-                detail::decode_unsigned(
+                detail::to_physical_unsigned(
                     data,
                     size,
                     7U,
                     16U,
-                    ByteOrder::big_endian
+                    ByteOrder::big_endian,
+                    1.0,
+                    0.0
                 )
             );
         msg.actual_throttle =
@@ -407,17 +419,19 @@ auto Codec::decode(std::uint32_t can_id,
                 23U,
                 8U,
                 ByteOrder::big_endian,
-                0.00392156862745,
+                0.4,
                 0.0
             );
         msg.manifold_press =
             static_cast<std::uint16_t>(
-                detail::decode_unsigned(
+                detail::to_physical_unsigned(
                     data,
                     size,
                     39U,
                     16U,
-                    ByteOrder::big_endian
+                    ByteOrder::big_endian,
+                    1.0,
+                    0.0
                 )
             );
 
@@ -431,12 +445,14 @@ auto Codec::decode(std::uint32_t can_id,
         Export3 msg{};
         msg.fuel_rail_pressure =
             static_cast<std::int16_t>(
-                detail::decode_signed(
+                detail::to_physical_signed(
                     data,
                     size,
                     55U,
                     16U,
-                    ByteOrder::big_endian
+                    ByteOrder::big_endian,
+                    1.0,
+                    0.0
                 )
             );
 
@@ -455,7 +471,7 @@ auto Codec::decode(std::uint32_t can_id,
                 7U,
                 16U,
                 ByteOrder::big_endian,
-                0.0175953079179,
+                0.05,
                 0.0
             );
 
@@ -474,18 +490,20 @@ auto Codec::decode(std::uint32_t can_id,
                 7U,
                 8U,
                 ByteOrder::big_endian,
-                1.12941176471,
-                14.0
+                1.8,
+                -40.0
             );
         msg.oil_temp =
-            detail::to_physical_unsigned(
-                data,
-                size,
-                15U,
-                16U,
-                ByteOrder::big_endian,
-                1.8,
-                32.0
+            static_cast<std::uint16_t>(
+                detail::to_physical_unsigned(
+                    data,
+                    size,
+                    15U,
+                    16U,
+                    ByteOrder::big_endian,
+                    1.0,
+                    0.0
+                )
             );
         msg.oil_pressure =
             detail::to_physical_unsigned(
@@ -504,8 +522,8 @@ auto Codec::decode(std::uint32_t can_id,
                 55U,
                 16U,
                 ByteOrder::big_endian,
-                1.8,
-                32.0
+                0.05625,
+                -459.4
             );
 
         return MessageVariant{msg};
@@ -517,13 +535,15 @@ auto Codec::decode(std::uint32_t can_id,
 
         ServoBatt msg{};
         msg.servo_bus_voltage =
-            static_cast<std::uint16_t>(
-                detail::decode_unsigned(
+            static_cast<std::uint32_t>(
+                detail::to_physical_unsigned(
                     data,
                     size,
                     15U,
                     16U,
-                    ByteOrder::big_endian
+                    ByteOrder::big_endian,
+                    100.0,
+                    0.0
                 )
             );
 
@@ -597,39 +617,60 @@ auto Codec::encode(const MessageVariant& msg,
                     ByteOrder::little_endian,
                     static_cast<std::uint64_t>(m.test)
                 );
-                if (!detail::fits_unsigned(static_cast<std::uint64_t>(m.aux_1),
-                                           8U)) {
-                    return std::unexpected(EncodeError::value_out_of_range);
+                {
+                    auto raw = detail::encode_unsigned_physical(
+                        static_cast<double>(m.aux_1),
+                        1.0,
+                        0.0,
+                        8U
+                    );
+                    if (!raw) {
+                        return std::unexpected(raw.error());
+                    }
+                    detail::insert_raw(
+                        tmp,
+                        32U,
+                        8U,
+                        ByteOrder::little_endian,
+                        *raw
+                    );
                 }
-                detail::insert_raw(
-                    tmp,
-                    32U,
-                    8U,
-                    ByteOrder::little_endian,
-                    static_cast<std::uint64_t>(m.aux_1)
-                );
-                if (!detail::fits_unsigned(static_cast<std::uint64_t>(m.throttle_rpm),
-                                           16U)) {
-                    return std::unexpected(EncodeError::value_out_of_range);
+                {
+                    auto raw = detail::encode_unsigned_physical(
+                        m.throttle_rpm,
+                        0.125,
+                        0.0,
+                        16U
+                    );
+                    if (!raw) {
+                        return std::unexpected(raw.error());
+                    }
+                    detail::insert_raw(
+                        tmp,
+                        40U,
+                        16U,
+                        ByteOrder::little_endian,
+                        *raw
+                    );
                 }
-                detail::insert_raw(
-                    tmp,
-                    40U,
-                    16U,
-                    ByteOrder::little_endian,
-                    static_cast<std::uint64_t>(m.throttle_rpm)
-                );
-                if (!detail::fits_unsigned(static_cast<std::uint64_t>(m.aux_2),
-                                           8U)) {
-                    return std::unexpected(EncodeError::value_out_of_range);
+                {
+                    auto raw = detail::encode_unsigned_physical(
+                        static_cast<double>(m.aux_2),
+                        1.0,
+                        0.0,
+                        8U
+                    );
+                    if (!raw) {
+                        return std::unexpected(raw.error());
+                    }
+                    detail::insert_raw(
+                        tmp,
+                        56U,
+                        8U,
+                        ByteOrder::little_endian,
+                        *raw
+                    );
                 }
-                detail::insert_raw(
-                    tmp,
-                    56U,
-                    8U,
-                    ByteOrder::little_endian,
-                    static_cast<std::uint64_t>(m.aux_2)
-                );
 
                 std::copy_n(tmp.begin(), kDlc, out);
                 return kDlc;
@@ -641,39 +682,60 @@ auto Codec::encode(const MessageVariant& msg,
                     return std::unexpected(EncodeError::buffer_too_small);
                 }
 
-                if (!detail::fits_unsigned(static_cast<std::uint64_t>(m.ecu_on),
-                                           8U)) {
-                    return std::unexpected(EncodeError::value_out_of_range);
+                {
+                    auto raw = detail::encode_unsigned_physical(
+                        static_cast<double>(m.ecu_on),
+                        1.0,
+                        0.0,
+                        8U
+                    );
+                    if (!raw) {
+                        return std::unexpected(raw.error());
+                    }
+                    detail::insert_raw(
+                        tmp,
+                        8U,
+                        8U,
+                        ByteOrder::little_endian,
+                        *raw
+                    );
                 }
-                detail::insert_raw(
-                    tmp,
-                    8U,
-                    8U,
-                    ByteOrder::little_endian,
-                    static_cast<std::uint64_t>(m.ecu_on)
-                );
-                if (!detail::fits_unsigned(static_cast<std::uint64_t>(m.f_pump_on),
-                                           8U)) {
-                    return std::unexpected(EncodeError::value_out_of_range);
+                {
+                    auto raw = detail::encode_unsigned_physical(
+                        static_cast<double>(m.f_pump_on),
+                        1.0,
+                        0.0,
+                        8U
+                    );
+                    if (!raw) {
+                        return std::unexpected(raw.error());
+                    }
+                    detail::insert_raw(
+                        tmp,
+                        16U,
+                        8U,
+                        ByteOrder::little_endian,
+                        *raw
+                    );
                 }
-                detail::insert_raw(
-                    tmp,
-                    16U,
-                    8U,
-                    ByteOrder::little_endian,
-                    static_cast<std::uint64_t>(m.f_pump_on)
-                );
-                if (!detail::fits_unsigned(static_cast<std::uint64_t>(m.st_solenoid_on),
-                                           8U)) {
-                    return std::unexpected(EncodeError::value_out_of_range);
+                {
+                    auto raw = detail::encode_unsigned_physical(
+                        static_cast<double>(m.st_solenoid_on),
+                        1.0,
+                        0.0,
+                        8U
+                    );
+                    if (!raw) {
+                        return std::unexpected(raw.error());
+                    }
+                    detail::insert_raw(
+                        tmp,
+                        24U,
+                        8U,
+                        ByteOrder::little_endian,
+                        *raw
+                    );
                 }
-                detail::insert_raw(
-                    tmp,
-                    24U,
-                    8U,
-                    ByteOrder::little_endian,
-                    static_cast<std::uint64_t>(m.st_solenoid_on)
-                );
 
                 std::copy_n(tmp.begin(), kDlc, out);
                 return kDlc;
@@ -685,21 +747,28 @@ auto Codec::encode(const MessageVariant& msg,
                     return std::unexpected(EncodeError::buffer_too_small);
                 }
 
-                if (!detail::fits_unsigned(static_cast<std::uint64_t>(m.eng_speed),
-                                           16U)) {
-                    return std::unexpected(EncodeError::value_out_of_range);
+                {
+                    auto raw = detail::encode_unsigned_physical(
+                        static_cast<double>(m.eng_speed),
+                        1.0,
+                        0.0,
+                        16U
+                    );
+                    if (!raw) {
+                        return std::unexpected(raw.error());
+                    }
+                    detail::insert_raw(
+                        tmp,
+                        7U,
+                        16U,
+                        ByteOrder::big_endian,
+                        *raw
+                    );
                 }
-                detail::insert_raw(
-                    tmp,
-                    7U,
-                    16U,
-                    ByteOrder::big_endian,
-                    static_cast<std::uint64_t>(m.eng_speed)
-                );
                 {
                     auto raw = detail::encode_unsigned_physical(
                         m.actual_throttle,
-                        0.00392156862745,
+                        0.4,
                         0.0,
                         8U
                     );
@@ -714,17 +783,24 @@ auto Codec::encode(const MessageVariant& msg,
                         *raw
                     );
                 }
-                if (!detail::fits_unsigned(static_cast<std::uint64_t>(m.manifold_press),
-                                           16U)) {
-                    return std::unexpected(EncodeError::value_out_of_range);
+                {
+                    auto raw = detail::encode_unsigned_physical(
+                        static_cast<double>(m.manifold_press),
+                        1.0,
+                        0.0,
+                        16U
+                    );
+                    if (!raw) {
+                        return std::unexpected(raw.error());
+                    }
+                    detail::insert_raw(
+                        tmp,
+                        39U,
+                        16U,
+                        ByteOrder::big_endian,
+                        *raw
+                    );
                 }
-                detail::insert_raw(
-                    tmp,
-                    39U,
-                    16U,
-                    ByteOrder::big_endian,
-                    static_cast<std::uint64_t>(m.manifold_press)
-                );
 
                 std::copy_n(tmp.begin(), kDlc, out);
                 return kDlc;
@@ -736,17 +812,24 @@ auto Codec::encode(const MessageVariant& msg,
                     return std::unexpected(EncodeError::buffer_too_small);
                 }
 
-                if (!detail::fits_signed(static_cast<std::int64_t>(m.fuel_rail_pressure),
-                                         16U)) {
-                    return std::unexpected(EncodeError::value_out_of_range);
+                {
+                    auto raw = detail::encode_signed_physical(
+                        static_cast<double>(m.fuel_rail_pressure),
+                        1.0,
+                        0.0,
+                        16U
+                    );
+                    if (!raw) {
+                        return std::unexpected(raw.error());
+                    }
+                    detail::insert_raw(
+                        tmp,
+                        55U,
+                        16U,
+                        ByteOrder::big_endian,
+                        *raw
+                    );
                 }
-                detail::insert_raw(
-                    tmp,
-                    55U,
-                    16U,
-                    ByteOrder::big_endian,
-                    static_cast<std::uint64_t>(m.fuel_rail_pressure) & detail::mask64(16U)
-                );
 
                 std::copy_n(tmp.begin(), kDlc, out);
                 return kDlc;
@@ -761,7 +844,7 @@ auto Codec::encode(const MessageVariant& msg,
                 {
                     auto raw = detail::encode_unsigned_physical(
                         m.battery_bus_voltage,
-                        0.0175953079179,
+                        0.05,
                         0.0,
                         16U
                     );
@@ -790,8 +873,8 @@ auto Codec::encode(const MessageVariant& msg,
                 {
                     auto raw = detail::encode_unsigned_physical(
                         m.coolant_temp,
-                        1.12941176471,
-                        14.0,
+                        1.8,
+                        -40.0,
                         8U
                     );
                     if (!raw) {
@@ -807,9 +890,9 @@ auto Codec::encode(const MessageVariant& msg,
                 }
                 {
                     auto raw = detail::encode_unsigned_physical(
-                        m.oil_temp,
-                        1.8,
-                        32.0,
+                        static_cast<double>(m.oil_temp),
+                        1.0,
+                        0.0,
                         16U
                     );
                     if (!raw) {
@@ -844,8 +927,8 @@ auto Codec::encode(const MessageVariant& msg,
                 {
                     auto raw = detail::encode_unsigned_physical(
                         m.exhaust_gas_temp,
-                        1.8,
-                        32.0,
+                        0.05625,
+                        -459.4,
                         16U
                     );
                     if (!raw) {
@@ -870,17 +953,24 @@ auto Codec::encode(const MessageVariant& msg,
                     return std::unexpected(EncodeError::buffer_too_small);
                 }
 
-                if (!detail::fits_unsigned(static_cast<std::uint64_t>(m.servo_bus_voltage),
-                                           16U)) {
-                    return std::unexpected(EncodeError::value_out_of_range);
+                {
+                    auto raw = detail::encode_unsigned_physical(
+                        static_cast<double>(m.servo_bus_voltage),
+                        100.0,
+                        0.0,
+                        16U
+                    );
+                    if (!raw) {
+                        return std::unexpected(raw.error());
+                    }
+                    detail::insert_raw(
+                        tmp,
+                        15U,
+                        16U,
+                        ByteOrder::big_endian,
+                        *raw
+                    );
                 }
-                detail::insert_raw(
-                    tmp,
-                    15U,
-                    16U,
-                    ByteOrder::big_endian,
-                    static_cast<std::uint64_t>(m.servo_bus_voltage)
-                );
 
                 std::copy_n(tmp.begin(), kDlc, out);
                 return kDlc;

@@ -3,6 +3,9 @@
 #include <zephyr/kernel.h>
 #include <zephyr/sys/printk.h>
 
+#include <tuple>
+#include <utility>
+
 #include "can_active_object.hpp"
 #include "can_endpoint.hpp"
 
@@ -13,18 +16,44 @@
 #include "reacher/reacher_db.hpp"
 #include "reacher/reacher_hooks.hpp"
 
+#include "translator_active_object.hpp"
+#include "duramax_to_reacher_signal_table.hpp"
+#include "reacher_to_duramax_signal_table.hpp"
+#include "message_policy_table.hpp"
+
 namespace {
 
 using DuramaxAo = canfw::CanActiveObject<duramax::DuramaxDb, DuramaxHooks>;
 using ReacherAo = canfw::CanActiveObject<reacher::ReacherDb, ReacherHooks>;
 
+using DuramaxToReacherTranslator =
+    Translator<
+        duramax::DuramaxDb,
+        reacher::ReacherDb,
+        DuramaxToReacherTranslations<duramax::DuramaxDb, reacher::ReacherDb>
+    >;
+
+using ReacherToDuramaxTranslator =
+    Translator<
+        reacher::ReacherDb,
+        duramax::DuramaxDb,
+        ReacherToDuramaxTranslations<reacher::ReacherDb, duramax::DuramaxDb>
+    >;
+
 const device* const dm_bus = DEVICE_DT_GET(DT_ALIAS(can0));
 const device* const reacher_bus = DEVICE_DT_GET(DT_ALIAS(can1));
 
-K_MSGQ_DEFINE(reacher_reply_q,
-              sizeof(canfw::SnapshotReply<reacher::ReacherDb>),
-              1,
-              alignof(canfw::SnapshotReply<reacher::ReacherDb>));
+template <typename Endpoint, typename Msg>
+void enable_periodic_checked(const Endpoint& ep,
+                             const Msg& msg,
+                             std::uint32_t period_ms,
+                             const char* name)
+{
+    const int rc = ep.enable_periodic(msg, period_ms);
+    if (rc != 0) {
+        printk("enable_periodic(%s) failed: %d\n", name, rc);
+    }
+}
 
 } // namespace
 
@@ -48,46 +77,85 @@ int main(void)
     auto duramax_ep = duramax_ao->endpoint();
     auto reacher_ep = reacher_ao->endpoint();
 
-    duramax::Tsc131 tsc1{};
-    tsc1.engoverridectrlmode = 0;
-    tsc1.engrequestedspeedctrlconditions = 0;
-    tsc1.overridectrlmodepriority = 0;
-    tsc1.engrequestedspeed_speedlimit = 0;
-    tsc1.engrequestedtorque_torquelimit = -125;
-    tsc1.tsc1transrate = std::to_underlying(
-        duramax::Tsc131Tsc1transrateState::use_standard_tsc1_transmission_rates_of_10_ms_to_engine);
-    tsc1.tsc1ctrlpurpose = 0;
-    tsc1.engrequestedtorquehighresolution = 0;
+    if (!duramax_ep.valid() || !reacher_ep.valid()) {
+        printk("Endpoint invalid\n");
+        return -1;
+    }
 
-    int rc = duramax_ep.enable_periodic(tsc1, 10);
-    if (rc != 0) {
-        printk("enable_periodic failed: %d\n", rc);
+    // Seed periodic Reacher export messages
+    {
+        reacher::Export0 export0{};
+        export0.eng_speed = 0;
+        export0.actual_throttle = 0.0;
+        export0.manifold_press = 0;
+        enable_periodic_checked(reacher_ep, export0, 50, "export0");
+
+        reacher::Export3 export3{};
+        export3.fuel_rail_pressure = 0;
+        enable_periodic_checked(reacher_ep, export3, 50, "export3");
+
+        reacher::Export8 export8{};
+        export8.battery_bus_voltage = 0.0;
+        enable_periodic_checked(reacher_ep, export8, 100, "export8");
+
+        reacher::ExportB exportb{};
+        exportb.coolant_temp = 50.0;
+        exportb.oil_temp = 0.0;
+        exportb.oil_pressure = 0.0;
+        exportb.exhaust_gas_temp = 0.0;
+        enable_periodic_checked(reacher_ep, exportb, 50, "exportb");
+    }
+
+    // Seed periodic Duramax TSC1
+    {
+        duramax::Tsc131 tsc1{};
+        tsc1.engoverridectrlmode = 0;
+        tsc1.engrequestedspeedctrlconditions = 0;
+        tsc1.overridectrlmodepriority = 0;
+        tsc1.engrequestedspeed_speedlimit = 0.0;
+        tsc1.engrequestedtorque_torquelimit = -125;
+        tsc1.tsc1transrate = std::to_underlying(
+            duramax::Tsc131Tsc1transrateState::use_standard_tsc1_transmission_rates_of_10_ms_to_engine);
+        tsc1.tsc1ctrlpurpose = 0;
+        tsc1.engrequestedtorquehighresolution = 0;
+        tsc1.messagecounter = 0;
+        tsc1.messagechecksum = 0;
+
+        if (auto ok = duramax::DuramaxDb::validate_message(tsc1); !ok) {
+            printk("Initial TSC1 validation failed: signal=%u error=%u\n",
+                   static_cast<unsigned>(duramax::DuramaxDb::to_index(ok.error().signal_id)),
+                   static_cast<unsigned>(ok.error().error));
+            return -1;
+        }
+
+        enable_periodic_checked(duramax_ep, tsc1, 10, "tsc1");
+    }
+
+    DuramaxToReacherTranslator duramax_to_reacher{duramax_ep, reacher_ep};
+    ReacherToDuramaxTranslator reacher_to_duramax{reacher_ep, duramax_ep};
+
+    if (!duramax_to_reacher.valid() || !reacher_to_duramax.valid()) {
+        printk("Translator invalid\n");
+        return -1;
     }
 
     while (true) {
-        auto maybe_snapshot = reacher_ep.request_snapshot_blocking(reacher_reply_q);
+        duramax_to_reacher.step_once();
+        reacher_to_duramax.step_once();
 
-        if (maybe_snapshot && maybe_snapshot->valid) {
-            auto throttle =
-                maybe_snapshot->store.template get<reacher::SignalId::reacher_ctrl__throttle_rpm>();
+        printk("D->R posted=%u val_fail=%u upd_fail=%u src_missing=%u snap_fail=%u\n",
+               duramax_to_reacher.updates_posted(),
+               duramax_to_reacher.validation_failures(),
+               duramax_to_reacher.update_failures(),
+               duramax_to_reacher.source_missing_count(),
+               duramax_to_reacher.snapshot_failures());
 
-            if (throttle) {
-                printk("reacher throttle rpm: %d\n", static_cast<int>(*throttle));
-
-                rc = duramax_ep.update_signal(
-                    duramax::SignalId::tsc1_31__engrequestedspeed_speedlimit,
-                    static_cast<double>(*throttle),
-                    false);
-
-                if (rc != 0) {
-                    printk("update_signal failed: %d\n", rc);
-                }
-            } else {
-                printk("reacher throttle rpm: <missing>\n");
-            }
-        } else {
-            printk("snapshot request failed or timed out\n");
-        }
+        printk("R->D posted=%u val_fail=%u upd_fail=%u src_missing=%u snap_fail=%u\n",
+               reacher_to_duramax.updates_posted(),
+               reacher_to_duramax.validation_failures(),
+               reacher_to_duramax.update_failures(),
+               reacher_to_duramax.source_missing_count(),
+               reacher_to_duramax.snapshot_failures());
 
         printk("duramax decode_failures=%u tx_build_failures=%u tx_encode_failures=%u\n",
                duramax_ao->decode_failures(),
@@ -99,7 +167,7 @@ int main(void)
                reacher_ao->tx_build_failures(),
                reacher_ao->tx_encode_failures());
 
-        k_sleep(K_SECONDS(1));
+        k_sleep(K_MSEC(100));
     }
 
     return 0;

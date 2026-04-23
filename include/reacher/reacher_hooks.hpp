@@ -12,7 +12,6 @@ enum class ByteOrder : unsigned char;
 struct ReacherHooks{
     template <typename Msg>
     void on_rx_message(const Msg&, reacher::ReacherDb::ValueStore&, std::uint32_t){
-       printk("hi"); 
     }
 
     void on_rx_message(const reacher::ReacherCtrl&, reacher::ReacherDb::ValueStore& rx_store, std::uint32_t now_ms){

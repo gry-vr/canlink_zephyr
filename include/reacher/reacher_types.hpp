@@ -15,7 +15,7 @@ struct ReacherCtrl {
     std::uint8_t arm{};
     std::uint8_t test{};
     std::uint8_t aux_1{};
-    std::uint16_t throttle_rpm{};
+    double throttle_rpm{};
     std::uint8_t aux_2{};
 };
 
@@ -51,7 +51,7 @@ struct ExportB {
     static constexpr MessageId id = MessageId::export_b;
 
     double coolant_temp{};
-    double oil_temp{};
+    std::uint16_t oil_temp{};
     double oil_pressure{};
     double exhaust_gas_temp{};
 };
@@ -59,7 +59,7 @@ struct ExportB {
 struct ServoBatt {
     static constexpr MessageId id = MessageId::servo_batt;
 
-    std::uint16_t servo_bus_voltage{};
+    std::uint32_t servo_bus_voltage{};
 };
 
 using MessageVariant = std::variant<

@@ -29,11 +29,11 @@ struct Eec9ElectronicEngineControl9 {
 struct EbccEngineExhaustBrakeCont {
     static constexpr MessageId id = MessageId::ebcc_engine_exhaust_brake_cont;
 
-    std::uint8_t actual_boost_pressure{};
-    std::uint8_t desired_boost_pressure{};
+    std::uint16_t actual_boost_pressure{};
+    std::uint16_t desired_boost_pressure{};
     double engine_exhaust_brake_actuator_co{};
-    std::uint8_t engine_turbocharger_2_turbine_ou{};
-    std::uint8_t desired_engine_turbocharger_2_tu{};
+    std::uint16_t engine_turbocharger_2_turbine_ou{};
+    std::uint16_t desired_engine_turbocharger_2_tu{};
 };
 
 struct Et3EngineTemperature3 {
@@ -61,9 +61,9 @@ struct Ic1IntakeExhaustCond1 {
     static constexpr MessageId id = MessageId::ic1_intake_exhaust_cond_1;
 
     double aft1dpfinpress{};
-    std::uint8_t engintakemanifold1press{};
-    double engintakemanifold1temp{};
-    std::uint8_t engairintakepress{};
+    std::uint16_t engintakemanifold1press{};
+    std::int16_t engintakemanifold1temp{};
+    std::uint16_t engairintakepress{};
     double engairfilter1diffpress{};
     double engexhaustgastemp{};
     double engcoolantfilterdiffpress{};
@@ -75,7 +75,7 @@ struct AmbAmbientConditions {
     double barometric_pressurebarometric_pr{};
     double cabinteriortemp{};
     double ambient_air_temperature{};
-    double engine_air_intake_temperature{};
+    std::int16_t engine_air_intake_temperature{};
     double roadsurfacetemp{};
 };
 
@@ -84,12 +84,12 @@ struct Eec1ElectronicEngineControl1 {
 
     std::uint8_t engine_torque_mode{};
     std::uint8_t actlengprcnttorquehighresolution{};
-    double drivers_demand_engine_prcnt_torq{};
-    double actual_engine_percent_torque{};
+    std::int16_t drivers_demand_engine_prcnt_torq{};
+    std::int16_t actual_engine_percent_torque{};
     double engine_speed{};
     std::uint8_t srcaddrssofcntrllngdvcforengctrl{};
     std::uint8_t engstartermode{};
-    double engine_demand_percent_torque{};
+    std::int16_t engine_demand_percent_torque{};
 };
 
 struct Eec2ElectronicEngineControl2 {
@@ -108,16 +108,16 @@ struct Eec2ElectronicEngineControl2 {
     std::uint8_t dpfthermalmanagementactive{};
     std::uint8_t scrthermalmanagementactive{};
     double actlmaxavailableengpercenttorque{};
-    double estpumpingpercenttorque{};
+    std::int16_t estpumpingpercenttorque{};
 };
 
 struct Eec3ElectronicEngineControl3 {
     static constexpr MessageId id = MessageId::eec3_electronic_engine_control_3;
 
-    double nominalfrictionpercenttorque{};
+    std::int16_t nominalfrictionpercenttorque{};
     double enginesdesiredoperatingspeed{};
     std::uint8_t engnsdsrdoprtngspdasymmtryadjstm{};
-    double estengprsiticlossespercenttorque{};
+    std::int16_t estengprsiticlossespercenttorque{};
     double aft1exhgasmfr{};
     std::uint8_t aft1indewpoint{};
     std::uint8_t aft1exhdewpoint{};
@@ -128,12 +128,12 @@ struct Eec3ElectronicEngineControl3 {
 struct EflP1EngFluidLevelPress1 {
     static constexpr MessageId id = MessageId::efl_p1_eng_fluid_level_press_1;
 
-    std::uint8_t engfueldeliverypress{};
+    std::uint16_t engfueldeliverypress{};
     double engexcrankcaseblowbypress{};
     double engoillevel{};
-    std::uint8_t engoilpress{};
+    std::uint16_t engoilpress{};
     double engcrankcasepress{};
-    std::uint8_t engcoolantpress{};
+    std::uint16_t engcoolantpress{};
     double engcoolantlevel{};
 };
 
@@ -149,11 +149,11 @@ struct EflP2EngFluidLevelPress2 {
 struct Et1EngineTemperature1 {
     static constexpr MessageId id = MessageId::et1_engine_temperature_1;
 
-    double engcoolanttemp{};
-    double engfueltemp1{};
+    std::int16_t engcoolanttemp{};
+    std::int16_t engfueltemp1{};
     double engoiltemp1{};
     double engturbooiltemp{};
-    double engintercoolertemp{};
+    std::int16_t engintercoolertemp{};
     double engintercoolerthermostatopening{};
 };
 
@@ -211,7 +211,7 @@ struct Tsc131 {
     std::uint8_t engrequestedspeedctrlconditions{};
     std::uint8_t overridectrlmodepriority{};
     double engrequestedspeed_speedlimit{};
-    double engrequestedtorque_torquelimit{};
+    std::int16_t engrequestedtorque_torquelimit{};
     std::uint8_t tsc1transrate{};
     std::uint8_t tsc1ctrlpurpose{};
     std::uint8_t engrequestedtorquehighresolution{};
@@ -231,7 +231,7 @@ struct HoursEngineHoursRevolutions {
     static constexpr MessageId id = MessageId::hours_engine_hours_revolutions;
 
     double engine_total_hours_of_operation{};
-    std::uint32_t engine_total_revolutions_249{};
+    double engine_total_revolutions_249{};
 };
 
 struct Tci5TurbochargerInformation5 {
@@ -246,7 +246,7 @@ struct Tci5TurbochargerInformation5 {
 struct Vep1VehicleElectricalPower1 {
     static constexpr MessageId id = MessageId::vep1_vehicle_electrical_power_1;
 
-    double net_battery_current_114{};
+    std::int16_t net_battery_current_114{};
     std::uint8_t alternator_current_115{};
     double charging_system_potential_volta{};
     double battery_potential_power_input_1{};
@@ -272,7 +272,7 @@ struct Tsc103 {
     std::uint8_t engrequestedspeedctrlconditions{};
     std::uint8_t overridectrlmodepriority{};
     double engrequestedspeed_speedlimit{};
-    double engrequestedtorque_torquelimit{};
+    std::int16_t engrequestedtorque_torquelimit{};
     std::uint8_t tsc1transrate{};
     std::uint8_t tsc1ctrlpurpose{};
     std::uint8_t engrequestedtorquehighresolution{};
@@ -287,7 +287,7 @@ struct Tsc10b {
     std::uint8_t engrequestedspeedctrlconditions{};
     std::uint8_t overridectrlmodepriority{};
     double engrequestedspeed_speedlimit{};
-    double engrequestedtorque_torquelimit{};
+    std::int16_t engrequestedtorque_torquelimit{};
     std::uint8_t tsc1transrate{};
     std::uint8_t tsc1ctrlpurpose{};
     std::uint8_t engrequestedtorquehighresolution{};
@@ -320,16 +320,16 @@ struct Erc1ElectronicRetarderCntrl {
     std::uint8_t retardertorquemode{};
     std::uint8_t retarderenablebrakeassistswitch{};
     std::uint8_t retarderenableshiftassistswitch{};
-    double actualretarderpercenttorque{};
-    double intendedretarderpercenttorque{};
+    std::int16_t actualretarderpercenttorque{};
+    std::int16_t intendedretarderpercenttorque{};
     std::uint8_t engcoolantloadincrease{};
     std::uint8_t retarderrequestingbrakelight{};
     std::uint8_t retarderroadspeedlimitswitch{};
     std::uint8_t retarderroadspeedexceededstatus{};
     std::uint8_t srcaddrssofcntrllngdvcfrrtrdrctr{};
-    double drvrsdemandretarderpercenttorque{};
+    std::int16_t drvrsdemandretarderpercenttorque{};
     double retarderselectionnonengine{};
-    double actlmxavlblretarderpercenttorque{};
+    std::int16_t actlmxavlblretarderpercenttorque{};
 };
 
 struct Etc1ElectronicTransCntrl1 {
@@ -351,9 +351,9 @@ struct Etc1ElectronicTransCntrl1 {
 struct Etc2ElectronicTransCntrl2 {
     static constexpr MessageId id = MessageId::etc2_electronic_trans_cntrl_2;
 
-    double transselectedgear{};
+    std::int16_t transselectedgear{};
     double transactualgearratio{};
-    double transcurrentgear{};
+    std::int16_t transcurrentgear{};
     std::uint16_t transrequestedrange{};
     std::uint16_t transcurrentrange{};
 };
@@ -395,10 +395,10 @@ struct TciTransferCaseInformation {
 struct Trf1TransmissionFluids1 {
     static constexpr MessageId id = MessageId::trf1_transmission_fluids_1;
 
-    std::uint8_t clutchpress{};
+    std::uint16_t clutchpress{};
     double transoillevel1{};
-    std::uint8_t transfilterdiffpress{};
-    std::uint8_t transoilpress{};
+    std::uint16_t transfilterdiffpress{};
+    std::uint16_t transoilpress{};
     double transoiltemp1{};
     double transoillevel1high_low{};
     std::uint8_t transoillevel1countdowntimer{};
