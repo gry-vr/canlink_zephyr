@@ -5,6 +5,10 @@
 #include <zephyr/drivers/gpio.h>
 #include <zephyr/drivers/uart.h>
 
+#include <zephyr/storage/disk_access.h>
+
+#include <zephyr/usb/usb_device.h>
+
 #include <tuple>
 #include <utility>
 
@@ -63,16 +67,37 @@ void enable_periodic_checked(const Endpoint& ep,
 }
 
 } // namespace
+int fake_main(){
+    const char *disk = "KINGSTON";
 
+    int rc = disk_access_init(disk);
+    printk("disk_access_init(%s) = %d\n", disk, rc);
+
+    uint32_t sector_count = 0;
+    uint32_t sector_size = 0;
+
+    rc = disk_access_ioctl(disk, DISK_IOCTL_GET_SECTOR_COUNT, &sector_count);
+    printk("sector_count rc=%d count=%u\n", rc, sector_count);
+
+    rc = disk_access_ioctl(disk, DISK_IOCTL_GET_SECTOR_SIZE, &sector_size);
+    printk("sector_size rc=%d size=%u\n", rc, sector_size);
+
+    while (1) {
+        k_sleep(K_SECONDS(1));
+    }
+
+}
 int main(void)
 {
+    fake_main();
     const struct device *const dev = DEVICE_DT_GET(DT_CHOSEN(zephyr_console));
-    uint32_t dtr = 0;
-
-    while(!dtr){
-        uart_line_ctrl_get(dev,UART_LINE_CTRL_DTR, &dtr);
-        k_sleep(K_MSEC(100));
+    int ret = usb_enable(NULL);
+    if (ret != 0){
+        printk("you are dum");
     }
+    k_sleep(K_SECONDS(1));
+
+    //}
 
     auto duramax_result = DuramaxAo::create(dm_bus, DuramaxHooks{}, true);
     if (!duramax_result) {
@@ -159,6 +184,7 @@ int main(void)
     }
 
     gpio_pin_configure_dt(&led, GPIO_OUTPUT_ACTIVE);
+    static uint8_t num = 0;
 
     while (true) {
         duramax_to_reacher.step_once();
@@ -187,7 +213,12 @@ int main(void)
                reacher_ao->decode_failures(),
                reacher_ao->tx_build_failures(),
                reacher_ao->tx_encode_failures());
-        gpio_pin_toggle_dt(&led);
+        
+        if(num ==0){
+            gpio_pin_toggle_dt(&led);
+        }
+        num = (num + 1) % 17;
+
         k_sleep(K_MSEC(100));
     }
 

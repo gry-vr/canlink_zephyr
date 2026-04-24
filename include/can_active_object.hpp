@@ -137,7 +137,7 @@ public:
 
     static constexpr std::size_t RxQueueDepth = 64;
     static constexpr std::size_t TxQueueDepth = 16;
-    static constexpr std::size_t ThreadStackSize = 3072;
+    static constexpr std::size_t ThreadStackSize = 8192;
     static constexpr int ThreadPriority = 5;
 
     static auto create(const device* can_device, Hooks hooks = {}, bool extended_id = false)
@@ -183,6 +183,7 @@ public:
 
     void run_forever() {
         while (true) {
+            printk("AO stack size = %zu\n", K_KERNEL_STACK_SIZEOF(thread_stack_));
             const std::uint32_t now_ms = k_uptime_get_32();
             const k_timeout_t timeout = time_until_next_due_tx(now_ms);
 
