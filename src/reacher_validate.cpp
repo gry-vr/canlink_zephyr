@@ -50,7 +50,6 @@ inline auto within_dbc_range(double physical,
     return true;
 }
 
-
 } // namespace detail
 
 template <>

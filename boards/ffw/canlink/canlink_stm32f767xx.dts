@@ -8,8 +8,8 @@
     compatible = "ffw,canlink";
 
     chosen {
-        zephyr,console = &usart3;
-        zephyr,shell-uart = &usart3;
+        zephyr,console = &cdc_acm_uart0;
+        zephyr,shell-uart = &cdc_acm_uart0;
         zephyr,sram = &sram0;
         zephyr,flash = &flash0;
         zephyr,dtcm = &dtcm;
@@ -90,6 +90,16 @@
     status = "okay";
     pinctrl-0 = <&can3_rx_pa8 &can3_tx_pa15>;
     pinctrl-names = "default";
+};
+
+zephyr_udc0: &usbotg_hs {
+	pinctrl-0 = <&usb_otg_hs_dm_pb14 &usb_otg_hs_dp_pb15>;
+	pinctrl-names = "default";
+	status = "okay";
+
+	cdc_acm_uart0: cdc_acm_uart0 {
+		compatible = "zephyr,cdc-acm-uart";
+	};
 };
 
 &pinctrl{

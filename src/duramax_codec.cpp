@@ -55,7 +55,7 @@ inline auto extract_be(const std::uint8_t* data,
     for (unsigned i = 0; i < bit_length; ++i) {
         const unsigned byte_index = current_bit / 8U;
         const unsigned bit_in_byte = current_bit % 8U;
-        const unsigned shift = bit_in_byte;
+        const unsigned shift =  bit_in_byte;
 
         if (byte_index >= size) {
             break;
@@ -564,7 +564,7 @@ auto Codec::decode(std::uint32_t can_id,
             );
         msg.engintakemanifold1temp =
             static_cast<std::int16_t>(
-                detail::to_physical_signed(
+                detail::to_physical_unsigned(
                     data,
                     size,
                     16U,
@@ -657,7 +657,7 @@ auto Codec::decode(std::uint32_t can_id,
             );
         msg.engine_air_intake_temperature =
             static_cast<std::int16_t>(
-                detail::to_physical_signed(
+                detail::to_physical_unsigned(
                     data,
                     size,
                     40U,
@@ -710,7 +710,7 @@ auto Codec::decode(std::uint32_t can_id,
             );
         msg.drivers_demand_engine_prcnt_torq =
             static_cast<std::int16_t>(
-                detail::to_physical_signed(
+                detail::to_physical_unsigned(
                     data,
                     size,
                     8U,
@@ -722,7 +722,7 @@ auto Codec::decode(std::uint32_t can_id,
             );
         msg.actual_engine_percent_torque =
             static_cast<std::int16_t>(
-                detail::to_physical_signed(
+                detail::to_physical_unsigned(
                     data,
                     size,
                     16U,
@@ -766,7 +766,7 @@ auto Codec::decode(std::uint32_t can_id,
             );
         msg.engine_demand_percent_torque =
             static_cast<std::int16_t>(
-                detail::to_physical_signed(
+                detail::to_physical_unsigned(
                     data,
                     size,
                     56U,
@@ -919,7 +919,7 @@ auto Codec::decode(std::uint32_t can_id,
             );
         msg.estpumpingpercenttorque =
             static_cast<std::int16_t>(
-                detail::to_physical_signed(
+                detail::to_physical_unsigned(
                     data,
                     size,
                     56U,
@@ -940,7 +940,7 @@ auto Codec::decode(std::uint32_t can_id,
         Eec3ElectronicEngineControl3 msg{};
         msg.nominalfrictionpercenttorque =
             static_cast<std::int16_t>(
-                detail::to_physical_signed(
+                detail::to_physical_unsigned(
                     data,
                     size,
                     0U,
@@ -974,7 +974,7 @@ auto Codec::decode(std::uint32_t can_id,
             );
         msg.estengprsiticlossespercenttorque =
             static_cast<std::int16_t>(
-                detail::to_physical_signed(
+                detail::to_physical_unsigned(
                     data,
                     size,
                     32U,
@@ -1179,7 +1179,7 @@ auto Codec::decode(std::uint32_t can_id,
         Et1EngineTemperature1 msg{};
         msg.engcoolanttemp =
             static_cast<std::int16_t>(
-                detail::to_physical_signed(
+                detail::to_physical_unsigned(
                     data,
                     size,
                     0U,
@@ -1191,7 +1191,7 @@ auto Codec::decode(std::uint32_t can_id,
             );
         msg.engfueltemp1 =
             static_cast<std::int16_t>(
-                detail::to_physical_signed(
+                detail::to_physical_unsigned(
                     data,
                     size,
                     8U,
@@ -1223,7 +1223,7 @@ auto Codec::decode(std::uint32_t can_id,
             );
         msg.engintercoolertemp =
             static_cast<std::int16_t>(
-                detail::to_physical_signed(
+                detail::to_physical_unsigned(
                     data,
                     size,
                     48U,
@@ -1622,7 +1622,7 @@ auto Codec::decode(std::uint32_t can_id,
             );
         msg.engrequestedtorque_torquelimit =
             static_cast<std::int16_t>(
-                detail::to_physical_signed(
+                detail::to_physical_unsigned(
                     data,
                     size,
                     24U,
@@ -1814,7 +1814,7 @@ auto Codec::decode(std::uint32_t can_id,
         Vep1VehicleElectricalPower1 msg{};
         msg.net_battery_current_114 =
             static_cast<std::int16_t>(
-                detail::to_physical_signed(
+                detail::to_physical_unsigned(
                     data,
                     size,
                     0U,
@@ -1955,7 +1955,7 @@ auto Codec::decode(std::uint32_t can_id,
             );
         msg.engrequestedtorque_torquelimit =
             static_cast<std::int16_t>(
-                detail::to_physical_signed(
+                detail::to_physical_unsigned(
                     data,
                     size,
                     24U,
@@ -2070,7 +2070,7 @@ auto Codec::decode(std::uint32_t can_id,
             );
         msg.engrequestedtorque_torquelimit =
             static_cast<std::int16_t>(
-                detail::to_physical_signed(
+                detail::to_physical_unsigned(
                     data,
                     size,
                     24U,
@@ -2297,7 +2297,7 @@ auto Codec::decode(std::uint32_t can_id,
             );
         msg.actualretarderpercenttorque =
             static_cast<std::int16_t>(
-                detail::to_physical_signed(
+                detail::to_physical_unsigned(
                     data,
                     size,
                     8U,
@@ -2309,7 +2309,7 @@ auto Codec::decode(std::uint32_t can_id,
             );
         msg.intendedretarderpercenttorque =
             static_cast<std::int16_t>(
-                detail::to_physical_signed(
+                detail::to_physical_unsigned(
                     data,
                     size,
                     16U,
@@ -2373,7 +2373,7 @@ auto Codec::decode(std::uint32_t can_id,
             );
         msg.drvrsdemandretarderpercenttorque =
             static_cast<std::int16_t>(
-                detail::to_physical_signed(
+                detail::to_physical_unsigned(
                     data,
                     size,
                     40U,
@@ -2395,7 +2395,7 @@ auto Codec::decode(std::uint32_t can_id,
             );
         msg.actlmxavlblretarderpercenttorque =
             static_cast<std::int16_t>(
-                detail::to_physical_signed(
+                detail::to_physical_unsigned(
                     data,
                     size,
                     56U,
@@ -2537,7 +2537,7 @@ auto Codec::decode(std::uint32_t can_id,
         Etc2ElectronicTransCntrl2 msg{};
         msg.transselectedgear =
             static_cast<std::int16_t>(
-                detail::to_physical_signed(
+                detail::to_physical_unsigned(
                     data,
                     size,
                     0U,
@@ -2559,7 +2559,7 @@ auto Codec::decode(std::uint32_t can_id,
             );
         msg.transcurrentgear =
             static_cast<std::int16_t>(
-                detail::to_physical_signed(
+                detail::to_physical_unsigned(
                     data,
                     size,
                     24U,
@@ -4109,7 +4109,7 @@ auto Codec::encode(const MessageVariant& msg,
                     );
                 }
                 {
-                    auto raw = detail::encode_signed_physical(
+                    auto raw = detail::encode_unsigned_physical(
                         static_cast<double>(m.engintakemanifold1temp),
                         1.0,
                         -40.0,
@@ -4264,7 +4264,7 @@ auto Codec::encode(const MessageVariant& msg,
                     );
                 }
                 {
-                    auto raw = detail::encode_signed_physical(
+                    auto raw = detail::encode_unsigned_physical(
                         static_cast<double>(m.engine_air_intake_temperature),
                         1.0,
                         -40.0,
@@ -4340,7 +4340,7 @@ auto Codec::encode(const MessageVariant& msg,
                     static_cast<std::uint64_t>(m.actlengprcnttorquehighresolution)
                 );
                 {
-                    auto raw = detail::encode_signed_physical(
+                    auto raw = detail::encode_unsigned_physical(
                         static_cast<double>(m.drivers_demand_engine_prcnt_torq),
                         1.0,
                         -125.0,
@@ -4358,7 +4358,7 @@ auto Codec::encode(const MessageVariant& msg,
                     );
                 }
                 {
-                    auto raw = detail::encode_signed_physical(
+                    auto raw = detail::encode_unsigned_physical(
                         static_cast<double>(m.actual_engine_percent_torque),
                         1.0,
                         -125.0,
@@ -4423,7 +4423,7 @@ auto Codec::encode(const MessageVariant& msg,
                     static_cast<std::uint64_t>(m.engstartermode)
                 );
                 {
-                    auto raw = detail::encode_signed_physical(
+                    auto raw = detail::encode_unsigned_physical(
                         static_cast<double>(m.engine_demand_percent_torque),
                         1.0,
                         -125.0,
@@ -4630,7 +4630,7 @@ auto Codec::encode(const MessageVariant& msg,
                     );
                 }
                 {
-                    auto raw = detail::encode_signed_physical(
+                    auto raw = detail::encode_unsigned_physical(
                         static_cast<double>(m.estpumpingpercenttorque),
                         1.0,
                         -125.0,
@@ -4659,7 +4659,7 @@ auto Codec::encode(const MessageVariant& msg,
                 }
 
                 {
-                    auto raw = detail::encode_signed_physical(
+                    auto raw = detail::encode_unsigned_physical(
                         static_cast<double>(m.nominalfrictionpercenttorque),
                         1.0,
                         -125.0,
@@ -4713,7 +4713,7 @@ auto Codec::encode(const MessageVariant& msg,
                     );
                 }
                 {
-                    auto raw = detail::encode_signed_physical(
+                    auto raw = detail::encode_unsigned_physical(
                         static_cast<double>(m.estengprsiticlossespercenttorque),
                         1.0,
                         -125.0,
@@ -5024,7 +5024,7 @@ auto Codec::encode(const MessageVariant& msg,
                 }
 
                 {
-                    auto raw = detail::encode_signed_physical(
+                    auto raw = detail::encode_unsigned_physical(
                         static_cast<double>(m.engcoolanttemp),
                         1.0,
                         -40.0,
@@ -5042,7 +5042,7 @@ auto Codec::encode(const MessageVariant& msg,
                     );
                 }
                 {
-                    auto raw = detail::encode_signed_physical(
+                    auto raw = detail::encode_unsigned_physical(
                         static_cast<double>(m.engfueltemp1),
                         1.0,
                         -40.0,
@@ -5096,7 +5096,7 @@ auto Codec::encode(const MessageVariant& msg,
                     );
                 }
                 {
-                    auto raw = detail::encode_signed_physical(
+                    auto raw = detail::encode_unsigned_physical(
                         static_cast<double>(m.engintercoolertemp),
                         1.0,
                         -40.0,
@@ -5647,7 +5647,7 @@ auto Codec::encode(const MessageVariant& msg,
                     );
                 }
                 {
-                    auto raw = detail::encode_signed_physical(
+                    auto raw = detail::encode_unsigned_physical(
                         static_cast<double>(m.engrequestedtorque_torquelimit),
                         1.0,
                         -125.0,
@@ -5940,7 +5940,7 @@ auto Codec::encode(const MessageVariant& msg,
                 }
 
                 {
-                    auto raw = detail::encode_signed_physical(
+                    auto raw = detail::encode_unsigned_physical(
                         static_cast<double>(m.net_battery_current_114),
                         1.0,
                         -125.0,
@@ -6150,7 +6150,7 @@ auto Codec::encode(const MessageVariant& msg,
                     );
                 }
                 {
-                    auto raw = detail::encode_signed_physical(
+                    auto raw = detail::encode_unsigned_physical(
                         static_cast<double>(m.engrequestedtorque_torquelimit),
                         1.0,
                         -125.0,
@@ -6299,7 +6299,7 @@ auto Codec::encode(const MessageVariant& msg,
                     );
                 }
                 {
-                    auto raw = detail::encode_signed_physical(
+                    auto raw = detail::encode_unsigned_physical(
                         static_cast<double>(m.engrequestedtorque_torquelimit),
                         1.0,
                         -125.0,
@@ -6600,7 +6600,7 @@ auto Codec::encode(const MessageVariant& msg,
                     static_cast<std::uint64_t>(m.retarderenableshiftassistswitch)
                 );
                 {
-                    auto raw = detail::encode_signed_physical(
+                    auto raw = detail::encode_unsigned_physical(
                         static_cast<double>(m.actualretarderpercenttorque),
                         1.0,
                         -125.0,
@@ -6618,7 +6618,7 @@ auto Codec::encode(const MessageVariant& msg,
                     );
                 }
                 {
-                    auto raw = detail::encode_signed_physical(
+                    auto raw = detail::encode_unsigned_physical(
                         static_cast<double>(m.intendedretarderpercenttorque),
                         1.0,
                         -125.0,
@@ -6698,7 +6698,7 @@ auto Codec::encode(const MessageVariant& msg,
                     );
                 }
                 {
-                    auto raw = detail::encode_signed_physical(
+                    auto raw = detail::encode_unsigned_physical(
                         static_cast<double>(m.drvrsdemandretarderpercenttorque),
                         1.0,
                         -125.0,
@@ -6734,7 +6734,7 @@ auto Codec::encode(const MessageVariant& msg,
                     );
                 }
                 {
-                    auto raw = detail::encode_signed_physical(
+                    auto raw = detail::encode_unsigned_physical(
                         static_cast<double>(m.actlmxavlblretarderpercenttorque),
                         1.0,
                         -125.0,
@@ -6923,7 +6923,7 @@ auto Codec::encode(const MessageVariant& msg,
                 }
 
                 {
-                    auto raw = detail::encode_signed_physical(
+                    auto raw = detail::encode_unsigned_physical(
                         static_cast<double>(m.transselectedgear),
                         1.0,
                         -125.0,
@@ -6959,7 +6959,7 @@ auto Codec::encode(const MessageVariant& msg,
                     );
                 }
                 {
-                    auto raw = detail::encode_signed_physical(
+                    auto raw = detail::encode_unsigned_physical(
                         static_cast<double>(m.transcurrentgear),
                         1.0,
                         -125.0,

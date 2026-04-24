@@ -2,6 +2,8 @@
 #include <zephyr/devicetree.h>
 #include <zephyr/kernel.h>
 #include <zephyr/sys/printk.h>
+#include <zephyr/drivers/gpio.h>
+#include <zephyr/drivers/uart.h>
 
 #include <tuple>
 #include <utility>
@@ -21,7 +23,10 @@
 #include "reacher_to_duramax_signal_table.hpp"
 #include "message_policy_table.hpp"
 
+
+
 namespace {
+#define MY_LED_NODE DT_ALIAS(status_led)
 
 using DuramaxAo = canfw::CanActiveObject<duramax::DuramaxDb, DuramaxHooks>;
 using ReacherAo = canfw::CanActiveObject<reacher::ReacherDb, ReacherHooks>;
@@ -43,6 +48,8 @@ using ReacherToDuramaxTranslator =
 const device* const dm_bus = DEVICE_DT_GET(DT_ALIAS(can0));
 const device* const reacher_bus = DEVICE_DT_GET(DT_ALIAS(can1));
 
+static const struct gpio_dt_spec led = GPIO_DT_SPEC_GET(MY_LED_NODE, gpios);
+
 template <typename Endpoint, typename Msg>
 void enable_periodic_checked(const Endpoint& ep,
                              const Msg& msg,
@@ -59,6 +66,14 @@ void enable_periodic_checked(const Endpoint& ep,
 
 int main(void)
 {
+    const struct device *const dev = DEVICE_DT_GET(DT_CHOSEN(zephyr_console));
+    uint32_t dtr = 0;
+
+    while(!dtr){
+        uart_line_ctrl_get(dev,UART_LINE_CTRL_DTR, &dtr);
+        k_sleep(K_MSEC(100));
+    }
+
     auto duramax_result = DuramaxAo::create(dm_bus, DuramaxHooks{}, true);
     if (!duramax_result) {
         printk("DuramaxAo init failed: %d\n", static_cast<int>(duramax_result.error()));
@@ -139,6 +154,12 @@ int main(void)
         return -1;
     }
 
+    if(!gpio_is_ready_dt(&led)){
+        return -1;
+    }
+
+    gpio_pin_configure_dt(&led, GPIO_OUTPUT_ACTIVE);
+
     while (true) {
         duramax_to_reacher.step_once();
         reacher_to_duramax.step_once();
@@ -166,7 +187,7 @@ int main(void)
                reacher_ao->decode_failures(),
                reacher_ao->tx_build_failures(),
                reacher_ao->tx_encode_failures());
-
+        gpio_pin_toggle_dt(&led);
         k_sleep(K_MSEC(100));
     }
 

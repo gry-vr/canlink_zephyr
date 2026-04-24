@@ -50,8 +50,6 @@ inline auto within_dbc_range(double physical,
     return true;
 }
 
-
-
 } // namespace detail
 
 template <>
@@ -636,7 +634,7 @@ auto validate_message<Ic1IntakeExhaustCond1>(const Ic1IntakeExhaustCond1& msg)
             .error = ValidationError::value_outside_dbc_range
         });
     }
-    if (!detail::validate_signed_physical(
+    if (!detail::validate_unsigned_physical(
             static_cast<double>(msg.engintakemanifold1temp),
             1.0,
             -40.0,
@@ -831,7 +829,7 @@ auto validate_message<AmbAmbientConditions>(const AmbAmbientConditions& msg)
             .error = ValidationError::value_outside_dbc_range
         });
     }
-    if (!detail::validate_signed_physical(
+    if (!detail::validate_unsigned_physical(
             static_cast<double>(msg.engine_air_intake_temperature),
             1.0,
             -40.0,
@@ -934,7 +932,7 @@ auto validate_message<Eec1ElectronicEngineControl1>(const Eec1ElectronicEngineCo
             .error = ValidationError::value_outside_dbc_range
         });
     }
-    if (!detail::validate_signed_physical(
+    if (!detail::validate_unsigned_physical(
             static_cast<double>(msg.drivers_demand_engine_prcnt_torq),
             1.0,
             -125.0,
@@ -959,7 +957,7 @@ auto validate_message<Eec1ElectronicEngineControl1>(const Eec1ElectronicEngineCo
             .error = ValidationError::value_outside_dbc_range
         });
     }
-    if (!detail::validate_signed_physical(
+    if (!detail::validate_unsigned_physical(
             static_cast<double>(msg.actual_engine_percent_torque),
             1.0,
             -125.0,
@@ -1055,7 +1053,7 @@ auto validate_message<Eec1ElectronicEngineControl1>(const Eec1ElectronicEngineCo
             .error = ValidationError::value_outside_dbc_range
         });
     }
-    if (!detail::validate_signed_physical(
+    if (!detail::validate_unsigned_physical(
             static_cast<double>(msg.engine_demand_percent_torque),
             1.0,
             -125.0,
@@ -1388,7 +1386,7 @@ auto validate_message<Eec2ElectronicEngineControl2>(const Eec2ElectronicEngineCo
             .error = ValidationError::value_outside_dbc_range
         });
     }
-    if (!detail::validate_signed_physical(
+    if (!detail::validate_unsigned_physical(
             static_cast<double>(msg.estpumpingpercenttorque),
             1.0,
             -125.0,
@@ -1420,7 +1418,7 @@ auto validate_message<Eec3ElectronicEngineControl3>(const Eec3ElectronicEngineCo
             .error = ValidationError::value_outside_dbc_range
         });
     }
-    if (!detail::validate_signed_physical(
+    if (!detail::validate_unsigned_physical(
             static_cast<double>(msg.nominalfrictionpercenttorque),
             1.0,
             -125.0,
@@ -1493,7 +1491,7 @@ auto validate_message<Eec3ElectronicEngineControl3>(const Eec3ElectronicEngineCo
             .error = ValidationError::value_outside_dbc_range
         });
     }
-    if (!detail::validate_signed_physical(
+    if (!detail::validate_unsigned_physical(
             static_cast<double>(msg.estengprsiticlossespercenttorque),
             1.0,
             -125.0,
@@ -1913,7 +1911,7 @@ auto validate_message<Et1EngineTemperature1>(const Et1EngineTemperature1& msg)
             .error = ValidationError::value_outside_dbc_range
         });
     }
-    if (!detail::validate_signed_physical(
+    if (!detail::validate_unsigned_physical(
             static_cast<double>(msg.engcoolanttemp),
             1.0,
             -40.0,
@@ -1938,7 +1936,7 @@ auto validate_message<Et1EngineTemperature1>(const Et1EngineTemperature1& msg)
             .error = ValidationError::value_outside_dbc_range
         });
     }
-    if (!detail::validate_signed_physical(
+    if (!detail::validate_unsigned_physical(
             static_cast<double>(msg.engfueltemp1),
             1.0,
             -40.0,
@@ -2009,7 +2007,7 @@ auto validate_message<Et1EngineTemperature1>(const Et1EngineTemperature1& msg)
             .error = ValidationError::value_outside_dbc_range
         });
     }
-    if (!detail::validate_signed_physical(
+    if (!detail::validate_unsigned_physical(
             static_cast<double>(msg.engintercoolertemp),
             1.0,
             -40.0,
@@ -2827,7 +2825,7 @@ auto validate_message<Tsc131>(const Tsc131& msg)
             .error = ValidationError::value_outside_dbc_range
         });
     }
-    if (!detail::validate_signed_physical(
+    if (!detail::validate_unsigned_physical(
             static_cast<double>(msg.engrequestedtorque_torquelimit),
             1.0,
             -125.0,
@@ -3206,7 +3204,7 @@ auto validate_message<Vep1VehicleElectricalPower1>(const Vep1VehicleElectricalPo
             .error = ValidationError::value_outside_dbc_range
         });
     }
-    if (!detail::validate_signed_physical(
+    if (!detail::validate_unsigned_physical(
             static_cast<double>(msg.net_battery_current_114),
             1.0,
             -125.0,
@@ -3484,7 +3482,7 @@ auto validate_message<Tsc103>(const Tsc103& msg)
             .error = ValidationError::value_outside_dbc_range
         });
     }
-    if (!detail::validate_signed_physical(
+    if (!detail::validate_unsigned_physical(
             static_cast<double>(msg.engrequestedtorque_torquelimit),
             1.0,
             -125.0,
@@ -3727,7 +3725,7 @@ auto validate_message<Tsc10b>(const Tsc10b& msg)
             .error = ValidationError::value_outside_dbc_range
         });
     }
-    if (!detail::validate_signed_physical(
+    if (!detail::validate_unsigned_physical(
             static_cast<double>(msg.engrequestedtorque_torquelimit),
             1.0,
             -125.0,
@@ -4182,7 +4180,7 @@ auto validate_message<Erc1ElectronicRetarderCntrl>(const Erc1ElectronicRetarderC
             .error = ValidationError::value_outside_dbc_range
         });
     }
-    if (!detail::validate_signed_physical(
+    if (!detail::validate_unsigned_physical(
             static_cast<double>(msg.actualretarderpercenttorque),
             1.0,
             -125.0,
@@ -4207,7 +4205,7 @@ auto validate_message<Erc1ElectronicRetarderCntrl>(const Erc1ElectronicRetarderC
             .error = ValidationError::value_outside_dbc_range
         });
     }
-    if (!detail::validate_signed_physical(
+    if (!detail::validate_unsigned_physical(
             static_cast<double>(msg.intendedretarderpercenttorque),
             1.0,
             -125.0,
@@ -4349,7 +4347,7 @@ auto validate_message<Erc1ElectronicRetarderCntrl>(const Erc1ElectronicRetarderC
             .error = ValidationError::value_outside_dbc_range
         });
     }
-    if (!detail::validate_signed_physical(
+    if (!detail::validate_unsigned_physical(
             static_cast<double>(msg.drvrsdemandretarderpercenttorque),
             1.0,
             -125.0,
@@ -4397,7 +4395,7 @@ auto validate_message<Erc1ElectronicRetarderCntrl>(const Erc1ElectronicRetarderC
             .error = ValidationError::value_outside_dbc_range
         });
     }
-    if (!detail::validate_signed_physical(
+    if (!detail::validate_unsigned_physical(
             static_cast<double>(msg.actlmxavlblretarderpercenttorque),
             1.0,
             -125.0,
@@ -4691,7 +4689,7 @@ auto validate_message<Etc2ElectronicTransCntrl2>(const Etc2ElectronicTransCntrl2
             .error = ValidationError::value_outside_dbc_range
         });
     }
-    if (!detail::validate_signed_physical(
+    if (!detail::validate_unsigned_physical(
             static_cast<double>(msg.transselectedgear),
             1.0,
             -125.0,
@@ -4739,7 +4737,7 @@ auto validate_message<Etc2ElectronicTransCntrl2>(const Etc2ElectronicTransCntrl2
             .error = ValidationError::value_outside_dbc_range
         });
     }
-    if (!detail::validate_signed_physical(
+    if (!detail::validate_unsigned_physical(
             static_cast<double>(msg.transcurrentgear),
             1.0,
             -125.0,

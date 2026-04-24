@@ -19,7 +19,6 @@ struct ReacherHooks{
         constexpr auto rpm_sid = reacher::SignalId::reacher_ctrl__throttle_rpm;
 
         if(auto rpm = rx_store.template get<rpm_sid>(); rpm){
-            printk("RPM %d", static_cast<double>(*rpm));
 
         }
     }
