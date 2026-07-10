@@ -1,14 +1,19 @@
 #pragma once
 
+#include <array>
 #include <cstdint>
 
 #include <zephyr/sys/printk.h>
 
 #include "duramax_db.hpp"
 
-enum class ByteOrder : unsigned char; // harmless forward if project defines another one elsewhere
-
 struct DuramaxHooks {
+    // These hooks execute on the CAN active object's thread, inside
+    // drain_rx() / send_one(). Anything slow here (printk spin-polls the
+    // UART at ~87 us per character) is jitter injected directly into the
+    // 10 ms TSC1 schedule, so debug prints are rate-limited to 1 Hz.
+    static constexpr std::uint32_t kPrintPeriodMs = 1000;
+
     template <typename Msg>
     void on_rx_message(const Msg&, duramax::DuramaxDb::ValueStore&, std::uint32_t) {
         // default no-op
@@ -18,6 +23,13 @@ struct DuramaxHooks {
                        duramax::DuramaxDb::ValueStore& rx_store,
                        std::uint32_t now_ms)
     {
+        // EEC1 broadcasts every 10-20 ms on the engine bus; printing each
+        // one would consume most of the AO thread's time budget.
+        if (now_ms - last_rpm_print_ms_ < kPrintPeriodMs) {
+            return;
+        }
+        last_rpm_print_ms_ = now_ms;
+
         constexpr auto rpm_sid =
             duramax::SignalId::eec1_electronic_engine_control_1__engine_speed;
 
@@ -30,6 +42,11 @@ struct DuramaxHooks {
                        duramax::DuramaxDb::ValueStore& rx_store,
                        std::uint32_t now_ms)
     {
+        if (now_ms - last_coolant_print_ms_ < kPrintPeriodMs) {
+            return;
+        }
+        last_coolant_print_ms_ = now_ms;
+
         constexpr auto coolant_sid =
             duramax::SignalId::et1_engine_temperature_1__engcoolanttemp;
 
@@ -41,47 +58,58 @@ struct DuramaxHooks {
     template <typename Msg, typename Store>
     void on_before_send(Msg&, Store&, std::uint32_t) {}
 
+    // GM TSC1 rolling counter + checksum.
+    //
+    // The checksum covers data bytes 0..6 plus the new counter (ARC) plus
+    // the four CAN ID bytes; counter and checksum both live in byte 7,
+    // which the sum correctly excludes. send_one() runs this hook BEFORE
+    // validate/encode, so the frame that reaches the bus carries the
+    // freshly written counter and checksum.
     void on_before_send(duramax::Tsc131& msg,
-                        duramax::DuramaxDb::ValueStore& tx_store,
-                        std::uint32_t now_ms){
-        static uint8_t msg_counter = 0;
-        std::array<uint8_t, 8> encoded_msg{};
-        auto could_be = duramax::Codec::encode(msg, encoded_msg.data(), 8);
-        if(!could_be){
+                        duramax::DuramaxDb::ValueStore&,
+                        std::uint32_t)
+    {
+        std::array<std::uint8_t, 8> encoded_msg{};
+        auto could_be = duramax::Codec::encode(msg, encoded_msg.data(), encoded_msg.size());
+        if (!could_be) {
             return;
         }
-        
-        auto calc_checksum = [&](uint32_t id, const uint8_t* data, uint8_t arc) -> uint8_t {
-              uint32_t VeGMDR_y_Sum = 0x00;
-              uint8_t VeGMDR_y_ChkSm = 0x00;
-              
-              // Sum up the first 7 bytes of the message
-              for (int i = 0; i < 7; i++) {
-                  VeGMDR_y_Sum += data[i];
-              }
 
-              // Add ARC (lower 4 bits), and each byte of the ID
-              VeGMDR_y_Sum += (arc & 0x0F);
-              VeGMDR_y_Sum += (uint8_t)(id);
-              VeGMDR_y_Sum += (uint8_t)(id >> 8);
-              VeGMDR_y_Sum += (uint8_t)(id >> 16);
-              VeGMDR_y_Sum += (uint8_t)(id >> 24);
+        auto calc_checksum = [](std::uint32_t id, const std::uint8_t* data,
+                                std::uint8_t arc) -> std::uint8_t {
+            std::uint32_t sum = 0x00;
 
-              // Compute checksum (3 bits)
-              VeGMDR_y_ChkSm = (((VeGMDR_y_Sum >> 6) & 0x03) + (VeGMDR_y_Sum >> 3) + VeGMDR_y_Sum) & 0x07;
+            // Sum up the first 7 bytes of the message
+            for (int i = 0; i < 7; i++) {
+                sum += data[i];
+            }
 
-              return VeGMDR_y_ChkSm;
+            // Add ARC (lower 4 bits), and each byte of the ID
+            sum += (arc & 0x0F);
+            sum += static_cast<std::uint8_t>(id);
+            sum += static_cast<std::uint8_t>(id >> 8);
+            sum += static_cast<std::uint8_t>(id >> 16);
+            sum += static_cast<std::uint8_t>(id >> 24);
+
+            // Compute checksum (3 bits)
+            return (((sum >> 6) & 0x03) + (sum >> 3) + sum) & 0x07;
         };
-        uint32_t tsc1_31_frame_id = duramax::message_meta(msg.id).frame_id;
-        uint8_t msg_checksum = calc_checksum(tsc1_31_frame_id,
-                                    encoded_msg.data(),
-                                    msg_counter);
-        msg.messagecounter = msg_counter;
-        msg.messagechecksum = msg_checksum;
 
+        const std::uint32_t tsc1_31_frame_id = duramax::message_meta(msg.id).frame_id;
 
+        msg.messagecounter = tsc1_counter_;
+        msg.messagechecksum = calc_checksum(tsc1_31_frame_id,
+                                            encoded_msg.data(),
+                                            tsc1_counter_);
 
-        msg_counter = (msg_counter + 1) % 16;
-
+        tsc1_counter_ = (tsc1_counter_ + 1) % 16;
     }
+
+private:
+    // Hook state lives in the instance (the AO owns its Hooks by value),
+    // not in function-local statics: statics are shared across all
+    // instances and invisible to unit tests.
+    std::uint8_t tsc1_counter_{0};
+    std::uint32_t last_rpm_print_ms_{0};
+    std::uint32_t last_coolant_print_ms_{0};
 };

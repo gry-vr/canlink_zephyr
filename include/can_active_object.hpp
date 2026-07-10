@@ -3,11 +3,12 @@
 #include <zephyr/device.h>
 #include <zephyr/drivers/can.h>
 #include <zephyr/kernel.h>
-#include <zephyr/sys/printk.h>
 
 #include "can_endpoint.hpp"
+#include "tx_schedule.hpp"
 
 #include <array>
+#include <atomic>
 #include <cstdint>
 #include <expected>
 #include <type_traits>
@@ -23,54 +24,11 @@ enum class InitError : std::uint8_t {
     already_started,
 };
 
-
-template <typename Db>
-struct TxScheduleSlot {
-    bool enabled{};
-    std::uint32_t period_ms{};
-    std::uint32_t last_tx_ms{};
-};
-
-template <typename Db>
-class TxScheduler {
-public:
-    using MessageId = typename Db::MessageId;
-
-    std::array<TxScheduleSlot<Db>, Db::kMessageCount> slots{};
-    std::array<MessageId, Db::kMessageCount> active_ids{};
-    std::size_t active_count{0};
-
-    void enable(MessageId id, std::uint32_t period_ms) {
-        auto& s = slots[Db::to_index(id)];
-        if (!s.enabled) {
-            s.enabled = true;
-            s.period_ms = period_ms;
-            s.last_tx_ms = 0;
-            active_ids[active_count++] = id;
-        } else {
-            s.period_ms = period_ms;
-        }
-    }
-
-    void disable(MessageId id) {
-        auto& s = slots[Db::to_index(id)];
-        if (!s.enabled) {
-            return;
-        }
-
-        s.enabled = false;
-
-        // TODO :: check on the validity of this action
-        // after doing the swap we would need to go down the  rest
-        // of the array and shift all the stuff over. 
-        for (std::size_t i = 0; i < active_count; ++i) {
-            if (active_ids[i] == id) {
-                active_ids[i] = active_ids[active_count - 1];
-                --active_count;
-                break;
-            }
-        }
-    }
+enum class SendError : std::uint8_t {
+    build_failed,
+    validation_failed,
+    encode_failed,
+    tx_rejected,
 };
 
 template <typename Hooks, typename Msg, typename Db>
@@ -80,49 +38,28 @@ concept HasOnRxMessage =
     };
 
 template <typename Hooks, typename Msg, typename Db>
-static void dispatch_on_rx(Hooks& hooks,
-                           const Msg& msg,
-                           typename Db::ValueStore& rx_store,
-                           std::uint32_t now_ms)
+void dispatch_on_rx(Hooks& hooks,
+                    const Msg& msg,
+                    typename Db::ValueStore& rx_store,
+                    std::uint32_t now_ms)
 {
     if constexpr (HasOnRxMessage<Hooks, Msg, Db>) {
         hooks.on_rx_message(msg, rx_store, now_ms);
     }
 }
 
-
 template <typename Hooks, typename Msg, typename Db>
-concept HasBeforeSend = 
-    requires(Hooks& h, Msg& msg, typename Db::ValueStore& store, std::uint32_t now_ms){
-        { h.on_before_send(msg, store, now_ms)};
+concept HasBeforeSend =
+    requires(Hooks& h, Msg& msg, typename Db::ValueStore& store, std::uint32_t now_ms) {
+        { h.on_before_send(msg, store, now_ms) };
     };
 
 template <typename Hooks, typename Msg, typename Db>
-static void dispatch_before_send(Hooks& hooks, Msg& msg, typename Db::ValueStore& tx_store, std::uint32_t now_ms)
+void dispatch_before_send(Hooks& hooks, Msg& msg, typename Db::ValueStore& tx_store, std::uint32_t now_ms)
 {
-    if constexpr (HasBeforeSend<Hooks, Msg, Db>){
+    if constexpr (HasBeforeSend<Hooks, Msg, Db>) {
         hooks.on_before_send(msg, tx_store, now_ms);
     }
-}
-
-
-
-template <typename Db>
-concept HasMessageIdOfTemplate = requires {
-    Db::template message_id_of<typename Db::MessageVariant>();
-};
-
-template <typename Db>
-concept HasMessageIdOfValue = requires(const typename Db::MessageVariant& mv) {
-    { Db::message_id_of(mv) } -> std::same_as<typename Db::MessageId>;
-};
-
-template <typename Db, typename Msg>
-static auto db_message_id_of(const Msg& msg) -> typename Db::MessageId
-{
-    using M = std::decay_t<Msg>;
-    return M::id; 
-
 }
 
 template <typename Db, typename Hooks>
@@ -137,13 +74,40 @@ public:
     using TxCommandType = TxCommand<Db>;
     using TxPolicyType = TxPolicy;
     using SignalPhysicalValue = typename Db::SignalPhysicalValue;
+    using ValidationIssue = typename Db::ValidationIssue;
 
     static constexpr std::size_t RxQueueDepth = 64;
     static constexpr std::size_t TxQueueDepth = 16;
     static constexpr std::size_t ThreadStackSize = 8192;
     static constexpr int ThreadPriority = 5;
 
-    Snapshot snapshot_scratch_{};
+    // Anything that fits in a Command may legitimately live in a stack local
+    // (drain_tx_commands holds one), so it gets an explicit budget. Measured
+    // today: duramax = 88 bytes, reacher = 56 bytes. If a regenerated DBC
+    // blows past this, the build fails here instead of the stack failing in
+    // the field.
+    static constexpr std::size_t kMaxCommandBytes = 256;
+
+    // --- k_msgq memcpy contract -------------------------------------------
+    // k_msgq transports messages with raw memcpy. Every type that crosses a
+    // queue must therefore be trivially copyable; anything else is silent UB
+    // the day someone adds a non-trivial member to a generated type.
+    static_assert(std::is_trivially_copyable_v<Command>,
+                  "Command crosses k_msgq by memcpy and must stay trivially copyable");
+    static_assert(std::is_trivially_copyable_v<can_frame>,
+                  "can_frame crosses k_msgq by memcpy and must stay trivially copyable");
+    static_assert(std::is_trivially_copyable_v<Snapshot>,
+                  "SnapshotReply crosses k_msgq by memcpy and must stay trivially copyable");
+
+    // --- stack budget ------------------------------------------------------
+    static_assert(sizeof(Command) <= kMaxCommandBytes,
+                  "Command outgrew its stack budget; audit drain_tx_commands and "
+                  "the k_msgq storage sizing before raising kMaxCommandBytes");
+    // Note: sizeof(Snapshot) is ~7.1 KB for duramax -- it must NEVER be a
+    // stack local. That property cannot be expressed as a static_assert
+    // (storage duration is invisible to the type system); it is enforced by
+    // the -Wframe-larger-than build flag plus the snapshot_scratch_ member
+    // below being the only Snapshot instance this class ever creates.
 
     static auto create(const device* can_device, Hooks hooks = {}, bool extended_id = false)
         -> std::expected<CanActiveObject*, InitError>
@@ -172,23 +136,45 @@ public:
     auto operator=(CanActiveObject&&) -> CanActiveObject& = delete;
 
     int post_tx(const Command& cmd, k_timeout_t timeout = K_NO_WAIT) {
-
-        int rc = k_msgq_put(&tx_cmd_msgq_, &cmd, timeout);
-        return rc;
+        return k_msgq_put(&tx_cmd_msgq_, &cmd, timeout);
     }
 
+    // AO-thread-only views. These reference state the AO thread mutates
+    // freely; reading them from any other thread is a data race. Cross-thread
+    // consumers must use the snapshot command path (Endpoint::
+    // request_snapshot_into), which serializes the copy onto the AO thread.
     const ValueStore& rx_store() const { return rx_store_; }
-    ValueStore get_rx_store_copy()  { return this->rx_store_; }
     const ValueStore& tx_store() const { return tx_store_; }
 
-    [[nodiscard]] std::uint32_t decode_failures() const { return decode_failures_; }
-    [[nodiscard]] std::uint32_t tx_build_failures() const { return tx_build_failures_; }
-    [[nodiscard]] std::uint32_t tx_encode_failures() const { return tx_encode_failures_; }
-    [[nodiscard]] std::uint32_t tx_validation_failures() const { return tx_validation_failures_; }
+    [[nodiscard]] std::uint32_t decode_failures() const {
+        return decode_failures_.load(std::memory_order_relaxed);
+    }
+    [[nodiscard]] std::uint32_t tx_build_failures() const {
+        return tx_build_failures_.load(std::memory_order_relaxed);
+    }
+    [[nodiscard]] std::uint32_t tx_encode_failures() const {
+        return tx_encode_failures_.load(std::memory_order_relaxed);
+    }
+    [[nodiscard]] std::uint32_t tx_validation_failures() const {
+        return tx_validation_failures_.load(std::memory_order_relaxed);
+    }
+    [[nodiscard]] std::uint32_t tx_send_failures() const {
+        return tx_send_failures_.load(std::memory_order_relaxed);
+    }
+    [[nodiscard]] std::uint32_t tx_schedule_failures() const {
+        return tx_schedule_failures_.load(std::memory_order_relaxed);
+    }
+
+    // Diagnostic breadcrumb for the most recent validation failure (replaces
+    // the printk that used to live in the TX hot path). Written only by the
+    // AO thread; a cross-thread read may observe a torn pair, which is
+    // acceptable for a debug aid but not for control decisions.
+    [[nodiscard]] ValidationIssue last_validation_issue() const {
+        return last_validation_issue_;
+    }
 
     void run_forever() {
         while (true) {
-            printk("AO stack size = %zu\n", K_KERNEL_STACK_SIZEOF(thread_stack_));
             const std::uint32_t now_ms = k_uptime_get_32();
             const k_timeout_t timeout = time_until_next_due_tx(now_ms);
 
@@ -197,7 +183,7 @@ public:
             }
 
             const int rc = k_poll(events_.data(), events_.size(), timeout);
-            
+
             const std::uint32_t wake_ms = k_uptime_get_32();
 
             if (rc == 0) {
@@ -209,16 +195,15 @@ public:
                 }
             }
 
-            run_due_tx(wake_ms);
+            // Re-sample the clock: draining (and hooks) may have consumed
+            // real time, and deadlines that matured during the drains should
+            // be honored on this pass, not next iteration.
+            run_due_tx(k_uptime_get_32());
         }
     }
 
     Endpoint endpoint() {
-    return Endpoint{&tx_cmd_msgq_};
-    }
-
-    Endpoint endpoint() const {
-        return Endpoint{const_cast<k_msgq*>(&tx_cmd_msgq_)};
+        return Endpoint{&tx_cmd_msgq_};
     }
 
 private:
@@ -274,6 +259,15 @@ private:
         static_cast<CanActiveObject*>(p1)->run_forever();
     }
 
+    // Runs in ISR context when the driver completes (or fails) an on-bus
+    // transmission. Touch nothing but the atomic counter here.
+    static void tx_done_callback_(const device*, int error, void* user_data) {
+        if (error != 0) {
+            auto* self = static_cast<CanActiveObject*>(user_data);
+            self->tx_send_failures_.fetch_add(1, std::memory_order_relaxed);
+        }
+    }
+
     static constexpr can_filter make_rx_filter(bool extended_id) {
         can_filter filter{};
         filter.flags = (extended_id) ? CAN_FILTER_IDE : 0U;
@@ -284,7 +278,7 @@ private:
 
     k_timeout_t time_until_next_due_tx(std::uint32_t now_ms) const {
         bool found = false;
-        std::uint32_t min_wait_ms = UINT32_MAX;
+        std::uint32_t min_wait_ms = 0U;
 
         for (std::size_t i = 0; i < tx_scheduler_.active_count; ++i) {
             const auto id = tx_scheduler_.active_ids[i];
@@ -294,9 +288,7 @@ private:
                 continue;
             }
 
-            const std::uint32_t elapsed = now_ms - slot.last_tx_ms;
-            const std::uint32_t wait_ms =
-                (elapsed >= slot.period_ms) ? 0U : (slot.period_ms - elapsed);
+            const std::uint32_t wait_ms = slot.until_due_ms(now_ms);
 
             if (!found || wait_ms < min_wait_ms) {
                 found = true;
@@ -313,7 +305,7 @@ private:
         while (k_msgq_get(&rx_msgq_, &frame, K_NO_WAIT) == 0) {
             auto decoded = Db::decode(frame.id, frame.data, frame.dlc);
             if (!decoded) {
-                ++decode_failures_;
+                decode_failures_.fetch_add(1, std::memory_order_relaxed);
                 continue;
             }
 
@@ -338,40 +330,44 @@ private:
         }
     }
 
-    void handle_tx_command(const typename TxCommand<Db>::SendMessage& cmd, std::uint32_t now_ms) {
+    void handle_tx_command(const typename TxCommandType::SendMessage& cmd, std::uint32_t now_ms) {
         std::visit([&](const auto& msg) {
+            using Msg = std::decay_t<decltype(msg)>;
             Db::apply_to_store(tx_store_, msg, now_ms);
-            const auto id = db_message_id_of<Db>(msg);
-            handle_message_policy(id, cmd.policy, cmd.period_ms_override, now_ms);
+            handle_message_policy(Msg::id, cmd.policy, cmd.period_ms_override, now_ms);
         }, cmd.message);
     }
 
-    void handle_tx_command(const typename TxCommand<Db>::UpdateSignal& cmd, std::uint32_t now_ms) {
+    void handle_tx_command(const typename TxCommandType::UpdateSignal& cmd, std::uint32_t now_ms) {
         auto res = Db::set_signal_physical(tx_store_, cmd.signal_id, cmd.value, now_ms);
         if (!res) {
-            ++tx_build_failures_;
+            tx_build_failures_.fetch_add(1, std::memory_order_relaxed);
             return;
         }
 
-        const auto parent = Db::parent_message_id(cmd.signal_id);
         if (cmd.trigger_parent_send) {
-            (void)send_one(parent, now_ms);
+            const auto parent = Db::parent_message_id(cmd.signal_id);
+            (void)send_one(parent, now_ms);  // failure classes counted inside
         }
     }
 
-    void handle_tx_command(const typename TxCommand<Db>::DisableMessage& cmd, std::uint32_t) {
+    void handle_tx_command(const typename TxCommandType::DisableMessage& cmd, std::uint32_t) {
         tx_scheduler_.disable(cmd.message_id);
     }
 
-    void handle_tx_command(const typename TxCommand<Db>::RequestSnapshot& cmd,
-                       std::uint32_t now_ms)
+    // The 7+ KB Snapshot is copied through the member scratch buffer, never
+    // a stack local. snapshot_scratch_ is touched exclusively by the AO
+    // thread (this handler runs in run_forever's context), so it needs no
+    // synchronization; k_msgq_put then memcpys it into the caller's queue.
+    void handle_tx_command(const typename TxCommandType::RequestSnapshot& cmd,
+                           std::uint32_t now_ms)
     {
         if (cmd.reply_q == nullptr) {
             return;
         }
 
-        snapshot_scratch.store = rx_store_;
-        snapshot_scratch.valid = true;
+        snapshot_scratch_.store = rx_store_;
+        snapshot_scratch_.valid = true;
         snapshot_scratch_.timestamp_ms = now_ms;
 
         (void)k_msgq_put(cmd.reply_q, &snapshot_scratch_, K_NO_WAIT);
@@ -384,11 +380,14 @@ private:
     {
         switch (policy) {
         case TxPolicy::send_once:
-            (void)send_one(id, now_ms);
+            (void)send_one(id, now_ms);  // failure classes counted inside
             break;
         case TxPolicy::periodic_enable: {
-            auto period = period_override ? period_override : Db::message_cycle_time_ms(id);
-            tx_scheduler_.enable(id, period);
+            const auto period =
+                period_override ? period_override : Db::message_cycle_time_ms(id);
+            if (auto enabled = tx_scheduler_.enable(id, period, now_ms); !enabled) {
+                tx_schedule_failures_.fetch_add(1, std::memory_order_relaxed);
+            }
             break;
         }
         case TxPolicy::periodic_disable:
@@ -397,31 +396,36 @@ private:
         }
     }
 
+    // Services every due slot in one pass, then run_forever recomputes the
+    // next wait. Fixed-rate grid semantics (drift-free advance, resync when
+    // >1 period behind) live in TxScheduleSlot -- see tx_schedule.hpp and
+    // its compile-time tests.
+    //
+    // A failed send still advances the deadline: the failure is counted in
+    // send_one and the slot retries on its normal grid, which deliberately
+    // avoids a tight retry spin against a sick bus.
     void run_due_tx(std::uint32_t now_ms) {
-    for (std::size_t i = 0; i < tx_scheduler_.active_count; ++i) {
-        const auto id = tx_scheduler_.active_ids[i];
-        auto& slot = tx_scheduler_.slots[Db::to_index(id)];
+        for (std::size_t i = 0; i < tx_scheduler_.active_count; ++i) {
+            const auto id = tx_scheduler_.active_ids[i];
+            auto& slot = tx_scheduler_.slots[Db::to_index(id)];
 
-        if (!slot.enabled || slot.period_ms == 0U) {
-            continue;
+            if (!slot.due(now_ms)) {
+                continue;
+            }
+
+            (void)send_one(id, now_ms);  // failure classes counted inside
+
+            slot.advance_after_send(now_ms);
         }
-
-        if ((now_ms - slot.last_tx_ms) < slot.period_ms) {
-            continue;
-        }
-
-        const int rc = send_one(id, now_ms);
-        slot.last_tx_ms = now_ms;
-
-        (void)rc;
     }
-}
 
-    int send_one(MessageId id, std::uint32_t now_ms) {
+    auto send_one(MessageId id, std::uint32_t now_ms)
+        -> std::expected<void, SendError>
+    {
         auto built = Db::build_message_from_store(id, tx_store_);
         if (!built) {
-            ++tx_build_failures_;
-            return -EINVAL;
+            tx_build_failures_.fetch_add(1, std::memory_order_relaxed);
+            return std::unexpected{SendError::build_failed};
         }
 
         can_frame frame{};
@@ -431,33 +435,47 @@ private:
         frame.flags = meta.is_extended ? CAN_FRAME_IDE : 0U;
 
         auto encoded = std::visit(
-            [&](auto& msg) -> std::expected<std::uint8_t, typename Db::EncodeError> {
+            [&](auto& msg) -> std::expected<std::uint8_t, SendError> {
                 using Msg = std::decay_t<decltype(msg)>;
 
                 dispatch_before_send<Hooks, Msg, Db>(hooks_, msg, tx_store_, now_ms);
 
-                auto validated = Db::validate_message(msg);
-                if (!validated) {
-                    ++tx_validation_failures_;
-                    printk("validation failed for msg idx=%u signal idx=%u err=%d\n",
-                        static_cast<unsigned>(Db::to_index(id)),
-                        static_cast<unsigned>(Db::to_index(validated.error().signal_id)),
-                        static_cast<int>(validated.error().error));
-                    return std::unexpected(Db::EncodeError::value_out_of_range);
+                if (auto validated = Db::validate_message(msg); !validated) {
+                    tx_validation_failures_.fetch_add(1, std::memory_order_relaxed);
+                    last_validation_issue_ = validated.error();
+                    return std::unexpected{SendError::validation_failed};
                 }
 
-                return Db::encode(msg, frame.data, sizeof(frame.data));
+                auto n = Db::encode(msg, frame.data, sizeof(frame.data));
+                if (!n) {
+                    tx_encode_failures_.fetch_add(1, std::memory_order_relaxed);
+                    return std::unexpected{SendError::encode_failed};
+                }
+                return *n;
             },
             *built
         );
 
         if (!encoded) {
-            ++tx_encode_failures_;
-            return -EINVAL;
+            return std::unexpected{encoded.error()};
         }
 
         frame.dlc = *encoded;
-        return can_send(can_bus_, &frame, K_NO_WAIT, nullptr, nullptr);
+
+        // Fire-and-forget: with a callback installed, can_send returns as
+        // soon as the frame is queued to a TX mailbox. K_NO_WAIT means a
+        // full mailbox set rejects immediately (-EAGAIN) instead of parking
+        // the AO thread, and a dead/error-passive bus can no longer hang
+        // this loop -- on-bus failures arrive asynchronously via
+        // tx_done_callback_.
+        const int rc = can_send(can_bus_, &frame, K_NO_WAIT,
+                                &CanActiveObject::tx_done_callback_, this);
+        if (rc != 0) {
+            tx_send_failures_.fetch_add(1, std::memory_order_relaxed);
+            return std::unexpected{SendError::tx_rejected};
+        }
+
+        return {};
     }
 
 private:
@@ -468,6 +486,11 @@ private:
 
     ValueStore rx_store_{};
     ValueStore tx_store_{};
+
+    // AO-thread-only staging buffer for snapshot replies. Lives in the
+    // object (.bss for the create() static), keeping the ~7 KB copy off
+    // every stack. See handle_tx_command(RequestSnapshot).
+    Snapshot snapshot_scratch_{};
 
     k_msgq rx_msgq_{};
     alignas(can_frame) std::array<can_frame, RxQueueDepth> rx_queue_storage_{};
@@ -482,11 +505,19 @@ private:
     k_thread thread_{};
 
     int rx_filter_id_{-1};
-    std::uint32_t decode_failures_{0};
-    std::uint32_t tx_build_failures_{0};
-    std::uint32_t tx_encode_failures_{0};
-    std::uint32_t tx_validation_failures_{0};
 
+    // Counters are written by the AO thread (and tx_send_failures_ also from
+    // the TX-done ISR) and read by other threads for stats. Relaxed atomics
+    // make those cross-context accesses well-defined; they impose no
+    // ordering, which is all a monotonic counter needs.
+    std::atomic<std::uint32_t> decode_failures_{0};
+    std::atomic<std::uint32_t> tx_build_failures_{0};
+    std::atomic<std::uint32_t> tx_encode_failures_{0};
+    std::atomic<std::uint32_t> tx_validation_failures_{0};
+    std::atomic<std::uint32_t> tx_send_failures_{0};
+    std::atomic<std::uint32_t> tx_schedule_failures_{0};
+
+    ValidationIssue last_validation_issue_{};
 };
 
 } // namespace canfw

@@ -8,7 +8,6 @@
 
 #include <zephyr/storage/disk_access.h>
 
-
 #include <tuple>
 #include <utility>
 #include <string.h>
@@ -27,8 +26,6 @@
 #include "duramax_to_reacher_signal_table.hpp"
 #include "reacher_to_duramax_signal_table.hpp"
 #include "message_policy_table.hpp"
-
-
 
 namespace {
 #define MY_LED_NODE DT_ALIAS(status_led)
@@ -55,6 +52,14 @@ const device* const reacher_bus = DEVICE_DT_GET(DT_ALIAS(can1));
 
 static const struct gpio_dt_spec led = GPIO_DT_SPEC_GET(MY_LED_NODE, gpios);
 
+// Stats print every Nth 100 ms iteration. Main runs at a higher priority
+// than the AO threads by default (CONFIG_MAIN_THREAD_PRIORITY=0 vs 5), and
+// synchronous printk spin-polls the UART, so every character printed here
+// is time stolen from the 10 ms TSC1 schedule. Printing at 2 s instead of
+// 100 ms cuts that starvation twentyfold; the real fix (deferred logging +
+// priority inversion) is tracked for Phase 1.
+constexpr std::uint8_t kStatsDivider = 20;
+
 template <typename Endpoint, typename Msg>
 void enable_periodic_checked(const Endpoint& ep,
                              const Msg& msg,
@@ -69,7 +74,8 @@ void enable_periodic_checked(const Endpoint& ep,
 
 } // namespace
 
-
+// eMMC bring-up scaffolding, kept for bench use. Not called from main():
+// it never returns, which left the entire CAN path below unreachable.
 int fake_main(){
     static int counter = 0;
     const char *disk = "KINGSTON";
@@ -85,7 +91,6 @@ int fake_main(){
 
     rc = disk_access_ioctl(disk, DISK_IOCTL_GET_SECTOR_SIZE, &sector_size);
     printk("sector_size rc=%d size=%u\n", rc, sector_size);
-
 
     __aligned(32) static uint8_t write_buf[512];
     __aligned(32) static uint8_t read_buf[512];
@@ -111,7 +116,7 @@ int fake_main(){
     // }
 
     // rc = disk_access_ioctl(disk, DISK_IOCTL_CTRL_SYNC, NULL);
-    
+
     // printk("SYNC rc=%d\n", rc);
     // if(rc){
     //     return rc;
@@ -134,30 +139,19 @@ int fake_main(){
         }
         counter = (counter + 1) % 6;
     }
-
 }
-
-
 
 int main(void)
 {
-    //usb_fake_main();
-    
     const struct device *const dev = DEVICE_DT_GET(DT_CHOSEN(zephyr_console));
     if (!device_is_ready(dev)){
-        printk("you are dum\n");
+        printk("console not ready\n");
         return -1;
     }
     k_sleep(K_SECONDS(1));
-    int return_code = fake_main();
-    while (1){
-        printk("we got: %d\n", return_code);
-        k_sleep(K_SECONDS(1));
 
-    }
-
-
-    //}
+    // To run the eMMC bench test instead of the CAN gateway:
+    // return fake_main();
 
     auto duramax_result = DuramaxAo::create(dm_bus, DuramaxHooks{}, true);
     if (!duramax_result) {
@@ -231,8 +225,13 @@ int main(void)
         enable_periodic_checked(duramax_ep, tsc1, 10, "tsc1");
     }
 
-    DuramaxToReacherTranslator duramax_to_reacher{duramax_ep, reacher_ep};
-    ReacherToDuramaxTranslator reacher_to_duramax{reacher_ep, duramax_ep};
+    // Static storage duration is mandatory: each Translator owns two
+    // SnapshotReply-sized buffers (~14 KB for the Duramax direction). As
+    // function locals these overflowed the main stack; as function-local
+    // statics they live in .bss and are still constructed here, after the
+    // endpoints exist. -Wframe-larger-than guards against regression.
+    static DuramaxToReacherTranslator duramax_to_reacher{duramax_ep, reacher_ep};
+    static ReacherToDuramaxTranslator reacher_to_duramax{reacher_ep, duramax_ep};
 
     if (!duramax_to_reacher.valid() || !reacher_to_duramax.valid()) {
         printk("Translator invalid\n");
@@ -245,36 +244,46 @@ int main(void)
 
     gpio_pin_configure_dt(&led, GPIO_OUTPUT_ACTIVE);
     static uint8_t num = 0;
+    static uint8_t stats_div = 0;
 
     while (true) {
         duramax_to_reacher.step_once();
         reacher_to_duramax.step_once();
 
-        printk("D->R posted=%u val_fail=%u upd_fail=%u src_missing=%u snap_fail=%u\n",
-               duramax_to_reacher.updates_posted(),
-               duramax_to_reacher.validation_failures(),
-               duramax_to_reacher.update_failures(),
-               duramax_to_reacher.source_missing_count(),
-               duramax_to_reacher.snapshot_failures());
+        if (stats_div == 0) {
+            printk("D->R posted=%u val_fail=%u upd_fail=%u src_missing=%u snap_fail=%u\n",
+                   duramax_to_reacher.updates_posted(),
+                   duramax_to_reacher.validation_failures(),
+                   duramax_to_reacher.update_failures(),
+                   duramax_to_reacher.source_missing_count(),
+                   duramax_to_reacher.snapshot_failures());
 
-        printk("R->D posted=%u val_fail=%u upd_fail=%u src_missing=%u snap_fail=%u\n",
-               reacher_to_duramax.updates_posted(),
-               reacher_to_duramax.validation_failures(),
-               reacher_to_duramax.update_failures(),
-               reacher_to_duramax.source_missing_count(),
-               reacher_to_duramax.snapshot_failures());
+            printk("R->D posted=%u val_fail=%u upd_fail=%u src_missing=%u snap_fail=%u\n",
+                   reacher_to_duramax.updates_posted(),
+                   reacher_to_duramax.validation_failures(),
+                   reacher_to_duramax.update_failures(),
+                   reacher_to_duramax.source_missing_count(),
+                   reacher_to_duramax.snapshot_failures());
 
-        printk("duramax decode_failures=%u tx_build_failures=%u tx_encode_failures=%u\n",
-               duramax_ao->decode_failures(),
-               duramax_ao->tx_build_failures(),
-               duramax_ao->tx_encode_failures());
+            printk("duramax decode_fail=%u build_fail=%u encode_fail=%u val_fail=%u send_fail=%u sched_fail=%u\n",
+                   duramax_ao->decode_failures(),
+                   duramax_ao->tx_build_failures(),
+                   duramax_ao->tx_encode_failures(),
+                   duramax_ao->tx_validation_failures(),
+                   duramax_ao->tx_send_failures(),
+                   duramax_ao->tx_schedule_failures());
 
-        printk("reacher decode_failures=%u tx_build_failures=%u tx_encode_failures=%u\n",
-               reacher_ao->decode_failures(),
-               reacher_ao->tx_build_failures(),
-               reacher_ao->tx_encode_failures());
-        
-        if(num ==0){
+            printk("reacher decode_fail=%u build_fail=%u encode_fail=%u val_fail=%u send_fail=%u sched_fail=%u\n",
+                   reacher_ao->decode_failures(),
+                   reacher_ao->tx_build_failures(),
+                   reacher_ao->tx_encode_failures(),
+                   reacher_ao->tx_validation_failures(),
+                   reacher_ao->tx_send_failures(),
+                   reacher_ao->tx_schedule_failures());
+        }
+        stats_div = (stats_div + 1) % kStatsDivider;
+
+        if(num == 0){
             gpio_pin_toggle_dt(&led);
         }
         num = (num + 1) % 17;

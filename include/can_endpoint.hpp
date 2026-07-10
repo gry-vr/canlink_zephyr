@@ -3,7 +3,7 @@
 #include <zephyr/kernel.h>
 
 #include <cstdint>
-#include <optional>
+#include <expected>
 #include <utility>
 
 #include "can_commands.hpp"
@@ -12,6 +12,12 @@ namespace canfw {
 
 template <typename Db, typename Hooks>
 class CanActiveObject;
+
+enum class SnapshotError : std::uint8_t {
+    post_failed,  // command queue rejected the request
+    timed_out,    // no reply arrived within reply_timeout
+    stale,        // a reply arrived but was not marked valid
+};
 
 template <typename Db>
 class CanEndpoint {
@@ -95,21 +101,38 @@ public:
         return post(Command{cmd}, timeout);
     }
 
-    std::optional<SnapshotReply<Db>>
-    request_snapshot_blocking(k_msgq& reply_q,
-                              k_timeout_t post_timeout = K_NO_WAIT,
-                              k_timeout_t reply_timeout = K_MSEC(10)) const {
-        const int rc = request_snapshot(&reply_q, post_timeout);
-        if (rc != 0) {
-            return std::nullopt;
+    // Blocking snapshot read into caller-owned storage.
+    //
+    // The SnapshotReply is ~7 KB for the larger database, so this API never
+    // creates one: the reply lands directly in `out` (typically a long-lived
+    // member of the caller, e.g. Translator::snapshot_buf_), and the only
+    // per-call cost is the k_msgq memcpy.
+    //
+    // The reply queue is purged before posting so that a reply from a
+    // previously timed-out request cannot be mistaken for this one -- without
+    // the purge, one timeout would leave every subsequent read one snapshot
+    // behind, permanently.
+    [[nodiscard]] auto request_snapshot_into(k_msgq& reply_q,
+                                             SnapshotReply<Db>& out,
+                                             k_timeout_t post_timeout = K_NO_WAIT,
+                                             k_timeout_t reply_timeout = K_MSEC(10)) const
+        -> std::expected<void, SnapshotError>
+    {
+        k_msgq_purge(&reply_q);
+
+        if (request_snapshot(&reply_q, post_timeout) != 0) {
+            return std::unexpected{SnapshotError::post_failed};
         }
 
-        SnapshotReply<Db> reply{};
-        if (k_msgq_get(&reply_q, &reply, reply_timeout) != 0) {
-            return std::nullopt;
+        if (k_msgq_get(&reply_q, &out, reply_timeout) != 0) {
+            return std::unexpected{SnapshotError::timed_out};
         }
 
-        return reply;
+        if (!out.valid) {
+            return std::unexpected{SnapshotError::stale};
+        }
+
+        return {};
     }
 
 private:

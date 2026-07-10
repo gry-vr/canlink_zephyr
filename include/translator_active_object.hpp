@@ -4,7 +4,6 @@
 
 #include <array>
 #include <cstdint>
-#include <optional>
 #include <tuple>
 #include <type_traits>
 #include <utility>
@@ -25,6 +24,10 @@ public:
     using SrcSnapshot = canfw::SnapshotReply<SrcDb>;
     using Table = typename TranslationTable::type;
 
+    // The snapshot crosses the reply k_msgq by memcpy.
+    static_assert(std::is_trivially_copyable_v<SrcSnapshot>,
+                  "SnapshotReply crosses k_msgq by memcpy and must stay trivially copyable");
+
     Translator(SrcEndpoint src_in,
                DstEndpoint dst_out)
         : src_in_{src_in},
@@ -40,14 +43,18 @@ public:
         return src_in_.valid() && dst_out_.valid();
     }
 
+    // NOTE: a Translator instance owns two SrcSnapshot-sized buffers
+    // (the reply queue ring and snapshot_buf_), ~14 KB total for the larger
+    // database. Instances must have static storage duration -- never a
+    // function local. -Wframe-larger-than enforces this at build time.
     void step_once() {
-        auto maybe = src_in_.request_snapshot_blocking(src_reply_q_);
-        if (!maybe || !maybe->valid) {
+        const auto got = src_in_.request_snapshot_into(src_reply_q_, snapshot_buf_);
+        if (!got) {
             ++snapshot_failures_;
             return;
         }
 
-        apply_all(*maybe);
+        apply_all(snapshot_buf_);
     }
 
     [[nodiscard]] std::uint32_t snapshot_failures() const {
@@ -117,6 +124,10 @@ private:
 
     k_msgq src_reply_q_{};
     alignas(SrcSnapshot) std::array<SrcSnapshot, 1> src_reply_storage_{};
+
+    // Caller-owned landing zone for request_snapshot_into: the reply is
+    // memcpy'd here by k_msgq_get, so no SrcSnapshot ever exists on a stack.
+    SrcSnapshot snapshot_buf_{};
 
     std::uint32_t snapshot_failures_{0};
     std::uint32_t source_missing_count_{0};
