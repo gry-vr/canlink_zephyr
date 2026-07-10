@@ -7,10 +7,33 @@
 #include "can_endpoint.hpp"
 #include "tx_schedule.hpp"
 
+// Lightweight TX-path trace, fully compile-time gated. Build with
+// -DCANFW_TX_TRACE=1 to emit one printk line per scheduler decision, send
+// attempt, and wait choice -- enough to prove on-bus periodicity end to end:
+//
+//   TX_WAIT  now=123440 wait_ms=10 rx=0 cmd=0
+//   TX_SCHED now=123450 id=0x0C000031 due=yes next_due=123450 period=10
+//   TX_SEND  now=123450 id=0x0C000031 rc=0
+//   TX_DROP  now=123450 id=0x0C000031 stage=validate signal=115 err=1
+//
+// Default off: the macro expands to nothing, so the hot path carries zero
+// cost and no printk. Do not enable on target builds that are timing-
+// sensitive; it is intended for native_sim bring-up.
+#ifndef CANFW_TX_TRACE
+#define CANFW_TX_TRACE 0
+#endif
+#if CANFW_TX_TRACE
+#include <zephyr/sys/printk.h>
+#define CANFW_TX_TRACE_LOG(...) printk(__VA_ARGS__)
+#else
+#define CANFW_TX_TRACE_LOG(...) ((void)0)
+#endif
+
 #include <array>
 #include <atomic>
 #include <cstdint>
 #include <expected>
+#include <optional>
 #include <type_traits>
 #include <utility>
 #include <variant>
@@ -158,6 +181,12 @@ public:
     [[nodiscard]] std::uint32_t tx_validation_failures() const {
         return tx_validation_failures_.load(std::memory_order_relaxed);
     }
+    // Frames accepted by can_send (queued to a TX mailbox). Compare against
+    // grid expectations to spot silent drops: for a lone 10 ms message this
+    // should advance by ~100/s.
+    [[nodiscard]] std::uint32_t tx_frames_sent() const {
+        return tx_frames_sent_.load(std::memory_order_relaxed);
+    }
     [[nodiscard]] std::uint32_t tx_send_failures() const {
         return tx_send_failures_.load(std::memory_order_relaxed);
     }
@@ -176,7 +205,8 @@ public:
     void run_forever() {
         while (true) {
             const std::uint32_t now_ms = k_uptime_get_32();
-            const k_timeout_t timeout = time_until_next_due_tx(now_ms);
+            const auto wait_ms = next_due_wait_ms(now_ms);
+            const k_timeout_t timeout = wait_ms.has_value() ? K_MSEC(*wait_ms) : K_FOREVER;
 
             for (auto& ev : events_) {
                 ev.state = K_POLL_STATE_NOT_READY;
@@ -185,12 +215,18 @@ public:
             const int rc = k_poll(events_.data(), events_.size(), timeout);
 
             const std::uint32_t wake_ms = k_uptime_get_32();
+            const bool rx_ready  = events_[0].state == K_POLL_STATE_MSGQ_DATA_AVAILABLE;
+            const bool cmd_ready = events_[1].state == K_POLL_STATE_MSGQ_DATA_AVAILABLE;
+
+            CANFW_TX_TRACE_LOG("TX_WAIT now=%u wait_ms=%d rx=%d cmd=%d\n",
+                               now_ms, wait_ms.has_value() ? (int)*wait_ms : -1,
+                               (int)rx_ready, (int)cmd_ready);
 
             if (rc == 0) {
-                if (events_[0].state == K_POLL_STATE_MSGQ_DATA_AVAILABLE) {
+                if (rx_ready) {
                     drain_rx(wake_ms);
                 }
-                if (events_[1].state == K_POLL_STATE_MSGQ_DATA_AVAILABLE) {
+                if (cmd_ready) {
                     drain_tx_commands(wake_ms);
                 }
             }
@@ -276,9 +312,10 @@ private:
         return filter;
     }
 
-    k_timeout_t time_until_next_due_tx(std::uint32_t now_ms) const {
-        bool found = false;
-        std::uint32_t min_wait_ms = 0U;
+    // Milliseconds until the earliest enabled slot is due; nullopt when no
+    // periodic TX is active (poll forever on commands/RX alone).
+    std::optional<std::uint32_t> next_due_wait_ms(std::uint32_t now_ms) const {
+        std::optional<std::uint32_t> min_wait_ms{};
 
         for (std::size_t i = 0; i < tx_scheduler_.active_count; ++i) {
             const auto id = tx_scheduler_.active_ids[i];
@@ -290,13 +327,12 @@ private:
 
             const std::uint32_t wait_ms = slot.until_due_ms(now_ms);
 
-            if (!found || wait_ms < min_wait_ms) {
-                found = true;
+            if (!min_wait_ms.has_value() || wait_ms < *min_wait_ms) {
                 min_wait_ms = wait_ms;
             }
         }
 
-        return found ? K_MSEC(min_wait_ms) : K_FOREVER;
+        return min_wait_ms;
     }
 
     void drain_rx(std::uint32_t now_ms) {
@@ -413,6 +449,10 @@ private:
                 continue;
             }
 
+            CANFW_TX_TRACE_LOG("TX_SCHED now=%u id=0x%08X due=yes next_due=%u period=%u\n",
+                               now_ms, Db::message_meta(id).frame_id,
+                               slot.next_due_ms, slot.period_ms);
+
             (void)send_one(id, now_ms);  // failure classes counted inside
 
             slot.advance_after_send(now_ms);
@@ -443,6 +483,11 @@ private:
                 if (auto validated = Db::validate_message(msg); !validated) {
                     tx_validation_failures_.fetch_add(1, std::memory_order_relaxed);
                     last_validation_issue_ = validated.error();
+                    CANFW_TX_TRACE_LOG(
+                        "TX_DROP now=%u id=0x%08X stage=validate signal=%u err=%u\n",
+                        now_ms, meta.frame_id,
+                        static_cast<unsigned>(Db::to_index(validated.error().signal_id)),
+                        static_cast<unsigned>(validated.error().error));
                     return std::unexpected{SendError::validation_failed};
                 }
 
@@ -470,11 +515,14 @@ private:
         // tx_done_callback_.
         const int rc = can_send(can_bus_, &frame, K_NO_WAIT,
                                 &CanActiveObject::tx_done_callback_, this);
+        CANFW_TX_TRACE_LOG("TX_SEND now=%u id=0x%08X rc=%d\n",
+                           now_ms, frame.id, rc);
         if (rc != 0) {
             tx_send_failures_.fetch_add(1, std::memory_order_relaxed);
             return std::unexpected{SendError::tx_rejected};
         }
 
+        tx_frames_sent_.fetch_add(1, std::memory_order_relaxed);
         return {};
     }
 
@@ -510,6 +558,7 @@ private:
     // the TX-done ISR) and read by other threads for stats. Relaxed atomics
     // make those cross-context accesses well-defined; they impose no
     // ordering, which is all a monotonic counter needs.
+    std::atomic<std::uint32_t> tx_frames_sent_{0};
     std::atomic<std::uint32_t> decode_failures_{0};
     std::atomic<std::uint32_t> tx_build_failures_{0};
     std::atomic<std::uint32_t> tx_encode_failures_{0};

@@ -176,21 +176,32 @@ int main(void)
         return -1;
     }
 
-    // Seed periodic Reacher export messages
+    // Seed periodic Reacher export messages.
+    //
+    // The k_sleep between enables is deliberate phase staggering: a freshly
+    // enabled message is due immediately, and the fixed-rate scheduler then
+    // holds that phase forever. Enabling all four in one command batch put
+    // them on the SAME 50 ms phase, so every cycle they hit can_send at the
+    // same instant -- with K_NO_WAIT mailbox acquisition, only the first
+    // wins and the rest count as tx_send_failures (observed ~50/s on
+    // native_sim). A few ms of offset spreads the grid points apart for good.
     {
         reacher::Export0 export0{};
         export0.eng_speed = 0;
         export0.actual_throttle = 0.0;
         export0.manifold_press = 0;
         enable_periodic_checked(reacher_ep, export0, 50, "export0");
+        k_sleep(K_MSEC(3));
 
         reacher::Export3 export3{};
         export3.fuel_rail_pressure = 0;
         enable_periodic_checked(reacher_ep, export3, 50, "export3");
+        k_sleep(K_MSEC(3));
 
         reacher::Export8 export8{};
         export8.battery_bus_voltage = 0.0;
         enable_periodic_checked(reacher_ep, export8, 100, "export8");
+        k_sleep(K_MSEC(3));
 
         reacher::ExportB exportb{};
         exportb.coolant_temp = 50.0;
@@ -265,7 +276,8 @@ int main(void)
                    reacher_to_duramax.source_missing_count(),
                    reacher_to_duramax.snapshot_failures());
 
-            printk("duramax decode_fail=%u build_fail=%u encode_fail=%u val_fail=%u send_fail=%u sched_fail=%u\n",
+            printk("duramax sent=%u decode_fail=%u build_fail=%u encode_fail=%u val_fail=%u send_fail=%u sched_fail=%u\n",
+                   duramax_ao->tx_frames_sent(),
                    duramax_ao->decode_failures(),
                    duramax_ao->tx_build_failures(),
                    duramax_ao->tx_encode_failures(),
@@ -273,7 +285,8 @@ int main(void)
                    duramax_ao->tx_send_failures(),
                    duramax_ao->tx_schedule_failures());
 
-            printk("reacher decode_fail=%u build_fail=%u encode_fail=%u val_fail=%u send_fail=%u sched_fail=%u\n",
+            printk("reacher sent=%u decode_fail=%u build_fail=%u encode_fail=%u val_fail=%u send_fail=%u sched_fail=%u\n",
+                   reacher_ao->tx_frames_sent(),
                    reacher_ao->decode_failures(),
                    reacher_ao->tx_build_failures(),
                    reacher_ao->tx_encode_failures(),

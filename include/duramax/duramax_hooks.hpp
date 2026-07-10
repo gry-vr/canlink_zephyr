@@ -60,6 +60,23 @@ struct DuramaxHooks {
 
     // GM TSC1 rolling counter + checksum.
     //
+    // The counter wrap is derived from the generated DBC metadata rather
+    // than hardcoded: the signal occupies a 4-bit field, but the DBC
+    // declares maximum = 7, and validate_message() enforces that. A
+    // hardcoded "% 16" here put counters 8..15 on the wire attempt, every
+    // one of which validation rejected -- producing the 8-frames-then-90-ms
+    // burst pattern on the bus. Deriving the modulus from signal_traits
+    // makes the hook and the validator agree by construction: if the DBC
+    // changes, both move together.
+    using Tsc1CounterTraits =
+        duramax::signal_traits<duramax::SignalId::tsc1_31__messagecounter>;
+    static_assert(Tsc1CounterTraits::has_maximum,
+                  "TSC1 MessageCounter must declare a DBC maximum to derive its wrap");
+    static constexpr std::uint8_t kTsc1CounterWrap =
+        static_cast<std::uint8_t>(Tsc1CounterTraits::maximum) + 1U;  // today: 8
+    static_assert(kTsc1CounterWrap > 0U && kTsc1CounterWrap <= 16U,
+                  "TSC1 MessageCounter wrap must fit its 4-bit field");
+
     // The checksum covers data bytes 0..6 plus the new counter (ARC) plus
     // the four CAN ID bytes; counter and checksum both live in byte 7,
     // which the sum correctly excludes. send_one() runs this hook BEFORE
@@ -102,7 +119,7 @@ struct DuramaxHooks {
                                             encoded_msg.data(),
                                             tsc1_counter_);
 
-        tsc1_counter_ = (tsc1_counter_ + 1) % 16;
+        tsc1_counter_ = static_cast<std::uint8_t>((tsc1_counter_ + 1U) % kTsc1CounterWrap);
     }
 
 private:
