@@ -106,7 +106,7 @@ zephyr_udc0: &usbotg_hs {
 &sdmmc2 {
     status = "okay";
     pinctrl-0 = <&sdmmc2_ck_pd6
-                 &sdmmc2_cmd_pd7
+                 &sdmmc2_cmd_pd7 
                  &sdmmc2_d0_pg9
                  &sdmmc2_d1_pg10
                  &sdmmc2_d2_pg11
@@ -118,24 +118,18 @@ zephyr_udc0: &usbotg_hs {
     pinctrl-names = "default";
 
     bus-width = <8>;
-    clk-div = <4>;
+    clk-div = <10>;
 
     disk-name = "KINGSTON";
 
-
-    emmc-disk {
-        compatible = "zephyr,sdmmc-disk";
-        status = "okay";
-        disk-name = "KINGSTON";
-
-    };
 };
 
 &pinctrl{
-    can3_rx_pa8: can3_rx_pa8 { pinmux = <STM32_PINMUX('A',8,AF11)>; bias-disable; };
+
+    can3_rx_pa8:  can3_rx_pa8  { pinmux = <STM32_PINMUX('A',8,AF11)>;    bias-disable; };
     can3_tx_pa15: can3_tx_pa15 { pinmux = <STM32_PINMUX('A', 15, AF11)>; bias-disable; };
 
-    can1_tx_pa12: can1_tx_pa12 { pinmux = <STM32_PINMUX('A', 12, AF9)>; bias-disable; };
+    can1_tx_pa12: can1_tx_pa12 { pinmux = <STM32_PINMUX('A', 12, AF9)>;  bias-disable; };
 
     sdmmc2_ck_pd6: sdmmc2_ck_pd6 {
         pinmux = <STM32_PINMUX('D', 6, AF11)>;
@@ -166,7 +160,7 @@ zephyr_udc0: &usbotg_hs {
     };
 
     sdmmc2_d2_pg11: sdmmc2_d2_pg11 {
-        pinmux = <STM32_PINMUX('G', 11, AF11)>;
+        pinmux = <STM32_PINMUX('G', 11, AF10)>;
         bias-pull-up;
         drive-push-pull;
         slew-rate = "very-high-speed";

@@ -60,6 +60,9 @@ public:
 
         s.enabled = false;
 
+        // TODO :: check on the validity of this action
+        // after doing the swap we would need to go down the  rest
+        // of the array and shift all the stuff over. 
         for (std::size_t i = 0; i < active_count; ++i) {
             if (active_ids[i] == id) {
                 active_ids[i] = active_ids[active_count - 1];
@@ -139,6 +142,8 @@ public:
     static constexpr std::size_t TxQueueDepth = 16;
     static constexpr std::size_t ThreadStackSize = 8192;
     static constexpr int ThreadPriority = 5;
+
+    Snapshot snapshot_scratch_{};
 
     static auto create(const device* can_device, Hooks hooks = {}, bool extended_id = false)
         -> std::expected<CanActiveObject*, InitError>
@@ -365,12 +370,11 @@ private:
             return;
         }
 
-        Snapshot reply{};
-        reply.store = rx_store_;
-        reply.valid = true;
-        reply.timestamp_ms = now_ms;
+        snapshot_scratch.store = rx_store_;
+        snapshot_scratch.valid = true;
+        snapshot_scratch_.timestamp_ms = now_ms;
 
-        (void)k_msgq_put(cmd.reply_q, &reply, K_NO_WAIT);
+        (void)k_msgq_put(cmd.reply_q, &snapshot_scratch_, K_NO_WAIT);
     }
 
     void handle_message_policy(MessageId id,

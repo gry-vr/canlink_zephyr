@@ -4,13 +4,14 @@
 #include <zephyr/sys/printk.h>
 #include <zephyr/drivers/gpio.h>
 #include <zephyr/drivers/uart.h>
+#include <zephyr/drivers/disk.h>
 
 #include <zephyr/storage/disk_access.h>
 
-#include <zephyr/usb/usb_device.h>
 
 #include <tuple>
 #include <utility>
+#include <string.h>
 
 #include "can_active_object.hpp"
 #include "can_endpoint.hpp"
@@ -67,10 +68,13 @@ void enable_periodic_checked(const Endpoint& ep,
 }
 
 } // namespace
+
+
 int fake_main(){
+    static int counter = 0;
     const char *disk = "KINGSTON";
 
-    int rc = disk_access_init(disk);
+    int rc = disk_access_ioctl(disk, DISK_IOCTL_CTRL_INIT, NULL);
     printk("disk_access_init(%s) = %d\n", disk, rc);
 
     uint32_t sector_count = 0;
@@ -82,20 +86,76 @@ int fake_main(){
     rc = disk_access_ioctl(disk, DISK_IOCTL_GET_SECTOR_SIZE, &sector_size);
     printk("sector_size rc=%d size=%u\n", rc, sector_size);
 
+
+    __aligned(32) static uint8_t write_buf[512];
+    __aligned(32) static uint8_t read_buf[512];
+
+    if (sector_size > sizeof(write_buf)){
+        printk("Sector size too large for test buffer\n");
+        return -1;
+    }
+
+    memset(write_buf, 0x00, sizeof(write_buf));
+    memset(read_buf, 0x00, sizeof(read_buf));
+
+    const char *msg = "CANLINK EMMC TEST V1";
+
+    memcpy(write_buf, msg, strlen(msg) + 1);
+
+    uint32_t test_sector = 128;
+    // rc = disk_access_write(disk, write_buf, test_sector, 1);
+
+    // printk("WRITE rc=%d\n", rc);
+    // if (rc){
+    //     return rc;
+    // }
+
+    // rc = disk_access_ioctl(disk, DISK_IOCTL_CTRL_SYNC, NULL);
+    
+    // printk("SYNC rc=%d\n", rc);
+    // if(rc){
+    //     return rc;
+    // }
+
+    printk("about to READ\n");
+    rc = disk_access_read(disk, read_buf, test_sector, 1);
+
+    printk("READ rc=%d", rc);
+    if (rc){
+        return rc;
+    }
+
+    printk("READBACK: %s\n", read_buf);
+
     while (1) {
         k_sleep(K_SECONDS(1));
+        if (counter > 5){
+            printk("stuck in the loop!\n");
+        }
+        counter = (counter + 1) % 6;
     }
 
 }
+
+
+
 int main(void)
 {
-    fake_main();
+    //usb_fake_main();
+    
     const struct device *const dev = DEVICE_DT_GET(DT_CHOSEN(zephyr_console));
-    int ret = usb_enable(NULL);
-    if (ret != 0){
-        printk("you are dum");
+    if (!device_is_ready(dev)){
+        printk("you are dum\n");
+        return -1;
     }
     k_sleep(K_SECONDS(1));
+    int return_code = fake_main();
+    while (1){
+        printk("we got: %d\n", return_code);
+        k_sleep(K_SECONDS(1));
+
+    }
+
 
     //}
 
