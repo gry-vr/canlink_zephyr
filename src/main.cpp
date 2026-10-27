@@ -6,11 +6,15 @@
 #include <zephyr/drivers/uart.h>
 #include <zephyr/drivers/disk.h>
 
+#include <zephyr/usb/usb_device.h>
+
 #include <zephyr/storage/disk_access.h>
 
 #include <tuple>
 #include <utility>
 #include <string.h>
+
+#include <zephyr/app_version.h>
 
 #include "can_active_object.hpp"
 #include "can_endpoint.hpp"
@@ -100,14 +104,25 @@ int fake_main(){
         return -1;
     }
 
+    // returned a value that indicates this ioctl command returned no useful data...
+    // fudge...
+    uint32_t erase_block_size = 0;
+    rc = disk_access_ioctl(disk, DISK_IOCTL_GET_ERASE_BLOCK_SZ, &erase_block_size);
+    printk("erase block size rc=%d, size=%u\n", rc, erase_block_size);
+
+
+    uint32_t id = 0;
+    rc = disk_access_ioctl(disk, DISK_IOCTL_GET_CARD_CID, &id);
+    printk("disk cid:: rc=%d, id=%u\n", rc, id);
+
     memset(write_buf, 0x00, sizeof(write_buf));
     memset(read_buf, 0x00, sizeof(read_buf));
 
-    const char *msg = "CANLINK EMMC TEST V1";
+    // const char *msg = "CANLINK EMMC TEST V1";
 
-    memcpy(write_buf, msg, strlen(msg) + 1);
+    // memcpy(write_buf, msg, strlen(msg) + 1);
 
-    uint32_t test_sector = 128;
+     uint32_t test_sector = 128;
     // rc = disk_access_write(disk, write_buf, test_sector, 1);
 
     // printk("WRITE rc=%d\n", rc);
@@ -115,12 +130,12 @@ int fake_main(){
     //     return rc;
     // }
 
-    // rc = disk_access_ioctl(disk, DISK_IOCTL_CTRL_SYNC, NULL);
+    rc = disk_access_ioctl(disk, DISK_IOCTL_CTRL_SYNC, NULL);
 
-    // printk("SYNC rc=%d\n", rc);
-    // if(rc){
-    //     return rc;
-    // }
+    printk("SYNC rc=%d\n", rc);
+    if(rc){
+        return rc;
+    }
 
     printk("about to READ\n");
     rc = disk_access_read(disk, read_buf, test_sector, 1);
@@ -148,10 +163,21 @@ int main(void)
         printk("console not ready\n");
         return -1;
     }
+
+    // DISABLED SECTION DUE TO KCONFIG 
+    // CONFIG_USB_DEVICE_INITIALIZE_AT_BOOT=y
+    // int ret = usb_enable(NULL);
+
+    // if (ret != 0){
+    //     printk("usb_enable failed: %d\n", ret);
+    //     return -1;
+    // }
+
+
     k_sleep(K_SECONDS(1));
 
     // To run the eMMC bench test instead of the CAN gateway:
-    // return fake_main();
+    //return fake_main();
 
     auto duramax_result = DuramaxAo::create(dm_bus, DuramaxHooks{}, true);
     if (!duramax_result) {

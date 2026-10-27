@@ -33,9 +33,9 @@ struct DuramaxHooks {
         constexpr auto rpm_sid =
             duramax::SignalId::eec1_electronic_engine_control_1__engine_speed;
 
-        if (auto rpm = rx_store.template get<rpm_sid>(); rpm) {
-            printk("RPM = %d @ %u ms\n", static_cast<int>(*rpm), now_ms);
-        }
+        //if (auto rpm = rx_store.template get<rpm_sid>(); rpm) {
+        //    printk("RPM = %d @ %u ms\n", static_cast<int>(*rpm), now_ms);
+        //}
     }
 
     void on_rx_message(const duramax::Et1EngineTemperature1&,
@@ -50,9 +50,9 @@ struct DuramaxHooks {
         constexpr auto coolant_sid =
             duramax::SignalId::et1_engine_temperature_1__engcoolanttemp;
 
-        if (auto temp_c = rx_store.template get<coolant_sid>(); temp_c) {
-            printk("Coolant = %d C @ %u ms\n", static_cast<int>(*temp_c), now_ms);
-        }
+        //if (auto temp_c = rx_store.template get<coolant_sid>(); temp_c) {
+        //    printk("Coolant = %d C @ %u ms\n", static_cast<int>(*temp_c), now_ms);
+        //}
     }
 
     template <typename Msg, typename Store>

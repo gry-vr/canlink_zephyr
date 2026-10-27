@@ -100,6 +100,7 @@ zephyr_udc0: &usbotg_hs {
 
 	cdc_acm_uart0: cdc_acm_uart0 {
 		compatible = "zephyr,cdc-acm-uart";
+        label = "CDC_ACM_0";
 	};
 };
 
@@ -118,7 +119,7 @@ zephyr_udc0: &usbotg_hs {
     pinctrl-names = "default";
 
     bus-width = <8>;
-    clk-div = <10>;
+    clk-div = <8>;
 
     disk-name = "KINGSTON";
 
