@@ -1,0 +1,830 @@
+VERSION ""
+
+NS_ :
+	NS_DESC_
+	CM_
+	BA_DEF_
+	BA_
+	VAL_
+	CAT_DEF_
+	CAT_
+	FILTER
+	BA_DEF_DEF_
+	EV_DATA_
+	ENVVAR_DATA_
+	SGTYPE_
+	SGTYPE_VAL_
+	BA_DEF_SGTYPE_
+	BA_SGTYPE_
+	SIG_TYPE_REF_
+	VAL_TABLE_
+	SIG_GROUP_
+	SIG_VALTYPE_
+	SIGTYPE_VALTYPE_
+	BO_TX_BU_
+	BA_DEF_REL_
+	BA_REL_
+	BA_DEF_DEF_REL_
+	BU_SG_REL_
+	BU_EV_REL_
+	BU_BO_REL_
+
+BS_:
+
+BU_: 
+VAL_TABLE_ Engine_Fuel_Control_Control_Mode 0 "Open Loop" 1 "Closed Loop" 2 "SAE Reserved" 3 "Not Available" ;
+VAL_TABLE_ Engine_VGT_Control_Mode 0 "Open Loop" 1 "Closed Loop" 2 "SAE Reserved" 3 "Not Available" ;
+VAL_TABLE_ EngStarterMode 15 "not available" 14 "error" 13 "error, legacy implementation only" 12 "starter inhibited" 11 "starter inhibited due to ignition key cycle required" 10 "starter inhibited due to active emissions control system condition" 9 "starter inhibited due to intake air shutoff valve being active" 8 "starter inhibited due to starter over-temp" 7 "starter inhibited due to active immobilizer" 6 "starter inhibited due to driveline engaged or other transmission inhibit" 5 "starter inhibited due to engine not ready for start" 4 "starter inhibited due to engine already running" 3 "start finished" 2 "starter active and engaged" 1 "starter active but not engaged" 0 "start not requested" ;
+VAL_TABLE_ ActlEngPrcntTorqueHighResolution 7 "+0.875%" 1 "+0.125%" 0 "+0.000%" ;
+VAL_TABLE_ SCRThermalManagementActive 3 "Don't care" 2 "Reserved" 1 "SCR Thermal Management is active" 0 "SCR Thermal Management is not active" ;
+VAL_TABLE_ DPFThermalManagementActive 3 "Don't care" 2 "Reserved" 1 "DPF Thermal Management is active" 0 "DPF Thermal Management is not active" ;
+VAL_TABLE_ MmntaryEngMaxPowerEnableFeedback 3 "don't care" 2 "reserved" 1 "supported" 0 "disabled" ;
+VAL_TABLE_ VhcleAccelerationRateLimitStatus 3 "Not available" 2 "Reserved" 1 "Limit active" 0 "Limit not active" ;
+VAL_TABLE_ AccelPedal2LowIdleSwitch 3 "Not available" 2 "Error" 1 "Accelerator pedal 2 in low idle condition" 0 "Accelerator pedal 2 not in low idle condition" ;
+VAL_TABLE_ RoadSpeedLimitStatus 3 "Not available" 2 "Error" 1 "Not Active" 0 "Active" ;
+VAL_TABLE_ AccelPedalKickdownSwitch 3 "Not available" 2 "Error" 1 "Kickdown active" 0 "Kickdown passive" ;
+VAL_TABLE_ AccelPedal1LowIdleSwitch 3 "Not available" 2 "Error" 1 "Accelerator pedal 1 in low idle condition" 0 "Accelerator pedal 1 not in low idle condition" ;
+VAL_TABLE_ AFT2ExhDewPoint 3 "Not available" 2 "Error" 1 "Exceeded the dew point" 0 "Not exceeded the dew point" ;
+VAL_TABLE_ AFT2InDewPoint 3 "Not available" 2 "Error" 1 "Exceeded the dew point" 0 "Not exceeded the dew point" ;
+VAL_TABLE_ AFT1ExhDewPoint 3 "Not available" 2 "Error" 1 "Exceeded the dew point" 0 "Not exceeded the dew point" ;
+VAL_TABLE_ AFT1InDewPoint 3 "Not available" 2 "Error" 1 "Exceeded the dew point" 0 "Not exceeded the dew point" ;
+VAL_TABLE_ ConnectionAbortReason 255 "Not available" 254 "Error indicator" 250 "Connection Abort reason is not listed" 9 "Total Message Size is greater than 1785 bytes" 8 "Duplicate sequence number (software cannot recover)" 7 "Bad sequence number (software cannot recover)" 6 "Unexpected data transfer packet" 5 "Maximum retransmit request limit reached" 4 "CTS messages received when data transfer is in progress." 3 "A timeout occurred and this is the connection abort to close the session." 2 "System resources were needed for another task so this connection managed session was terminated." 1 "Already in one or more connection managed sessions and cannot support another." ;
+VAL_TABLE_ PGNumber 255 "NotAvailable" ;
+VAL_TABLE_ ControlByte 255 "Abort" 32 "BAM" 19 "EoMA" 17 "CTS" 16 "RTS" ;
+VAL_TABLE_ FlashRedStopLamp 3 "Unavailable / Do Not Flash" 2 "Reserved" 1 "Fast Flash" 0 "Slow Flash" ;
+VAL_TABLE_ FlashProtectLamp 3 "Unavailable / Do Not Flash" 2 "Reserved" 1 "Fast Flash" 0 "Slow Flash" ;
+VAL_TABLE_ FlashMalfuncIndicatorLamp 3 "Unavailable / Do Not Flash" 2 "Class C DTC  " 1 "Fast Flash" 0 "Slow Flash" ;
+VAL_TABLE_ FlashAmberWarningLamp 3 "Unavailable / Do Not Flash" 2 "Reserved" 1 "Fast Flash" 0 "Slow Flash" ;
+VAL_TABLE_ MalfunctionIndicatorLampStatus 3 "Not available" 2 "Short MIL for WWH OBD" 1 "Lamp On" 0 "Lamp Off" ;
+VAL_TABLE_ AmberWarningLampStatus 3 "Not available" 2 "Reserved" 1 "Lamp On" 0 "Lamp Off" ;
+VAL_TABLE_ RedStopLampState 3 "Not available" 2 "Reserved" 1 "Lamp On" 0 "Lamp Off" ;
+VAL_TABLE_ ProtectLampStatus 3 "Not available" 2 "Reserved" 1 "Lamp On" 0 "Lamp Off" ;
+VAL_TABLE_ EngRequestedTorqueHighResolution 7 "+0.875%" 1 "+0.125%" 0 "+0.000%" ;
+VAL_TABLE_ TSC1CtrlPurpose 6 "P7 = Automated Driving System Input" 31 "P32 = Temporary Powertrain Control" 5 "P6 = Transient-Optimized Torque Limit" 4 "P5 = Engine Protection" 3 "P4 = Road Speed Governor" 2 "P3 = PTO Governor" 1 "P2 = Cruise Control" 0 "P1 = Accelerator Pedal/Operator Selection" ;
+VAL_TABLE_ TSC1TransRate 4 "100 ms transmission rate" 3 "250 ms transmission rate" 2 "500 ms transmission rate" 1 "750 ms transmission rate" 0 "1000 ms transmission rate" 7 "Use standard TSC1 transmission rates of 10 ms to engine" 6 "20 ms transmission rate" 5 "50 ms transmission rate" ;
+VAL_TABLE_ OverrideCtrlModePriority 3 "Low priority" 2 "Medium priority" 1 "High priority" 0 "Highest priority" ;
+VAL_TABLE_ EngRequestedSpeedCtrlConditions 3 "Stability Optimized for driveline engaged and/or in lockup condition 2" 2 "Stability Optimized for driveline engaged and/or in lockup condition 1" 1 "Stability Optimized for driveline disengaged and non-lockup conditions" 0 "Transient Optimized for driveline disengaged and non-lockup conditions" ;
+VAL_TABLE_ EngOverrideCtrlMode 3 "Speed/torque limit control" 2 "Torque control" 1 "Speed control" 0 "Override disabled" ;
+VAL_TABLE_ EngRequestedTorqueHighResolution 7 "+0.875%" 1 "+0.125%" 0 "+0.000%" ;
+VAL_TABLE_ TSC1CtrlPurpose 6 "P7 = Automated Driving System Input" 31 "P32 = Temporary Powertrain Control" 5 "P6 = Transient-Optimized Torque Limit" 4 "P5 = Engine Protection" 3 "P4 = Road Speed Governor" 2 "P3 = PTO Governor" 1 "P2 = Cruise Control" 0 "P1 = Accelerator Pedal/Operator Selection" ;
+VAL_TABLE_ TSC1TransRate 4 "100 ms transmission rate" 3 "250 ms transmission rate" 2 "500 ms transmission rate" 1 "750 ms transmission rate" 0 "1000 ms transmission rate" 7 "Use standard TSC1 transmission rates of 10 ms to engine" 6 "20 ms transmission rate" 5 "50 ms transmission rate" ;
+VAL_TABLE_ OverrideCtrlModePriority 3 "Low priority" 2 "Medium priority" 1 "High priority" 0 "Highest priority" ;
+VAL_TABLE_ EngRequestedSpeedCtrlConditions 3 "Stability Optimized for driveline engaged and/or in lockup condition 2" 2 "Stability Optimized for driveline engaged and/or in lockup condition 1" 1 "Stability Optimized for driveline disengaged and non-lockup conditions" 0 "Transient Optimized for driveline disengaged and non-lockup conditions" ;
+VAL_TABLE_ EngOverrideCtrlMode 3 "Speed/torque limit control" 2 "Torque control" 1 "Speed control" 0 "Override disabled" ;
+VAL_TABLE_ EngRequestedTorqueHighResolution 7 "+0.875%" 1 "+0.125%" 0 "+0.000%" ;
+VAL_TABLE_ TSC1CtrlPurpose 6 "P7 = Automated Driving System Input" 31 "P32 = Temporary Powertrain Control" 5 "P6 = Transient-Optimized Torque Limit" 4 "P5 = Engine Protection" 3 "P4 = Road Speed Governor" 2 "P3 = PTO Governor" 1 "P2 = Cruise Control" 0 "P1 = Accelerator Pedal/Operator Selection" ;
+VAL_TABLE_ TSC1TransRate 4 "100 ms transmission rate" 3 "250 ms transmission rate" 2 "500 ms transmission rate" 1 "750 ms transmission rate" 0 "1000 ms transmission rate" 7 "Use standard TSC1 transmission rates of 10 ms to engine" 6 "20 ms transmission rate" 5 "50 ms transmission rate" ;
+VAL_TABLE_ OverrideCtrlModePriority 3 "Low priority" 2 "Medium priority" 1 "High priority" 0 "Highest priority" ;
+VAL_TABLE_ EngRequestedSpeedCtrlConditions 3 "Stability Optimized for driveline engaged and/or in lockup condition 2" 2 "Stability Optimized for driveline engaged and/or in lockup condition 1" 1 "Stability Optimized for driveline disengaged and non-lockup conditions" 0 "Transient Optimized for driveline disengaged and non-lockup conditions" ;
+VAL_TABLE_ EngOverrideCtrlMode 3 "Speed/torque limit control" 2 "Torque control" 1 "Speed control" 0 "Override disabled" ;
+VAL_TABLE_ TestIdentifier 250 "Last Measured Scaled Results" 249 "Command Standard Test" 247 "All scaled test results" ;
+VAL_TABLE_ FailureModeIdentifier1 31 "Not available" 19 "Received network data in error" 18 "Below normal (moderately severe)" 17 "Below normal (least severe)" 16 "Above normal (moderately severe)" 15 "Above normal (least severe)" 14 "Special intstructions" 13 "Out of calibration" 12 "Bad intelligent device" 11 "Root cause not known" 10 "Abnormal rate of change" 9 "Abnormal update rate" 8 "Abnormal frequency" 7 "Mechanical system not responding" 6 "Current above normal" 5 "Current below normal" 4 "Voltage below normal" 3 "Voltage above normal" 2 "Data erratic" 1 "Below normal (most severe)" 0 "Above normal (most severe)" ;
+VAL_TABLE_ TestIdentifier 250 "Last Measured Scaled Results" 249 "Command Standard Test" 247 "All scaled test results" ;
+VAL_TABLE_ RetarderRoadSpeedExceededStatus 3 "Don't care/Take no action" 2 "Reserved" 1 "Road speed is above threshold and retarder is allowed to be activated" 0 "Road speed is below threshold" ;
+VAL_TABLE_ RetarderRoadSpeedLimitSwitch 3 "Not Available" 2 "Error Indicator" 1 "Road speed limiting by retarder is enabled" 0 "Road speed limiting by retarder is disabled" ;
+VAL_TABLE_ RetarderRequestingBrakeLight 0 "Retarder is not requesting that the brake lights are illuminated" 3 "Not available/Take no action" 2 "Reserved" 1 "Retarder is requesting that the brake lights are illuminated" ;
+VAL_TABLE_ EngCoolantLoadIncrease 3 "Not available" 2 "Error" 1 "Coolant load increase possible" 0 "No coolant load increase" ;
+VAL_TABLE_ RetarderEnableShiftAssistSwitch 3 "Not available" 2 "Error" 1 "Retarder, shift assist enabled" 0 "Retarder, shift assist disabled" ;
+VAL_TABLE_ RetarderEnableBrakeAssistSwitch 3 "Not available" 2 "Error" 1 "Retarder, brake assist enabled" 0 "Retarder, brake assist disabled" ;
+VAL_TABLE_ MomentaryEngMaxPowerEnable 3 "not available" 2 "fault" 1 "momentarily requesting maximum power available" 0 "not requesting maximum power available" ;
+VAL_TABLE_ ProgressiveShiftDisable 3 "Take no action" 2 "Reserved" 1 "Progressive shift is disabled" 0 "Progressive shift is not disabled" ;
+VAL_TABLE_ EngMomentaryOverspeedEnable 3 "Take no action" 2 "Reserved" 1 "Momentary engine overspeed is enabled" 0 "Momentary engine overspeed is disabled" ;
+VAL_TABLE_ TrnsTrqCnvrtrLckpTrnstnInProcess 3 "Not available" 2 "Error" 1 "Transition is in process" 0 "Transition is not in process" ;
+VAL_TABLE_ TransShiftInProcess 3 "Not available" 2 "Error" 1 "Shift in process" 0 "Shift is not in process" ;
+VAL_TABLE_ TrnsTorqueConverterLockupEngaged 3 "Not available" 2 "Error" 1 "Torque converter lockup engaged" 0 "Torque converter lockup disengaged" ;
+VAL_TABLE_ TransDrivelineEngaged 3 "Not available" 2 "Error" 1 "Driveline engaged" 0 "Driveline disengaged" ;
+VAL_TABLE_ DirStatus 3 "Not Available" 2 "Error" 1 "Reverse" 0 "Forward" ;
+VAL_TABLE_ TransferCaseStatus 7 "not available" 6 "error" 5 "Transfer Case Shift in Progress or gear not confirmed" 4 "4 wheel low" 3 "2 wheel low" 2 "neutral" 1 "4 wheel high" 0 "2 wheel high" ;
+VAL_TABLE_ TransOilLevel1MeasurementStatus 15 "Not available" 14 "Error" 13 "Conditions not valid, Other" 12 "Not defined" 11 "Not defined" 10 "Not defined" 9 "Conditions not valid, No request for reading" 8 "Conditions not valid, Engine speed too high" 7 "Conditions not valid, Engine speed too low" 6 "Conditions not valid, Vehicle not level" 5 "Conditions not valid, Vehicle moving" 4 "Conditions not valid, Transmission fluid temperature too high" 3 "Conditions not valid, Transmission fluid temperature too low" 2 "Conditions not valid, Transmission in gear" 1 "Conditions not valid, Settling timer still counting down" 0 "Conditions valid for transmission oil level measurement" ;
+VAL_TABLE_ TransOilLevel1CountdownTimer 15 "Not Available" 14 "Error" 13 "Thirteen minutes" 12 "Twelve minutes" 11 "Eleven minutes" 10 "Ten minutes" 9 "Nine minutes" 8 "Eight minutes" 7 "Seven minutes" 6 "Six minutes" 5 "Five minutes" 4 "Four minutes" 3 "Three minutes" 2 "Two minutes" 1 "One minute" 0 "less than 1 minute" ;
+VAL_TABLE_ PowertrainAdaptiveCCType 15 "Not Available" 14 "Reserved" 13 "Reserved" 12 "Reserved" 11 "Reserved" 10 "Reserved" 9 "Reserved" 8 "Reserved" 7 "Reserved" 6 "Reserved" 5 "Reserved" 4 "Reserved" 3 "Stop and Auto Go" 2 "Stop and Operator Go" 1 "Auto Resume" 0 "Controller does not support system based cruise control Pause/Resume" ;
+VAL_TABLE_ CtrlSetCmdSupport 3 "Not available" 2 "Error" 1 "System does support the 'Cruise Control Set Command' feature" 0 "System does not support the 'Cruise Control Set Command' feature" ;
+VAL_TABLE_ CtrlPauseCmdSupport 3 "Not available" 2 "Error" 1 "System does support the 'Cruise Control Pause Command' feature" 0 "System does not support the 'Cruise Control Pause Command' feature" ;
+VAL_TABLE_ CtrlResumeCmdSupport 3 "Not available" 2 "Error" 1 "System does support the 'Cruise Control Resume Command' feature" 0 "System does not support the 'Cruise Control Resume Command' feature" ;
+VAL_TABLE_ CtrlDisCmdSupport 3 "Not available" 2 "Reserved" 1 "System does support the 'Cruise Control Disable Command' feature" 0 "System does not support the 'Cruise Control Disable Command'" ;
+VAL_TABLE_ EngShutdownOverrideSwitch 3 "Not available" 2 "Error" 1 "On" 0 "Off" ;
+VAL_TABLE_ EngTestModeSwitch 3 "Not available" 2 "Error" 1 "On" 0 "Off" ;
+VAL_TABLE_ EngIdleDecrementSwitch 3 "Not available" 2 "Error" 1 "On" 0 "Off" ;
+VAL_TABLE_ EngIdleIncrementSwitch 3 "Not available" 2 "Error" 1 "On" 0 "Off" ;
+VAL_TABLE_ CruiseCtrlStates 7 "Not available" 6 "Accelerator Override" 5 "Set" 4 "Resume" 3 "Decelerate" 2 "Accelerate" 1 "Hold" 0 "Off/Disabled" ;
+VAL_TABLE_ PTOGovernorState 31 "Not available" 30 "Reseerved" 29 "Reserved" 28 "Reserved" 27 "Reserved" 26 "Reserved" 25 "Reserved" 24 "Reserved" 23 "Reserved" 22 "Reserved" 21 "Reserved" 20 "PTO set speed memory 3" 19 "PTO set speed memory 2" 18 "PTO set speed memory 1" 17 "Preprogrammed set speed 8" 16 "Preprogrammed set speed 7" 15 "Preprogrammed set speed 6" 14 "Preprogrammed set speed 5" 13 "Preprogrammed set speed 4" 12 "Preprogrammed set speed 3" 11 "Preprogrammed set speed 2" 10 "Preprogrammed set speed 1" 9 "Accelerator Override" 8 "Accelerate" 7 "Resume" 6 "Decelerate/Coast" 5 "Set" 4 "Remote Standby" 3 "Standby" 2 "Remote Hold" 1 "Hold" 0 "Off/Disabled" ;
+VAL_TABLE_ CruiseCtrlAccelerateSwitch 3 "Not available" 2 "Error" 1 "Cruise control activator in position 'accelerate'" 0 "Cruise control activator not in the position 'accelerate'" ;
+VAL_TABLE_ CruiseCtrlResumeSwitch 3 "Not available" 2 "Error" 1 "Cruise control activator in position 'resume'" 0 "Cruise control activator not in the position 'resume'" ;
+VAL_TABLE_ CruiseCtrlCoastSwitch 3 "Not available" 2 "Error" 1 "Cruise control activator in position 'coast'" 0 "Cruise control activator not in the position 'coast'" ;
+VAL_TABLE_ CruiseCtrlSetSwitch 3 "Not available" 2 "Error" 1 "Cruise control activator in position 'set'" 0 "Cruise control activator not in the position 'set'" ;
+VAL_TABLE_ ClutchSwitch 3 "Not available" 2 "Error" 1 "Clutch pedal depressed" 0 "Clutch pedal released" ;
+VAL_TABLE_ BrakeSwitch 3 "Not Available" 2 "Error" 1 "Brake pedal depressed" 0 "Brake pedal released" ;
+VAL_TABLE_ CruiseCtrlEnableSwitch 3 "Not available" 2 "Error" 1 "Cruise control enabled" 0 "Cruise control disabled" ;
+VAL_TABLE_ CruiseCtrlActive 3 "Not available" 2 "Error" 1 "Cruise control switched on" 0 "Cruise control switched off" ;
+VAL_TABLE_ ParkBrakeReleaseInhibitRq 3 "Unavailable" 2 "SAE reserved" 1 "Park Brake Release Inhibit requested" 0 "Park Brake Release Inhibit not requested" ;
+VAL_TABLE_ CruiseCtrlPauseSwitch 3 "Take No Action" 2 "Error Indicator" 1 "On" 0 "Off" ;
+VAL_TABLE_ ParkingBrakeSwitch 3 "Not available" 2 "Error" 1 "Parking brake set" 0 "Parking brake not set" ;
+VAL_TABLE_ TwoSpeedAxleSwitch 3 "Not available" 2 "Error" 1 "High speed range" 0 "Low speed range" ;
+VAL_TABLE_ RailroadModeSw 3 "Not available" 2 "Error" 1 "Railroad mode switch active" 0 "Railroad mode switch passive" ;
+VAL_TABLE_ TrctrMntdTrailerABSWarningSignal 3 "Take no action" 2 "Reserved" 1 "On" 0 "Off" ;
+VAL_TABLE_ TrailerABSStatus 3 "Trailer ABS Status Information Not Available or Parameter Not Supported" 2 "Reserved" 1 "Trailer ABS Active" 0 "Trailer ABS Status Information Available But Not Active" ;
+VAL_TABLE_ HaltBrakeSwitch 3 "Not available" 2 "Error" 1 "Halt brake switch active" 0 "Halt brake switch passive" ;
+VAL_TABLE_ ATC_ASRInformationSignal 3 "Take no action" 2 "Reserved" 1 "On" 0 "Off" ;
+VAL_TABLE_ ABS_EBSAmberWarningSignal 3 "Take no action" 2 "Reserved" 1 "On" 0 "Off" ;
+VAL_TABLE_ EBSRedWarningSignal 3 "Take no action" 2 "Reserved" 1 "On" 0 "Off" ;
+VAL_TABLE_ ABSFullyOperational 3 "Not available" 2 "Reserved" 1 "Fully Operational" 0 "Not Fully Operational" ;
+VAL_TABLE_ RemoteAccelEnableSwitch 3 "Not available" 2 "Error" 1 "On" 0 "Off" ;
+VAL_TABLE_ EngAuxShutdownSwitch 3 "Not available" 2 "Error" 1 "On" 0 "Off" ;
+VAL_TABLE_ EngDerateSwitch 3 "Not available" 2 "Error" 1 "On" 0 "Off" ;
+VAL_TABLE_ AccelInterlockSwitch 3 "Not available" 2 "Error" 1 "On" 0 "Off" ;
+VAL_TABLE_ TractionCtrlOverrideSwitch 3 "Not available or not installed" 2 "Error" 1 "On" 0 "Off" ;
+VAL_TABLE_ ASRHillHolderSwitch 3 "Not available" 2 "Error" 1 "ASR 'hill holder' switch active" 0 "ASR 'hill holder' switch passive" ;
+VAL_TABLE_ ASROffroadSwitch 3 "Not available" 2 "Error" 1 "ASR off-road switch active" 0 "ASR off-road switch passive" ;
+VAL_TABLE_ ABSOffroadSwitch 3 "Not available" 2 "Error" 1 "ABS off-road switch active" 0 "ABS off-road switch passive" ;
+VAL_TABLE_ EBSBrakeSwitch 3 "Not available" 2 "Error" 1 "Brake pedal is being pressed" 0 "Brake pedal is not being pressed" ;
+VAL_TABLE_ AntiLockBrakingActive 3 "Not available" 2 "Reserved" 1 "ABS active" 0 "ABS passive but installed" ;
+VAL_TABLE_ ASRBrakeCtrlActive 3 "Not available" 2 "Reserved" 1 "ASR brake control active" 0 "ASR brake control passive but installed" ;
+VAL_TABLE_ ASREngCtrlActive 3 "Not available" 2 "Reserved" 1 "ASR engine control active" 0 "ASR engine control passive but installed" ;
+VAL_TABLE_ EngOilPressSw 3 "Not Available" 2 "Error" 1 "Not OK" 0 "OK" ;
+VAL_TABLE_ ClntLvlEngPrtctionShutdownStatus 3 "Not Available" 2 "Reserved" 1 "Enabled" 0 "Disabled" ;
+VAL_TABLE_ PTOShutdownHasShutdownEng 3 "Not available" 2 "Error" 1 "Yes" 0 "No" ;
+VAL_TABLE_ EngAirShutoffStatus 2 "Error" 1 "Air flow restricted" 0 "Air flow allowed to engine" 3 "Not Available" ;
+VAL_TABLE_ EngOverspeedTest 3 "Not Available" 2 "Reserved" 1 "Engine Overspeed Test Active" 0 "Engine Overspeed Test Not Active" ;
+VAL_TABLE_ EngAirShutoffCmdStatus 3 "Not Available" 2 "Reserved" 1 "Air Shutoff Enabled" 0 "Air Shutoff Disabled" ;
+VAL_TABLE_ EngAlarmOutputCmdStatus 3 "Not Available" 2 "Reserved" 1 "Engine Alarm Output Command Active" 0 "Engine Alarm Output Command Not Active" ;
+VAL_TABLE_ EngAlarmAcknowledge 3 "Not Available" 2 "Error" 1 "Engine Alarm Acknowledge Active" 0 "Engine Alarm Acknowledge  Not Active" ;
+VAL_TABLE_ EngProtectionSystemConfig 3 "Not available" 2 "Error" 1 "Enabled in calibration" 0 "Disabled in calibration" ;
+VAL_TABLE_ EngProtectionSystemTimerState 3 "Not available" 2 "Error" 1 "Active" 0 "Inactive" ;
+VAL_TABLE_ EngProtectionSystemTimerOverride 3 "Not available" 2 "Error" 1 "Active" 0 "Inactive" ;
+VAL_TABLE_ EngPrtctnSystmApprachingShutdown 3 "Not available" 2 "Error" 1 "Approaching" 0 "Not approaching" ;
+VAL_TABLE_ EngPrtectionSystemHasShutdownEng 3 "Not available" 2 "Error" 1 "Yes" 0 "No" ;
+VAL_TABLE_ EngWaitToStartLamp 3 "Not available" 2 "Error" 1 "On" 0 "Off" ;
+VAL_TABLE_ RefrigerantHighPressSwitch 3 "Not available" 2 "Error" 1 "Pressure too high" 0 "Pressure normal" ;
+VAL_TABLE_ RefrigerantLowPressSwitch 3 "Not available" 2 "Error" 1 "Pressure too low" 0 "Pressure normal" ;
+VAL_TABLE_ A_CHighPressFanSwitch 3 "Not available" 2 "Error" 1 "Pressure high" 0 "Pressure normal" ;
+VAL_TABLE_ EngIdleShutdownTimerFunction 3 "Not available" 2 "Error" 1 "Enabled in calibration" 0 "Disabled in calibration" ;
+VAL_TABLE_ EngIdleShutdownTimerState 3 "Not available" 2 "Error" 1 "Active" 0 "Inactive" ;
+VAL_TABLE_ EngIdleShutdownTimerOverride 3 "Not available" 2 "Error" 1 "Active" 0 "Inactive" ;
+VAL_TABLE_ EngIdleShutdownDriverAlertMode 3 "Not available" 2 "Error" 1 "Active" 0 "Inactive" ;
+VAL_TABLE_ EngIdleShutdownHasShutdownEng 3 "Not available" 2 "Error" 1 "Yes" 0 "No" ;
+
+
+BO_ 2566771968 EEC5_Electronic_Engine_Control_5: 8 Vector__XXX
+ SG_ Actual_VGT_Position : 56|8@1+ (0.4,0) [0|100] "%" Vector__XXX
+ SG_ Engine_Variable_Geometry_Turboch : 48|2@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ Engine_Fuel_Control_Control_Mode : 50|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ Engine_VGT_Control_Mode : 52|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ Commanded_VGT_Position : 32|16@1+ (0.0025,0) [0|160.6375] "%" Vector__XXX
+ SG_ Engine_Turbocharger_1_Calculated : 0|16@1+ (0.03125,-273) [-273|1734.96875] "deg C" Vector__XXX
+
+BO_ 2432498944 EEC9_Electronic_Engine_Control_9: 8 Vector__XXX
+ SG_ Commanded_Engine_Fuel_Injection_ : 48|16@1+ (0.00390625,0) [0|250.996] "Mpa" Vector__XXX
+ SG_ Commanded_Fuel_Rail_Pressure : 32|16@1+ (0.00390625,0) [0|250.996] "Mpa" Vector__XXX
+ SG_ Engine_Exhaust_Gas_Recirculation : 0|16@1+ (0.0025,0) [0|160.6375] "%" Vector__XXX
+
+BO_ 2432492288 EBCC_Engine_Exhaust_Brake_Cont: 8 Vector__XXX
+ SG_ Desired_Engine_Turbocharger_2_Tu : 32|8@1+ (2,0) [0|500] "kPa" Vector__XXX
+ SG_ Engine_Turbocharger_2_Turbine_Ou : 24|8@1+ (2,0) [0|500] "kPa" Vector__XXX
+ SG_ Engine_Exhaust_Brake_Actuator_Co : 16|8@1+ (0.4,0) [0|100] "%" Vector__XXX
+ SG_ Desired_Boost_Pressure : 8|8@1+ (2,0) [0|500] "kPa" Vector__XXX
+ SG_ Actual_Boost_Pressure : 0|8@1+ (2,0) [0|500] "kPa" Vector__XXX
+
+BO_ 2566809856 ET3_Engine_Temperature_3: 8 Vector__XXX
+ SG_ Engine_CAC_Outlet_Temperature : 48|16@1+ (0.03125,-273) [-273|1734.96875] "deg C" Vector__XXX
+ SG_ Engine_Intake_Valve_Actuation_Sy : 32|16@1+ (0.03125,-273) [-273|1734.96875] "deg C" Vector__XXX
+ SG_ Engine_Coolant_Temperature__High : 16|16@1+ (0.03125,-273) [-273|1734.96875] "deg C" Vector__XXX
+ SG_ Engine_Intake_Manifold_1_Air_Tem : 0|16@1+ (0.03125,-273) [-273|1734.96875] "deg C" Vector__XXX
+
+BO_ 2562850560 DM21_Diagnostic_Readiness_2: 8 Vector__XXX
+ SG_ Engine_Run_Time_With_MIL_On : 32|16@1+ (1,0) [0|65535] "" Vector__XXX
+
+BO_ 2566764544 DM26_Diagnostic_Readiness_3: 8 Vector__XXX
+ SG_ Time_Since_Engine_Start : 0|16@1+ (1,0) [0|65535] "s" Vector__XXX
+
+BO_ 2566845952 IC1_Intake_Exhaust_Cond_1: 8 Vector__XXX
+ SG_ EngCoolantFilterDiffPress : 56|8@1+ (0.5,0) [0|125] "kPa" Vector__XXX
+ SG_ EngExhaustGasTemp : 40|16@1+ (0.03125,-273) [-273|1734.96875] "�C" Vector__XXX
+ SG_ EngAirFilter1DiffPress : 32|8@1+ (0.05,0) [0|12.5] "kPa" Vector__XXX
+ SG_ EngAirIntakePress : 24|8@1+ (2,0) [0|500] "kPa" Vector__XXX
+ SG_ EngIntakeManifold1Temp : 16|8@1+ (1,-40) [-40|210] "�C" Vector__XXX
+ SG_ EngIntakeManifold1Press : 8|8@1+ (2,0) [0|500] "kPa" Vector__XXX
+ SG_ AFT1DPFInPress : 0|8@1+ (0.5,0) [0|125] "kPa" Vector__XXX
+
+BO_ 2566845696 AMB_Ambient_Conditions: 8 Vector__XXX
+ SG_ RoadSurfaceTemp : 48|16@1+ (0.03125,-273) [-273|1734.96875] "�C" Vector__XXX
+ SG_ Engine_Air_Intake_Temperature : 40|8@1+ (1,-40) [-40|210] "�C" Vector__XXX
+ SG_ Ambient_Air_Temperature : 24|16@1+ (0.03125,-273) [-273|1734.96875] "�C" Vector__XXX
+ SG_ CabInteriorTemp : 8|16@1+ (0.03125,-273) [-273|1734.96875] "�C" Vector__XXX
+ SG_ Barometric_PressureBarometric_Pr : 0|8@1+ (0.5,0) [0|125] "kPa" Vector__XXX
+
+BO_ 2364539904 EEC1_Electronic_Engine_Control_1: 8 Vector__XXX
+ SG_ Engine_Demand_Percent_Torque : 56|8@1+ (1,-125) [-125|125] "%" Vector__XXX
+ SG_ EngStarterMode : 48|4@1+ (1,0) [0|15] "" Vector__XXX
+ SG_ SrcAddrssOfCntrllngDvcForEngCtrl : 40|8@1+ (1,0) [0|253] "" Vector__XXX
+ SG_ Engine_Speed : 24|16@1+ (0.125,0) [0|8031.875] "rpm" Vector__XXX
+ SG_ Actual_Engine_Percent_Torque : 16|8@1+ (1,-125) [0|125] "%" Vector__XXX
+ SG_ Drivers_Demand_Engine_Prcnt_Torq : 8|8@1+ (1,-125) [0|125] "%" Vector__XXX
+ SG_ ActlEngPrcntTorqueHighResolution : 4|4@1+ (0.125,0) [0|0.875] "%" Vector__XXX
+ SG_ Engine_Torque_Mode : 0|4@1+ (1,0) [0|15] "" Vector__XXX
+
+BO_ 2364539648 EEC2_Electronic_Engine_Control_2: 8 Vector__XXX
+ SG_ EstPumpingPercentTorque : 56|8@1+ (1,-125) [-125|125] "%" Vector__XXX
+ SG_ ActlMaxAvailableEngPercentTorque : 48|8@1+ (0.4,0) [0|100] "%" Vector__XXX
+ SG_ SCRThermalManagementActive : 46|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ DPFThermalManagementActive : 44|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ MmntaryEngMaxPowerEnableFeedback : 42|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ VhcleAccelerationRateLimitStatus : 40|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ AccelPedalPos2 : 32|8@1+ (0.4,0) [0|100] "%" Vector__XXX
+ SG_ RemoteAccelPedalPos : 24|8@1+ (0.4,0) [0|100] "%" Vector__XXX
+ SG_ EngPercentLoadAtCurrentSpeed : 16|8@1+ (1,0) [0|125] "%" Vector__XXX
+ SG_ AccelPedalPos1 : 8|8@1+ (0.4,0) [0|100] "%" Vector__XXX
+ SG_ AccelPedal2LowIdleSwitch : 6|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ RoadSpeedLimitStatus : 4|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ AccelPedalKickdownSwitch : 2|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ AccelPedal1LowIdleSwitch : 0|2@1+ (1,0) [0|3] "" Vector__XXX
+
+BO_ 2566840064 EEC3_Electronic_Engine_Control_3: 8 Vector__XXX
+ SG_ AFT2ExhDewPoint : 62|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ AFT2InDewPoint : 60|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ AFT1ExhDewPoint : 58|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ AFT1InDewPoint : 56|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ AFT1ExhGasMFR : 40|16@1+ (0.2,0) [0|12851] "kg/h" Vector__XXX
+ SG_ EstEngPrsiticLossesPercentTorque : 32|8@1+ (1,-125) [0|125] "%" Vector__XXX
+ SG_ EngnsDsrdOprtngSpdAsymmtryAdjstm : 24|8@1+ (1,0) [0|250] "" Vector__XXX
+ SG_ EnginesDesiredOperatingSpeed : 8|16@1+ (0.125,0) [0|8031.875] "rpm" Vector__XXX
+ SG_ NominalFrictionPercentTorque : 0|8@1+ (1,-125) [-125|125] "%" Vector__XXX
+
+BO_ 2566844160 EFL_P1_Eng_Fluid_Level_Press_1: 8 Vector__XXX
+ SG_ EngCoolantLevel : 56|8@1+ (0.4,0) [0|100] "%" Vector__XXX
+ SG_ EngCoolantPress : 48|8@1+ (2,0) [0|500] "kPa" Vector__XXX
+ SG_ EngCrankcasePress : 32|16@1+ (0.0078125,-250) [-250|251.99] "kPa" Vector__XXX
+ SG_ EngOilPress : 24|8@1+ (4,0) [0|1000] "kPa" Vector__XXX
+ SG_ EngOilLevel : 16|8@1+ (0.4,0) [0|100] "%" Vector__XXX
+ SG_ EngExCrankcaseBlowbyPress : 8|8@1+ (0.05,0) [0|12.5] "kPa" Vector__XXX
+ SG_ EngFuelDeliveryPress : 0|8@1+ (4,0) [0|1000] "kPa" Vector__XXX
+
+BO_ 2566839040 EFL_P2_Eng_Fluid_Level_Press_2: 8 Vector__XXX
+ SG_ EngInjectorMeteringRail2Press : 48|16@1+ (0.00390625,0) [0|250.996] "MPa" Vector__XXX
+ SG_ EngInjectorTimingRail1Press : 32|16@1+ (0.00390625,0) [0|250.996] "MPa" Vector__XXX
+ SG_ EngInjectorMeteringRail1Press : 16|16@1+ (0.00390625,0) [0|250.996] "MPa" Vector__XXX
+ SG_ EngInjectionCtrlPress : 0|16@1+ (0.00390625,0) [0|250.996] "MPa" Vector__XXX
+
+BO_ 2566843904 ET1_Engine_Temperature_1: 8 Vector__XXX
+ SG_ EngIntercoolerThermostatOpening : 56|8@1+ (0.4,0) [0|100] "%" Vector__XXX
+ SG_ EngIntercoolerTemp : 48|8@1+ (1,-40) [-40|210] "�C" Vector__XXX
+ SG_ EngTurboOilTemp : 32|16@1+ (0.03125,-273) [-273|1734.96875] "�C" Vector__XXX
+ SG_ EngOilTemp1 : 16|16@1+ (0.03125,-273) [-273|1734.96875] "�C" Vector__XXX
+ SG_ EngFuelTemp1 : 8|8@1+ (1,-40) [-40|210] "�C" Vector__XXX
+ SG_ EngCoolantTemp : 0|8@1+ (1,-40) [-40|210] "�C" Vector__XXX
+
+BO_ 2566844928 LFE1_Fuel_Economy_Liquid_1: 8 Vector__XXX
+ SG_ EngThrottleValve2Pos : 56|8@1+ (0.4,0) [0|100] "%" Vector__XXX
+ SG_ EngThrottleValve1Pos : 48|8@1+ (0.4,0) [0|100] "%" Vector__XXX
+ SG_ EngAverageFuelEconomy : 32|16@1+ (0.00195312,0) [0|125.498046875] "km/L" Vector__XXX
+ SG_ EngInstantaneousFuelEconomy : 16|16@1+ (0.00195312,0) [0|125.498046875] "km/L" Vector__XXX
+ SG_ EngFuelRate : 0|16@1+ (0.05,0) [0|3212.75] "l/h" Vector__XXX
+
+BO_ 2565668608 TransportProtocol_Header: 8 Vector__XXX
+ SG_ TotalMessageSizeEoMA m19 : 8|16@1+ (1,0) [0|64255] "" Vector__XXX
+ SG_ TotalNumberOfPackets m16 : 24|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ TotalNumberOfPacketsEoMA m19 : 24|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ ConnectionAbortReason m255 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ TotalMessageSize m16 : 8|16@1+ (1,0) [0|64255] "" Vector__XXX
+ SG_ NextPacketNumberToBeSent m17 : 16|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ NumberOfPacketsThatCanBeSent m17 : 8|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ TotalMessageSizeBAM m32 : 8|16@1+ (1,0) [0|64255] "" Vector__XXX
+ SG_ TotalNumberOfPacketsBAM m32 : 24|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ PGNumber : 40|24@1+ (1,0) [0|16777200] "" Vector__XXX
+ SG_ MaximumNumberOfPackets m16 : 32|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ ControlByte M : 0|8@1+ (1,0) [0|255] "" Vector__XXX
+
+BO_ 2565603072 TransportProtocol_Data: 8 Vector__XXX
+ SG_ SequenceNumber : 0|8@1+ (1,0) [0|255] "" Vector__XXX
+
+BO_ 2566834688 DM01_Active_Diagnostics: 8 Vector__XXX
+ SG_ FlashRedStopLamp : 12|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ FlashProtectLamp : 8|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ FlashMalfuncIndicatorLamp : 14|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ FlashAmberWarningLamp : 10|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ MalfunctionIndicatorLampStatus : 6|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ AmberWarningLampStatus : 2|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ RedStopLampState : 4|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ ProtectLampStatus : 0|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ DTC1 : 16|32@1+ (1,0) [0|4294967295] "" Vector__XXX
+
+BO_ 2348810289 TSC1_31: 8 Vector__XXX
+ SG_ MessageChecksum : 60|4@1+ (1,0) [0|15] "" Vector__XXX
+ SG_ MessageCounter : 56|4@1+ (1,0) [0|7] "" Vector__XXX
+ SG_ EngRequestedTorqueHighResolution : 40|4@1+ (0.125,0) [0|0.875] "%" Vector__XXX
+ SG_ TSC1CtrlPurpose : 35|5@1+ (1,0) [0|31] "" Vector__XXX
+ SG_ TSC1TransRate : 32|3@1+ (1,0) [0|7] "" Vector__XXX
+ SG_ EngRequestedTorque_TorqueLimit : 24|8@1+ (1,-125) [-125|125] "%" Vector__XXX
+ SG_ EngRequestedSpeed_SpeedLimit : 8|16@1+ (0.125,0) [0|8031.875] "rpm" Vector__XXX
+ SG_ OverrideCtrlModePriority : 4|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ EngRequestedSpeedCtrlConditions : 2|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ EngOverrideCtrlMode : 0|2@1+ (1,0) [0|3] "" Vector__XXX
+
+BO_ 2566714880 CAC1_Charge_Air_Cooler_1: 8 Vector__XXX
+ SG_ Engine_Charge_Air_Cooler_1_Effic : 32|8@1+ (0.4,0) [0|100] "%" Vector__XXX
+ SG_ Engine_Charge_Air_Cooler_1_Ambie : 16|16@1+ (0.03125,-273) [-273|1734.96875] "deg C" Vector__XXX
+ SG_ Engine_Charge_Air_Cooler_1_Intak : 0|16@1+ (0.03125,-273) [-273|1734.96875] "deg C" Vector__XXX
+
+BO_ 2566841600 HOURS_Engine_Hours_Revolutions: 8 Vector__XXX
+ SG_ Engine_Total_Revolutions__249_ : 32|32@1+ (1000,0) [0|4211081215000] "r" Vector__XXX
+ SG_ Engine_Total_Hours_of_Operation_ : 0|32@1+ (0.05,0) [0|210554060.75] "hr" Vector__XXX
+
+BO_ 2566821632 TCI5_Turbocharger_Information_5: 8 Vector__XXX
+ SG_ Engine_Turbocharger_4_Turbine_Ou : 48|16@1+ (0.03125,-273) [-273|1734.96875] "deg C" Vector__XXX
+ SG_ Engine_Turbocharger_3_Turbine_Ou : 32|16@1+ (0.03125,-273) [-273|1734.96875] "deg C" Vector__XXX
+ SG_ Engine_Turbocharger_2_Turbine_Ou : 16|16@1+ (0.03125,-273) [-273|1734.96875] "deg C" Vector__XXX
+ SG_ Engine_Turbocharger_1_Turbine_Ou : 0|16@1+ (0.03125,-273) [-273|1734.96875] "deg C" Vector__XXX
+
+BO_ 2566846208 VEP1_Vehicle_Electrical_Power_1: 8 Vector__XXX
+ SG_ Keyswitch_Battery_Potential__158 : 48|16@1+ (0.05,0) [0|3212.75] "V" Vector__XXX
+ SG_ Battery_Potential_Power_Input_1_ : 32|16@1+ (0.05,0) [0|3212.75] "V" Vector__XXX
+ SG_ Charging_System_Potential__Volta : 16|16@1+ (0.05,0) [0|3212.75] "V" Vector__XXX
+ SG_ Alternator_Current__115_ : 8|8@1+ (1,0) [0|250] "A" Vector__XXX
+ SG_ Net_Battery_Current__114_ : 0|8@1+ (1,-125) [-125|125] "A" Vector__XXX
+
+BO_ 2566654720 EEC20_Electronic_Engine_Control_: 8 Vector__XXX
+ SG_ Absolute_Engine_Load : 40|16@1+ (0.025,0) [0|1638.375] "" Vector__XXX
+
+BO_ 2364553472 EASI_Engine_Air_System_Info: 8 Vector__XXX
+ SG_ Engine_Intake_MAF : 16|16@1+ (0.000976562,0) [0|63.9990234375] "kg/s" Vector__XXX
+
+BO_ 2348810243 TSC1_03: 8 Vector__XXX
+ SG_ MessageChecksum : 60|4@1+ (1,0) [0|15] "" Vector__XXX
+ SG_ MessageCounter : 56|4@1+ (1,0) [0|7] "" Vector__XXX
+ SG_ EngRequestedTorqueHighResolution : 40|4@1+ (0.125,0) [0|0.875] "%" Vector__XXX
+ SG_ TSC1CtrlPurpose : 35|5@1+ (1,0) [0|31] "" Vector__XXX
+ SG_ TSC1TransRate : 32|3@1+ (1,0) [0|7] "" Vector__XXX
+ SG_ EngRequestedTorque_TorqueLimit : 24|8@1+ (1,-125) [-125|125] "%" Vector__XXX
+ SG_ EngRequestedSpeed_SpeedLimit : 8|16@1+ (0.125,0) [0|8031.875] "rpm" Vector__XXX
+ SG_ OverrideCtrlModePriority : 4|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ EngRequestedSpeedCtrlConditions : 2|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ EngOverrideCtrlMode : 0|2@1+ (1,0) [0|3] "" Vector__XXX
+
+BO_ 2348810251 TSC1_0B: 8 Vector__XXX
+ SG_ MessageChecksum : 60|4@1+ (1,0) [0|15] "" Vector__XXX
+ SG_ MessageCounter : 56|4@1+ (1,0) [0|7] "" Vector__XXX
+ SG_ EngRequestedTorqueHighResolution : 40|4@1+ (0.125,0) [0|0.875] "%" Vector__XXX
+ SG_ TSC1CtrlPurpose : 35|5@1+ (1,0) [0|31] "" Vector__XXX
+ SG_ TSC1TransRate : 32|3@1+ (1,0) [0|7] "" Vector__XXX
+ SG_ EngRequestedTorque_TorqueLimit : 24|8@1+ (1,-125) [-125|125] "%" Vector__XXX
+ SG_ EngRequestedSpeed_SpeedLimit : 8|16@1+ (0.125,0) [0|8031.875] "rpm" Vector__XXX
+ SG_ OverrideCtrlModePriority : 4|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ EngRequestedSpeedCtrlConditions : 2|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ EngOverrideCtrlMode : 0|2@1+ (1,0) [0|3] "" Vector__XXX
+
+BO_ 2565013598 DM07: 8 Vector__XXX
+ SG_ SPN1High : 29|3@1+ (1,0) [0|7] "" Vector__XXX
+ SG_ SPN1 : 8|16@1+ (1,0) [0|524287] "" Vector__XXX
+ SG_ TestIdentifier : 0|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ FailureModeIdentifier1 : 24|5@1+ (1,0) [0|31] "" Vector__XXX
+
+BO_ 2566836224 DM08: 8 Vector__XXX
+ SG_ TestLimitMinimum : 48|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ TestLimitMaximum : 32|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ TestValue : 16|16@1+ (1,0) [0|0] "" Vector__XXX
+ SG_ TestType : 8|8@1+ (1,0) [0|250] "" Vector__XXX
+ SG_ TestIdentifier : 0|8@1+ (1,0) [0|255] "" Vector__XXX
+
+BO_ 2565865513 ERC1_Electronic_Retarder_Cntrl: 8 Vector__XXX
+ SG_ ActlMxAvlblRetarderPercentTorque : 56|8@1+ (1,-125) [-125|0] "%" Vector__XXX
+ SG_ RetarderSelectionNonengine : 48|8@1+ (0.4,0) [0|100] "%" Vector__XXX
+ SG_ DrvrsDemandRetarderPercentTorque : 40|8@1+ (1,-125) [-125|0] "%" Vector__XXX
+ SG_ SrcAddrssOfCntrllngDvcFrRtrdrCtr : 32|8@1+ (1,0) [0|253] "" Vector__XXX
+ SG_ RetarderRoadSpeedExceededStatus : 30|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ RetarderRoadSpeedLimitSwitch : 28|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ RetarderRequestingBrakeLight : 26|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ EngCoolantLoadIncrease : 24|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ IntendedRetarderPercentTorque : 16|8@1+ (1,-125) [-125|0] "%" Vector__XXX
+ SG_ ActualRetarderPercentTorque : 8|8@1+ (1,-125) [-125|0] "%" Vector__XXX
+ SG_ RetarderEnableShiftAssistSwitch : 6|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ RetarderEnableBrakeAssistSwitch : 4|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ RetarderTorqueMode : 0|4@1+ (1,0) [0|15] "" Vector__XXX
+
+BO_ 2364539395 ETC1_Electronic_Trans_Cntrl_1: 8 Vector__XXX
+ SG_ SrcAddrssOfCntrllngDvcFrTrnsCtrl : 56|8@1+ (1,0) [0|253] "" Vector__XXX
+ SG_ TransInputShaftSpeed : 40|16@1+ (0.125,0) [0|8031.875] "rpm" Vector__XXX
+ SG_ MomentaryEngMaxPowerEnable : 36|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ ProgressiveShiftDisable : 34|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ EngMomentaryOverspeedEnable : 32|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ PercentClutchSlip : 24|8@1+ (0.4,0) [0|100] "%" Vector__XXX
+ SG_ TransOutputShaftSpeed : 8|16@1+ (0.125,0) [0|8031.875] "rpm" Vector__XXX
+ SG_ TrnsTrqCnvrtrLckpTrnstnInProcess : 6|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ TransShiftInProcess : 4|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ TrnsTorqueConverterLockupEngaged : 2|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ TransDrivelineEngaged : 0|2@1+ (1,0) [0|3] "" Vector__XXX
+
+BO_ 2565866755 ETC2_Electronic_Trans_Cntrl_2: 8 Vector__XXX
+ SG_ TransCurrentRange : 55|16@0+ (1,0) [0|65535] "" Vector__XXX
+ SG_ TransRequestedRange : 39|16@0+ (1,0) [0|65535] "" Vector__XXX
+ SG_ TransCurrentGear : 24|8@1+ (1,-125) [-125|125] "" Vector__XXX
+ SG_ TransActualGearRatio : 8|16@1+ (0.001,0) [0|64.255] "" Vector__XXX
+ SG_ TransSelectedGear : 0|8@1+ (1,-125) [-125|125] "" Vector__XXX
+
+BO_ 2565472350 RQST_00_5E: 3 Vector__XXX
+ SG_ ParameterGroupNumber : 0|24@1+ (1,0) [0|16777215] "" Vector__XXX
+
+BO_ 2565472289 RQST_00_21: 3 Vector__XXX
+ SG_ ParameterGroupNumber : 0|24@1+ (1,0) [0|16777215] "" Vector__XXX
+
+BO_ 2565537630 RQST_Global_5E: 3 Vector__XXX
+ SG_ ParameterGroupNumber : 0|24@1+ (1,0) [0|16777215] "" Vector__XXX
+
+BO_ 2565537539 RQST_Global_03: 3 Vector__XXX
+ SG_ ParameterGroupNumber : 0|24@1+ (1,0) [0|16777215] "" Vector__XXX
+
+BO_ 2566751009 TCI_Transfer_Case_Information: 8 Vector__XXX
+ SG_ MessageChecksum : 60|4@1+ (1,0) [0|15] "" Vector__XXX
+ SG_ MessageCounter : 56|4@1+ (1,0) [0|7] "" Vector__XXX
+ SG_ ActualGearRatio : 8|16@1+ (0.01,0) [0|642.55] "" Vector__XXX
+ SG_ DirStatus : 3|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ TransferCaseStatus : 0|3@1+ (1,0) [0|7] "" Vector__XXX
+
+BO_ 2566846467 TRF1_Transmission_Fluids_1: 8 Vector__XXX
+ SG_ TransOilLevel1MeasurementStatus : 60|4@1+ (1,0) [0|15] "" Vector__XXX
+ SG_ TransOilLevel1CountdownTimer : 56|4@1+ (1,0) [0|13] "" Vector__XXX
+ SG_ TransOilLevel1High_Low : 48|8@1+ (0.5,-62.5) [-62.5|62.5] "l" Vector__XXX
+ SG_ TransOilTemp1 : 32|16@1+ (0.03125,-273) [-273|1734.96875] "�C" Vector__XXX
+ SG_ TransOilPress : 24|8@1+ (16,0) [0|4000] "kPa" Vector__XXX
+ SG_ TransFilterDiffPress : 16|8@1+ (2,0) [0|500] "kPa" Vector__XXX
+ SG_ TransOilLevel1 : 8|8@1+ (0.4,0) [0|100] "%" Vector__XXX
+ SG_ ClutchPress : 0|8@1+ (16,0) [0|4000] "kPa" Vector__XXX
+
+BO_ 2566843648 CCSS_Cruise_Control_Vehicle_Spd: 8 Vector__XXX
+ SG_ PowertrainAdaptiveCCType : 56|4@1+ (1,0) [0|15] "" Vector__XXX
+ SG_ CtrlSetCmdSupport : 54|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ CtrlPauseCmdSupport : 52|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ CtrlResumeCmdSupport : 50|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ CtrlDisCmdSupport : 48|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ CtrlSysLowSetLmtSpd : 40|8@1+ (1,0) [0|250] "km/h" Vector__XXX
+ SG_ MaxVehicleSpeedLimit6808 : 24|16@1+ (0.00390625,0) [0|250.996] "km/h" Vector__XXX
+ SG_ CruiseCtrlLowSetLimitSpeed : 16|8@1+ (1,0) [0|250] "km/h" Vector__XXX
+ SG_ CruiseCtrlHighSetLimitSpeed : 8|8@1+ (1,0) [0|250] "km/h" Vector__XXX
+ SG_ MaxVehicleSpeedLimit : 0|8@1+ (1,0) [0|250] "km/h" Vector__XXX
+
+BO_ 2566844672 CCVS1__Cruise_Control_VehSpd: 8 Vector__XXX
+ SG_ EngShutdownOverrideSwitch : 62|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ EngTestModeSwitch : 60|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ EngIdleDecrementSwitch : 58|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ EngIdleIncrementSwitch : 56|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ CruiseCtrlStates : 53|3@1+ (1,0) [0|7] "" Vector__XXX
+ SG_ PTOGovernorState : 48|5@1+ (1,0) [0|31] "" Vector__XXX
+ SG_ CruiseCtrlSetSpeed : 40|8@1+ (1,0) [0|250] "km/h" Vector__XXX
+ SG_ CruiseCtrlAccelerateSwitch : 38|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ CruiseCtrlResumeSwitch : 36|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ CruiseCtrlCoastSwitch : 34|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ CruiseCtrlSetSwitch : 32|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ ClutchSwitch : 30|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ BrakeSwitch : 28|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ CruiseCtrlEnableSwitch : 26|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ CruiseCtrlActive : 24|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ WheelBasedVehicleSpeed : 8|16@1+ (0.00390625,0) [0|250.996] "km/h" Vector__XXX
+ SG_ ParkBrakeReleaseInhibitRq : 6|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ CruiseCtrlPauseSwitch : 4|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ ParkingBrakeSwitch : 2|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ TwoSpeedAxleSwitch : 0|2@1+ (1,0) [0|3] "" Vector__XXX
+
+BO_ 2565865739 EBC1_Electronic_Brake_Cntrl: 8 Vector__XXX
+ SG_ RailroadModeSw : 56|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ TrctrMntdTrailerABSWarningSignal : 62|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ TrailerABSStatus : 60|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ HaltBrakeSwitch : 58|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ SrcAddrssOfCntrllngDvcFrBrkeCtrl : 48|8@1+ (1,0) [0|253] "" Vector__XXX
+ SG_ ATC_ASRInformationSignal : 46|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ ABS_EBSAmberWarningSignal : 44|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ EBSRedWarningSignal : 42|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ ABSFullyOperational : 40|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ EngRetarderSelection : 32|8@1+ (0.4,0) [0|100] "%" Vector__XXX
+ SG_ RemoteAccelEnableSwitch : 30|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ EngAuxShutdownSwitch : 28|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ EngDerateSwitch : 26|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ AccelInterlockSwitch : 24|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ TractionCtrlOverrideSwitch : 22|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ ASRHillHolderSwitch : 20|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ ASROffroadSwitch : 18|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ ABSOffroadSwitch : 16|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ BrakePedalPos : 8|8@1+ (0.4,0) [0|100] "%" Vector__XXX
+ SG_ EBSBrakeSwitch : 6|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ AntiLockBrakingActive : 4|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ ASRBrakeCtrlActive : 2|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ ASREngCtrlActive : 0|2@1+ (1,0) [0|3] "" Vector__XXX
+
+BO_ 2566841344 SHUTDN: 8 Vector__XXX
+ SG_ EngOilPressSw : 62|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ ClntLvlEngPrtctionShutdownStatus : 60|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ PTOShutdownHasShutdownEng : 58|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ EngAirShutoffStatus : 56|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ EngOverspeedTest : 54|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ EngAirShutoffCmdStatus : 52|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ EngAlarmOutputCmdStatus : 50|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ EngAlarmAcknowledge : 48|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ EngProtectionSystemConfig : 46|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ EngProtectionSystemTimerState : 38|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ EngProtectionSystemTimerOverride : 36|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ EngPrtctnSystmApprachingShutdown : 34|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ EngPrtectionSystemHasShutdownEng : 32|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ EngWaitToStartLamp : 24|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ RefrigerantHighPressSwitch : 20|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ RefrigerantLowPressSwitch : 18|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ A_CHighPressFanSwitch : 16|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ EngIdleShutdownTimerFunction : 14|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ EngIdleShutdownTimerState : 6|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ EngIdleShutdownTimerOverride : 4|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ EngIdleShutdownDriverAlertMode : 2|2@1+ (1,0) [0|3] "" Vector__XXX
+ SG_ EngIdleShutdownHasShutdownEng : 0|2@1+ (1,0) [0|3] "" Vector__XXX
+
+
+BA_DEF_ SG_  "SignalType" STRING ;
+BA_DEF_ BO_  "GenMsgCycleTime" INT 0 10000;
+BA_DEF_ BO_  "GenMsgSendType" ENUM "cyclicX","spontanX","cyclicIfActiveX","spontanWithDelay","cyclicAndSpontanX","cyclicAndSpontanWithDelay","spontanWithRepetition","cyclicIfActiveAndSpontanWD";
+BA_DEF_DEF_  "SignalType" "";
+BA_DEF_DEF_  "GenMsgCycleTime" 0;
+BA_DEF_DEF_  "GenMsgSendType" "cyclicX";
+BA_ "GenMsgCycleTime" BO_ 2566771968 250;
+BA_ "GenMsgCycleTime" BO_ 2432498944 100;
+BA_ "GenMsgCycleTime" BO_ 2432492288 100;
+BA_ "GenMsgCycleTime" BO_ 2566809856 1000;
+BA_ "GenMsgCycleTime" BO_ 2566845952 500;
+BA_ "GenMsgCycleTime" BO_ 2566845696 1000;
+BA_ "GenMsgCycleTime" BO_ 2364539904 50;
+BA_ "GenMsgCycleTime" BO_ 2364539648 50;
+BA_ "GenMsgCycleTime" BO_ 2566840064 250;
+BA_ "GenMsgCycleTime" BO_ 2566844160 500;
+BA_ "GenMsgCycleTime" BO_ 2566839040 500;
+BA_ "GenMsgCycleTime" BO_ 2566843904 1000;
+BA_ "GenMsgCycleTime" BO_ 2566844928 100;
+BA_ "GenMsgCycleTime" BO_ 2348810289 10;
+BA_ "GenMsgCycleTime" BO_ 2566714880 1000;
+BA_ "GenMsgCycleTime" BO_ 2566821632 1000;
+BA_ "GenMsgCycleTime" BO_ 2566846208 1000;
+BA_ "GenMsgCycleTime" BO_ 2566654720 250;
+BA_ "GenMsgCycleTime" BO_ 2364553472 20;
+BA_ "GenMsgCycleTime" BO_ 2348810243 10;
+BA_ "GenMsgCycleTime" BO_ 2348810251 10;
+BA_ "GenMsgCycleTime" BO_ 2565865513 100;
+BA_ "GenMsgCycleTime" BO_ 2364539395 10;
+BA_ "GenMsgCycleTime" BO_ 2565866755 100;
+BA_ "GenMsgCycleTime" BO_ 2566751009 1000;
+BA_ "GenMsgCycleTime" BO_ 2566846467 1000;
+BA_ "GenMsgCycleTime" BO_ 2566844672 100;
+BA_ "GenMsgCycleTime" BO_ 2565865739 100;
+BA_ "GenMsgCycleTime" BO_ 2566841344 1000;
+BA_ "SignalType" SG_ 2566771968 Engine_Fuel_Control_Control_Mode "ENM";
+BA_ "SignalType" SG_ 2566771968 Engine_VGT_Control_Mode "ENM";
+BA_ "SignalType" SG_ 2364539904 EngStarterMode "ENM";
+BA_ "SignalType" SG_ 2364539904 ActlEngPrcntTorqueHighResolution "ENM";
+BA_ "SignalType" SG_ 2364539648 SCRThermalManagementActive "ENM";
+BA_ "SignalType" SG_ 2364539648 DPFThermalManagementActive "ENM";
+BA_ "SignalType" SG_ 2364539648 MmntaryEngMaxPowerEnableFeedback "ENM";
+BA_ "SignalType" SG_ 2364539648 VhcleAccelerationRateLimitStatus "ENM";
+BA_ "SignalType" SG_ 2364539648 AccelPedal2LowIdleSwitch "ENM";
+BA_ "SignalType" SG_ 2364539648 RoadSpeedLimitStatus "ENM";
+BA_ "SignalType" SG_ 2364539648 AccelPedalKickdownSwitch "ENM";
+BA_ "SignalType" SG_ 2364539648 AccelPedal1LowIdleSwitch "ENM";
+BA_ "SignalType" SG_ 2566840064 AFT2ExhDewPoint "ENM";
+BA_ "SignalType" SG_ 2566840064 AFT2InDewPoint "ENM";
+BA_ "SignalType" SG_ 2566840064 AFT1ExhDewPoint "ENM";
+BA_ "SignalType" SG_ 2566840064 AFT1InDewPoint "ENM";
+BA_ "SignalType" SG_ 2565668608 ConnectionAbortReason "ENM";
+BA_ "SignalType" SG_ 2565668608 PGNumber "ENM";
+BA_ "SignalType" SG_ 2565668608 ControlByte "ENM";
+BA_ "SignalType" SG_ 2566834688 FlashRedStopLamp "ENM";
+BA_ "SignalType" SG_ 2566834688 FlashProtectLamp "ENM";
+BA_ "SignalType" SG_ 2566834688 FlashMalfuncIndicatorLamp "ENM";
+BA_ "SignalType" SG_ 2566834688 FlashAmberWarningLamp "ENM";
+BA_ "SignalType" SG_ 2566834688 MalfunctionIndicatorLampStatus "ENM";
+BA_ "SignalType" SG_ 2566834688 AmberWarningLampStatus "ENM";
+BA_ "SignalType" SG_ 2566834688 RedStopLampState "ENM";
+BA_ "SignalType" SG_ 2566834688 ProtectLampStatus "ENM";
+BA_ "SignalType" SG_ 2348810289 EngRequestedTorqueHighResolution "ENM";
+BA_ "SignalType" SG_ 2348810289 TSC1CtrlPurpose "ENM";
+BA_ "SignalType" SG_ 2348810289 TSC1TransRate "ENM";
+BA_ "SignalType" SG_ 2348810289 OverrideCtrlModePriority "ENM";
+BA_ "SignalType" SG_ 2348810289 EngRequestedSpeedCtrlConditions "ENM";
+BA_ "SignalType" SG_ 2348810289 EngOverrideCtrlMode "ENM";
+BA_ "SignalType" SG_ 2348810243 EngRequestedTorqueHighResolution "ENM";
+BA_ "SignalType" SG_ 2348810243 TSC1CtrlPurpose "ENM";
+BA_ "SignalType" SG_ 2348810243 TSC1TransRate "ENM";
+BA_ "SignalType" SG_ 2348810243 OverrideCtrlModePriority "ENM";
+BA_ "SignalType" SG_ 2348810243 EngRequestedSpeedCtrlConditions "ENM";
+BA_ "SignalType" SG_ 2348810243 EngOverrideCtrlMode "ENM";
+BA_ "SignalType" SG_ 2348810251 EngRequestedTorqueHighResolution "ENM";
+BA_ "SignalType" SG_ 2348810251 TSC1CtrlPurpose "ENM";
+BA_ "SignalType" SG_ 2348810251 TSC1TransRate "ENM";
+BA_ "SignalType" SG_ 2348810251 OverrideCtrlModePriority "ENM";
+BA_ "SignalType" SG_ 2348810251 EngRequestedSpeedCtrlConditions "ENM";
+BA_ "SignalType" SG_ 2348810251 EngOverrideCtrlMode "ENM";
+BA_ "SignalType" SG_ 2565013598 TestIdentifier "ENM";
+BA_ "SignalType" SG_ 2565013598 FailureModeIdentifier1 "ENM";
+BA_ "SignalType" SG_ 2566836224 TestIdentifier "ENM";
+BA_ "SignalType" SG_ 2565865513 RetarderRoadSpeedExceededStatus "ENM";
+BA_ "SignalType" SG_ 2565865513 RetarderRoadSpeedLimitSwitch "ENM";
+BA_ "SignalType" SG_ 2565865513 RetarderRequestingBrakeLight "ENM";
+BA_ "SignalType" SG_ 2565865513 EngCoolantLoadIncrease "ENM";
+BA_ "SignalType" SG_ 2565865513 RetarderEnableShiftAssistSwitch "ENM";
+BA_ "SignalType" SG_ 2565865513 RetarderEnableBrakeAssistSwitch "ENM";
+BA_ "SignalType" SG_ 2364539395 MomentaryEngMaxPowerEnable "ENM";
+BA_ "SignalType" SG_ 2364539395 ProgressiveShiftDisable "ENM";
+BA_ "SignalType" SG_ 2364539395 EngMomentaryOverspeedEnable "ENM";
+BA_ "SignalType" SG_ 2364539395 TrnsTrqCnvrtrLckpTrnstnInProcess "ENM";
+BA_ "SignalType" SG_ 2364539395 TransShiftInProcess "ENM";
+BA_ "SignalType" SG_ 2364539395 TrnsTorqueConverterLockupEngaged "ENM";
+BA_ "SignalType" SG_ 2364539395 TransDrivelineEngaged "ENM";
+BA_ "SignalType" SG_ 2566751009 DirStatus "ENM";
+BA_ "SignalType" SG_ 2566751009 TransferCaseStatus "ENM";
+BA_ "SignalType" SG_ 2566846467 TransOilLevel1MeasurementStatus "ENM";
+BA_ "SignalType" SG_ 2566846467 TransOilLevel1CountdownTimer "ENM";
+BA_ "SignalType" SG_ 2566843648 PowertrainAdaptiveCCType "ENM";
+BA_ "SignalType" SG_ 2566843648 CtrlSetCmdSupport "ENM";
+BA_ "SignalType" SG_ 2566843648 CtrlPauseCmdSupport "ENM";
+BA_ "SignalType" SG_ 2566843648 CtrlResumeCmdSupport "ENM";
+BA_ "SignalType" SG_ 2566843648 CtrlDisCmdSupport "ENM";
+BA_ "SignalType" SG_ 2566844672 EngShutdownOverrideSwitch "ENM";
+BA_ "SignalType" SG_ 2566844672 EngTestModeSwitch "ENM";
+BA_ "SignalType" SG_ 2566844672 EngIdleDecrementSwitch "ENM";
+BA_ "SignalType" SG_ 2566844672 EngIdleIncrementSwitch "ENM";
+BA_ "SignalType" SG_ 2566844672 CruiseCtrlStates "ENM";
+BA_ "SignalType" SG_ 2566844672 PTOGovernorState "ENM";
+BA_ "SignalType" SG_ 2566844672 CruiseCtrlAccelerateSwitch "ENM";
+BA_ "SignalType" SG_ 2566844672 CruiseCtrlResumeSwitch "ENM";
+BA_ "SignalType" SG_ 2566844672 CruiseCtrlCoastSwitch "ENM";
+BA_ "SignalType" SG_ 2566844672 CruiseCtrlSetSwitch "ENM";
+BA_ "SignalType" SG_ 2566844672 ClutchSwitch "ENM";
+BA_ "SignalType" SG_ 2566844672 BrakeSwitch "ENM";
+BA_ "SignalType" SG_ 2566844672 CruiseCtrlEnableSwitch "ENM";
+BA_ "SignalType" SG_ 2566844672 CruiseCtrlActive "ENM";
+BA_ "SignalType" SG_ 2566844672 ParkBrakeReleaseInhibitRq "ENM";
+BA_ "SignalType" SG_ 2566844672 CruiseCtrlPauseSwitch "ENM";
+BA_ "SignalType" SG_ 2566844672 ParkingBrakeSwitch "ENM";
+BA_ "SignalType" SG_ 2566844672 TwoSpeedAxleSwitch "ENM";
+BA_ "SignalType" SG_ 2565865739 RailroadModeSw "ENM";
+BA_ "SignalType" SG_ 2565865739 TrctrMntdTrailerABSWarningSignal "ENM";
+BA_ "SignalType" SG_ 2565865739 TrailerABSStatus "ENM";
+BA_ "SignalType" SG_ 2565865739 HaltBrakeSwitch "ENM";
+BA_ "SignalType" SG_ 2565865739 ATC_ASRInformationSignal "ENM";
+BA_ "SignalType" SG_ 2565865739 ABS_EBSAmberWarningSignal "ENM";
+BA_ "SignalType" SG_ 2565865739 EBSRedWarningSignal "ENM";
+BA_ "SignalType" SG_ 2565865739 ABSFullyOperational "ENM";
+BA_ "SignalType" SG_ 2565865739 RemoteAccelEnableSwitch "ENM";
+BA_ "SignalType" SG_ 2565865739 EngAuxShutdownSwitch "ENM";
+BA_ "SignalType" SG_ 2565865739 EngDerateSwitch "ENM";
+BA_ "SignalType" SG_ 2565865739 AccelInterlockSwitch "ENM";
+BA_ "SignalType" SG_ 2565865739 TractionCtrlOverrideSwitch "ENM";
+BA_ "SignalType" SG_ 2565865739 ASRHillHolderSwitch "ENM";
+BA_ "SignalType" SG_ 2565865739 ASROffroadSwitch "ENM";
+BA_ "SignalType" SG_ 2565865739 ABSOffroadSwitch "ENM";
+BA_ "SignalType" SG_ 2565865739 EBSBrakeSwitch "ENM";
+BA_ "SignalType" SG_ 2565865739 AntiLockBrakingActive "ENM";
+BA_ "SignalType" SG_ 2565865739 ASRBrakeCtrlActive "ENM";
+BA_ "SignalType" SG_ 2565865739 ASREngCtrlActive "ENM";
+BA_ "SignalType" SG_ 2566841344 EngOilPressSw "ENM";
+BA_ "SignalType" SG_ 2566841344 ClntLvlEngPrtctionShutdownStatus "ENM";
+BA_ "SignalType" SG_ 2566841344 PTOShutdownHasShutdownEng "ENM";
+BA_ "SignalType" SG_ 2566841344 EngAirShutoffStatus "ENM";
+BA_ "SignalType" SG_ 2566841344 EngOverspeedTest "ENM";
+BA_ "SignalType" SG_ 2566841344 EngAirShutoffCmdStatus "ENM";
+BA_ "SignalType" SG_ 2566841344 EngAlarmOutputCmdStatus "ENM";
+BA_ "SignalType" SG_ 2566841344 EngAlarmAcknowledge "ENM";
+BA_ "SignalType" SG_ 2566841344 EngProtectionSystemConfig "ENM";
+BA_ "SignalType" SG_ 2566841344 EngProtectionSystemTimerState "ENM";
+BA_ "SignalType" SG_ 2566841344 EngProtectionSystemTimerOverride "ENM";
+BA_ "SignalType" SG_ 2566841344 EngPrtctnSystmApprachingShutdown "ENM";
+BA_ "SignalType" SG_ 2566841344 EngPrtectionSystemHasShutdownEng "ENM";
+BA_ "SignalType" SG_ 2566841344 EngWaitToStartLamp "ENM";
+BA_ "SignalType" SG_ 2566841344 RefrigerantHighPressSwitch "ENM";
+BA_ "SignalType" SG_ 2566841344 RefrigerantLowPressSwitch "ENM";
+BA_ "SignalType" SG_ 2566841344 A_CHighPressFanSwitch "ENM";
+BA_ "SignalType" SG_ 2566841344 EngIdleShutdownTimerFunction "ENM";
+BA_ "SignalType" SG_ 2566841344 EngIdleShutdownTimerState "ENM";
+BA_ "SignalType" SG_ 2566841344 EngIdleShutdownTimerOverride "ENM";
+BA_ "SignalType" SG_ 2566841344 EngIdleShutdownDriverAlertMode "ENM";
+BA_ "SignalType" SG_ 2566841344 EngIdleShutdownHasShutdownEng "ENM";
+VAL_ 2566771968 Engine_Fuel_Control_Control_Mode 0 "Open Loop" 1 "Closed Loop" 2 "SAE Reserved" 3 "Not Available" ;
+VAL_ 2566771968 Engine_VGT_Control_Mode 0 "Open Loop" 1 "Closed Loop" 2 "SAE Reserved" 3 "Not Available" ;
+VAL_ 2364539904 EngStarterMode 15 "not available" 14 "error" 13 "error, legacy implementation only" 12 "starter inhibited" 11 "starter inhibited due to ignition key cycle required" 10 "starter inhibited due to active emissions control system condition" 9 "starter inhibited due to intake air shutoff valve being active" 8 "starter inhibited due to starter over-temp" 7 "starter inhibited due to active immobilizer" 6 "starter inhibited due to driveline engaged or other transmission inhibit" 5 "starter inhibited due to engine not ready for start" 4 "starter inhibited due to engine already running" 3 "start finished" 2 "starter active and engaged" 1 "starter active but not engaged" 0 "start not requested" ;
+VAL_ 2364539904 ActlEngPrcntTorqueHighResolution 7 "+0.875%" 1 "+0.125%" 0 "+0.000%" ;
+VAL_ 2364539648 SCRThermalManagementActive 3 "Don't care" 2 "Reserved" 1 "SCR Thermal Management is active" 0 "SCR Thermal Management is not active" ;
+VAL_ 2364539648 DPFThermalManagementActive 3 "Don't care" 2 "Reserved" 1 "DPF Thermal Management is active" 0 "DPF Thermal Management is not active" ;
+VAL_ 2364539648 MmntaryEngMaxPowerEnableFeedback 3 "don't care" 2 "reserved" 1 "supported" 0 "disabled" ;
+VAL_ 2364539648 VhcleAccelerationRateLimitStatus 3 "Not available" 2 "Reserved" 1 "Limit active" 0 "Limit not active" ;
+VAL_ 2364539648 AccelPedal2LowIdleSwitch 3 "Not available" 2 "Error" 1 "Accelerator pedal 2 in low idle condition" 0 "Accelerator pedal 2 not in low idle condition" ;
+VAL_ 2364539648 RoadSpeedLimitStatus 3 "Not available" 2 "Error" 1 "Not Active" 0 "Active" ;
+VAL_ 2364539648 AccelPedalKickdownSwitch 3 "Not available" 2 "Error" 1 "Kickdown active" 0 "Kickdown passive" ;
+VAL_ 2364539648 AccelPedal1LowIdleSwitch 3 "Not available" 2 "Error" 1 "Accelerator pedal 1 in low idle condition" 0 "Accelerator pedal 1 not in low idle condition" ;
+VAL_ 2566840064 AFT2ExhDewPoint 3 "Not available" 2 "Error" 1 "Exceeded the dew point" 0 "Not exceeded the dew point" ;
+VAL_ 2566840064 AFT2InDewPoint 3 "Not available" 2 "Error" 1 "Exceeded the dew point" 0 "Not exceeded the dew point" ;
+VAL_ 2566840064 AFT1ExhDewPoint 3 "Not available" 2 "Error" 1 "Exceeded the dew point" 0 "Not exceeded the dew point" ;
+VAL_ 2566840064 AFT1InDewPoint 3 "Not available" 2 "Error" 1 "Exceeded the dew point" 0 "Not exceeded the dew point" ;
+VAL_ 2565668608 ConnectionAbortReason 255 "Not available" 254 "Error indicator" 250 "Connection Abort reason is not listed" 9 "Total Message Size is greater than 1785 bytes" 8 "Duplicate sequence number (software cannot recover)" 7 "Bad sequence number (software cannot recover)" 6 "Unexpected data transfer packet" 5 "Maximum retransmit request limit reached" 4 "CTS messages received when data transfer is in progress." 3 "A timeout occurred and this is the connection abort to close the session." 2 "System resources were needed for another task so this connection managed session was terminated." 1 "Already in one or more connection managed sessions and cannot support another." ;
+VAL_ 2565668608 PGNumber 255 "NotAvailable" ;
+VAL_ 2565668608 ControlByte 255 "Abort" 32 "BAM" 19 "EoMA" 17 "CTS" 16 "RTS" ;
+VAL_ 2566834688 FlashRedStopLamp 3 "Unavailable / Do Not Flash" 2 "Reserved" 1 "Fast Flash" 0 "Slow Flash" ;
+VAL_ 2566834688 FlashProtectLamp 3 "Unavailable / Do Not Flash" 2 "Reserved" 1 "Fast Flash" 0 "Slow Flash" ;
+VAL_ 2566834688 FlashMalfuncIndicatorLamp 3 "Unavailable / Do Not Flash" 2 "Class C DTC  " 1 "Fast Flash" 0 "Slow Flash" ;
+VAL_ 2566834688 FlashAmberWarningLamp 3 "Unavailable / Do Not Flash" 2 "Reserved" 1 "Fast Flash" 0 "Slow Flash" ;
+VAL_ 2566834688 MalfunctionIndicatorLampStatus 3 "Not available" 2 "Short MIL for WWH OBD" 1 "Lamp On" 0 "Lamp Off" ;
+VAL_ 2566834688 AmberWarningLampStatus 3 "Not available" 2 "Reserved" 1 "Lamp On" 0 "Lamp Off" ;
+VAL_ 2566834688 RedStopLampState 3 "Not available" 2 "Reserved" 1 "Lamp On" 0 "Lamp Off" ;
+VAL_ 2566834688 ProtectLampStatus 3 "Not available" 2 "Reserved" 1 "Lamp On" 0 "Lamp Off" ;
+VAL_ 2348810289 EngRequestedTorqueHighResolution 7 "+0.875%" 1 "+0.125%" 0 "+0.000%" ;
+VAL_ 2348810289 TSC1CtrlPurpose 6 "P7 = Automated Driving System Input" 31 "P32 = Temporary Powertrain Control" 5 "P6 = Transient-Optimized Torque Limit" 4 "P5 = Engine Protection" 3 "P4 = Road Speed Governor" 2 "P3 = PTO Governor" 1 "P2 = Cruise Control" 0 "P1 = Accelerator Pedal/Operator Selection" ;
+VAL_ 2348810289 TSC1TransRate 4 "100 ms transmission rate" 3 "250 ms transmission rate" 2 "500 ms transmission rate" 1 "750 ms transmission rate" 0 "1000 ms transmission rate" 7 "Use standard TSC1 transmission rates of 10 ms to engine" 6 "20 ms transmission rate" 5 "50 ms transmission rate" ;
+VAL_ 2348810289 OverrideCtrlModePriority 3 "Low priority" 2 "Medium priority" 1 "High priority" 0 "Highest priority" ;
+VAL_ 2348810289 EngRequestedSpeedCtrlConditions 3 "Stability Optimized for driveline engaged and/or in lockup condition 2" 2 "Stability Optimized for driveline engaged and/or in lockup condition 1" 1 "Stability Optimized for driveline disengaged and non-lockup conditions" 0 "Transient Optimized for driveline disengaged and non-lockup conditions" ;
+VAL_ 2348810289 EngOverrideCtrlMode 3 "Speed/torque limit control" 2 "Torque control" 1 "Speed control" 0 "Override disabled" ;
+VAL_ 2348810243 EngRequestedTorqueHighResolution 7 "+0.875%" 1 "+0.125%" 0 "+0.000%" ;
+VAL_ 2348810243 TSC1CtrlPurpose 6 "P7 = Automated Driving System Input" 31 "P32 = Temporary Powertrain Control" 5 "P6 = Transient-Optimized Torque Limit" 4 "P5 = Engine Protection" 3 "P4 = Road Speed Governor" 2 "P3 = PTO Governor" 1 "P2 = Cruise Control" 0 "P1 = Accelerator Pedal/Operator Selection" ;
+VAL_ 2348810243 TSC1TransRate 4 "100 ms transmission rate" 3 "250 ms transmission rate" 2 "500 ms transmission rate" 1 "750 ms transmission rate" 0 "1000 ms transmission rate" 7 "Use standard TSC1 transmission rates of 10 ms to engine" 6 "20 ms transmission rate" 5 "50 ms transmission rate" ;
+VAL_ 2348810243 OverrideCtrlModePriority 3 "Low priority" 2 "Medium priority" 1 "High priority" 0 "Highest priority" ;
+VAL_ 2348810243 EngRequestedSpeedCtrlConditions 3 "Stability Optimized for driveline engaged and/or in lockup condition 2" 2 "Stability Optimized for driveline engaged and/or in lockup condition 1" 1 "Stability Optimized for driveline disengaged and non-lockup conditions" 0 "Transient Optimized for driveline disengaged and non-lockup conditions" ;
+VAL_ 2348810243 EngOverrideCtrlMode 3 "Speed/torque limit control" 2 "Torque control" 1 "Speed control" 0 "Override disabled" ;
+VAL_ 2348810251 EngRequestedTorqueHighResolution 7 "+0.875%" 1 "+0.125%" 0 "+0.000%" ;
+VAL_ 2348810251 TSC1CtrlPurpose 6 "P7 = Automated Driving System Input" 31 "P32 = Temporary Powertrain Control" 5 "P6 = Transient-Optimized Torque Limit" 4 "P5 = Engine Protection" 3 "P4 = Road Speed Governor" 2 "P3 = PTO Governor" 1 "P2 = Cruise Control" 0 "P1 = Accelerator Pedal/Operator Selection" ;
+VAL_ 2348810251 TSC1TransRate 4 "100 ms transmission rate" 3 "250 ms transmission rate" 2 "500 ms transmission rate" 1 "750 ms transmission rate" 0 "1000 ms transmission rate" 7 "Use standard TSC1 transmission rates of 10 ms to engine" 6 "20 ms transmission rate" 5 "50 ms transmission rate" ;
+VAL_ 2348810251 OverrideCtrlModePriority 3 "Low priority" 2 "Medium priority" 1 "High priority" 0 "Highest priority" ;
+VAL_ 2348810251 EngRequestedSpeedCtrlConditions 3 "Stability Optimized for driveline engaged and/or in lockup condition 2" 2 "Stability Optimized for driveline engaged and/or in lockup condition 1" 1 "Stability Optimized for driveline disengaged and non-lockup conditions" 0 "Transient Optimized for driveline disengaged and non-lockup conditions" ;
+VAL_ 2348810251 EngOverrideCtrlMode 3 "Speed/torque limit control" 2 "Torque control" 1 "Speed control" 0 "Override disabled" ;
+VAL_ 2565013598 TestIdentifier 250 "Last Measured Scaled Results" 249 "Command Standard Test" 247 "All scaled test results" ;
+VAL_ 2565013598 FailureModeIdentifier1 31 "Not available" 19 "Received network data in error" 18 "Below normal (moderately severe)" 17 "Below normal (least severe)" 16 "Above normal (moderately severe)" 15 "Above normal (least severe)" 14 "Special intstructions" 13 "Out of calibration" 12 "Bad intelligent device" 11 "Root cause not known" 10 "Abnormal rate of change" 9 "Abnormal update rate" 8 "Abnormal frequency" 7 "Mechanical system not responding" 6 "Current above normal" 5 "Current below normal" 4 "Voltage below normal" 3 "Voltage above normal" 2 "Data erratic" 1 "Below normal (most severe)" 0 "Above normal (most severe)" ;
+VAL_ 2566836224 TestIdentifier 250 "Last Measured Scaled Results" 249 "Command Standard Test" 247 "All scaled test results" ;
+VAL_ 2565865513 RetarderRoadSpeedExceededStatus 3 "Don't care/Take no action" 2 "Reserved" 1 "Road speed is above threshold and retarder is allowed to be activated" 0 "Road speed is below threshold" ;
+VAL_ 2565865513 RetarderRoadSpeedLimitSwitch 3 "Not Available" 2 "Error Indicator" 1 "Road speed limiting by retarder is enabled" 0 "Road speed limiting by retarder is disabled" ;
+VAL_ 2565865513 RetarderRequestingBrakeLight 0 "Retarder is not requesting that the brake lights are illuminated" 3 "Not available/Take no action" 2 "Reserved" 1 "Retarder is requesting that the brake lights are illuminated" ;
+VAL_ 2565865513 EngCoolantLoadIncrease 3 "Not available" 2 "Error" 1 "Coolant load increase possible" 0 "No coolant load increase" ;
+VAL_ 2565865513 RetarderEnableShiftAssistSwitch 3 "Not available" 2 "Error" 1 "Retarder, shift assist enabled" 0 "Retarder, shift assist disabled" ;
+VAL_ 2565865513 RetarderEnableBrakeAssistSwitch 3 "Not available" 2 "Error" 1 "Retarder, brake assist enabled" 0 "Retarder, brake assist disabled" ;
+VAL_ 2364539395 MomentaryEngMaxPowerEnable 3 "not available" 2 "fault" 1 "momentarily requesting maximum power available" 0 "not requesting maximum power available" ;
+VAL_ 2364539395 ProgressiveShiftDisable 3 "Take no action" 2 "Reserved" 1 "Progressive shift is disabled" 0 "Progressive shift is not disabled" ;
+VAL_ 2364539395 EngMomentaryOverspeedEnable 3 "Take no action" 2 "Reserved" 1 "Momentary engine overspeed is enabled" 0 "Momentary engine overspeed is disabled" ;
+VAL_ 2364539395 TrnsTrqCnvrtrLckpTrnstnInProcess 3 "Not available" 2 "Error" 1 "Transition is in process" 0 "Transition is not in process" ;
+VAL_ 2364539395 TransShiftInProcess 3 "Not available" 2 "Error" 1 "Shift in process" 0 "Shift is not in process" ;
+VAL_ 2364539395 TrnsTorqueConverterLockupEngaged 3 "Not available" 2 "Error" 1 "Torque converter lockup engaged" 0 "Torque converter lockup disengaged" ;
+VAL_ 2364539395 TransDrivelineEngaged 3 "Not available" 2 "Error" 1 "Driveline engaged" 0 "Driveline disengaged" ;
+VAL_ 2566751009 DirStatus 3 "Not Available" 2 "Error" 1 "Reverse" 0 "Forward" ;
+VAL_ 2566751009 TransferCaseStatus 7 "not available" 6 "error" 5 "Transfer Case Shift in Progress or gear not confirmed" 4 "4 wheel low" 3 "2 wheel low" 2 "neutral" 1 "4 wheel high" 0 "2 wheel high" ;
+VAL_ 2566846467 TransOilLevel1MeasurementStatus 15 "Not available" 14 "Error" 13 "Conditions not valid, Other" 12 "Not defined" 11 "Not defined" 10 "Not defined" 9 "Conditions not valid, No request for reading" 8 "Conditions not valid, Engine speed too high" 7 "Conditions not valid, Engine speed too low" 6 "Conditions not valid, Vehicle not level" 5 "Conditions not valid, Vehicle moving" 4 "Conditions not valid, Transmission fluid temperature too high" 3 "Conditions not valid, Transmission fluid temperature too low" 2 "Conditions not valid, Transmission in gear" 1 "Conditions not valid, Settling timer still counting down" 0 "Conditions valid for transmission oil level measurement" ;
+VAL_ 2566846467 TransOilLevel1CountdownTimer 15 "Not Available" 14 "Error" 13 "Thirteen minutes" 12 "Twelve minutes" 11 "Eleven minutes" 10 "Ten minutes" 9 "Nine minutes" 8 "Eight minutes" 7 "Seven minutes" 6 "Six minutes" 5 "Five minutes" 4 "Four minutes" 3 "Three minutes" 2 "Two minutes" 1 "One minute" 0 "less than 1 minute" ;
+VAL_ 2566843648 PowertrainAdaptiveCCType 15 "Not Available" 14 "Reserved" 13 "Reserved" 12 "Reserved" 11 "Reserved" 10 "Reserved" 9 "Reserved" 8 "Reserved" 7 "Reserved" 6 "Reserved" 5 "Reserved" 4 "Reserved" 3 "Stop and Auto Go" 2 "Stop and Operator Go" 1 "Auto Resume" 0 "Controller does not support system based cruise control Pause/Resume" ;
+VAL_ 2566843648 CtrlSetCmdSupport 3 "Not available" 2 "Error" 1 "System does support the 'Cruise Control Set Command' feature" 0 "System does not support the 'Cruise Control Set Command' feature" ;
+VAL_ 2566843648 CtrlPauseCmdSupport 3 "Not available" 2 "Error" 1 "System does support the 'Cruise Control Pause Command' feature" 0 "System does not support the 'Cruise Control Pause Command' feature" ;
+VAL_ 2566843648 CtrlResumeCmdSupport 3 "Not available" 2 "Error" 1 "System does support the 'Cruise Control Resume Command' feature" 0 "System does not support the 'Cruise Control Resume Command' feature" ;
+VAL_ 2566843648 CtrlDisCmdSupport 3 "Not available" 2 "Reserved" 1 "System does support the 'Cruise Control Disable Command' feature" 0 "System does not support the 'Cruise Control Disable Command'" ;
+VAL_ 2566844672 EngShutdownOverrideSwitch 3 "Not available" 2 "Error" 1 "On" 0 "Off" ;
+VAL_ 2566844672 EngTestModeSwitch 3 "Not available" 2 "Error" 1 "On" 0 "Off" ;
+VAL_ 2566844672 EngIdleDecrementSwitch 3 "Not available" 2 "Error" 1 "On" 0 "Off" ;
+VAL_ 2566844672 EngIdleIncrementSwitch 3 "Not available" 2 "Error" 1 "On" 0 "Off" ;
+VAL_ 2566844672 CruiseCtrlStates 7 "Not available" 6 "Accelerator Override" 5 "Set" 4 "Resume" 3 "Decelerate" 2 "Accelerate" 1 "Hold" 0 "Off/Disabled" ;
+VAL_ 2566844672 PTOGovernorState 31 "Not available" 30 "Reseerved" 29 "Reserved" 28 "Reserved" 27 "Reserved" 26 "Reserved" 25 "Reserved" 24 "Reserved" 23 "Reserved" 22 "Reserved" 21 "Reserved" 20 "PTO set speed memory 3" 19 "PTO set speed memory 2" 18 "PTO set speed memory 1" 17 "Preprogrammed set speed 8" 16 "Preprogrammed set speed 7" 15 "Preprogrammed set speed 6" 14 "Preprogrammed set speed 5" 13 "Preprogrammed set speed 4" 12 "Preprogrammed set speed 3" 11 "Preprogrammed set speed 2" 10 "Preprogrammed set speed 1" 9 "Accelerator Override" 8 "Accelerate" 7 "Resume" 6 "Decelerate/Coast" 5 "Set" 4 "Remote Standby" 3 "Standby" 2 "Remote Hold" 1 "Hold" 0 "Off/Disabled" ;
+VAL_ 2566844672 CruiseCtrlAccelerateSwitch 3 "Not available" 2 "Error" 1 "Cruise control activator in position 'accelerate'" 0 "Cruise control activator not in the position 'accelerate'" ;
+VAL_ 2566844672 CruiseCtrlResumeSwitch 3 "Not available" 2 "Error" 1 "Cruise control activator in position 'resume'" 0 "Cruise control activator not in the position 'resume'" ;
+VAL_ 2566844672 CruiseCtrlCoastSwitch 3 "Not available" 2 "Error" 1 "Cruise control activator in position 'coast'" 0 "Cruise control activator not in the position 'coast'" ;
+VAL_ 2566844672 CruiseCtrlSetSwitch 3 "Not available" 2 "Error" 1 "Cruise control activator in position 'set'" 0 "Cruise control activator not in the position 'set'" ;
+VAL_ 2566844672 ClutchSwitch 3 "Not available" 2 "Error" 1 "Clutch pedal depressed" 0 "Clutch pedal released" ;
+VAL_ 2566844672 BrakeSwitch 3 "Not Available" 2 "Error" 1 "Brake pedal depressed" 0 "Brake pedal released" ;
+VAL_ 2566844672 CruiseCtrlEnableSwitch 3 "Not available" 2 "Error" 1 "Cruise control enabled" 0 "Cruise control disabled" ;
+VAL_ 2566844672 CruiseCtrlActive 3 "Not available" 2 "Error" 1 "Cruise control switched on" 0 "Cruise control switched off" ;
+VAL_ 2566844672 ParkBrakeReleaseInhibitRq 3 "Unavailable" 2 "SAE reserved" 1 "Park Brake Release Inhibit requested" 0 "Park Brake Release Inhibit not requested" ;
+VAL_ 2566844672 CruiseCtrlPauseSwitch 3 "Take No Action" 2 "Error Indicator" 1 "On" 0 "Off" ;
+VAL_ 2566844672 ParkingBrakeSwitch 3 "Not available" 2 "Error" 1 "Parking brake set" 0 "Parking brake not set" ;
+VAL_ 2566844672 TwoSpeedAxleSwitch 3 "Not available" 2 "Error" 1 "High speed range" 0 "Low speed range" ;
+VAL_ 2565865739 RailroadModeSw 3 "Not available" 2 "Error" 1 "Railroad mode switch active" 0 "Railroad mode switch passive" ;
+VAL_ 2565865739 TrctrMntdTrailerABSWarningSignal 3 "Take no action" 2 "Reserved" 1 "On" 0 "Off" ;
+VAL_ 2565865739 TrailerABSStatus 3 "Trailer ABS Status Information Not Available or Parameter Not Supported" 2 "Reserved" 1 "Trailer ABS Active" 0 "Trailer ABS Status Information Available But Not Active" ;
+VAL_ 2565865739 HaltBrakeSwitch 3 "Not available" 2 "Error" 1 "Halt brake switch active" 0 "Halt brake switch passive" ;
+VAL_ 2565865739 ATC_ASRInformationSignal 3 "Take no action" 2 "Reserved" 1 "On" 0 "Off" ;
+VAL_ 2565865739 ABS_EBSAmberWarningSignal 3 "Take no action" 2 "Reserved" 1 "On" 0 "Off" ;
+VAL_ 2565865739 EBSRedWarningSignal 3 "Take no action" 2 "Reserved" 1 "On" 0 "Off" ;
+VAL_ 2565865739 ABSFullyOperational 3 "Not available" 2 "Reserved" 1 "Fully Operational" 0 "Not Fully Operational" ;
+VAL_ 2565865739 RemoteAccelEnableSwitch 3 "Not available" 2 "Error" 1 "On" 0 "Off" ;
+VAL_ 2565865739 EngAuxShutdownSwitch 3 "Not available" 2 "Error" 1 "On" 0 "Off" ;
+VAL_ 2565865739 EngDerateSwitch 3 "Not available" 2 "Error" 1 "On" 0 "Off" ;
+VAL_ 2565865739 AccelInterlockSwitch 3 "Not available" 2 "Error" 1 "On" 0 "Off" ;
+VAL_ 2565865739 TractionCtrlOverrideSwitch 3 "Not available or not installed" 2 "Error" 1 "On" 0 "Off" ;
+VAL_ 2565865739 ASRHillHolderSwitch 3 "Not available" 2 "Error" 1 "ASR 'hill holder' switch active" 0 "ASR 'hill holder' switch passive" ;
+VAL_ 2565865739 ASROffroadSwitch 3 "Not available" 2 "Error" 1 "ASR off-road switch active" 0 "ASR off-road switch passive" ;
+VAL_ 2565865739 ABSOffroadSwitch 3 "Not available" 2 "Error" 1 "ABS off-road switch active" 0 "ABS off-road switch passive" ;
+VAL_ 2565865739 EBSBrakeSwitch 3 "Not available" 2 "Error" 1 "Brake pedal is being pressed" 0 "Brake pedal is not being pressed" ;
+VAL_ 2565865739 AntiLockBrakingActive 3 "Not available" 2 "Reserved" 1 "ABS active" 0 "ABS passive but installed" ;
+VAL_ 2565865739 ASRBrakeCtrlActive 3 "Not available" 2 "Reserved" 1 "ASR brake control active" 0 "ASR brake control passive but installed" ;
+VAL_ 2565865739 ASREngCtrlActive 3 "Not available" 2 "Reserved" 1 "ASR engine control active" 0 "ASR engine control passive but installed" ;
+VAL_ 2566841344 EngOilPressSw 3 "Not Available" 2 "Error" 1 "Not OK" 0 "OK" ;
+VAL_ 2566841344 ClntLvlEngPrtctionShutdownStatus 3 "Not Available" 2 "Reserved" 1 "Enabled" 0 "Disabled" ;
+VAL_ 2566841344 PTOShutdownHasShutdownEng 3 "Not available" 2 "Error" 1 "Yes" 0 "No" ;
+VAL_ 2566841344 EngAirShutoffStatus 2 "Error" 1 "Air flow restricted" 0 "Air flow allowed to engine" 3 "Not Available" ;
+VAL_ 2566841344 EngOverspeedTest 3 "Not Available" 2 "Reserved" 1 "Engine Overspeed Test Active" 0 "Engine Overspeed Test Not Active" ;
+VAL_ 2566841344 EngAirShutoffCmdStatus 3 "Not Available" 2 "Reserved" 1 "Air Shutoff Enabled" 0 "Air Shutoff Disabled" ;
+VAL_ 2566841344 EngAlarmOutputCmdStatus 3 "Not Available" 2 "Reserved" 1 "Engine Alarm Output Command Active" 0 "Engine Alarm Output Command Not Active" ;
+VAL_ 2566841344 EngAlarmAcknowledge 3 "Not Available" 2 "Error" 1 "Engine Alarm Acknowledge Active" 0 "Engine Alarm Acknowledge  Not Active" ;
+VAL_ 2566841344 EngProtectionSystemConfig 3 "Not available" 2 "Error" 1 "Enabled in calibration" 0 "Disabled in calibration" ;
+VAL_ 2566841344 EngProtectionSystemTimerState 3 "Not available" 2 "Error" 1 "Active" 0 "Inactive" ;
+VAL_ 2566841344 EngProtectionSystemTimerOverride 3 "Not available" 2 "Error" 1 "Active" 0 "Inactive" ;
+VAL_ 2566841344 EngPrtctnSystmApprachingShutdown 3 "Not available" 2 "Error" 1 "Approaching" 0 "Not approaching" ;
+VAL_ 2566841344 EngPrtectionSystemHasShutdownEng 3 "Not available" 2 "Error" 1 "Yes" 0 "No" ;
+VAL_ 2566841344 EngWaitToStartLamp 3 "Not available" 2 "Error" 1 "On" 0 "Off" ;
+VAL_ 2566841344 RefrigerantHighPressSwitch 3 "Not available" 2 "Error" 1 "Pressure too high" 0 "Pressure normal" ;
+VAL_ 2566841344 RefrigerantLowPressSwitch 3 "Not available" 2 "Error" 1 "Pressure too low" 0 "Pressure normal" ;
+VAL_ 2566841344 A_CHighPressFanSwitch 3 "Not available" 2 "Error" 1 "Pressure high" 0 "Pressure normal" ;
+VAL_ 2566841344 EngIdleShutdownTimerFunction 3 "Not available" 2 "Error" 1 "Enabled in calibration" 0 "Disabled in calibration" ;
+VAL_ 2566841344 EngIdleShutdownTimerState 3 "Not available" 2 "Error" 1 "Active" 0 "Inactive" ;
+VAL_ 2566841344 EngIdleShutdownTimerOverride 3 "Not available" 2 "Error" 1 "Active" 0 "Inactive" ;
+VAL_ 2566841344 EngIdleShutdownDriverAlertMode 3 "Not available" 2 "Error" 1 "Active" 0 "Inactive" ;
+VAL_ 2566841344 EngIdleShutdownHasShutdownEng 3 "Not available" 2 "Error" 1 "Yes" 0 "No" ;
+

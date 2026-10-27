@@ -1,0 +1,82 @@
+VERSION ""
+
+NS_ : 
+	NS_DESC_
+	CM_
+	BA_DEF_
+	BA_
+	VAL_
+	CAT_DEF_
+	CAT_
+	FILTER
+	BA_DEF_DEF_
+	EV_DATA_
+	ENVVAR_DATA_
+	SGTYPE_
+	SGTYPE_VAL_
+	BA_DEF_SGTYPE_
+	BA_SGTYPE_
+	SIG_TYPE_REF_
+	VAL_TABLE_
+	SIG_GROUP_
+	SIG_VALTYPE_
+	SIGTYPE_VALTYPE_
+	BO_TX_BU_
+	BA_DEF_REL_
+	BA_REL_
+	BA_DEF_DEF_REL_
+	BU_SG_REL_
+	BU_EV_REL_
+	BU_BO_REL_
+	SG_MUL_VAL_
+
+BS_:
+
+BU_: PDM CANLINK PIGN
+
+BO_ 512 REACHER_CTRL: 8 PIGN
+ SG_ eng_on : 0|8@1+ (1,0) [0|255] "" PDM 
+ SG_ start : 8|8@1+ (1,0) [0|255] "" PDM 
+ SG_ arm : 16|8@1+ (1,0) [0|255] "" PDM 
+ SG_ test : 24|8@1+ (1,0) [0|255] "" PDM 
+ SG_ aux_1 : 32|8@1+ (1,0) [0|255] "" PDM 
+ SG_ throttle_rpm : 40|16@1+ (0.125,0) [0|8031.875] "rpm" CANLINK 
+ SG_ aux_2 : 56|8@1+ (1,0) [0|255] "" PDM 
+
+BO_ 514 REACHER_ENGINE_FEEDBACK: 8 PDM 
+ SG_ ecu_on : 8|8@1+ (1,0) [0|255] "" PIGN 
+ SG_ f_pump_on : 16|8@1+ (1,0) [0|255] "" PIGN 
+ SG_ st_solenoid_on : 24|8@1+ (1,0) [0|255] "" PIGN 
+
+BO_ 768 EXPORT_0: 8 CANLINK 
+ SG_ eng_speed : 7|16@0+ (1,0) [0|8032] "rpm" PIGN 
+ SG_ manifold_press : 39|16@0+ (1,0) [0|0] "mBar" PIGN
+ SG_ actual_throttle : 23|8@0+ (0.4,0) [0|100] "%" PIGN 
+
+
+BO_ 771 EXPORT_3: 8 CANLINK 
+ SG_ fuel_rail_pressure : 55|16@0- (1,0) [0|0] "Bar" PIGN 
+
+BO_ 776 EXPORT_8: 8 CANLINK 
+ SG_ battery_bus_voltage : 7|16@0+ (0.05,0) [0|3212.75] "V" PIGN 
+
+BO_ 779 EXPORT_B: 8 CANLINK
+ SG_ coolant_temp : 7|8@0+ (1.8,-40) [-40|410] "F" PIGN
+ SG_ oil_pressure : 39|8@0+ (0.580152,0) [0|200] "PSI" PIGN 
+ SG_ oil_temp : 15|16@0+ (1,0) [0|65536] "F" PIGN 
+ SG_ exhaust_gas_temp : 55|16@0+ (0.05625,-459.4) [-459.4|3154.94375] "F" PIGN 
+
+BO_ 1281 SERVO_BATT: 8 PDM 
+ SG_ servo_bus_voltage : 15|16@0+ (100,0) [0|28] "V" PIGN 
+
+
+VAL_ 512 eng_on 0 "off" 255 "on";
+VAL_ 512 start 0 "off" 255 "on";
+VAL_ 512 arm 0 "off" 255 "on";
+VAL_ 512 test 0 "off" 255 "on";
+
+VAL_ 0 CS 1 "Start" 2 "Stop" 128 "EnterPreOperational" 129 "ResetNode" 130 "ResetCommunication" ;
+
+CM_ SG_ 512 throttle_rpm "RPM multiplied by 8";
+
+CM_ SG_ 779 exhaust_gas_temp "source of this value is from the duramax.dbc engine_turbocharger_outlet_1";

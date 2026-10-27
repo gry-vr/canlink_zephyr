@@ -217,7 +217,7 @@ int main(void)
         export0.actual_throttle = 0.0;
         export0.manifold_press = 0;
         enable_periodic_checked(reacher_ep, export0, 50, "export0");
-        k_sleep(K_MSEC(3));
+        k_sleep(K_MSEC(2));
 
         reacher::Export3 export3{};
         export3.fuel_rail_pressure = 0;
@@ -227,7 +227,7 @@ int main(void)
         reacher::Export8 export8{};
         export8.battery_bus_voltage = 0.0;
         enable_periodic_checked(reacher_ep, export8, 100, "export8");
-        k_sleep(K_MSEC(3));
+        k_sleep(K_MSEC(2));
 
         reacher::ExportB exportb{};
         exportb.coolant_temp = 50.0;
