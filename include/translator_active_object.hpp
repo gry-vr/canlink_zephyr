@@ -100,7 +100,7 @@ private:
         const int rc = dst_out_.update_signal(
             Rule::dst_signal,
             std::move(physical_value),
-            Rule::trigger_parent_send);
+            Rule::trigger_parent_send, K_NO_WAIT, snap.command_source);
 
         if (rc != 0) {
             ++update_failures_;

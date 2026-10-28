@@ -50,11 +50,13 @@ public:
     int update_signal(SignalId signal_id,
                       SignalPhysicalValue value,
                       bool trigger_parent_send = false,
-                      k_timeout_t timeout = K_NO_WAIT) const {
+                      k_timeout_t timeout = K_NO_WAIT,
+                      throttle::Source source = {}) const {
         typename TxCommand<Db>::UpdateSignal cmd{};
         cmd.signal_id = signal_id;
         cmd.value = std::move(value);
         cmd.trigger_parent_send = trigger_parent_send;
+        cmd.source = source;
         return post(Command{cmd}, timeout);
     }
 

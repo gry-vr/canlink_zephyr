@@ -5,12 +5,18 @@
 #include <atomic>
 #include <cmath>
 #include <cstring>
+#include <limits>
 #include "duramax/duramax_db.hpp"
 #include "reacher/reacher_db.hpp"
 #include "reacher_to_duramax_signal_table.hpp"
+#include "throttle_policy.hpp"
+#include "can_active_object.hpp"
+#include "duramax/duramax_hooks.hpp"
+#include "reacher/reacher_hooks.hpp"
+#include "../../oracle/legacy_throttle.hpp"
 
 // The production entry point is renamed only by this test target's compiler
-// definition. All production source bytes remain unchanged.
+// definition. The target compiles the production sources without test patches.
 int canlink_gateway_main(void);
 namespace {
 const device* const dm = DEVICE_DT_GET(DT_ALIAS(can0));
@@ -82,6 +88,24 @@ duramax::Tsc131 next_tsc() {
     zassert_true(msg.has_value());
     return std::get<duramax::Tsc131>(*msg);
 }
+using DmSnapshot = canfw::SnapshotReply<duramax::DuramaxDb>;
+using ReSnapshot = canfw::SnapshotReply<reacher::ReacherDb>;
+K_MSGQ_DEFINE(dm_snapshot_q, sizeof(DmSnapshot), 1, 8);
+K_MSGQ_DEFINE(re_snapshot_q, sizeof(ReSnapshot), 1, 8);
+static DmSnapshot dm_snapshot;
+static ReSnapshot re_snapshot;
+const ReSnapshot& read_re_snapshot() {
+    auto ao=canfw::CanActiveObject<reacher::ReacherDb,ReacherHooks>::create(re,{},false);
+    zassert_true(ao.has_value());
+    zassert_true((*ao)->endpoint().request_snapshot_into(re_snapshot_q,re_snapshot).has_value());
+    return re_snapshot;
+}
+const DmSnapshot& read_dm_snapshot() {
+    auto ao=canfw::CanActiveObject<duramax::DuramaxDb,DuramaxHooks>::create(dm,{},true);
+    zassert_true(ao.has_value());
+    zassert_true((*ao)->endpoint().request_snapshot_into(dm_snapshot_q,dm_snapshot).has_value());
+    return dm_snapshot;
+}
 void* setup() {
     zassert_true(device_is_ready(dm)); zassert_true(device_is_ready(re));
     zassert_equal(can_set_mode(dm,CAN_MODE_LOOPBACK),0);
@@ -95,6 +119,22 @@ void* setup() {
     k_sleep(K_MSEC(1200));
     zassert_equal(gateway_returned.load(),0,"Production main returned early");
     fresh_capture();
+    // Before any test can inject a valid Reacher command, startup remains disabled.
+    const auto startup = next_frame(dm_capture,0x0c000031);
+    zassert_equal(startup.frame.data[0],0);
+    zassert_equal(startup.frame.data[1],0); zassert_equal(startup.frame.data[2],0);
+    for(unsigned i=3;i<7;++i) zassert_equal(startup.frame.data[i],0xff);
+    inject(re,0x200,false,{0,0,0,0,0,0xff,0xff,0});
+    k_sleep(K_MSEC(150)); fresh_capture();
+    const auto rejected_startup=next_frame(dm_capture,0x0c000031);
+    zassert_equal(rejected_startup.frame.data[0],0);
+    zassert_equal(rejected_startup.frame.data[1],0); zassert_equal(rejected_startup.frame.data[2],0);
+    zassert_equal(read_re_snapshot().rejected_throttle_inputs,1);
+    zassert_false(re_snapshot.command_source.valid);
+    printk("Task2 sizes: DM AO=%zu RE AO=%zu DM snapshot=%zu RE snapshot=%zu source=%zu\n",
+        sizeof(canfw::CanActiveObject<duramax::DuramaxDb,DuramaxHooks>),
+        sizeof(canfw::CanActiveObject<reacher::ReacherDb,ReacherHooks>),
+        sizeof(DmSnapshot),sizeof(ReSnapshot),sizeof(canfw::throttle::Source));
     return nullptr;
 }
 }
@@ -124,22 +164,28 @@ ZTEST(canlink_gateway, test_all_nine_engine_exports) {
 ZTEST(canlink_gateway, test_reverse_rpm_and_disabled_override) {
     command_rpm(12000); // 1500 physical RPM
     const auto tsc=next_tsc();
-    zassert_within(tsc.engrequestedspeed_speedlimit,1500.0,0.001);
-    zassert_equal(tsc.engoverridectrlmode,0);
+    zassert_within(tsc.engrequestedspeed_speedlimit,(IS_ENABLED(CONFIG_CANLINK_THROTTLE_BAND_MAPPING)?2000.0:1500.0),0.001);
+    zassert_equal(tsc.engoverridectrlmode,1);
 }
 
 ZTEST(canlink_gateway, test_fractional_rpm_characterization) {
-    command_rpm(12001); // 1500.125 RPM; current transform truncates to uint16_t
-    const auto tsc=next_tsc();
-    zassert_within(tsc.engrequestedspeed_speedlimit,1500.0,0.001);
-    printk("OBSERVED: requested 1500.125 RPM, translated 1500 RPM\n");
+    command_rpm(12001);
+    zassert_within(next_tsc().engrequestedspeed_speedlimit,
+        IS_ENABLED(CONFIG_CANLINK_THROTTLE_BAND_MAPPING)?2000.0:1500.125,0.001);
+    command_rpm(16009);
+    zassert_within(next_tsc().engrequestedspeed_speedlimit,2001.125,0.001);
 }
 
 ZTEST(canlink_gateway, test_stale_command_characterization) {
-    command_rpm(16000); // 2000 RPM, then stop injecting commands
+    command_rpm(16000);
     k_sleep(K_MSEC(600)); fresh_capture();
-    zassert_within(next_tsc().engrequestedspeed_speedlimit,2000.0,0.001);
-    printk("OBSERVED: command still retransmitted after 600 ms without input\n");
+    const auto stale=next_tsc();
+    zassert_equal(stale.engoverridectrlmode,0);
+    zassert_within(stale.engrequestedspeed_speedlimit,0.0,0.001);
+    command_rpm(16009);
+    const auto recovered=next_tsc();
+    zassert_equal(recovered.engoverridectrlmode,1);
+    zassert_within(recovered.engrequestedspeed_speedlimit,2001.125,0.001);
 }
 
 ZTEST(canlink_gateway, test_bad_dlc_and_unknown_id_preserve_value) {
@@ -147,7 +193,7 @@ ZTEST(canlink_gateway, test_bad_dlc_and_unknown_id_preserve_value) {
     inject(re,0x200,false,{0,0,0,0,0,0,0,0},7);
     inject(re,0x201,false,{0,0,0,0,0,0,0,0},8);
     k_sleep(K_MSEC(150)); fresh_capture();
-    zassert_within(next_tsc().engrequestedspeed_speedlimit,1500.0,0.001);
+    zassert_within(next_tsc().engrequestedspeed_speedlimit,(IS_ENABLED(CONFIG_CANLINK_THROTTLE_BAND_MAPPING)?2000.0:1500.0),0.001);
 }
 
 ZTEST(canlink_gateway, test_tsc_counter_checksum_and_timing) {
@@ -180,4 +226,93 @@ ZTEST(canlink_gateway, test_export_periods) {
             zassert_equal(cur.at_ms-prev.at_ms,periods[n]); prev=cur;
         }
     }
+}
+
+ZTEST(canlink_gateway, test_boundary_wire_frames) {
+    constexpr std::uint16_t values[]{0,10399,10400,10401,16007,16008,16009,16010,0x7fff};
+    for(auto raw : values) {
+        command_rpm(raw);
+        auto captured=next_frame(dm_capture,0x0c000031);
+        auto arc=captured.frame.data[7]&7;
+        auto expected=legacy_oracle::frame(raw,arc);
+        if (!IS_ENABLED(CONFIG_CANLINK_THROTTLE_BAND_MAPPING)) {
+            expected[1]=raw&255; expected[2]=raw>>8;
+            unsigned sum=arc+0x0c+0x31;
+            for(unsigned i=0;i<7;++i) sum+=expected[i];
+            expected[7]=((((sum>>6)&3)+(sum>>3)+sum)&7)*16+arc;
+        }
+        zassert_mem_equal(captured.frame.data,expected.data(),8,"raw=%u",raw);
+    }
+    // Invalid wire request retains the last accepted value, without refreshing age.
+    command_rpm(16009);
+    command_rpm(0xffff);
+    zassert_within(next_tsc().engrequestedspeed_speedlimit,2001.125,0.001);
+}
+
+ZTEST(canlink_gateway, test_timeout_boundary_and_invalid_does_not_refresh) {
+    command_rpm(16009);
+    const auto stale_count=read_dm_snapshot().stale_timeout_events;
+    // Re-send at a known time, rather than using command_rpm's 150-ms wait.
+    const auto sent=k_uptime_get_32();
+    inject(re,0x200,false,{0,0,0,0,0,0x89,0x3e,0});
+    k_sleep(K_MSEC(350));
+    inject(re,0x200,false,{0,0,0,0,0,0xff,0xff,0});
+    fresh_capture();
+    auto before=next_frame(dm_capture,0x0c000031);
+    zassert_equal(before.frame.data[0],0xf1);
+    Captured transition{};
+    do { transition=next_frame(dm_capture,0x0c000031); }
+    while(transition.frame.data[0]!=0);
+    // 1-ms source processing, 10-ms TX grid. Translator replay cannot reset age.
+    zassert_between_inclusive(transition.at_ms-sent,500,520);
+    zassert_equal(transition.frame.data[1],0); zassert_equal(transition.frame.data[2],0);
+    zassert_equal(read_dm_snapshot().stale_timeout_events,stale_count+1);
+    k_sleep(K_MSEC(30));
+    zassert_equal(read_dm_snapshot().stale_timeout_events,stale_count+1);
+    command_rpm(0);
+    auto recovered=next_frame(dm_capture,0x0c000031);
+    zassert_equal(recovered.frame.data[0],0xf1);
+    auto raw=recovered.frame.data[1]+256*recovered.frame.data[2];
+    zassert_equal(raw,IS_ENABLED(CONFIG_CANLINK_THROTTLE_BAND_MAPPING)?10000:0);
+}
+
+ZTEST(canlink_gateway, test_valid_then_invalid_preserves_source_age) {
+    auto rejected=read_re_snapshot().rejected_throttle_inputs;
+    inject(re,0x200,false,{0,0,0,0,0,0x89,0x3e,0});
+    k_sleep(K_MSEC(1));
+    const auto original=read_re_snapshot().command_source;
+    inject(re,0x200,false,{0,0,0,0,0,0xff,0xff,0});
+    k_sleep(K_MSEC(1));
+    const auto& after=read_re_snapshot();
+    zassert_equal(after.rejected_throttle_inputs,rejected+1);
+    zassert_equal(after.command_source.timestamp_ms,original.timestamp_ms);
+    zassert_equal(after.command_source.sequence,original.sequence);
+    zassert_within(*after.store.get<reacher::SignalId::reacher_ctrl__throttle_rpm>(),2001.125,0.001);
+    k_sleep(K_MSEC(150)); fresh_capture();
+    auto actual=next_frame(dm_capture,0x0c000031);
+    zassert_equal(actual.frame.data[0],0xf1);
+    zassert_equal(actual.frame.data[1],0x89); zassert_equal(actual.frame.data[2],0x3e);
+}
+
+ZTEST(canlink_gateway, test_invalid_api_updates_retain_last_request) {
+    command_rpm(16009);
+    const auto source=read_re_snapshot().command_source;
+    const auto count=read_dm_snapshot().rejected_throttle_inputs;
+    auto ao=canfw::CanActiveObject<duramax::DuramaxDb,DuramaxHooks>::create(dm,{},true);
+    auto candidate=source; ++candidate.sequence;
+    for(double bad : {-1.0,std::numeric_limits<double>::quiet_NaN(),
+            std::numeric_limits<double>::infinity(),-std::numeric_limits<double>::infinity(),8031.876}) {
+        zassert_equal((*ao)->endpoint().update_signal(
+            duramax::SignalId::tsc1_31__engrequestedspeed_speedlimit,
+            duramax::SignalPhysicalValue{bad},false,K_NO_WAIT,candidate),0);
+    }
+    // Type-mismatched variants must not change hook state before store validation.
+    zassert_equal((*ao)->endpoint().update_signal(
+        duramax::SignalId::tsc1_31__engrequestedspeed_speedlimit,
+        duramax::SignalPhysicalValue{std::uint16_t{2000}},false,K_NO_WAIT,candidate),0);
+    zassert_equal(read_dm_snapshot().rejected_throttle_inputs,count+6);
+    fresh_capture();
+    auto wire=next_frame(dm_capture,0x0c000031);
+    zassert_equal(wire.frame.data[0],0xf1);
+    zassert_equal(wire.frame.data[1],0x89); zassert_equal(wire.frame.data[2],0x3e);
 }

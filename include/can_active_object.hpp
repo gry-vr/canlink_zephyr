@@ -394,6 +394,9 @@ private:
     }
 
     void handle_tx_command(const typename TxCommandType::UpdateSignal& cmd, std::uint32_t now_ms) {
+        if constexpr (requires { hooks_.on_signal_updated(cmd.signal_id, cmd.value, cmd.source, now_ms); }) {
+            if (!hooks_.on_signal_updated(cmd.signal_id, cmd.value, cmd.source, now_ms)) return;
+        }
         auto res = Db::set_signal_physical(tx_store_, cmd.signal_id, cmd.value, now_ms);
         if (!res) {
             tx_build_failures_.fetch_add(1, std::memory_order_relaxed);
@@ -424,6 +427,9 @@ private:
         snapshot_scratch_.store = rx_store_;
         snapshot_scratch_.valid = true;
         snapshot_scratch_.timestamp_ms = now_ms;
+        if constexpr (requires { hooks_.on_snapshot(snapshot_scratch_); }) {
+            hooks_.on_snapshot(snapshot_scratch_);
+        }
 
         (void)k_msgq_put(cmd.reply_q, &snapshot_scratch_, K_NO_WAIT);
     }
@@ -541,6 +547,13 @@ private:
         // this loop -- on-bus failures arrive asynchronously via
         // tx_done_callback_.
         auto* context = diagnostics_.reserve(frame);
+        if (context) {
+            std::visit([&](const auto& msg) {
+                if constexpr (requires { hooks_.on_after_encode(msg, frame.data, frame.dlc, now_ms); }) {
+                    hooks_.on_after_encode(msg, frame.data, frame.dlc, now_ms);
+                }
+            }, *built);
+        }
         const int rc = context ? can_send(can_bus_, &frame, K_NO_WAIT,
                                 &CanDiagnostics::tx_done, context) : -ENOBUFS;
         CANFW_TX_TRACE_LOG("TX_SEND now=%u id=0x%08X rc=%d\n",

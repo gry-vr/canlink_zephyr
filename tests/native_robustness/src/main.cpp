@@ -22,7 +22,7 @@ struct Backend {
     std::atomic<bool> false_success{false}, hold{false};
     std::atomic<int> recovery_return_delay_ms{0}, recovery_errno{-EAGAIN};
     std::atomic<bool> in_recovery{false};
-    std::atomic<unsigned> hooks{0};
+    std::atomic<unsigned> hooks{0}, post_encode_hooks{0};
     std::atomic<k_tid_t> send_thread{nullptr}, recovery_thread{nullptr};
     can_state_change_callback_t state_cb{};
     void *state_user{};
@@ -146,6 +146,9 @@ static int send(const device *d, const can_frame *f, k_timeout_t t, can_tx_callb
 template <int Bus> struct Hooks {
     template <class M, class S> void on_before_send(M &, S &, std::uint32_t) {
         ++backend[Bus].hooks;
+    }
+    template <class M> void on_after_encode(const M&, std::uint8_t*, std::uint8_t, std::uint32_t) {
+        ++backend[Bus].post_encode_hooks;
     }
 };
 using Ao0 = CanActiveObject<Db, Hooks<0>>;
@@ -306,6 +309,9 @@ ZTEST(robustness, test_real_queues_poll_and_fault_backend) {
     k_sleep(K_MSEC(100));
     zassert_equal(backend[0].pending_count, CONFIG_CANLINK_TX_CONTEXTS);
     zassert_true(snapshot(ep).data.counters.context_exhausted > 0);
+    // Includes bus-off suppression, immediate rejection and local pool exhaustion:
+    // the ARC-consuming post hook runs exactly once per driver offer, never sooner.
+    zassert_equal(backend[0].post_encode_hooks.load(),backend[0].send_calls.load());
     backend[0].hold = false;
     for (unsigned i = backend[0].pending_count; i > 0; --i) {
         DoneInterrupt x{0, backend[0].pending[i - 1], -ETIMEDOUT};

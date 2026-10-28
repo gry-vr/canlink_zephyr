@@ -6,8 +6,12 @@
 #include <zephyr/sys/printk.h>
 
 #include "duramax_db.hpp"
+#include "can_commands.hpp"
+#include <zephyr/sys/util.h>
 
 struct DuramaxHooks {
+    static_assert(IS_ENABLED(CONFIG_CANLINK_THROTTLE_STALE_OVERRIDE_DISABLED),
+                  "Only the approved disabled/zero stale fallback is implemented");
     // These hooks execute on the CAN active object's thread, inside
     // drain_rx() / send_one(). Anything slow here (printk spin-polls the
     // UART at ~87 us per character) is jitter injected directly into the
@@ -58,74 +62,48 @@ struct DuramaxHooks {
     template <typename Msg, typename Store>
     void on_before_send(Msg&, Store&, std::uint32_t) {}
 
-    // GM TSC1 rolling counter + checksum.
-    //
-    // The counter wrap is derived from the generated DBC metadata rather
-    // than hardcoded: the signal occupies a 4-bit field, but the DBC
-    // declares maximum = 7, and validate_message() enforces that. A
-    // hardcoded "% 16" here put counters 8..15 on the wire attempt, every
-    // one of which validation rejected -- producing the 8-frames-then-90-ms
-    // burst pattern on the bus. Deriving the modulus from signal_traits
-    // makes the hook and the validator agree by construction: if the DBC
-    // changes, both move together.
-    using Tsc1CounterTraits =
-        duramax::signal_traits<duramax::SignalId::tsc1_31__messagecounter>;
-    static_assert(Tsc1CounterTraits::has_maximum,
-                  "TSC1 MessageCounter must declare a DBC maximum to derive its wrap");
-    static constexpr std::uint8_t kTsc1CounterWrap =
-        static_cast<std::uint8_t>(Tsc1CounterTraits::maximum) + 1U;  // today: 8
-    static_assert(kTsc1CounterWrap > 0U && kTsc1CounterWrap <= 16U,
-                  "TSC1 MessageCounter wrap must fit its 4-bit field");
+    bool on_signal_updated(duramax::SignalId id,
+                           const duramax::SignalPhysicalValue& value,
+                           const canfw::throttle::Source& source, std::uint32_t) {
+        if (id != duramax::SignalId::tsc1_31__engrequestedspeed_speedlimit) return true;
+        // Match the generated store's f64 variant contract before changing policy
+        // state; a type-mismatched update must not bypass set_signal_physical().
+        const auto* rpm = std::get_if<double>(&value);
+        if (!rpm) { ++throttle_.rejected; return false; }
+        return throttle_.accept(*rpm, source);
+    }
 
-    // The checksum covers data bytes 0..6 plus the new counter (ARC) plus
-    // the four CAN ID bytes; counter and checksum both live in byte 7,
-    // which the sum correctly excludes. send_one() runs this hook BEFORE
-    // validate/encode, so the frame that reaches the bus carries the
-    // freshly written counter and checksum.
     void on_before_send(duramax::Tsc131& msg,
-                        duramax::DuramaxDb::ValueStore&,
-                        std::uint32_t)
-    {
-        std::array<std::uint8_t, 8> encoded_msg{};
-        auto could_be = duramax::Codec::encode(msg, encoded_msg.data(), encoded_msg.size());
-        if (!could_be) {
-            return;
-        }
+                        duramax::DuramaxDb::ValueStore&, std::uint32_t now) {
+        output_ = throttle_.evaluate(now, IS_ENABLED(CONFIG_CANLINK_THROTTLE_BAND_MAPPING),
+            IS_ENABLED(CONFIG_CANLINK_THROTTLE_STALE_TIMEOUT_ENABLE),
+            CONFIG_CANLINK_THROTTLE_STALE_TIMEOUT_MS);
+        msg.engrequestedspeed_speedlimit = output_.raw * 0.125;
+        // Keep the typed intermediate valid. Legacy NA/reserved bytes are applied
+        // only after validation/encoding; checksum is computed over final bytes.
+        msg.engoverridectrlmode = output_.enabled ? 1 : 0;
+        msg.messagecounter = 0;
+        msg.messagechecksum = 0;
+    }
 
-        auto calc_checksum = [](std::uint32_t id, const std::uint8_t* data,
-                                std::uint8_t arc) -> std::uint8_t {
-            std::uint32_t sum = 0x00;
-
-            // Sum up the first 7 bytes of the message
-            for (int i = 0; i < 7; i++) {
-                sum += data[i];
-            }
-
-            // Add ARC (lower 4 bits), and each byte of the ID
-            sum += (arc & 0x0F);
-            sum += static_cast<std::uint8_t>(id);
-            sum += static_cast<std::uint8_t>(id >> 8);
-            sum += static_cast<std::uint8_t>(id >> 16);
-            sum += static_cast<std::uint8_t>(id >> 24);
-
-            // Compute checksum (3 bits)
-            return (((sum >> 6) & 0x03) + (sum >> 3) + sum) & 0x07;
-        };
-
-        const std::uint32_t tsc1_31_frame_id = duramax::message_meta(msg.id).frame_id;
-
-        msg.messagecounter = tsc1_counter_;
-        msg.messagechecksum = calc_checksum(tsc1_31_frame_id,
-                                            encoded_msg.data(),
-                                            tsc1_counter_);
-
-        tsc1_counter_ = static_cast<std::uint8_t>((tsc1_counter_ + 1U) % kTsc1CounterWrap);
+    void on_after_encode(const duramax::Tsc131&, std::uint8_t* bytes,
+                         std::uint8_t, std::uint32_t) {
+        canfw::throttle::finish_frame(bytes, output_, tsc1_counter_);
+        // Called only after validation, encoding and TX-context reservation,
+        // immediately before can_send. Driver rejection still consumes the ARC.
+        tsc1_counter_ = (tsc1_counter_ + 1U) % 8U;
+    }
+    void on_snapshot(canfw::SnapshotReply<duramax::DuramaxDb>& reply) const {
+        reply.rejected_throttle_inputs = throttle_.rejected;
+        reply.stale_timeout_events = throttle_.stale_events;
     }
 
 private:
     // Hook state lives in the instance (the AO owns its Hooks by value),
     // not in function-local statics: statics are shared across all
     // instances and invisible to unit tests.
+    canfw::throttle::Policy throttle_{};
+    canfw::throttle::Output output_{};
     std::uint8_t tsc1_counter_{0};
     std::uint32_t last_rpm_print_ms_{0};
     std::uint32_t last_coolant_print_ms_{0};

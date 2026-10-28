@@ -4,6 +4,7 @@
 
 #include <cstdint>
 #include <variant>
+#include "throttle_policy.hpp"
 
 namespace canfw {
 
@@ -16,6 +17,9 @@ enum class TxPolicy : std::uint8_t {
 template <typename Db>
 struct SnapshotReply {
     typename Db::ValueStore store{};
+    throttle::Source command_source{};
+    std::uint32_t rejected_throttle_inputs{};
+    std::uint32_t stale_timeout_events{};
     bool valid{false};
     std::uint32_t timestamp_ms{0};
 };
@@ -45,6 +49,7 @@ struct TxCommand {
         SignalId signal_id;
         SignalPhysicalValue value;
         bool trigger_parent_send{false};
+        throttle::Source source{};
     };
 
     struct DisableMessage {

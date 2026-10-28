@@ -52,3 +52,25 @@ config CANLINK_RETAIN_DTCM
     default y if SOC_SERIES_STM32F7X
     depends on DT_HAS_ARM_DTCM_ENABLED
 endmenu
+
+menu "CANLink throttle TX policy"
+config CANLINK_THROTTLE_BAND_MAPPING
+    bool "Apply legacy 1250/2000 RPM throttle bands"
+    default y
+    help
+      Disable to pass the validated raw request through unchanged. Startup and
+      stale-command gating still apply, including to a valid zero request.
+config CANLINK_THROTTLE_STALE_TIMEOUT_ENABLE
+    bool "Disable override when Reacher throttle input is stale"
+    default y
+config CANLINK_THROTTLE_STALE_TIMEOUT_MS
+    int "Maximum age of a valid Reacher throttle command (ms)"
+    default 500
+    range 1 2147483647
+choice CANLINK_THROTTLE_STALE_FALLBACK
+    prompt "Stale throttle fallback"
+    default CANLINK_THROTTLE_STALE_OVERRIDE_DISABLED
+config CANLINK_THROTTLE_STALE_OVERRIDE_DISABLED
+    bool "Override disabled, requested speed zero"
+endchoice
+endmenu
