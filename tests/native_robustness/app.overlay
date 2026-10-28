@@ -1,0 +1,5 @@
+/ {
+    aliases { can0 = &fake0; can1 = &fake1; };
+    fake0: can0 { compatible = "zephyr,fake-can"; bitrate = <500000>; sample-point = <875>; status = "okay"; };
+    fake1: can1 { compatible = "zephyr,fake-can"; bitrate = <500000>; sample-point = <875>; status = "okay"; };
+};

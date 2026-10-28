@@ -1,0 +1,14 @@
+/ {
+    aliases {
+        can0 = &can_loopback0;
+        can1 = &can_loopback1;
+        status-led = &led0;
+    };
+    can_loopback1: can_loopback1 {
+        compatible = "zephyr,can-loopback";
+        status = "okay";
+        bitrate = <500000>;
+    };
+};
+&can_loopback0 { bitrate = <500000>; };
+&can0 { status = "disabled"; };

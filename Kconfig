@@ -1,0 +1,54 @@
+mainmenu "CANLink"
+source "Kconfig.zephyr"
+menu "CANLink diagnostics"
+config CANLINK_DIAGNOSTICS
+    bool
+    default y
+    select STATS
+    select CAN_STATS
+    select CAN_MANUAL_RECOVERY_MODE
+    select HWINFO if SOC_FAMILY_STM32
+config CANLINK_EVENT_QUEUE_DEPTH
+    int "ISR bus-event queue depth per bus"
+    default 32
+    range 4 256
+config CANLINK_LOG_DEPTH
+    int "Retained event records per boot per bus"
+    default 64
+    range 8 512
+config CANLINK_TX_CONTEXTS
+    int "Outstanding TX callback contexts per bus"
+    default 8
+    range 3 64
+config CANLINK_RECOVERY_INITIAL_MS
+    int "First failed recovery retry delay (ms)"
+    default 100
+    range 1 60000
+config CANLINK_RECOVERY_MAX_MS
+    int "Maximum failed recovery retry delay (ms)"
+    default 5000
+    range 1 600000
+config CANLINK_RECOVERY_CONFIRM_MS
+    int "Recovery completion observation interval (ms)"
+    default 100
+    range 1 60000
+config CANLINK_DIAGNOSTIC_POLL_MS
+    int "State/statistics reconciliation period (ms)"
+    default 50
+    range 1 60000
+config CANLINK_RECOVERY_STACK_SIZE
+    int "Recovery executor stack per bus"
+    default 2048
+    range 1024 16384
+config CANLINK_RAW_FRAME_DEPTH
+    int "Last raw RX/accepted-TX frames (0 disables)"
+    default 0
+    range 0 128
+config CANLINK_SUPPRESS_UNHEALTHY_TX
+    bool "Suppress TX before hooks while bus-off or stopped"
+    default y
+config CANLINK_RETAIN_DTCM
+    bool "Use uncached DTCM noinit for retained banks"
+    default y if SOC_SERIES_STM32F7X
+    depends on DT_HAS_ARM_DTCM_ENABLED
+endmenu

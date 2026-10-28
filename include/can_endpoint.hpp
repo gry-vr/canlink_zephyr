@@ -90,6 +90,15 @@ public:
         return send_message(msg, TxPolicy::periodic_enable, period_ms_override, timeout);
     }
 
+    // The caller owns a persistent DiagnosticClient; never use a temporary
+    // reply queue whose lifetime ends before this asynchronous request.
+    int request_diagnostics(k_msgq* reply_q, bool previous_boot = false,
+                            bool clear = false) const {
+        if (!reply_q) return -EINVAL;
+        typename TxCommand<Db>::RequestDiagnostics cmd{reply_q, previous_boot, clear};
+        return post(Command{cmd}, K_NO_WAIT);
+    }
+
     int request_snapshot(k_msgq* reply_q,
                          k_timeout_t timeout = K_NO_WAIT) const {
         if (reply_q == nullptr) {

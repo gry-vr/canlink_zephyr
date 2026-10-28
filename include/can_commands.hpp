@@ -55,11 +55,18 @@ struct TxCommand {
         k_msgq* reply_q{nullptr};
     };
 
+    struct RequestDiagnostics {
+        k_msgq* reply_q{nullptr};
+        bool previous_boot{false};
+        bool clear{false};
+    };
+
     using Variant = std::variant<
         SendMessage,
         UpdateSignal,
         DisableMessage,
-        RequestSnapshot
+        RequestSnapshot,
+        RequestDiagnostics
     >;
 };
 

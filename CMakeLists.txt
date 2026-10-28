@@ -15,6 +15,7 @@ target_sources(app PRIVATE
   src/reacher_codec.cpp
   src/reacher_validate.cpp
   src/main.cpp
+  src/can_diagnostics.cpp
 )
 
 target_include_directories(app PRIVATE
