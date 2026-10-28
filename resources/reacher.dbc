@@ -75,8 +75,84 @@ VAL_ 512 start 0 "off" 255 "on";
 VAL_ 512 arm 0 "off" 255 "on";
 VAL_ 512 test 0 "off" 255 "on";
 
-VAL_ 0 CS 1 "Start" 2 "Stop" 128 "EnterPreOperational" 129 "ResetNode" 130 "ResetCommunication" ;
 
 CM_ SG_ 512 throttle_rpm "RPM multiplied by 8";
 
 CM_ SG_ 779 exhaust_gas_temp "source of this value is from the duramax.dbc engine_turbocharger_outlet_1";
+
+BO_ 784 EXPORT_10: 8 CANLINK
+ SG_ ambient_air_temp : 7|24@0- (0.05625,-459.4) [-459.4|3154.94375] "F" PIGN
+ SG_ barometric_pressure : 31|8@0+ (5,0) [0|1250] "mBar" PIGN
+ SG_ engine_air_intake_temp : 39|16@0- (1.8,-40) [-40|410] "F" PIGN
+
+BO_ 785 EXPORT_11: 8 CANLINK
+ SG_ charge_air_cooler_outlet_temp : 7|24@0- (0.05625,-459.4) [-459.4|3154.94375] "F" PIGN
+ SG_ engine_cac_outlet_temp : 31|24@0- (0.05625,-459.4) [-459.4|3154.94375] "F" PIGN
+ SG_ intake_manifold_temp : 55|16@0- (1.8,-40) [-40|410] "F" PIGN
+
+BO_ 786 EXPORT_12: 8 CANLINK
+ SG_ time_since_engine_start : 7|16@0+ (1,0) [0|65535] "s" PIGN
+ SG_ engine_intake_mass_air_flow : 23|16@0+ (0.000976562,0) [0|63.9990234375] "kg/s" PIGN
+ SG_ engine_fuel_rate : 39|16@0+ (0.05,0) [0|3212.75] "l/h" PIGN
+
+BO_ 787 EXPORT_13: 8 CANLINK
+ SG_ actual_boost_pressure : 7|8@0+ (20,0) [0|5000] "mBar" PIGN
+ SG_ desired_boost_pressure : 15|8@0+ (20,0) [0|5000] "mBar" PIGN
+ SG_ injector_metering_rail_pressure : 23|16@0+ (0.0390625,0) [0|2509.96] "Bar" PIGN
+
+BO_ 788 EXPORT_14: 8 CANLINK
+ SG_ actual_engine_percent_torque : 7|8@0+ (1,-125) [0|125] "%" PIGN
+ SG_ driver_demand_engine_torque : 15|8@0+ (1,-125) [0|125] "%" PIGN
+ SG_ engine_demand_percent_torque : 23|16@0- (1,-125) [-125|125] "%" PIGN
+ SG_ nominal_friction_percent_torque : 39|16@0- (1,-125) [-125|125] "%" PIGN
+ SG_ engine_torque_mode : 55|8@0+ (1,0) [0|15] "" PIGN
+ SG_ engine_control_source_address : 63|8@0+ (1,0) [0|253] "" PIGN
+
+BO_ 789 EXPORT_15: 8 CANLINK
+ SG_ max_available_engine_torque : 7|8@0+ (0.4,0) [0|100] "%" PIGN
+ SG_ engine_load_at_current_speed : 15|8@0+ (1,0) [0|125] "%" PIGN
+ SG_ actual_vgt_position : 23|8@0+ (0.4,0) [0|100] "%" PIGN
+ SG_ commanded_vgt_position : 31|16@0+ (0.0025,0) [0|160.6375] "%" PIGN
+ SG_ engine_wait_to_start_lamp : 47|8@0+ (1,0) [0|3] "" PIGN
+
+BO_ 790 EXPORT_16: 8 CANLINK
+ SG_ transmitted_requested_speed : 7|16@0+ (0.125,0) [0|8031.875] "rpm" PIGN
+ SG_ transmitted_message_counter : 23|8@0+ (1,0) [0|7] "" PIGN
+ SG_ transmitted_message_checksum : 31|8@0+ (1,0) [0|15] "" PIGN
+ SG_ transport_sequence_number : 39|8@0+ (1,0) [0|255] "" PIGN
+
+CM_ BO_ 784 "Definition only; no runtime forwarding or period assigned. Provisional new ID outside legacy 0x300-0x30D block.";
+CM_ SG_ 784 ambient_air_temp "Source AMB_Ambient_Conditions.Ambient_Air_Temperature; destination physical = source physical * 1.8 + 32. Source raw codes preserved, including reserved codes; numeric range describes valid physical values only. Signed field widened to preserve the complete source raw code space and negative physical range.";
+CM_ SG_ 784 barometric_pressure "Source AMB_Ambient_Conditions.Barometric_PressureBarometric_Pr; destination physical = source physical * 10 + 0. Source raw codes preserved, including reserved codes; numeric range describes valid physical values only.";
+CM_ SG_ 784 engine_air_intake_temp "Source AMB_Ambient_Conditions.Engine_Air_Intake_Temperature; destination physical = source physical * 1.8 + 32. Source raw codes preserved, including reserved codes; numeric range describes valid physical values only. Signed field widened to preserve the complete source raw code space and negative physical range.";
+CM_ BO_ 785 "Definition only; no runtime forwarding or period assigned. Provisional new ID outside legacy 0x300-0x30D block.";
+CM_ SG_ 785 charge_air_cooler_outlet_temp "Source CAC1_Charge_Air_Cooler_1.Engine_Charge_Air_Cooler_1_Intak; destination physical = source physical * 1.8 + 32. Source raw codes preserved, including reserved codes; numeric range describes valid physical values only. Signed field widened to preserve the complete source raw code space and negative physical range.";
+CM_ SG_ 785 engine_cac_outlet_temp "Source ET3_Engine_Temperature_3.Engine_CAC_Outlet_Temperature; destination physical = source physical * 1.8 + 32. Source raw codes preserved, including reserved codes; numeric range describes valid physical values only. Signed field widened to preserve the complete source raw code space and negative physical range.";
+CM_ SG_ 785 intake_manifold_temp "Source IC1_Intake_Exhaust_Cond_1.EngIntakeManifold1Temp; destination physical = source physical * 1.8 + 32. Source raw codes preserved, including reserved codes; numeric range describes valid physical values only. Signed field widened to preserve the complete source raw code space and negative physical range.";
+CM_ BO_ 786 "Definition only; no runtime forwarding or period assigned. Provisional new ID outside legacy 0x300-0x30D block.";
+CM_ SG_ 786 time_since_engine_start "Source DM26_Diagnostic_Readiness_3.Time_Since_Engine_Start; destination physical = source physical * 1 + 0. Source raw codes preserved, including reserved codes; numeric range describes valid physical values only.";
+CM_ SG_ 786 engine_intake_mass_air_flow "Source EASI_Engine_Air_System_Info.Engine_Intake_MAF; destination physical = source physical * 1 + 0. Source raw codes preserved, including reserved codes; numeric range describes valid physical values only.";
+CM_ SG_ 786 engine_fuel_rate "Source LFE1_Fuel_Economy_Liquid_1.EngFuelRate; destination physical = source physical * 1 + 0. Source raw codes preserved, including reserved codes; numeric range describes valid physical values only.";
+CM_ BO_ 787 "Definition only; no runtime forwarding or period assigned. Provisional new ID outside legacy 0x300-0x30D block.";
+CM_ SG_ 787 actual_boost_pressure "Source EBCC_Engine_Exhaust_Brake_Cont.Actual_Boost_Pressure; destination physical = source physical * 10 + 0. Source raw codes preserved, including reserved codes; numeric range describes valid physical values only.";
+CM_ SG_ 787 desired_boost_pressure "Source EBCC_Engine_Exhaust_Brake_Cont.Desired_Boost_Pressure; destination physical = source physical * 10 + 0. Source raw codes preserved, including reserved codes; numeric range describes valid physical values only.";
+CM_ SG_ 787 injector_metering_rail_pressure "Source EFL_P2_Eng_Fluid_Level_Press_2.EngInjectorMeteringRail1Press; destination physical = source physical * 10 + 0. Source raw codes preserved, including reserved codes; numeric range describes valid physical values only.";
+CM_ BO_ 788 "Definition only; no runtime forwarding or period assigned. Provisional new ID outside legacy 0x300-0x30D block.";
+CM_ SG_ 788 actual_engine_percent_torque "Source EEC1_Electronic_Engine_Control_1.Actual_Engine_Percent_Torque; destination physical = source physical * 1 + 0. Source raw codes preserved, including reserved codes; numeric range describes valid physical values only.";
+CM_ SG_ 788 driver_demand_engine_torque "Source EEC1_Electronic_Engine_Control_1.Drivers_Demand_Engine_Prcnt_Torq; destination physical = source physical * 1 + 0. Source raw codes preserved, including reserved codes; numeric range describes valid physical values only.";
+CM_ SG_ 788 engine_demand_percent_torque "Source EEC1_Electronic_Engine_Control_1.Engine_Demand_Percent_Torque; destination physical = source physical * 1 + 0. Source raw codes preserved, including reserved codes; numeric range describes valid physical values only. Signed field widened to preserve the complete source raw code space and negative physical range.";
+CM_ SG_ 788 nominal_friction_percent_torque "Source EEC3_Electronic_Engine_Control_3.NominalFrictionPercentTorque; destination physical = source physical * 1 + 0. Source raw codes preserved, including reserved codes; numeric range describes valid physical values only. Signed field widened to preserve the complete source raw code space and negative physical range.";
+CM_ SG_ 788 engine_torque_mode "Source EEC1_Electronic_Engine_Control_1.Engine_Torque_Mode; destination physical = source physical * 1 + 0. Source raw codes preserved, including reserved codes; numeric range describes valid physical values only.";
+CM_ SG_ 788 engine_control_source_address "Source EEC1_Electronic_Engine_Control_1.SrcAddrssOfCntrllngDvcForEngCtrl; destination physical = source physical * 1 + 0. Source raw codes preserved, including reserved codes; numeric range describes valid physical values only.";
+CM_ BO_ 789 "Definition only; no runtime forwarding or period assigned. Provisional new ID outside legacy 0x300-0x30D block.";
+CM_ SG_ 789 max_available_engine_torque "Source EEC2_Electronic_Engine_Control_2.ActlMaxAvailableEngPercentTorque; destination physical = source physical * 1 + 0. Source raw codes preserved, including reserved codes; numeric range describes valid physical values only.";
+CM_ SG_ 789 engine_load_at_current_speed "Source EEC2_Electronic_Engine_Control_2.EngPercentLoadAtCurrentSpeed; destination physical = source physical * 1 + 0. Source raw codes preserved, including reserved codes; numeric range describes valid physical values only.";
+CM_ SG_ 789 actual_vgt_position "Source EEC5_Electronic_Engine_Control_5.Actual_VGT_Position; destination physical = source physical * 1 + 0. Source raw codes preserved, including reserved codes; numeric range describes valid physical values only.";
+CM_ SG_ 789 commanded_vgt_position "Source EEC5_Electronic_Engine_Control_5.Commanded_VGT_Position; destination physical = source physical * 1 + 0. Source raw codes preserved, including reserved codes; numeric range describes valid physical values only.";
+CM_ SG_ 789 engine_wait_to_start_lamp "Source SHUTDN.EngWaitToStartLamp; destination physical = source physical * 1 + 0. Source raw codes preserved, including reserved codes; numeric range describes valid physical values only.";
+CM_ BO_ 790 "Definition only; no runtime forwarding or period assigned. Provisional new ID outside legacy 0x300-0x30D block.";
+CM_ SG_ 790 transmitted_requested_speed "Source TSC1_31.EngRequestedSpeed_SpeedLimit; destination physical = source physical * 1 + 0. Source raw codes preserved, including reserved codes; numeric range describes valid physical values only. Diagnostic of outgoing TSC1 after policy, not mirrored engine telemetry. No producer implemented.";
+CM_ SG_ 790 transmitted_message_counter "Source TSC1_31.MessageCounter; destination physical = source physical * 1 + 0. Source raw codes preserved, including reserved codes; numeric range describes valid physical values only. Diagnostic of outgoing TSC1 after policy, not mirrored engine telemetry. No producer implemented.";
+CM_ SG_ 790 transmitted_message_checksum "Source TSC1_31.MessageChecksum; destination physical = source physical * 1 + 0. Source raw codes preserved, including reserved codes; numeric range describes valid physical values only. Diagnostic of outgoing TSC1 after policy, not mirrored engine telemetry. No producer implemented.";
+CM_ SG_ 790 transport_sequence_number "Source TransportProtocol_Data.SequenceNumber; destination physical = source physical * 1 + 0. Source raw codes preserved, including reserved codes; numeric range describes valid physical values only. Diagnostic sequence byte only; no segmented-message reassembly. No producer implemented.";
+VAL_ 789 engine_wait_to_start_lamp 3 "Not available" 2 "Error" 1 "On" 0 "Off";
